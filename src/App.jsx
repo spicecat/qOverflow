@@ -4,7 +4,8 @@ import { Layout, Login, Mail, NotFound, Question, Questions, Signup, User } from
 import { UserProvider } from './contexts'
 
 export default function App() {
-  return <BrowserRouter basename=''>
+  return (
+  <BrowserRouter basename=''>
     <UserProvider>
       <Routes>
         <Route path='/' element={<Layout />}>
@@ -25,4 +26,5 @@ export default function App() {
       </Routes>
     </UserProvider>
   </BrowserRouter>
+  )
 }
