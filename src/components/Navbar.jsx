@@ -10,15 +10,10 @@ export default function Navbar() {
         <AppBar position='static'>
             <Toolbar variant='dense'>
                 <IconButton color='inherit' className='menu-button' component={Link} to='/' >
-                    {/* <HomeIcon /> */}
+                    home{/* <HomeIcon /> */}
                 </IconButton>
-                &nbsp;
-                <Typography>TODO: page</Typography>
-                <>
-                    <Button color='inherit' variant='outlined' size='small' to='/' component={Link}>Home</Button>&nbsp;
-                    <Button color='inherit' variant='outlined' size='small' to='/explorer' component={Link}>Explorer</Button>&nbsp;
-                    <Button color='inherit' variant='outlined' size='small' to='/login' component={Link}>Login</Button>&nbsp;
-                </>
+                <Button color='inherit' variant='outlined' size='small' to='/users/login' component={Link}>Log in</Button>&nbsp;
+                <Button color='inherit' variant='outlined' size='small' to='/users/signup' component={Link}>Sign up</Button>&nbsp;
             </Toolbar>
         </AppBar>
     )

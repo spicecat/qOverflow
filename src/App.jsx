@@ -1,6 +1,6 @@
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Buffet, Dashboard, Layout, Mail, NotFound, QA } from './containers'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
+import { Layout, Login, Mail, NotFound, Question, Questions, Signup, User } from './containers'
 import { UserProvider } from './contexts'
 
 export default function App() {
@@ -8,10 +8,16 @@ export default function App() {
     <UserProvider>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Buffet />} />
-          <Route path='dashboard' element={<Dashboard />} />
+          <Route index element={<Questions />} />
+          <Route path='questions'>
+            <Route index element={<Questions />} />
+            <Route path=':question_id' element={<Question />} />
+          </Route>
           <Route path='mail' element={<Mail />} />
-          <Route path='qa' element={<QA />} />
+          <Route path='users'>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+          </Route>
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

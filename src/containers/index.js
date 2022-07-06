@@ -1,8 +1,10 @@
-import Buffet from './Buffet'
-import Dashboard from './Dashboard'
 import Layout from './Layout'
+import Login from './Login'
 import Mail from './Mail'
 import NotFound from './NotFound'
-import QA from './QA'
+import Question from './Question'
+import Questions from './Questions'
+import Signup from './Signup'
+import User from './User'
 
-export { Buffet, Dashboard, Layout, Mail, NotFound, QA }
+export { Layout, Login, Mail, NotFound, Question, Questions, Signup, User }
