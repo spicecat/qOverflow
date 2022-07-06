@@ -1,22 +1,24 @@
 {
-  "name": "reactjs-minimal-boilerplate",
+  "name": "qoverflow",
   "version": "0.1.0",
   "private": true,
   "homepage": "",
   "dependencies": {
+    "@mui/material": "^5.8.7",
+    "dotenv": "^16.0.1",
+    "formik": "^2.2.9",
     "gh-pages": "^4.0.0",
-    "nodemon": "^2.0.16",
     "react": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
-    "superagent": "^7.1.6"
+    "superagent": "^7.1.6",
+    "superagent-cache": "^3.1.1"
   },
   "scripts": {
-    "start": "PORT=3006 react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b gh-pages -d build",
-    "dev": "nodemon index.js"
+    "deploy": "gh-pages -b gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
