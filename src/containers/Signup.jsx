@@ -36,7 +36,10 @@ export default function Signup() {
         >
             <Card>
                 <CardContent>
-                    <Form fields={signupFields} validationSchema={signupSchema} />
+                    <Form
+                        fields={signupFields}
+                        onSubmit={e => console.log(e,123)}
+                        validationSchema={signupSchema} />
                     <div>
                         <img src={CAPTCHA} alt='CAPTCHA' />
                     </div>

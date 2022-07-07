@@ -1,16 +1,20 @@
 import { useFormik } from 'formik'
 import { Form } from '../components'
 
-export default function FormController({ fields, initialValues, onSubmit, validationSchema }) {
+export default function FormController({ fields, onSubmit, validationSchema }) {
     const formik = useFormik({
-        initialValues,
+        initialValues: fields.reduce((o, i) => ({ ...o, [i.id]: '' }), {}),
         onSubmit,
         validationSchema
     })
-    const formikFields = fields.map(field => ({
-        ...field,
-        value: formik.values,
+    const formikFields = fields.map(({ id, ...field }) => ({
+        id, ...field,
+        error: Boolean(formik.touched[id] && formik.errors[id]),
+        helperText: formik.touched[id] && (formik.errors[id]),
+        onChange: formik.handleChange,
+        value: formik.values[id],
     }))
+    console.log(formik, formikFields)
 
-    return <Form {...{ formik, fields }} />
+    return <Form {...{ formik, fields: formikFields }} />
 }
