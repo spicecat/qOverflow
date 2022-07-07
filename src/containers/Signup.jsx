@@ -1,7 +1,7 @@
-import { Grid, Box, Card, CardContent } from '@mui/material'
-import { Form } from '../controllers'
-import { signupSchema } from '../services/schemas'
-import CAPTCHA from '../assets/captcha.jpg'
+import { Grid, Box, Card, CardContent } from '@mui/material';
+import { Form } from '../controllers';
+import { signupSchema } from '../services/schemas';
+import CAPTCHA from '../../public/captcha.jpg';
 
 const signupFields = [
     {
@@ -15,36 +15,34 @@ const signupFields = [
     {
         id: 'password',
         title: 'Password',
-        type: 'password'
+        type: 'password',
     },
     {
         id: 'confirmPassword',
         title: 'Confirm Password',
-        type: 'password'
+        type: 'password',
     },
     {
         id: 'captcha',
-        title: 'CAPTCHA'
-    }
-]
+        title: 'CAPTCHA',
+    },
+];
 
 export default function Signup() {
     return (
-        <Grid
-            container
-            className='centered'
-        >
+        <Grid container className='centered'>
             <Card>
                 <CardContent>
                     <Form
                         fields={signupFields}
-                        onSubmit={e => console.log(e,123)}
-                        validationSchema={signupSchema} />
+                        onSubmit={(e) => console.log(e, 123)}
+                        validationSchema={signupSchema}
+                    />
                     <div>
                         <img src={CAPTCHA} alt='CAPTCHA' />
                     </div>
                 </CardContent>
             </Card>
         </Grid>
-    )
+    );
 }
