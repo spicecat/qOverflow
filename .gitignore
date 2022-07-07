@@ -1,7 +1,4 @@
-/node_modules
-/build
-.DS_Store
-.env# Created by https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode,git
+# Created by https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react,visualstudiocode,git
 
 ### Git ###
@@ -198,4 +195,3 @@ sketch
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode,git
-
