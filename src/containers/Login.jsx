@@ -1,7 +1,12 @@
+import { Form } from '../controllers'
+import { loginSchema } from '../services/schemas'
+
 export default function Login() {
+
     return (
         <>
-            Log In
+            <Form validationSchema={loginSchema} />
+            
         </>
     )
 }
