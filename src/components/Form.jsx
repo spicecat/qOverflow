@@ -6,12 +6,14 @@ export default function Form({ formik, fields }) {
         <form onSubmit={formik.handleSubmit}>
             {fields.map(field => (
                 <>
-                    <Typography>{field.label}</Typography>
+                    <Typography>{field.title}</Typography>
                     <TextField {...field} />
                 </>
             ))}
             <br />
-            <Button type='submit' variant='contained' color='primary'>Submit</Button>
+            <br />
+            <></>
+            <Button fullWidth type='submit' variant='contained' color='primary'>Submit</Button>
         </form>
     )
 }

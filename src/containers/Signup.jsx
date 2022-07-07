@@ -6,21 +6,25 @@ import CAPTCHA from '../assets/captcha.jpg'
 const signupFields = [
     {
         id: 'username',
-        label: 'Username',
+        title: 'Username',
     },
     {
         id: 'email',
-        label: 'Email',
+        title: 'Email',
     },
     {
         id: 'password',
-        label: 'Password',
+        title: 'Password',
         type: 'password'
     },
     {
         id: 'confirmPassword',
-        label: 'Confirm Password',
+        title: 'Confirm Password',
         type: 'password'
+    },
+    {
+        id: 'captcha',
+        title: 'CAPTCHA'
     }
 ]
 
