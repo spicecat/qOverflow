@@ -1,7 +1,7 @@
-import { Grid, Box, Card, CardContent } from '@mui/material';
-import { Form } from '../controllers';
+import { Grid, Card, CardContent } from '@mui/material';
+import { FormController } from '../controllers';
 import { signupSchema } from '../services/schemas';
-import CAPTCHA from '../../public/captcha.jpg';
+import CAPTCHA from '../assets/captcha.jpg';
 
 const signupFields = [
     {
@@ -33,7 +33,7 @@ export default function Signup() {
         <Grid container className='centered'>
             <Card>
                 <CardContent>
-                    <Form
+                    <FormController
                         fields={signupFields}
                         onSubmit={(e) => console.log(e, 123)}
                         validationSchema={signupSchema}
