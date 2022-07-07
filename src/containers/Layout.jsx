@@ -11,10 +11,10 @@ export default function Layout() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <main>
-                <Navbar />
-                <Outlet />
-            </main>
+                <main>
+                    <Navbar />
+                    <Outlet />
+                </main>
         </ThemeProvider>
     )
 }

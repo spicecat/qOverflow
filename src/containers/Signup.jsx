@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mui/material'
+import { Grid, Box, Card, CardContent } from '@mui/material'
 import { Form } from '../controllers'
 import { signupSchema } from '../services/schemas'
 import CAPTCHA from '../assets/captcha.jpg'
@@ -26,20 +26,18 @@ const signupFields = [
 
 export default function Signup() {
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                '& > :not(style)': {
-                    m: 1,
-                    width: 128,
-                    height: 128,
-                },
-            }}
+        <Grid
+            container
+            className='centered'
         >
-            <Paper className='paper' elevation={1}>
-                <Form fields={signupFields} validationSchema={signupSchema} />
-                <img src={CAPTCHA} alt='CAPTCHA' />
-            </Paper>
-        </Box>
+            <Card>
+                <CardContent>
+                    <Form fields={signupFields} validationSchema={signupSchema} />
+                    <div>
+                        <img src={CAPTCHA} alt='CAPTCHA' />
+                    </div>
+                </CardContent>
+            </Card>
+        </Grid>
     )
 }

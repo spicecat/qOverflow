@@ -10,6 +10,7 @@ export default function Form({ formik, fields }) {
                     <TextField {...field} />
                 </>
             ))}
+            <br />
             <Button type='submit' variant='contained' color='primary'>Submit</Button>
         </form>
     )
