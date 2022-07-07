@@ -1,4 +1,4 @@
-import { Paper } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import { Form } from '../controllers'
 import { signupSchema } from '../services/schemas'
 import CAPTCHA from '../assets/captcha.jpg'
@@ -26,9 +26,20 @@ const signupFields = [
 
 export default function Signup() {
     return (
-        <>
-            <Form fields={signupFields} validationSchema={signupSchema} />
-            <img src={CAPTCHA} alt='CAPTCHA' />
-        </>
+        <Box
+            sx={{
+                display: 'flex',
+                '& > :not(style)': {
+                    m: 1,
+                    width: 128,
+                    height: 128,
+                },
+            }}
+        >
+            <Paper className='paper' elevation={1}>
+                <Form fields={signupFields} validationSchema={signupSchema} />
+                <img src={CAPTCHA} alt='CAPTCHA' />
+            </Paper>
+        </Box>
     )
 }
