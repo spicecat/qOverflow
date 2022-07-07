@@ -1,5 +1,7 @@
 export default function Mail() {
-    return <>
-        Mail
-    </>
+    return (
+        <>
+            Mail
+        </>
+    )
 }

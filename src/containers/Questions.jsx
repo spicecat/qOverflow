@@ -1,5 +1,7 @@
 export default function Questions() {
-    return <>
-        Questions
-    </>
+    return (
+        <>
+            Questions
+        </>
+    )
 }

@@ -1,5 +1,7 @@
 export default function Signup() {
-    return <>
-        Sign Up
-    </>
+    return (
+        <>
+            Sign Up
+        </>
+    )
 }
