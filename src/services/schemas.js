@@ -6,6 +6,11 @@ const passwordStrength = ({ length }) => {
     else return 'strong'
 }
 
+const loginSchema = Yup.object({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required')
+})
+
 const signupSchema = Yup.object({
     username: Yup.string()
         .required('Username is required')
@@ -26,12 +31,6 @@ const signupSchema = Yup.object({
     captcha: Yup.string()
         .required('CAPTCHA is required')
         .oneOf(['4'], 'Invalid CAPTCHA')
-})
-
-
-const loginSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required')
 })
 
 export { passwordStrength, signupSchema, loginSchema }

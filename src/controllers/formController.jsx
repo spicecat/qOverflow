@@ -7,6 +7,10 @@ export default function FormController({ fields, initialValues, onSubmit, valida
         onSubmit,
         validationSchema
     })
+    const formikFields = fields.map(field => ({
+        ...field,
+        value: formik.values,
+    }))
 
     return <Form {...{ formik, fields }} />
 }

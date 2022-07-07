@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Layout, Login, Mail, NotFound, Question, Questions, Signup, User } from './containers'
+import { ForgotPassword, Layout, Login, Mail, NotFound, Question, Questions, Signup, User } from './containers'
 import { UserProvider } from './contexts'
 
 export default function App() {
@@ -18,6 +18,7 @@ export default function App() {
           <Route path='users'>
             <Route index element={<User />} />
             <Route path=':user_id' element={<User />} />
+            <Route path='forgot-password' element={<ForgotPassword />} />
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />
           </Route>

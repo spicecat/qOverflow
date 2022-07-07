@@ -1,13 +1,23 @@
 import { Form } from '../controllers'
 import { loginSchema } from '../services/schemas'
-import CAPTCHA from '../assets/captcha.jpg'
+
+const fields = [
+    {
+        id: 'username',
+        label: 'Username',
+    },
+    {
+        id: 'password',
+        label: 'Password',
+    }
+]
 
 export default function Login() {
 
+
     return (
         <>
-            <Form validationSchema={loginSchema} />
-            <img src={CAPTCHA} alt='CAPTCHA' />
+            {/* <Form validationSchema={loginSchema} /> */}
         </>
     )
 }

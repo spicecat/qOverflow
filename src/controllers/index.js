@@ -1,3 +1,3 @@
-import Form from './formController'
+import Form from './FormController'
 
 export { Form }
