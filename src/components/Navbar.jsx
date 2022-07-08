@@ -18,8 +18,6 @@ export default function Navbar({ onClick }) {
     const { userData } = useUser();
 
     function ButtonGroup({ userData }) {
-        console.log(userData);
-
         if (userData) {
             return (
                 <React.Fragment>
