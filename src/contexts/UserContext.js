@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { login, register } from '../services/userServices';
 
 const initialUserData = {
     userID: '',
