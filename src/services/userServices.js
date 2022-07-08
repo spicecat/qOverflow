@@ -19,7 +19,7 @@ const register = async ({ username, email, password }) => {
     }
 };
 
-const login = async ({ username, password }) => {
+const login = async (username, password) => {
     const URL = `${userApi}/${username}/auth`;
 
     try {
