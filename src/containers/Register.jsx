@@ -1,14 +1,9 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
 import CAPTCHA from '../assets/captcha.jpg';
-import { useUser } from '../contexts';
-import { FormController } from '../controllers';
-import { registerFields } from '../services/fields';
-import { registerSchema } from '../services/schemas';
+import { RegisterController } from '../controllers';
 
 export default function Register() {
-    const { register } = useUser();
-
     return (
         <Grid
             container
@@ -21,11 +16,7 @@ export default function Register() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <FormController
-                            fields={registerFields}
-                            onSubmit={register}
-                            validationSchema={registerSchema}
-                        />
+                        <RegisterController />
                         <div>
                             <img src={CAPTCHA} alt='CAPTCHA' />
                         </div>
