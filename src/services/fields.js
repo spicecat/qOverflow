@@ -7,11 +7,11 @@ const passwordStrength = ({ length }) => {
 const loginFields = [
     {
         id: 'username',
-        label: 'Username',
+        title: 'Username',
     },
     {
         id: 'password',
-        label: 'Password',
+        title: 'Password',
     },
 ];
 
