@@ -9,7 +9,7 @@ const loginSchema = Yup.object({
     password: Yup.string().required('Password is required'),
 });
 
-const signupSchema = Yup.object({
+const registerSchema = Yup.object({
     username: Yup.string()
         .required('Username is required')
         .min(5, 'Username must be between 5 and 20 characters')
@@ -28,4 +28,4 @@ const signupSchema = Yup.object({
         .oneOf(['4'], 'Invalid CAPTCHA'),
 });
 
-export { signupSchema, loginSchema, recoverSchema };
+export { registerSchema, loginSchema, recoverSchema };

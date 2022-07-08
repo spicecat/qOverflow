@@ -15,7 +15,7 @@ const loginFields = [
     },
 ];
 
-const signupFields = [
+const registerFields = [
     {
         id: 'username',
         title: 'Username',
@@ -38,4 +38,4 @@ const signupFields = [
 
 const recoverFields = [{ id: 'email', label: 'Email' }];
 
-export { loginFields, signupFields, recoverFields };
+export { loginFields, registerFields, recoverFields };

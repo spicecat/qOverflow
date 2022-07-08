@@ -1,10 +1,13 @@
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useUser } from '../contexts';
 import { FormController } from '../controllers';
 import { loginSchema } from '../services/schemas';
 import { loginFields } from '../services/fields';
 
 export default function Login() {
+    const { login } = useUser();
+
     return (
         <Grid
             container
@@ -19,7 +22,7 @@ export default function Login() {
                     <CardContent>
                         <FormController
                             fields={loginFields}
-                            onSubmit={(e) => console.log(e, 123)}
+                            onSubmit={login}
                             validationSchema={loginSchema}
                         />
                         <Typography variant='body1'>

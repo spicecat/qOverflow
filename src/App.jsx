@@ -7,7 +7,7 @@ import {
     NotFound,
     Question,
     Questions,
-    Signup,
+    Register,
     User,
     Dashboard,
     Reset,
@@ -30,7 +30,7 @@ export default function App() {
                         <Route path='mail' element={<Mail />} />
 
                         <Route path='login' element={<Login />} />
-                        <Route path='register' element={<Signup />} />
+                        <Route path='register' element={<Register />} />
 
                         <Route path='users'>
                             <Route index element={<User />} />
