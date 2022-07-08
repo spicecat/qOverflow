@@ -1,10 +1,14 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
+import CAPTCHA from '../assets/captcha.jpg';
+import { useUser } from '../contexts';
 import { FormController } from '../controllers';
-import { recoverFields } from '../services/fields';
-import { recoverSchema } from '../services/schemas';
+import { registerFields } from '../services/fields';
+import { registerSchema } from '../services/schemas';
 
-export default function ForgotPassword() {
+export default function Register() {
+    const { register } = useUser();
+
     return (
         <Grid
             container
@@ -18,10 +22,13 @@ export default function ForgotPassword() {
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
                         <FormController
-                            fields={recoverFields}
-                            onSubmit={(e) => console.log(e, 123)}
-                            validationSchema={recoverSchema}
+                            fields={registerFields}
+                            onSubmit={register}
+                            validationSchema={registerSchema}
                         />
+                        <div>
+                            <img src={CAPTCHA} alt='CAPTCHA' />
+                        </div>
                     </CardContent>
                 </Card>
             </Grid>
