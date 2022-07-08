@@ -1,33 +1,35 @@
 const loginFields = [
     {
         id: 'username',
-        label: 'Username'
-    },
-    {
-        id: 'password',
-        label: 'Password'
-    }
-]
-
-const signupFields = [
-    {
-        id: 'username',
-        label: 'Username'
-    },
-    {
-        id: 'email',
-        label: 'Email'
+        label: 'Username',
     },
     {
         id: 'password',
         label: 'Password',
-        type: 'password'
+    },
+];
+
+const signupFields = [
+    {
+        id: 'username',
+        label: 'Username',
+    },
+    {
+        id: 'email',
+        label: 'Email',
+    },
+    {
+        id: 'password',
+        label: 'Password',
+        type: 'password',
     },
     {
         id: 'confirmPassword',
         label: 'Confirm Password',
-        type: 'password'
-    }
-]
+        type: 'password',
+    },
+];
 
-export { loginFields, signupFields }
+const recoverFields = [{ id: 'email', label: 'Email' }];
+
+export { loginFields, signupFields, recoverFields };

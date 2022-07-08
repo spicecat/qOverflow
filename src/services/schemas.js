@@ -1,15 +1,13 @@
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
-const passwordStrength = ({ length }) => {
-    if (length <= 10) return 'weak'
-    else if (length <= 17) return 'moderate'
-    else return 'strong'
-}
+const recoverSchema = Yup.object({
+    email: Yup.string().required('Email is required'),
+});
 
 const loginSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required')
-})
+    password: Yup.string().required('Password is required'),
+});
 
 const signupSchema = Yup.object({
     username: Yup.string()
@@ -30,7 +28,7 @@ const signupSchema = Yup.object({
         .required('Confirm password is required'),
     captcha: Yup.string()
         .required('CAPTCHA is required')
-        .oneOf(['4'], 'Invalid CAPTCHA')
-})
+        .oneOf(['4'], 'Invalid CAPTCHA'),
+});
 
-export { passwordStrength, signupSchema, loginSchema }
+export { signupSchema, loginSchema, recoverSchema };

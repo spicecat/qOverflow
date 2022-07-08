@@ -8,7 +8,10 @@ export default function FormController({
     children,
 }) {
     const formik = useFormik({
-        initialValues: fields.reduce((o, i) => ({ ...o, [i.id]: '' }), {}),
+        initialValues: fields.reduce(
+            (acc, field) => ({ ...acc, [field.id]: '' }),
+            {}
+        ),
         onSubmit,
         validationSchema,
     });
