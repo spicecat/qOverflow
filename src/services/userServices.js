@@ -6,7 +6,7 @@ import { deriveKeyFromPassword } from './auth';
 const userApi = API + '/users';
 const cookies = new Cookies();
 
-export const register = async ({ username, email, password }) => {
+const register = async ({ username, email, password }) => {
     const URL = userApi;
 
     const { key, salt } = await deriveKeyFromPassword(password);
@@ -17,7 +17,7 @@ export const register = async ({ username, email, password }) => {
     } catch (err) { return err.status; }
 }
 
-export const login = async ({ username, password }) => {
+const login = async ({ username, password }) => {
     const URL = `${userApi}/${username}/auth`;
 
     try {
@@ -28,11 +28,11 @@ export const login = async ({ username, password }) => {
     } catch (err) { return err.status; }
 }
 
-export const logout = () => {
+const logout = () => {
 }
 
 
-export const getUser = async username => {
+const getUser = async username => {
     const URL = `${userApi}/${username}`;
 
     try {
@@ -41,6 +41,8 @@ export const getUser = async username => {
     } catch (err) { return err.status; }
 }
 
-export const getUsers = async () => {
+const getUsers = async () => {
 
 }
+
+export { getUser, getUsers, login, logout, register }

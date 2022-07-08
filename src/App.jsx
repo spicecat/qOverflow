@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+    Dashboard,
     ForgotPassword,
     Layout,
     Login,
@@ -8,9 +9,8 @@ import {
     Question,
     Questions,
     Register,
-    User,
-    Dashboard,
     Reset,
+    User,
 } from './containers';
 import { UserProvider } from './contexts';
 
@@ -22,15 +22,15 @@ export default function App() {
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Dashboard />} />
 
+                        <Route path='login' element={<Login />} />
+                        <Route path='register' element={<Register />} />
+                        
+                        <Route path='mail' element={<Mail />} />
+                        
                         <Route path='questions'>
                             <Route index element={<Questions />} />
                             <Route path=':question_id' element={<Question />} />
                         </Route>
-
-                        <Route path='mail' element={<Mail />} />
-
-                        <Route path='login' element={<Login />} />
-                        <Route path='register' element={<Register />} />
 
                         <Route path='users'>
                             <Route index element={<User />} />

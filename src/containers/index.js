@@ -1,3 +1,4 @@
+import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
 import Layout from './Layout';
 import Login from './Login';
@@ -6,11 +7,11 @@ import NotFound from './NotFound';
 import Question from './Question';
 import Questions from './Questions';
 import Register from './Register';
-import User from './User';
-import Dashboard from './Dashboard';
 import Reset from './Reset';
+import User from './User';
 
 export {
+    Dashboard,
     ForgotPassword,
     Layout,
     Login,
@@ -19,7 +20,6 @@ export {
     Question,
     Questions,
     Register,
-    User,
-    Dashboard,
     Reset,
+    User,
 };
