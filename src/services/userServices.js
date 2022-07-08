@@ -1,16 +1,20 @@
-import superagent from 'superagent'
-import Cookies from 'universal-cookie'
+import superagent from 'superagent';
+import Cookies from 'universal-cookie';
+import { API, API_KEY } from '../var';
+import { deriveKeyFromPassword } from './auth';
 
-import { } from '../var.js'
+const userApi = API + '/users';
+const cookies = new Cookies();
 
-// const userServerUrl = serverUrl + '/users', userApiUrl = apiUrl + '/users'
-const cookies = new Cookies()
+export const register = async ({ username, email, password }) => {
+    const URL = userApi;
 
-export const register = async ({ }) => {
-    // const URL = userServerUrl
+    const { key, salt } = await deriveKeyFromPassword(password);
+    console.log(key, salt, 111)
     try {
-        return
-    } catch (err) { return err.status }
+        const response = await superagent.post(URL, { username, email, salt, key }).set('key', API_KEY);
+        return;
+    } catch (err) { return err.status; }
 }
 
 export const login = async () => {
