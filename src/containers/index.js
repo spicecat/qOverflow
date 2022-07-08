@@ -5,7 +5,7 @@ import Layout from './Layout';
 import Login from './Login';
 import Mail from './Mail';
 import NotFound from './NotFound';
-import Question from './Question';
+import QA from './QA';
 import Questions from './Questions';
 import Register from './Register';
 import Reset from './Reset';
@@ -18,7 +18,7 @@ export {
     Login,
     Mail,
     NotFound,
-    Question,
+    QA,
     Questions,
     Register,
     Reset,

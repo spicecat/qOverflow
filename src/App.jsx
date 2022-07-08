@@ -7,7 +7,7 @@ import {
     Login,
     Mail,
     NotFound,
-    Question,
+    QA,
     Questions,
     Register,
     Reset
@@ -29,7 +29,7 @@ export default function App() {
 
                         <Route path='questions'>
                             <Route index element={<Questions />} />
-                            <Route path=':question_id' element={<Question />} />
+                            <Route path=':question_id' element={<QA />} />
                         </Route>
 
                         <Route path='dashboard' element={<Dashboard />} />

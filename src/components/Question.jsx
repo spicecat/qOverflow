@@ -1,7 +1,20 @@
-export default function Question() {
+export default function Question({
+    answers,
+    comments,
+    creator,
+    createdAt,
+    downvotes,
+    hasAcceptedAnswer,
+    status,
+    title,
+    text,
+    upvotes,
+    views
+}) {
+    //This for Q and A
     return (
         <>
-            Question
+            {text}
         </>
     )
 }
