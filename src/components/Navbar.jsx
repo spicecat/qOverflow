@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import {
     AppBar,
-    Box,
     Button,
     IconButton,
     Toolbar,
     Typography,
+    Box,
 } from '@mui/material';
-
-import Logo from '../assets/bdpa-logo.svg';
 import { useUser } from '../contexts';
-import { SearchBar } from './index';
+import Logo from '../assets/bdpa-logo.svg';
+import { SearchBar } from '.';
 
 export default function Navbar() {
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
@@ -73,6 +71,7 @@ export default function Navbar() {
                 </Typography>
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
+
                 <ButtonGroup username={username} />
             </Toolbar>
         </AppBar>
