@@ -1,9 +1,13 @@
-import * as Yup from 'yup'
+import * as Yup from 'yup';
+
+const recoverSchema = Yup.object({
+    email: Yup.string().required('Email is required'),
+});
 
 const loginSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required')
-})
+    password: Yup.string().required('Password is required'),
+});
 
 const signupSchema = Yup.object({
     username: Yup.string()
@@ -21,7 +25,7 @@ const signupSchema = Yup.object({
         .required('Password is required'),
     captcha: Yup.string()
         .required('CAPTCHA is required')
-        .oneOf(['4'], 'Invalid CAPTCHA')
-})
+        .oneOf(['4'], 'Invalid CAPTCHA'),
+});
 
-export { signupSchema, loginSchema }
+export { signupSchema, loginSchema, recoverSchema };
