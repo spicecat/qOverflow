@@ -5,8 +5,6 @@ import { deriveKeyFromPassword } from './auth';
 const userApi = API + '/users';
 
 const register = async ({ username, email, password }) => {
-    const URL = userApi;
-
     const { key, salt } = await deriveKeyFromPassword(password);
     console.log(key, salt, 111);
     try {
@@ -19,28 +17,37 @@ const register = async ({ username, email, password }) => {
     }
 };
 
-const login = async ({ username, password }) => {
+const login = async (username, password) => {
     const URL = `${userApi}/${username}/auth`;
 
     try {
-        const { salt } = await getUser(username);
-        const { key } = await deriveKeyFromPassword(password, salt);
-        const { success } = await superagent
+        const user = await getUser(username);
+        const { key } = await deriveKeyFromPassword(password, user.salt);
+
+        const status = await superagent
             .post(URL, { key })
-            .set('key', API_KEY);
-        return success;
+            .set('Authorization', `bearer ${API_KEY}`)
+            .then((response) => response.body.success);
+
+        return { status, user };
     } catch (err) {
-        return err.status;
+        console.error(err);
+
+        return err;
     }
 };
 
-const logout = () => { };
+const logout = () => {};
 
 const getUser = async (username) => {
     const URL = `${userApi}/${username}`;
 
     try {
-        const { user } = await superagent.get(URL).set('key', API_KEY);
+        const user = await superagent
+            .get(URL)
+            .set('Authorization', `bearer ${API_KEY}`)
+            .then((response) => response.body.user);
+
         return user;
     } catch (err) {
         return err.status;
@@ -68,16 +75,20 @@ const getUserQuestions = async () => {
         return err.status;
     }
 };
-const getUserAnswers = async () => {
-    const URL = `${userApi}`;
 
+const getUserAnswers = async (username) => {
+    const URL = `${userApi}`;
     try {
-        const { user } = await superagent.get(URL).set('key', API_KEY);
-        return user;
+        const { success } = await superagent
+            .post(`${API}/users`, { username })
+            .set('Authorization', `bearer ${API_KEY}`);
+
+        return success;
     } catch (err) {
         return err.status;
     }
 };
+
 const updateUserPoints = async () => {
     const URL = `${userApi}`;
 
@@ -89,4 +100,13 @@ const updateUserPoints = async () => {
     }
 };
 
-export { getUser, getUsers, getUserAnswers, getUserQuestions, login, logout, register, updateUserPoints };
+export {
+    getUser,
+    getUsers,
+    getUserAnswers,
+    getUserQuestions,
+    login,
+    logout,
+    register,
+    updateUserPoints,
+};
