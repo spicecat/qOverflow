@@ -21,7 +21,7 @@ export default function Layout() {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline />
+            <CssBaseline enableColorScheme/>
             <main>
                 <Navbar />
                 <Box sx={{ height: '95vh' }}>
