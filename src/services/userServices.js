@@ -34,7 +34,7 @@ const login = async ({ username, password }) => {
     }
 };
 
-const logout = () => {};
+const logout = () => { };
 
 const getUser = async (username) => {
     const URL = `${userApi}/${username}`;
@@ -47,6 +47,46 @@ const getUser = async (username) => {
     }
 };
 
-const getUsers = async () => {};
+const getUsers = async () => {
+    const URL = `${userApi}`;
 
-export { getUser, getUsers, login, logout, register };
+    try {
+        const { user } = await superagent.get(URL).set('key', API_KEY);
+        return user;
+    } catch (err) {
+        return err.status;
+    }
+};
+
+const getUserQuestions = async () => {
+    const URL = `${userApi}`;
+
+    try {
+        const { user } = await superagent.get(URL).set('key', API_KEY);
+        return user;
+    } catch (err) {
+        return err.status;
+    }
+};
+const getUserAnswers = async () => {
+    const URL = `${userApi}`;
+
+    try {
+        const { user } = await superagent.get(URL).set('key', API_KEY);
+        return user;
+    } catch (err) {
+        return err.status;
+    }
+};
+const updateUserPoints = async () => {
+    const URL = `${userApi}`;
+
+    try {
+        const { user } = await superagent.get(URL).set('key', API_KEY);
+        return user;
+    } catch (err) {
+        return err.status;
+    }
+};
+
+export { getUser, getUsers, getUserAnswers, getUserQuestions, login, logout, register, updateUserPoints };
