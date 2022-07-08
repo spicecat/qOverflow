@@ -51,6 +51,10 @@ export default function Navbar() {
         }
     }
 
+    
+
+    //add sign out bar once user logged in
+
     return (
         <AppBar position='static'>
             <Toolbar>
