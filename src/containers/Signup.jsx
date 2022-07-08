@@ -1,5 +1,5 @@
 import { Box, Paper } from '@mui/material'
-import { Form } from '../controllers'
+import { Form } from '../components'
 import { signupSchema } from '../services/schemas'
 import CAPTCHA from '../assets/captcha.jpg'
 
