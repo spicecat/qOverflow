@@ -49,7 +49,7 @@ export default function SearchBar() {
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>
-            <SearchBar placeholder='Search…' />
+            {/* <SearchBar placeholder='Search…' /> */} {/*culprit*/}
         </Search>
     );
 }
