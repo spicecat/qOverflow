@@ -15,10 +15,12 @@ import { SearchBar } from '.';
 export default function Navbar({ onClick }) {
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
 
-    const { username } = useUser();
+    const { userData } = useUser();
 
-    function ButtonGroup({ username }) {
-        if (username) {
+    function ButtonGroup({ userData }) {
+        console.log(userData);
+
+        if (userData) {
             return (
                 <React.Fragment>
                     <Button
@@ -29,12 +31,7 @@ export default function Navbar({ onClick }) {
                     >
                         Account
                     </Button>
-                    <Button
-                        color='inherit'
-                        component={Link}
-                        onClick={onClick}
-                        style={linkStyle}
-                    >
+                    <Button color='inherit' onClick={onClick} style={linkStyle}>
                         Logout
                     </Button>
                 </React.Fragment>
@@ -82,7 +79,7 @@ export default function Navbar({ onClick }) {
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
 
-                <ButtonGroup username={username} />
+                <ButtonGroup userData={userData} />
             </Toolbar>
         </AppBar>
     );

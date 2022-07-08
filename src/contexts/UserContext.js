@@ -1,16 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 
-const initialUserData = {
-    userID: '',
-    salt: '',
-    username: '',
-    points: 0,
-};
-
-const UserContext = createContext(initialUserData);
+const UserContext = createContext(null);
 
 export default function UserProvider({ children }) {
-    const [userData, setUserData] = useState(initialUserData);
+    const [userData, setUserData] = useState(null);
 
     return (
         <UserContext.Provider value={{ setUserData, userData }}>
