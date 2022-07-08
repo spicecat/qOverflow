@@ -17,7 +17,7 @@ export default function Questions() {
 
     // api: https://qoverflow.api.hscc.bdpa.org/V
 
-    //key: 9cd6295b-7fb9-443c-9407-d63b8ffe50d0
+    //key: 
 
     // "/questions/search" will return 100 questions
 
