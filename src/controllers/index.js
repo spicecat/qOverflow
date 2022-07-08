@@ -1,5 +1,3 @@
 import FormController from './FormController';
 
-export {
-    FormController
-};
+export { FormController };

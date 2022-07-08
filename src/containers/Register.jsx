@@ -1,9 +1,10 @@
-import { Grid, Card, CardContent } from '@mui/material';
+import { Card, CardContent, Grid } from '@mui/material';
+
 import CAPTCHA from '../assets/captcha.jpg';
 import { useUser } from '../contexts';
 import { FormController } from '../controllers';
-import { registerSchema } from '../services/schemas';
 import { registerFields } from '../services/fields';
+import { registerSchema } from '../services/schemas';
 
 export default function Register() {
     const { register } = useUser();

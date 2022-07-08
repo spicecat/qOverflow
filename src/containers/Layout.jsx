@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { CssBaseline, Box } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+import { Box, CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { Navbar } from '../components';
 
 export default function Layout() {

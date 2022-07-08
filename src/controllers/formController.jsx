@@ -16,18 +16,18 @@ export default function FormController({
         validationSchema,
     });
 
-    const formikFields = fields.map(({
-        id,
-        helperText = () => 0,
-        ...field
-    }) => ({
-        id,
-        ...field,
-        error: Boolean(formik.touched[id] && formik.errors[id]),
-        helperText: helperText(formik.values[id]) || (formik.touched[id] && formik.errors[id]),
-        onChange: formik.handleChange,
-        value: formik.values[id],
-    }));
+    const formikFields = fields.map(
+        ({ id, helperText = () => 0, ...field }) => ({
+            id,
+            ...field,
+            error: Boolean(formik.touched[id] && formik.errors[id]),
+            helperText:
+                helperText(formik.values[id]) ||
+                (formik.touched[id] && formik.errors[id]),
+            onChange: formik.handleChange,
+            value: formik.values[id],
+        })
+    );
 
     return <Form {...{ formik, fields: formikFields, children }} />;
 }

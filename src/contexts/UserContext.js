@@ -12,11 +12,13 @@ const UserContext = createContext(initialUserData);
 export default function UserProvider({ children }) {
     const [userData, setUserData] = useState(initialUserData);
 
-    const login = values => console.log(values, 'login')
-    const register = values => console.log(values, 'register')
+    const login = (values) => console.log(values, 'login');
+    const register = (values) => console.log(values, 'register');
 
     return (
-        <UserContext.Provider value={{ login, register, setUserData, userData }}>
+        <UserContext.Provider
+            value={{ login, register, setUserData, userData }}
+        >
             {children}
         </UserContext.Provider>
     );

@@ -1,7 +1,8 @@
-import { Grid, Card, CardContent } from '@mui/material';
+import { Card, CardContent, Grid } from '@mui/material';
+
 import { FormController } from '../controllers';
-import { recoverSchema } from '../services/schemas';
 import { recoverFields } from '../services/fields';
+import { recoverSchema } from '../services/schemas';
 
 export default function ForgotPassword() {
     return (
