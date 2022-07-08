@@ -4,7 +4,7 @@ import { registerSchema } from '../services/schemas';
 import { registerFields } from '../services/fields';
 import { register } from '../services/userServices';
 
-export default function Register() {
+export default function RegisterController() {
     const navigate = useNavigate();
 
     async function registerUser(username, email, password) {

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Navbar } from '../components';
+import { NavbarController } from '../controllers';
 
 export default function Layout() {
     const [mode, setMode] = useState('light');
@@ -21,9 +21,9 @@ export default function Layout() {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline enableColorScheme/>
+            <CssBaseline enableColorScheme />
             <main>
-                <Navbar />
+                <NavbarController />
                 <Box sx={{ height: '95vh' }}>
                     <Outlet />
                 </Box>

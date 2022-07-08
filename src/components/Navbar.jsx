@@ -12,7 +12,7 @@ import { useUser } from '../contexts';
 import Logo from '../assets/bdpa-logo.svg';
 import { SearchBar } from '.';
 
-export default function Navbar() {
+export default function Navbar({ onClick }) {
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
 
     const { username } = useUser();
@@ -21,37 +21,47 @@ export default function Navbar() {
         if (username) {
             return (
                 <React.Fragment>
-                    <Button color='inherit'>
-                        <Link to='/update' style={linkStyle}>
-                            Account
-                        </Link>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='/update'
+                        style={linkStyle}
+                    >
+                        Account
                     </Button>
-                    <Button color='inherit'>
-                        <Link to='/login' style={linkStyle}>
-                            Logout
-                        </Link>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        onClick={onClick}
+                        style={linkStyle}
+                    >
+                        Logout
                     </Button>
                 </React.Fragment>
             );
         } else {
             return (
                 <React.Fragment>
-                    <Button color='inherit'>
-                        <Link to='/login' style={linkStyle}>
-                            Login
-                        </Link>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='/login'
+                        style={linkStyle}
+                    >
+                        Login
                     </Button>
-                    <Button color='inherit'>
-                        <Link to='/register' style={linkStyle}>
-                            Register
-                        </Link>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='/register'
+                        style={linkStyle}
+                    >
+                        Register
                     </Button>
                 </React.Fragment>
             );
         }
     }
-
-    
 
     //add sign out bar once user logged in
 
