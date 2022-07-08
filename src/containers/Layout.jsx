@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Navbar } from '../components';
 
@@ -22,7 +22,9 @@ export default function Layout() {
             <CssBaseline />
             <main>
                 <Navbar />
-                <Outlet />
+                <Box sx={{ height: '95vh' }}>
+                    <Outlet />
+                </Box>
             </main>
         </ThemeProvider>
     );

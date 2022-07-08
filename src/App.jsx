@@ -13,7 +13,6 @@ import {
     Reset,
 } from './containers';
 import { UserProvider } from './contexts';
-import './App.css';
 
 export default function App() {
     return (

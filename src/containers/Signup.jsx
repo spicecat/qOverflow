@@ -22,25 +22,28 @@ const signupFields = [
         title: 'Confirm Password',
         type: 'password',
     },
-    {
-        id: 'captcha',
-        title: 'CAPTCHA',
-    },
 ];
 
 export default function Signup() {
     return (
-        <Grid container className='centered'>
-            <Card>
+        <Grid
+            container
+            spacing={2}
+            alignItems='center'
+            justifyContent='center'
+            style={{ height: '95vh' }}
+        >
+            <Card sx={{ padding: '1vh' }}>
                 <CardContent>
                     <FormController
                         fields={signupFields}
                         onSubmit={(e) => console.log(e, 123)}
                         validationSchema={signupSchema}
-                    />
-                    <div>
-                        <img src={CAPTCHA} alt='CAPTCHA' />
-                    </div>
+                    >
+                        <div>
+                            <img src={CAPTCHA} alt='CAPTCHA' />
+                        </div>
+                    </FormController>
                 </CardContent>
             </Card>
         </Grid>
