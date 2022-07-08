@@ -4,7 +4,7 @@ import { Typography, Button } from '@mui/material'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import BuffetViewQuestion from './BuffetViewQuestion';
+import { BuffetViewQuestion, PaginatedList } from '../components';
 
 export default function Buffet() {
 
