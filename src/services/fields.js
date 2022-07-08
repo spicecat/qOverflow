@@ -1,3 +1,9 @@
+const passwordStrength = ({ length }) => {
+    if (length <= 10) return 'weak'
+    else if (length <= 17) return 'moderate'
+    else return 'strong'
+};
+
 const loginFields = [
     {
         id: 'username',
@@ -9,27 +15,27 @@ const loginFields = [
     },
 ];
 
-const signupFields = [
+const registerFields = [
     {
         id: 'username',
-        label: 'Username',
+        title: 'Username',
     },
     {
         id: 'email',
-        label: 'Email',
+        title: 'Email',
     },
     {
         id: 'password',
-        label: 'Password',
+        helperText: value => `Password strength: ${passwordStrength(value)}`,
+        title: 'Password',
         type: 'password',
     },
     {
-        id: 'confirmPassword',
-        label: 'Confirm Password',
-        type: 'password',
-    },
+        id: 'captcha',
+        title: 'CAPTCHA',
+    }
 ];
 
 const recoverFields = [{ id: 'email', label: 'Email' }];
 
-export { loginFields, signupFields, recoverFields };
+export { loginFields, registerFields, recoverFields };

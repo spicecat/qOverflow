@@ -1,10 +1,13 @@
 import { Grid, Card, CardContent } from '@mui/material';
-import { FormController } from '../controllers';
-import { signupSchema } from '../services/schemas';
-import { signupFields } from '../services/fields';
 import CAPTCHA from '../assets/captcha.jpg';
+import { useUser } from '../contexts';
+import { FormController } from '../controllers';
+import { registerSchema } from '../services/schemas';
+import { registerFields } from '../services/fields';
 
-export default function Signup() {
+export default function Register() {
+    const { register } = useUser();
+
     return (
         <Grid
             container
@@ -18,9 +21,9 @@ export default function Signup() {
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
                         <FormController
-                            fields={signupFields}
-                            onSubmit={(e) => console.log(e, 123)}
-                            validationSchema={signupSchema}
+                            fields={registerFields}
+                            onSubmit={register}
+                            validationSchema={registerSchema}
                         />
                         <div>
                             <img src={CAPTCHA} alt='CAPTCHA' />

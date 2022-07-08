@@ -5,7 +5,7 @@ import Mail from './Mail';
 import NotFound from './NotFound';
 import Question from './Question';
 import Questions from './Questions';
-import Signup from './Signup';
+import Register from './Register';
 import User from './User';
 import Dashboard from './Dashboard';
 import Reset from './Reset';
@@ -18,7 +18,7 @@ export {
     NotFound,
     Question,
     Questions,
-    Signup,
+    Register,
     User,
     Dashboard,
     Reset,

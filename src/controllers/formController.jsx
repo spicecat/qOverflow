@@ -9,18 +9,22 @@ export default function FormController({
 }) {
     const formik = useFormik({
         initialValues: fields.reduce(
-            (acc, field) => ({ ...acc, [field.id]: '' }),
+            (acc, { id }) => ({ ...acc, [id]: '' }),
             {}
         ),
         onSubmit,
         validationSchema,
     });
 
-    const formikFields = fields.map(({ id, ...field }) => ({
+    const formikFields = fields.map(({
+        id,
+        helperText = () => 0,
+        ...field
+    }) => ({
         id,
         ...field,
         error: Boolean(formik.touched[id] && formik.errors[id]),
-        helperText: formik.touched[id] && formik.errors[id],
+        helperText: helperText(formik.values[id]) || (formik.touched[id] && formik.errors[id]),
         onChange: formik.handleChange,
         value: formik.values[id],
     }));
