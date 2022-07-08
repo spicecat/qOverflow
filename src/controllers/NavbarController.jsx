@@ -6,7 +6,7 @@ export default function NavbarController() {
     const { setUserData } = useUser();
 
     function onLogoutClick() {
-        setUserData(() => {});
+        setUserData(() => ({}));
     }
 
     return <Navbar onClick={onLogoutClick} />;
