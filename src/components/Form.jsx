@@ -10,7 +10,13 @@ export default function Form({ formik, fields }) {
                 </span>
             ))}
 
-            <Button fullWidth type='submit' variant='contained' color='primary'>
+            <Button
+                fullWidth
+                type='submit'
+                variant='contained'
+                color='primary'
+                sx={{ mt: '1vh' }}
+            >
                 Submit
             </Button>
         </form>
