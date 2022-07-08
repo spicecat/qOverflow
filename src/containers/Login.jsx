@@ -1,13 +1,8 @@
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useUser } from '../contexts';
-import { FormController } from '../controllers';
-import { loginSchema } from '../services/schemas';
-import { loginFields } from '../services/fields';
+import { LoginController } from '../controllers';
 
 export default function Login() {
-    const { login } = useUser();
-
     return (
         <Grid
             container
@@ -20,11 +15,7 @@ export default function Login() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <FormController
-                            fields={loginFields}
-                            onSubmit={login}
-                            validationSchema={loginSchema}
-                        />
+                        <LoginController />
                         <Typography variant='body1'>
                             Forgot your password?{' '}
                             <Link to='/users/recover'>Recover Password</Link>

@@ -22,4 +22,8 @@ export default function UserProvider({ children }) {
     );
 }
 
+export function setUserData(data) {
+    setUserData((initial) => ({ ...initial, ...data }));
+}
+
 export const useUser = () => useContext(UserContext);

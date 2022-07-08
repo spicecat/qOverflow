@@ -2,7 +2,6 @@ import superagent from 'superagent';
 
 import { API, API_KEY } from '../var';
 import { deriveKeyFromPassword } from './auth';
-import { useUser } from '../services/userServices';
 
 const userApi = API + '/users';
 
@@ -32,7 +31,7 @@ const login = async ({ username, password }) => {
             .set('Authorization', `bearer ${API_KEY}`)
             .then((response) => response.body.success);
 
-        return status;
+        return { status, user };
     } catch (err) {
         console.error(err);
 

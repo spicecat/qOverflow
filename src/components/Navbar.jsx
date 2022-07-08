@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import {
+    AppBar,
+    Button,
+    IconButton,
+    Toolbar,
+    Typography,
+    Box,
+} from '@mui/material';
 import { useUser } from '../contexts';
 import Logo from '../assets/bdpa-logo.svg';
+import { SearchBar } from '.';
 
 export default function Navbar() {
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
@@ -54,9 +62,13 @@ export default function Navbar() {
                 >
                     <img src={Logo} alt='bdpa logo' width='20' height='20' />
                 </IconButton>
-                <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                <Typography variant='h6' component='div'>
                     qOverflow
                 </Typography>
+
+                <SearchBar />
+
+                <Box sx={{ flexGrow: 1 }} />
 
                 <ButtonGroup username={username} />
             </Toolbar>
