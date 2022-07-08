@@ -14,19 +14,21 @@ const signupFields = [
     },
     {
         id: 'password',
+        helperText: value => `Password strength: ${passwordStrength(value)}`,
         title: 'Password',
-        type: 'password',
-    },
-    {
-        id: 'confirmPassword',
-        title: 'Confirm Password',
         type: 'password',
     },
     {
         id: 'captcha',
         title: 'CAPTCHA',
-    },
+    }
 ];
+
+const passwordStrength = ({ length }) => {
+    if (length <= 10) return 'weak'
+    else if (length <= 17) return 'moderate'
+    else return 'strong'
+};
 
 export default function Signup() {
     return (
