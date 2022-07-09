@@ -48,4 +48,25 @@ const resetFields = [
     },
 ];
 
-export { loginFields, registerFields, recoverFields, resetFields };
+const composeMailFields = [
+    {
+        id: 'reciever',
+        label: 'To:',
+    },
+    {
+        id: 'subject',
+        label: 'Subject:',
+    },
+    {
+        id: 'text',
+        label: 'Body',
+    },
+];
+
+export {
+    loginFields,
+    registerFields,
+    recoverFields,
+    resetFields,
+    composeMailFields,
+};

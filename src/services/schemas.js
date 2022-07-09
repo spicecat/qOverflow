@@ -34,4 +34,13 @@ const resetSchema = Yup.object({
         .required('Password is required'),
 });
 
-export { registerSchema, loginSchema, recoverSchema, resetSchema };
+const mailSchema = Yup.object({
+    reciever: Yup.string().required('Reciever is required.'),
+    subject: Yup.string().required('Subject is required.'),
+    text: Yup.string('Body is required').max(
+        150,
+        'The message cannot be longer than 150 characters.'
+    ),
+});
+
+export { registerSchema, loginSchema, recoverSchema, resetSchema, mailSchema };
