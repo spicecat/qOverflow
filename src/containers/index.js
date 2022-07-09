@@ -1,3 +1,4 @@
+import Ask from './Ask';
 import Buffet from './Buffet';
 import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
@@ -11,6 +12,7 @@ import Register from './Register';
 import Reset from './Reset';
 
 export {
+    Ask,
     Buffet,
     Dashboard,
     ForgotPassword,

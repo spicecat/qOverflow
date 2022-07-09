@@ -1,12 +1,17 @@
-import { useParams, useState } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuestion } from '../contexts';
 import { Question } from '../components';
-import { getQuestion } from '../services/questionsServices';
 
 export default function QuestionController() {
     const { question_id } = useParams();
+    const { selectQuestion } = useQuestion()
 
     const testQuestion = { upvotes: 123, text: '###markdown' }; // temp
-    console.log(question_id);
+
+    useEffect(() => {
+        selectQuestion(question_id);
+    }, []);
 
     return <Question {...testQuestion} />;
 }

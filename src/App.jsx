@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+    Ask,
     Buffet,
     Dashboard,
     ForgotPassword,
@@ -29,6 +30,7 @@ export default function App() {
 
                         <Route path='questions'>
                             <Route index element={<Questions />} />
+                            <Route path='ask' element={<Ask />} />
                             <Route path=':question_id' element={<QA />} />
                         </Route>
 
