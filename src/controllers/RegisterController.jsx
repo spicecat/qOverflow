@@ -7,9 +7,9 @@ import { register } from '../services/userServices';
 export default function RegisterController() {
     const navigate = useNavigate();
 
-    async function registerUser(username, email, password) {
-        const response = await register(username, email, password);
-
+    async function registerUser(values) {
+        const response = await register(values);
+        console.log(123, values, response)
         if (response) {
             navigate('/login');
         }

@@ -19,25 +19,25 @@ const loginFields = [
 const registerFields = [
     {
         id: 'username',
-        label: 'Username',
+        title: 'Username',
     },
     {
         id: 'email',
-        label: 'Email',
+        title: 'Email',
     },
     {
         id: 'password',
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
-        label: 'Password',
+        title: 'Password',
         type: 'password',
     },
     {
         id: 'captcha',
-        label: 'CAPTCHA',
+        title: 'CAPTCHA',
     },
 ];
 
-const recoverFields = [{ id: 'username', label: 'Username' }];
+const recoverFields = [{ id: 'username', title: 'Username' }];
 
 const resetFields = [
     {

@@ -12,7 +12,7 @@ const searchQuestions = (data) => // { creator, status, title, text }
 const postQuestion = (data) => // { creator, status, title, text }
     callQuestionsAPI(
         'post',
-        `/`,
+        ``,
         data
     );
 

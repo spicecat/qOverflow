@@ -5,11 +5,11 @@ const callUsersAPI = createEndpoint('/users');
 
 const register = async ({ username, email, password }) => {
     try {
-        const { key, salt } = await deriveKeyFromPassword(password);
-
+        const { salt, key } = await deriveKeyFromPassword(password);
+        console.log(salt, key) // delete
         return callUsersAPI(
             'post',
-            `/`,
+            ``,
             { username, email, salt, key }
         );
     } catch (err) {
@@ -40,7 +40,7 @@ const getUser = (username) =>
 const getUsers = () =>
     callUsersAPI(
         'get',
-        `/`
+        ``
     );
 
 const getUserQuestions = (username, data) => // { after }

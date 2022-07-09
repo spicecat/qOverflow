@@ -5,7 +5,7 @@ const callMailAPI = createEndpoint('/mail');
 const postMail = data => // { sender, reciever, subject, text }
     callMailAPI(
         'post',
-        `/`,
+        ``,
         data
     );
 
