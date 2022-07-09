@@ -10,9 +10,9 @@ export default function LoginController() {
     const { setUserData } = useUser();
 
     async function loginUser({ username, password }) {
-        const { status, user } = await login(username, password);
+        const { user, success } = await login(username, password);
 
-        if (status) {
+        if (success) {
             setUserData(() => user);
             navigate('/');
         }

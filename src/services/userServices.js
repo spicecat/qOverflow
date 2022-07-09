@@ -2,16 +2,19 @@ import superagent from 'superagent';
 import { API, API_KEY } from '../var';
 import { deriveKeyFromPassword } from './auth';
 
-const userApi = API + '/users';
+const userAPI = API + '/users';
 
 const register = async ({ username, email, password }) => {
+    const URL = userAPI;
+
     const { key, salt } = await deriveKeyFromPassword(password);
-    console.log(key, salt, 111);
+
     try {
         const res = await superagent
             .post(URL, { username, email, salt, key })
-            .set('key', API_KEY)
+            .set('Authorization', `bearer ${API_KEY}`)
             .then((res) => res.body);
+
         return res;
     } catch (err) {
         return err.status;
@@ -19,18 +22,19 @@ const register = async ({ username, email, password }) => {
 };
 
 const login = async (username, password) => {
-    const URL = `${userApi}/${username}/auth`;
+    const URL = `${userAPI}/${username}/auth`;
 
     try {
-        const user = await getUser(username);
+        const { user } = await getUser(username);
         const { key } = await deriveKeyFromPassword(password, user.salt);
 
         const res = await superagent
-            .post(URL, { key })
+            .post(URL)
+            .send({ key })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
+            .then((response) => response.body);
 
-        return res;
+        return { user, ...res };
     } catch (err) {
         console.error(err);
 
@@ -39,7 +43,7 @@ const login = async (username, password) => {
 };
 
 const getUser = async (username) => {
-    const URL = `${userApi}/${username}`;
+    const URL = `${userAPI}/${username}`;
 
     try {
         const res = await superagent
@@ -54,7 +58,7 @@ const getUser = async (username) => {
 };
 
 const getUsers = async () => {
-    const URL = `${userApi}`;
+    const URL = `${userAPI}`;
 
     try {
         const res = await superagent
@@ -69,7 +73,7 @@ const getUsers = async () => {
 };
 
 const getUserQuestions = async (username, after) => {
-    const URL = `${userApi}/${username}/questions`;
+    const URL = `${userAPI}/${username}/questions`;
 
     try {
         const res = await superagent
@@ -85,7 +89,7 @@ const getUserQuestions = async (username, after) => {
 };
 
 const getUserAnswers = async (username, after) => {
-    const URL = `${userApi}/${username}/answers`;
+    const URL = `${userAPI}/${username}/answers`;
 
     try {
         const res = await superagent
@@ -101,7 +105,7 @@ const getUserAnswers = async (username, after) => {
 };
 
 const updateUserPoints = async (username, operation, amount) => {
-    const URL = `${userApi}/${username}`;
+    const URL = `${userAPI}/${username}`;
 
     try {
         const res = await superagent

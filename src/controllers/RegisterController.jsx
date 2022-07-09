@@ -8,7 +8,7 @@ export default function RegisterController() {
     const navigate = useNavigate();
 
     async function registerUser(username, email, password) {
-        const response = await register(username, password);
+        const response = await register(username, email, password);
 
         if (response) {
             navigate('/login');
