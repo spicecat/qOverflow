@@ -4,7 +4,9 @@ import { Typography, Button } from '@mui/material'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { BuffetViewQuestion, PaginatedList } from '../components';
+import { BuffetViewQuestion} from '../components';
+
+import { searchQuestions } from '../services/questionsServices';
 
 export default function Buffet() {
 
@@ -34,27 +36,17 @@ export default function Buffet() {
 
         if (sort === 'Recent') {
 
-            /*
-
-            console.log('rendered')
-
-            const response = await fetch("https://qoverflow.api.hscc.bdpa.org/v1/questions/search",{
-                method: 'GET',
-                authorization: process.env.KEY,
-
-                headers: {
-                    'Content-Type' : 'application/json'
-                }
-
-
+            searchQuestions().then(data => {
+                console.log(data)
+                return data
+            });
                 
-            })
 
-            const data = await response.json();
+            
 
-            console.log(data)
+            
 
-            */
+          
 
 
 
