@@ -10,6 +10,7 @@ import QA from './QA';
 import Questions from './Questions';
 import Register from './Register';
 import Reset from './Reset';
+import Search from './Search';
 
 export {
     Ask,
@@ -24,4 +25,5 @@ export {
     Questions,
     Register,
     Reset,
+    Search,
 };

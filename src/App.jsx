@@ -12,6 +12,7 @@ import {
     Questions,
     Register,
     Reset,
+    Search,
 } from './containers';
 import { ContextProvider } from './components';
 
@@ -30,6 +31,7 @@ export default function App() {
 
                         <Route path='questions'>
                             <Route index element={<Questions />} />
+                            <Route path element={<Search />} />
                             <Route path='ask' element={<Ask />} />
                             <Route path=':question_id' element={<QA />} />
                         </Route>
