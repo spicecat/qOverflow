@@ -24,7 +24,7 @@ export default function Navbar({ onClick }) {
                     <Button
                         color='inherit'
                         component={Link}
-                        to='/update'
+                        to='/dashboard'
                         style={linkStyle}
                     >
                         Account
