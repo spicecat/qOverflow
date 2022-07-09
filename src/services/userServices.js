@@ -1,136 +1,108 @@
-import superagent from 'superagent';
-import { API, API_KEY, callAPI } from '../var';
 import { deriveKeyFromPassword } from './auth';
+import { createEndpoint } from '../var';
 
-const userAPI = API + '/users';
+const callUsersAPI = createEndpoint('/users');
 
 const register = async ({ username, email, password }) => {
-    const URL = userAPI;
-
-    const { key, salt } = await deriveKeyFromPassword(password);
-
     try {
-        const res = await superagent
-            .post(URL, { username, email, salt, key })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { key, salt } = await deriveKeyFromPassword(password);
+        const { success } = await callUsersAPI(
+            'post',
+            `/`,
+            { username, email, salt, key }
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
 const login = async (username, password) => {
-    const URL = `${userAPI}/${username}/auth`;
-
     try {
-        const { user } = await getUser(username);
-        const { key } = await deriveKeyFromPassword(password, user.salt);
-
-        const res = await superagent
-            .post(URL)
-            .send({ key })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body);
-
-        return { user, ...res };
+        const { salt } = await getUser(username);
+        const { key } = await deriveKeyFromPassword(password, salt);
+        const { success } = await callUsersAPI(
+            'post',
+            `/${username}/auth`,
+            { key }
+        );
+        return success;
     } catch (err) {
-        console.error(err);
-
-        return err;
+        return err.status;
     }
 };
 
 const getUser = async (username) => {
-    const URL = `${userAPI}/${username}`;
-
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { user } = await callUsersAPI(
+            'get',
+            `/${username}`
+        );
+        return user;
     } catch (err) {
         return err.status;
     }
 };
 
 const getUsers = async () => {
-    const URL = `${userAPI}`;
-
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { users } = await callUsersAPI(
+            'get',
+            `/`
+        );
+        return users;
     } catch (err) {
         return err.status;
     }
 };
 
-const getUserQuestions = async (username, after) => {
-    const URL = `${userAPI}/${username}/questions`;
-
+const getUserQuestions = async (username, data) => { // { after }
     try {
-        const res = await superagent
-            .get(URL)
-            .query({ after })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { questions } = await callUsersAPI(
+            'get',
+            `/${username}/questions`,
+            data
+        );
+        return questions;
     } catch (err) {
         return err.status;
     }
 };
 
-const getUserAnswers = async (username, after) => {
-    const URL = `${userAPI}/${username}/answers`;
-
+const getUserAnswers = async (username, data) => { // { after }
     try {
-        const res = await superagent
-            .get(URL)
-            .query({ after })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { answers } = await callUsersAPI(
+            'get',
+            `/${username}/answers`,
+            data
+        );
+        return answers;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateUserPoints = async (username, operation, amount) => {
-    const URL = `${userAPI}/${username}`;
-
+const updateUserPoints = async (username, data) => { // { operation, amount }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send({ operation, amount })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callUsersAPI(
+            'patch',
+            `/${username}/points`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateUser = async (username, body) => {
-    const URL = `${userAPI}/${username}`;
-
+const updateUser = async (username, data) => { // { salt, key, email, points }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send(body)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callUsersAPI(
+            'patch',
+            `/${username}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }

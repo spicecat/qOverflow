@@ -3,7 +3,7 @@ import superagent from 'superagent';
 const API = process.env.REACT_APP_API_ROOT;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const createEndpoint = (path) => (op, endpoint, data) => {
+const createEndpoint = path => (op, endpoint, data) => {
     try {
         return superagent[op](`${API}${path}${endpoint}`)
             .query(data)
@@ -15,4 +15,4 @@ const createEndpoint = (path) => (op, endpoint, data) => {
     }
 };
 
-export { API, API_KEY, createEndpoint };
+export { createEndpoint };
