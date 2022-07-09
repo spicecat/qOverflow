@@ -8,9 +8,9 @@ export default function RegisterController() {
     const navigate = useNavigate();
 
     async function registerUser(values) {
-        const response = await register(values);
-        console.log(123, values, response)
-        if (response) {
+        const { success, status } = await register(values);
+        console.log(123, values, status)
+        if (success) {
             navigate('/login');
         }
     }

@@ -1,29 +1,25 @@
 const KEY_SIZE_BYTES = 64;
 const SALT_SIZE_BYTES = 16;
 
-const convertBufferToHex = (buffer) => {
-    return [...new Uint8Array(buffer)]
+const convertBufferToHex = (buffer) =>
+    [...new Uint8Array(buffer)]
         .map((byte) => byte.toString(16).padStart(2, '0'))
         .join('');
-};
 
-const convertHexToBuffer = (hexString) => {
-    return Uint8Array.from(
+const convertHexToBuffer = (hexString) =>
+    Uint8Array.from(
         hexString.match(/[0-9a-f]{1,2}/gi).map((byte) => parseInt(byte, 16))
     );
-};
 
 const deriveKeyFromPassword = async (password, saltBuffer) => {
     const textEncoder = new TextEncoder('utf-8');
     const passwordBuffer = textEncoder.encode(password);
 
-    if (saltBuffer) {
-        saltBuffer = convertHexToBuffer(saltBuffer);
-    } else {
-        saltBuffer = window.crypto.getRandomValues(
+    saltBuffer = saltBuffer
+        ? convertHexToBuffer(saltBuffer)
+        : window.crypto.getRandomValues(
             new Uint8Array(SALT_SIZE_BYTES)
         );
-    }
 
     const plaintextKey = await window.crypto.subtle.importKey(
         'raw',

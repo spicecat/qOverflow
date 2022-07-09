@@ -4,17 +4,12 @@ import { createEndpoint } from '../var';
 const callUsersAPI = createEndpoint('/users');
 
 const register = async ({ username, email, password }) => {
-    try {
-        const { salt, key } = await deriveKeyFromPassword(password);
-        console.log(salt, key) // delete
-        return callUsersAPI(
-            'post',
-            ``,
-            { username, email, salt, key }
-        );
-    } catch (err) {
-        return err.status;
-    }
+    const { salt, key } = await deriveKeyFromPassword(password);
+    return callUsersAPI(
+        'post',
+        ``,
+        { username, email, salt, key }
+    );
 };
 
 const login = async (username, password) => {

@@ -12,14 +12,14 @@ const loginSchema = Yup.object({
 const registerSchema = Yup.object({
     username: Yup.string()
         .required('Username is required')
-        .min(5, 'Username must be between 5 and 20 characters')
-        .max(20, 'Username must be between 5 and 20 characters')
+        .min(4, 'Username must be between 4 and 16 characters')
+        .max(16, 'Username must be between 4 and 16 characters')
         .matches(/^[\w-]+$/, 'Username cannot contain special characters'),
     email: Yup.string()
         .required('Email is required')
         .email('Invalid email')
-        .min(5, 'Email must be between 5 and 50 characters')
-        .max(50, 'Email must be between 5 and 50 characters'),
+        .min(4, 'Email must be between 4 and 75 characters')
+        .max(75, 'Email must be between 4 and 75 characters'),
     password: Yup.string()
         .min(11, 'Password must be at least 11 characters')
         .required('Password is required'),
