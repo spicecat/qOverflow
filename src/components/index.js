@@ -8,5 +8,18 @@ import PaginatedList from './PaginatedList';
 import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
+import ContextProvider from './ContextProvider';
 
-export { Answer, BuffetViewQuestion, Comment, CommentsList, Form, Navbar, PaginatedList, Question, SearchBar, VoteControl };
+export {
+    Answer,
+    BuffetViewQuestion,
+    Comment,
+    CommentsList,
+    Form,
+    Navbar,
+    PaginatedList,
+    Question,
+    SearchBar,
+    VoteControl,
+    ContextProvider,
+};

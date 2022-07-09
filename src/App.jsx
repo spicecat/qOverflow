@@ -10,14 +10,14 @@ import {
     QA,
     Questions,
     Register,
-    Reset
+    Reset,
 } from './containers';
-import { QuestionProvider, UserProvider } from './contexts';
+import { ContextProvider } from './components';
 
 export default function App() {
     return (
         <BrowserRouter basename=''>
-            <UserProvider>
+            <ContextProvider>
                 <Routes>
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Buffet />} />
@@ -27,12 +27,10 @@ export default function App() {
 
                         <Route path='mail' element={<Mail />} />
 
-                        <QuestionProvider>
-                            <Route path='questions'>
-                                <Route index element={<Questions />} />
-                                <Route path=':question_id' element={<QA />} />
-                            </Route>
-                        </QuestionProvider>
+                        <Route path='questions'>
+                            <Route index element={<Questions />} />
+                            <Route path=':question_id' element={<QA />} />
+                        </Route>
 
                         <Route path='dashboard' element={<Dashboard />} />
 
@@ -44,7 +42,7 @@ export default function App() {
                         <Route path='*' element={<NotFound />} />
                     </Route>
                 </Routes>
-            </UserProvider>
+            </ContextProvider>
         </BrowserRouter>
     );
 }
