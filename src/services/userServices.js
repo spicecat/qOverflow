@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import { API, API_KEY } from '../var';
+import { API, API_KEY, callAPI } from '../var';
 import { deriveKeyFromPassword } from './auth';
 
 const userAPI = API + '/users';

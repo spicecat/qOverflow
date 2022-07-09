@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import { API, API_KEY } from '../var';
+import { API, API_KEY, callAPI } from '../var';
 
 const questionsAPI = API + '/questions';
 
@@ -39,23 +39,18 @@ const postQuestion = async (creator, status, title, text) => {
     }
 };
 
-const getQuestion = async (questionID) => {
-    const URL = `${questionsAPI}/${questionID}`;
+const getQuestion = async question_id => {
 
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { question } = await callAPI('get', `/questions/${question_id}`)
+        return question
     } catch (err) {
         return err.status;
     }
 };
 
-const updateQuestion = async (questionID, body) => {
-    const URL = `${questionsAPI}/${questionID}`;
+const updateQuestion = async (question_id, body) => {
+    const URL = `${questionsAPI}/${question_id}`;
 
     try {
         const res = await superagent
@@ -70,8 +65,8 @@ const updateQuestion = async (questionID, body) => {
     }
 };
 
-const checkQuestionVote = async (questionID, username) => {
-    const URL = `${questionsAPI}/${questionID}/vote/${username}`;
+const checkQuestionVote = async (question_id, username) => {
+    const URL = `${questionsAPI}/${question_id}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -85,8 +80,8 @@ const checkQuestionVote = async (questionID, username) => {
     }
 };
 
-const updateQuestionVote = async (questionID, username, operation, target) => {
-    const URL = `${questionsAPI}/${questionID}/vote/${username}`;
+const updateQuestionVote = async (question_id, username, operation, target) => {
+    const URL = `${questionsAPI}/${question_id}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -101,8 +96,8 @@ const updateQuestionVote = async (questionID, username, operation, target) => {
     }
 };
 
-const getQuestionComments = async (questionID, after) => {
-    const URL = `${questionsAPI}/${questionID}/comments`;
+const getQuestionComments = async (question_id, after) => {
+    const URL = `${questionsAPI}/${question_id}/comments`;
 
     try {
         const res = await superagent
@@ -117,8 +112,8 @@ const getQuestionComments = async (questionID, after) => {
     }
 };
 
-const postQuestionComment = async (questionID, creator, text) => {
-    const URL = `${questionsAPI}/${questionID}`;
+const postQuestionComment = async (question_id, creator, text) => {
+    const URL = `${questionsAPI}/${question_id}`;
 
     try {
         const res = await superagent
@@ -133,8 +128,8 @@ const postQuestionComment = async (questionID, creator, text) => {
     }
 };
 
-const deleteQuestionComment = async (questionID, commentID) => {
-    const URL = `${questionsAPI}/${questionID}/comments/${commentID}`;
+const deleteQuestionComment = async (question_id, commentID) => {
+    const URL = `${questionsAPI}/${question_id}/comments/${commentID}`;
 
     try {
         const res = await superagent
@@ -148,8 +143,8 @@ const deleteQuestionComment = async (questionID, commentID) => {
     }
 };
 
-const checkCommentVote = async (questionID, commentID, username) => {
-    const URL = `${questionsAPI}/${questionID}/comments/${commentID}/vote/${username}`;
+const checkCommentVote = async (question_id, commentID, username) => {
+    const URL = `${questionsAPI}/${question_id}/comments/${commentID}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -164,13 +159,13 @@ const checkCommentVote = async (questionID, commentID, username) => {
 };
 
 const updateCommentVote = async (
-    questionID,
+    question_id,
     commentID,
     username,
     operation,
     target
 ) => {
-    const URL = `${questionsAPI}/${questionID}/comments/${commentID}/vote/${username}`;
+    const URL = `${questionsAPI}/${question_id}/comments/${commentID}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -185,8 +180,8 @@ const updateCommentVote = async (
     }
 };
 
-const getAnswers = async (questionID) => {
-    const URL = `${questionsAPI}/${questionID}/answers`;
+const getAnswers = async (question_id) => {
+    const URL = `${questionsAPI}/${question_id}/answers`;
 
     try {
         const res = await superagent
@@ -200,8 +195,8 @@ const getAnswers = async (questionID) => {
     }
 };
 
-const postAnswer = async (questionID, creator, text) => {
-    const URL = `${questionsAPI}/${questionID}/answers`;
+const postAnswer = async (question_id, creator, text) => {
+    const URL = `${questionsAPI}/${question_id}/answers`;
 
     try {
         const res = await superagent
@@ -216,8 +211,8 @@ const postAnswer = async (questionID, creator, text) => {
     }
 };
 
-const updateAnswer = async (questionID, answerID, body) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}`;
+const updateAnswer = async (question_id, answerID, body) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}`;
 
     try {
         const res = await superagent
@@ -232,8 +227,8 @@ const updateAnswer = async (questionID, answerID, body) => {
     }
 };
 
-const checkAnswerVote = async (questionID, answerID, username) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/vote/${username}`;
+const checkAnswerVote = async (question_id, answerID, username) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -247,8 +242,8 @@ const checkAnswerVote = async (questionID, answerID, username) => {
     }
 };
 
-const updateAnswerVote = async (questionID, answerID, username, body) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/vote/${username}`;
+const updateAnswerVote = async (question_id, answerID, username, body) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -263,8 +258,8 @@ const updateAnswerVote = async (questionID, answerID, username, body) => {
     }
 };
 
-const getAnswerComments = async (questionID, answerID) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/comments`;
+const getAnswerComments = async (question_id, answerID) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments`;
 
     try {
         const res = await superagent
@@ -278,8 +273,8 @@ const getAnswerComments = async (questionID, answerID) => {
     }
 };
 
-const postAnswerComments = async (questionID, answerID, creator, text) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/comments`;
+const postAnswerComments = async (question_id, answerID, creator, text) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments`;
 
     try {
         const res = await superagent
@@ -294,8 +289,8 @@ const postAnswerComments = async (questionID, answerID, creator, text) => {
     }
 };
 
-const deleteAnswerComment = async (questionID, answerID, commentID) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/comments/${commentID}`;
+const deleteAnswerComment = async (question_id, answerID, commentID) => {
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}`;
 
     try {
         const res = await superagent
@@ -310,12 +305,12 @@ const deleteAnswerComment = async (questionID, answerID, commentID) => {
 };
 
 const checkAnswerCommentVote = async (
-    questionID,
+    question_id,
     answerID,
     commentID,
     username
 ) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/comments/${commentID}/vote/${username}`;
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}/vote/${username}`;
 
     try {
         const res = await superagent
@@ -330,14 +325,14 @@ const checkAnswerCommentVote = async (
 };
 
 const updateAnswerCommentVote = async (
-    questionID,
+    question_id,
     answerID,
     commentID,
     username,
     operation,
     target
 ) => {
-    const URL = `${questionsAPI}/${questionID}/answers/${answerID}/comments/${commentID}/vote/${username}`;
+    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}/vote/${username}`;
 
     try {
         const res = await superagent
