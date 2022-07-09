@@ -7,7 +7,7 @@ const postMail = async (sender, reciever, subject, text) => {
     const URL = `${mailApi}`;
 
     try {
-        const status = await superagent
+        const res = await superagent
             .post(URL)
             .send({
                 sender,
@@ -16,9 +16,9 @@ const postMail = async (sender, reciever, subject, text) => {
                 text,
             })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body.success);
+            .then((res) => res.body);
 
-        return status;
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -28,13 +28,13 @@ const getMail = async (username, after) => {
     const URL = `${mailApi}/${username}`;
 
     try {
-        const messages = await superagent
+        const res = await superagent
             .get(URL)
             .query({ after })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body.messages);
+            .then((res) => res.body);
 
-        return messages;
+        return res;
     } catch (err) {
         return err.status;
     }

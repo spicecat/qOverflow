@@ -8,10 +8,11 @@ const register = async ({ username, email, password }) => {
     const { key, salt } = await deriveKeyFromPassword(password);
     console.log(key, salt, 111);
     try {
-        const { success } = await superagent
+        const res = await superagent
             .post(URL, { username, email, salt, key })
-            .set('key', API_KEY);
-        return success;
+            .set('key', API_KEY)
+            .then((res) => res.body);
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -24,12 +25,12 @@ const login = async (username, password) => {
         const user = await getUser(username);
         const { key } = await deriveKeyFromPassword(password, user.salt);
 
-        const status = await superagent
+        const res = await superagent
             .post(URL, { key })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.success);
+            .then((res) => res.body);
 
-        return { status, user };
+        return res;
     } catch (err) {
         console.error(err);
 
@@ -41,12 +42,12 @@ const getUser = async (username) => {
     const URL = `${userApi}/${username}`;
 
     try {
-        const user = await superagent
+        const res = await superagent
             .get(URL)
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.user);
+            .then((res) => res.body);
 
-        return user;
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -56,12 +57,12 @@ const getUsers = async () => {
     const URL = `${userApi}`;
 
     try {
-        const users = await superagent
+        const res = await superagent
             .get(URL)
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.users);
+            .then((res) => res.body);
 
-        return users;
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -71,13 +72,13 @@ const getUserQuestions = async (username, after) => {
     const URL = `${userApi}/${username}/questions`;
 
     try {
-        const questions = await superagent
+        const res = await superagent
             .get(URL)
             .query({ after })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.questions);
+            .then((res) => res.body);
 
-        return questions;
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -87,13 +88,13 @@ const getUserAnswers = async (username, after) => {
     const URL = `${userApi}/${username}/answers`;
 
     try {
-        const answers = await superagent
+        const res = await superagent
             .get(URL)
             .query({ after })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.answers);
+            .then((res) => res.body);
 
-        return answers;
+        return res;
     } catch (err) {
         return err.status;
     }
@@ -103,13 +104,13 @@ const updateUserPoints = async (username, operation, amount) => {
     const URL = `${userApi}/${username}`;
 
     try {
-        const status = await superagent
+        const res = await superagent
             .patch(URL)
             .send({ operation, amount })
             .set('Authorization', `bearer ${API_KEY}`)
-            .then((response) => response.body.success);
+            .then((res) => res.body);
 
-        return status;
+        return res;
     } catch (err) {
         return err.status;
     }
