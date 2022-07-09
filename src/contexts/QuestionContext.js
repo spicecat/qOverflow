@@ -8,6 +8,7 @@ export default function QuestionProvider({ children }) {
 
     const selectQuestion = async question_id => {
         console.log(await getQuestion(question_id))
+        
         // setQuestionData(await getQuestion(question_id))
     }
 

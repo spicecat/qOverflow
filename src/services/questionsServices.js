@@ -1,158 +1,128 @@
-import superagent from 'superagent';
-import { API, API_KEY, callAPI } from '../var';
+import { createEndpoint } from '../var';
 
-const questionsAPI = API + '/questions';
+const callQuestionsAPI = createEndpoint('/questions');
 
-const searchQuestions = async (after, match, regexMatch, sort) => {
-    const URL = `${questionsAPI}/search`;
-
+const searchQuestions = async data => { // { creator, status, title, text }
     try {
-        const res = await superagent
-            .get(URL)
-            .query({ after, match, regexMatch, sort })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-        return res;
+        const { questions } = await callQuestionsAPI(
+            'get',
+            `/search`,
+            data
+        );
+        return questions;
     } catch (err) {
         return err.status;
     }
 };
 
-const postQuestion = async (creator, status, title, text) => {
-    const URL = `${questionsAPI}`;
-
+const postQuestion = async data => { // { creator, status, title, text }
     try {
-        const res = await superagent
-            .post(URL)
-            .send({
-                creator,
-                status,
-                title,
-                text,
-            })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'post',
+            ``,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
 const getQuestion = async question_id => {
-
     try {
-        const { question } = await callAPI('get', `/questions/${question_id}`)
-        return question
+        const { question } = await callQuestionsAPI(
+            'get',
+            `/${question_id}`
+        );
+        return question;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateQuestion = async (question_id, body) => {
-    const URL = `${questionsAPI}/${question_id}`;
-
+const updateQuestion = async (question_id, data) => { // { status, title, text, views, upvotes, downvotes }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send(body)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'patch',
+            `/questions/${question_id}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
 const checkQuestionVote = async (question_id, username) => {
-    const URL = `${questionsAPI}/${question_id}/vote/${username}`;
-
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { vote } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/vote/${username}`
+        );
+        return vote;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateQuestionVote = async (question_id, username, operation, target) => {
-    const URL = `${questionsAPI}/${question_id}/vote/${username}`;
-
+const updateQuestionVote = async (question_id, username, data) => { // { operation, target }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send({ operation, target })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'patch',
+            `/${question_id}/vote/${username}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const getQuestionComments = async (question_id, after) => {
-    const URL = `${questionsAPI}/${question_id}/comments`;
-
+const getQuestionComments = async (question_id, data) => { // { after }
     try {
-        const res = await superagent
-            .get(URL)
-            .query({ after })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { comments } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/comments`,
+            data
+        );
+        return comments;
     } catch (err) {
         return err.status;
     }
 };
 
-const postQuestionComment = async (question_id, creator, text) => {
-    const URL = `${questionsAPI}/${question_id}`;
-
+const postQuestionComment = async (question_id, data) => { // { creator, text }
     try {
-        const res = await superagent
-            .post(URL)
-            .send({ creator, text })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'post',
+            `/${question_id}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const deleteQuestionComment = async (question_id, commentID) => {
-    const URL = `${questionsAPI}/${question_id}/comments/${commentID}`;
-
+const deleteQuestionComment = async (question_id, comment_id) => {
     try {
-        const res = await superagent
-            .delete(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'delete',
+            `/${question_id}/comments/${comment_id}`
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const checkCommentVote = async (question_id, commentID, username) => {
-    const URL = `${questionsAPI}/${question_id}/comments/${commentID}/vote/${username}`;
-
+const checkCommentVote = async (question_id, comment_id, username) => {
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { vote } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/comments/${comment_id}/vote/${username}`
+        );
+        return vote;
     } catch (err) {
         return err.status;
     }
@@ -160,145 +130,117 @@ const checkCommentVote = async (question_id, commentID, username) => {
 
 const updateCommentVote = async (
     question_id,
-    commentID,
+    comment_id,
     username,
-    operation,
-    target
-) => {
-    const URL = `${questionsAPI}/${question_id}/comments/${commentID}/vote/${username}`;
-
+    data
+) => { //{ operation, target }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send({ operation, target })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { vote } = await callQuestionsAPI(
+            'patch',
+            `/${question_id}/comments/${comment_id}/vote/${username}`,
+            data
+        );
+        return vote;
     } catch (err) {
         return err.status;
     }
 };
 
 const getAnswers = async (question_id) => {
-    const URL = `${questionsAPI}/${question_id}/answers`;
-
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { answers } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/answers`
+        );
+        return answers;
     } catch (err) {
         return err.status;
     }
 };
 
-const postAnswer = async (question_id, creator, text) => {
-    const URL = `${questionsAPI}/${question_id}/answers`;
-
+const postAnswer = async (question_id, data) => { // { creator, text }
     try {
-        const res = await superagent
-            .post(URL)
-            .send({ creator, text })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.bodres);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'post',
+            `/${question_id}/answers`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateAnswer = async (question_id, answerID, body) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}`;
-
+const updateAnswer = async (question_id, answer_id, data) => { // { text, upvotes, downvotes, accepted }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send(body)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'patch',
+            `/${question_id}/answers/${answer_id}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const checkAnswerVote = async (question_id, answerID, username) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/vote/${username}`;
-
+const checkAnswerVote = async (question_id, answer_id, username) => {
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { vote } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/answers/${answer_id}/vote/${username}`
+        );
+        return vote;
     } catch (err) {
         return err.status;
     }
 };
 
-const updateAnswerVote = async (question_id, answerID, username, body) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/vote/${username}`;
-
+const updateAnswerVote = async (question_id, answer_id, username, data) => { // { operation, target }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send(body)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'patch',
+            `/${question_id}/answers/${answer_id}/vote/${username}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const getAnswerComments = async (question_id, answerID) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments`;
-
+const getAnswerComments = async (question_id, answer_id) => {
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { comments } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/answers/${answer_id}/comments`
+        );
+        return comments;
     } catch (err) {
         return err.status;
     }
 };
 
-const postAnswerComments = async (question_id, answerID, creator, text) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments`;
-
+const postAnswerComments = async (question_id, answer_id, data) => { // { creator, text }
     try {
-        const res = await superagent
-            .post(URL)
-            .send({ creator, text })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'post',
+            `/${question_id}/answers/${answer_id}/comments`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const deleteAnswerComment = async (question_id, answerID, commentID) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}`;
-
+const deleteAnswerComment = async (question_id, answer_id, comment_id) => {
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'delete',
+            `/${question_id}/answers/${answer_id}/comments/${comment_id}`
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
@@ -306,19 +248,16 @@ const deleteAnswerComment = async (question_id, answerID, commentID) => {
 
 const checkAnswerCommentVote = async (
     question_id,
-    answerID,
-    commentID,
+    answer_id,
+    comment_id,
     username
 ) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}/vote/${username}`;
-
     try {
-        const res = await superagent
-            .get(URL)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { vote } = await callQuestionsAPI(
+            'get',
+            `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote/${username}`
+        );
+        return vote;
     } catch (err) {
         return err.status;
     }
@@ -326,22 +265,18 @@ const checkAnswerCommentVote = async (
 
 const updateAnswerCommentVote = async (
     question_id,
-    answerID,
-    commentID,
+    answer_id,
+    comment_id,
     username,
-    operation,
-    target
-) => {
-    const URL = `${questionsAPI}/${question_id}/answers/${answerID}/comments/${commentID}/vote/${username}`;
-
+    data
+) => { // { operation, target }
     try {
-        const res = await superagent
-            .patch(URL)
-            .send({ operation, target })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callQuestionsAPI(
+            'patch',
+            `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote/${username}`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
