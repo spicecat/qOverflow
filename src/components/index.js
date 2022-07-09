@@ -9,6 +9,7 @@ import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
 import ContextProvider from './ContextProvider';
+import MailUnit from './MailUnit';
 
 export {
     Answer,
@@ -22,4 +23,5 @@ export {
     SearchBar,
     VoteControl,
     ContextProvider,
+    MailUnit,
 };

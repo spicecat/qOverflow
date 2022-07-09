@@ -34,6 +34,8 @@ const getMail = async (username, after) => {
             .set('Authorization', `bearer ${API_KEY}`)
             .then((res) => res.body);
 
+        console.log(res);
+
         return res;
     } catch (err) {
         return err.status;

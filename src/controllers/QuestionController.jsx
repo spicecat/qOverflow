@@ -5,7 +5,7 @@ import { Question } from '../components';
 
 export default function QuestionController() {
     const { question_id } = useParams();
-    const { selectQuestion } = useQuestion()
+    const { selectQuestion } = useQuestion();
 
     const testQuestion = { upvotes: 123, text: '###markdown' }; // temp
 

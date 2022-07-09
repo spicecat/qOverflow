@@ -6,6 +6,7 @@ import RegisterController from './RegisterController';
 import ResetController from './ResetController';
 import ForgotPasswordController from './ForgotPasswordController';
 import SendMailController from './SendMailController';
+import MailController from './MailController';
 
 export {
     FormController,
@@ -16,4 +17,5 @@ export {
     ResetController,
     ForgotPasswordController,
     SendMailController,
+    MailController,
 };

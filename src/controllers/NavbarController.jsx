@@ -8,7 +8,7 @@ export default function NavbarController() {
     const { setUserData } = useUser();
 
     function onLogoutClick() {
-        setUserData(() => null);
+        setUserData(() => ({}));
         navigate('/login');
     }
 

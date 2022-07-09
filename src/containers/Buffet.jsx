@@ -26,7 +26,6 @@ export default function Buffet() {
     function loadQuestions() {
         if (sort === 'Recent') {
             searchQuestions().then((data) => {
-                console.log(data);
                 return data;
             });
         }
