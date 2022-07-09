@@ -3,11 +3,6 @@ import superagent from 'superagent';
 const API = process.env.REACT_APP_API_ROOT;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const stringifyValues = (data = {}) =>
-    Object.fromEntries(
-        Object.entries(data).map(([k, v]) => [k, JSON.stringify(v)])
-    );
-
 const createEndpoint = (path) => (op, endpoint, data) => {
     try {
         return superagent[op](`${API}${path}${endpoint}`)
