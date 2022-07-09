@@ -24,10 +24,10 @@ export default function App() {
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Buffet />} />
 
-                        <Route path='login' element={<Login />} />
-                        <Route path='register' element={<Register />} />
+                        <Route path='login' element={<Login />} /> {/* DONE */}
+                        <Route path='register' element={<Register />} /> {/* DONE */}
 
-                        <Route path='mail' element={<Mail />} />
+                        <Route path='mail' element={<Mail />} /> {/* DONE */}
 
                         <Route path='questions'>
                             <Route index element={<Questions />} />
@@ -36,11 +36,11 @@ export default function App() {
                             <Route path=':question_id' element={<QA />} />
                         </Route>
 
-                        <Route path='dashboard' element={<Dashboard />} />
+                        <Route path='dashboard' element={<Dashboard />} /> {/* DONE */}
 
                         <Route path='recover'>
-                            <Route index element={<ForgotPassword />} />
-                            <Route path=':username' element={<Reset />} />
+                            <Route index element={<ForgotPassword />} /> {/* DONE */}
+                            <Route path=':username' element={<Reset />} /> {/* DONE */}
                         </Route>
 
                         <Route path='*' element={<NotFound />} />
