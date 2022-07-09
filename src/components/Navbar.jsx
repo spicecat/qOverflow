@@ -24,6 +24,14 @@ export default function Navbar({ onClick }) {
                     <Button
                         color='inherit'
                         component={Link}
+                        to='/mail'
+                        style={linkStyle}
+                    >
+                        Mail
+                    </Button>
+                    <Button
+                        color='inherit'
+                        component={Link}
                         to='/dashboard'
                         style={linkStyle}
                     >
