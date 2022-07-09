@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Typography, Button } from '@mui/material';
 
 import ToggleButton from '@mui/material/ToggleButton';
@@ -52,7 +53,12 @@ export default function Buffet() {
                     Top Questions
                 </Typography>
 
-                <Button variant='contained' style={{ marginTop: '1%' }}>
+                <Button
+                    variant='contained'
+                    style={{ marginTop: '1%' }}
+                    component={Link}
+                    to='questions/ask'
+                >
                     Ask A Question
                 </Button>
 

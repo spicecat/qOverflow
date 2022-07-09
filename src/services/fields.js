@@ -70,7 +70,7 @@ const askQuestionFields = [
     },
     {
         id: 'text',
-        label: 'text',
+        label: 'Text',
     },
 ];
 
