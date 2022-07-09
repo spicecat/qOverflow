@@ -12,11 +12,9 @@ export default function ResetController() {
     const { setUserData } = useUser();
 
     async function changePassword({ password }) {
-        const { key } = await deriveKeyFromPassword(password);
+        const body = await deriveKeyFromPassword(password);
 
-        const { user, success } = await updateUser(username, {
-            key: key,
-        });
+        const { user, success } = await updateUser(username, body);
 
         if (success) {
             setUserData(() => user);

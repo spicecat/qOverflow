@@ -4,6 +4,7 @@ import NavbarController from './NavbarController';
 import QuestionController from './QuestionController';
 import RegisterController from './RegisterController';
 import ResetController from './ResetController';
+import ForgotPasswordController from './ForgotPasswordController';
 
 export {
     FormController,
@@ -12,4 +13,5 @@ export {
     NavbarController,
     QuestionController,
     ResetController,
+    ForgotPasswordController,
 };

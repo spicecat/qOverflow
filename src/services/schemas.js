@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 const recoverSchema = Yup.object({
-    email: Yup.string().required('Email is required'),
+    username: Yup.string().required('Username is required'),
 });
 
 const loginSchema = Yup.object({

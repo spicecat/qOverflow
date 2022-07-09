@@ -37,7 +37,7 @@ const registerFields = [
     },
 ];
 
-const recoverFields = [{ id: 'email', label: 'Email' }];
+const recoverFields = [{ id: 'username', label: 'Username' }];
 
 const resetFields = [
     {

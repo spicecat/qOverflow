@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
-import { FormController } from '../controllers';
+import { ForgotPasswordController } from '../controllers';
 import { recoverFields } from '../services/fields';
 import { recoverSchema } from '../services/schemas';
 
@@ -17,11 +17,7 @@ export default function ForgotPassword() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <FormController
-                            fields={recoverFields}
-                            onSubmit={(e) => console.log(e, 123)}
-                            validationSchema={recoverSchema}
-                        />
+                        <ForgotPasswordController />
                     </CardContent>
                 </Card>
             </Grid>
