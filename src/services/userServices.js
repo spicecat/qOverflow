@@ -120,6 +120,22 @@ const updateUserPoints = async (username, operation, amount) => {
     }
 };
 
+const updateUser = async (username, body) => {
+    const URL = `${userAPI}/${username}`;
+
+    try {
+        const res = await superagent
+            .patch(URL)
+            .send(body)
+            .set('Authorization', `bearer ${API_KEY}`)
+            .then((res) => res.body);
+
+        return res;
+    } catch (err) {
+        return err.status;
+    }
+};
+
 export {
     getUser,
     getUsers,
@@ -128,4 +144,5 @@ export {
     login,
     register,
     updateUserPoints,
+    updateUser,
 };

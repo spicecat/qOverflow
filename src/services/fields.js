@@ -39,4 +39,13 @@ const registerFields = [
 
 const recoverFields = [{ id: 'email', label: 'Email' }];
 
-export { loginFields, registerFields, recoverFields };
+const resetFields = [
+    {
+        id: 'password',
+        helperText: (value) => `Password strength: ${passwordStrength(value)}`,
+        label: 'Password',
+        type: 'password',
+    },
+];
+
+export { loginFields, registerFields, recoverFields, resetFields };

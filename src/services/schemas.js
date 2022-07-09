@@ -28,4 +28,10 @@ const registerSchema = Yup.object({
         .oneOf(['4'], 'Invalid CAPTCHA'),
 });
 
-export { registerSchema, loginSchema, recoverSchema };
+const resetSchema = Yup.object({
+    password: Yup.string()
+        .min(11, 'Password must be at least 11 characters')
+        .required('Password is required'),
+});
+
+export { registerSchema, loginSchema, recoverSchema, resetSchema };

@@ -36,7 +36,7 @@ export default function App() {
 
                         <Route path='recover'>
                             <Route index element={<ForgotPassword />} />
-                            <Route path=':id' element={<Reset />} />
+                            <Route path=':username' element={<Reset />} />
                         </Route>
 
                         <Route path='*' element={<NotFound />} />
