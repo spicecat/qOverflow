@@ -4,6 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function Question({
+    downvotes,
     upvotes
 }) {
 
@@ -15,7 +16,7 @@ export default function Question({
                 </IconButton>
             </Tooltip>
             <Typography>
-                {upvotes}
+                {downvotes + upvotes}
             </Typography>
             <Tooltip title='downvote' placement='right'>
                 <IconButton>
