@@ -8,7 +8,7 @@ export default function CommentsList({
 
     return (
         <List>
-
+            <Comment />
         </List>
     )
 }

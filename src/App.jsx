@@ -12,7 +12,7 @@ import {
     Register,
     Reset
 } from './containers';
-import { UserProvider } from './contexts';
+import { QuestionProvider, UserProvider } from './contexts';
 
 export default function App() {
     return (
@@ -27,10 +27,12 @@ export default function App() {
 
                         <Route path='mail' element={<Mail />} />
 
-                        <Route path='questions'>
-                            <Route index element={<Questions />} />
-                            <Route path=':question_id' element={<QA />} />
-                        </Route>
+                        <QuestionProvider>
+                            <Route path='questions'>
+                                <Route index element={<Questions />} />
+                                <Route path=':question_id' element={<QA />} />
+                            </Route>
+                        </QuestionProvider>
 
                         <Route path='dashboard' element={<Dashboard />} />
 

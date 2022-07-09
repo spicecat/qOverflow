@@ -1,6 +1,6 @@
 //This for Q and A
 import { ListItem, ListItemText, Tooltip, Typography } from "@mui/material";
-import { VoteControl } from '.'
+import { CommentsList, VoteControl } from '.'
 
 export default function Question({
     answers,
@@ -22,6 +22,7 @@ export default function Question({
             <ListItemText>
                 {text}
             </ListItemText>
+            <CommentsList />
         </ListItem >
     )
 }
