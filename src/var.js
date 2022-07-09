@@ -3,16 +3,18 @@ import superagent from 'superagent';
 const API = process.env.REACT_APP_API_ROOT;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const createEndpoint = path => (op, endpoint, data) => {
+const createEndpoint = path => async (op, endpoint, data) => {
     try {
-        return superagent[op](`${API}${path}${endpoint}`)
+        return await superagent
+        [op](`${API}${path}${endpoint}`)
+            .set('Authorization', `bearer ${API_KEY}`)
             .query(data)
             .send(data)
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-    } catch (err) {
-        return err.status;
+            .then(({ body }) => body);
+    } catch ({ response = {}, status }) {
+        console.log(response?.body, status) // remove
+        return { ...response.body, status };
     }
-};
+}
 
 export { createEndpoint };
