@@ -7,6 +7,7 @@ import ResetController from './ResetController';
 import ForgotPasswordController from './ForgotPasswordController';
 import SendMailController from './SendMailController';
 import MailController from './MailController';
+import AskController from './AskController';
 
 export {
     FormController,
@@ -18,4 +19,5 @@ export {
     ForgotPasswordController,
     SendMailController,
     MailController,
+    AskController,
 };

@@ -63,10 +63,22 @@ const composeMailFields = [
     },
 ];
 
+const askQuestionFields = [
+    {
+        id: 'title',
+        label: 'Title',
+    },
+    {
+        id: 'text',
+        label: 'text',
+    },
+];
+
 export {
     loginFields,
     registerFields,
     recoverFields,
     resetFields,
     composeMailFields,
+    askQuestionFields,
 };

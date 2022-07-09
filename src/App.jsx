@@ -24,23 +24,23 @@ export default function App() {
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Buffet />} />
 
-                        <Route path='login' element={<Login />} /> {/* DONE */}
-                        <Route path='register' element={<Register />} /> {/* DONE */}
+                        <Route path='login' element={<Login />} />
+                        <Route path='register' element={<Register />} />
 
-                        <Route path='mail' element={<Mail />} /> {/* DONE */}
+                        <Route path='mail' element={<Mail />} />
 
                         <Route path='questions'>
                             <Route index element={<Questions />} />
-                            <Route path element={<Search />} />
+                            <Route path='search' element={<Search />} />
                             <Route path='ask' element={<Ask />} />
                             <Route path=':question_id' element={<QA />} />
                         </Route>
 
-                        <Route path='dashboard' element={<Dashboard />} /> {/* DONE */}
+                        <Route path='dashboard' element={<Dashboard />} />
 
                         <Route path='recover'>
-                            <Route index element={<ForgotPassword />} /> {/* DONE */}
-                            <Route path=':username' element={<Reset />} /> {/* DONE */}
+                            <Route index element={<ForgotPassword />} />
+                            <Route path=':username' element={<Reset />} />
                         </Route>
 
                         <Route path='*' element={<NotFound />} />

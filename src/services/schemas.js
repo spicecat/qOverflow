@@ -43,4 +43,20 @@ const mailSchema = Yup.object({
     ),
 });
 
-export { registerSchema, loginSchema, recoverSchema, resetSchema, mailSchema };
+const questionSchema = Yup.object({
+    title: Yup.string()
+        .max(150, 'Title cannot be longer then 150 characters.')
+        .required('A title is required.'),
+    text: Yup.string()
+        .max(3000, 'Body cannot be longer than 3000 characters')
+        .required('A body is required'),
+});
+
+export {
+    registerSchema,
+    loginSchema,
+    recoverSchema,
+    resetSchema,
+    mailSchema,
+    questionSchema,
+};
