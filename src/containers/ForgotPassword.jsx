@@ -1,8 +1,6 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
 import { ForgotPasswordController } from '../controllers';
-import { recoverFields } from '../services/fields';
-import { recoverSchema } from '../services/schemas';
 
 export default function ForgotPassword() {
     return (
