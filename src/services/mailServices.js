@@ -1,10 +1,10 @@
 import superagent from 'superagent';
 import { API, API_KEY } from '../var';
 
-const mailApi = API + '/mail';
+const mailAPI = API + '/mail';
 
 const postMail = async (sender, reciever, subject, text) => {
-    const URL = `${mailApi}`;
+    const URL = `${mailAPI}`;
 
     try {
         const res = await superagent
@@ -25,7 +25,7 @@ const postMail = async (sender, reciever, subject, text) => {
 };
 
 const getMail = async (username, after) => {
-    const URL = `${mailApi}/${username}`;
+    const URL = `${mailAPI}/${username}`;
 
     try {
         const res = await superagent

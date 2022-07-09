@@ -12,6 +12,7 @@ const loginFields = [
     {
         id: 'password',
         title: 'Password',
+        type: 'password',
     },
 ];
 
