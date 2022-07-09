@@ -19,7 +19,7 @@ const postQuestion = async data => { // { creator, status, title, text }
     try {
         const { success } = await callQuestionsAPI(
             'post',
-            ``,
+            `/`,
             data
         );
         return success;
@@ -44,7 +44,7 @@ const updateQuestion = async (question_id, data) => { // { status, title, text, 
     try {
         const { success } = await callQuestionsAPI(
             'patch',
-            `/questions/${question_id}`,
+            `/${question_id}`,
             data
         );
         return success;

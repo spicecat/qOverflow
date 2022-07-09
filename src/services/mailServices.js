@@ -1,42 +1,28 @@
-import superagent from 'superagent';
-import { API, API_KEY } from '../var';
+import { createEndpoint } from '../var';
 
-const mailAPI = API + '/mail';
+const callMailAPI = createEndpoint('/mail');
 
-const postMail = async (sender, reciever, subject, text) => {
-    const URL = `${mailAPI}`;
-
+const postMail = async data => { // { sender, reciever, subject, text }
     try {
-        const res = await superagent
-            .post(URL)
-            .send({
-                sender,
-                reciever,
-                subject,
-                text,
-            })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        return res;
+        const { success } = await callMailAPI(
+            'post',
+            `/`,
+            data
+        );
+        return success;
     } catch (err) {
         return err.status;
     }
 };
 
-const getMail = async (username, after) => {
-    const URL = `${mailAPI}/${username}`;
-
+const getMail = async (username, data) => { // { after }
     try {
-        const res = await superagent
-            .get(URL)
-            .query({ after })
-            .set('Authorization', `bearer ${API_KEY}`)
-            .then((res) => res.body);
-
-        console.log(res);
-
-        return res;
+        const { messages } = await callMailAPI(
+            'get',
+            `/${username}`,
+            data
+        );
+        return messages;
     } catch (err) {
         return err.status;
     }
