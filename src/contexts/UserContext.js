@@ -2,7 +2,9 @@ import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login, register } from '../services/userServices';
 
-const UserContext = createContext({});
+const initialUserData = {}
+
+const UserContext = createContext(initialUserData);
 
 export default function UserProvider({ children }) {
     const navigate = useNavigate();
@@ -31,8 +33,13 @@ export default function UserProvider({ children }) {
         }
     }
 
+    function logout() {
+        setUserData(initialUserData);
+        navigate('/');
+    }
+
     return (
-        <UserContext.Provider value={{ validateLogin, setUserData, userData, validateRegister }}>
+        <UserContext.Provider value={{ logout, userData, validateLogin, validateRegister }}>
             {children}
         </UserContext.Provider>
     );

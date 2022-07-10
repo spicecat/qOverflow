@@ -12,10 +12,10 @@ import { useUser } from '../contexts';
 import Logo from '../assets/bdpa-logo.svg';
 import { SearchBar } from '.';
 
-export default function Navbar({ onClick }) {
+export default function Navbar() {
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
 
-    const { userData } = useUser();
+    const { logout, userData } = useUser();
 
     function ButtonGroup({ userData }) {
         if (userData.username) {
@@ -37,7 +37,7 @@ export default function Navbar({ onClick }) {
                     >
                         Account
                     </Button>
-                    <Button color='inherit' onClick={onClick} style={linkStyle}>
+                    <Button color='inherit' onClick={logout} style={linkStyle}>
                         Logout
                     </Button>
                 </React.Fragment>
