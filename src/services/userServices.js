@@ -1,5 +1,5 @@
+import { createEndpoint } from './api';
 import { deriveKeyFromPassword } from './auth';
-import { createEndpoint } from '../var';
 
 const callUsersAPI = createEndpoint('/users');
 

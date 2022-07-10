@@ -1,4 +1,3 @@
-import { Answer, Comment, Question } from '../components'
 import { QuestionController } from '../controllers'
 
 export default function QA() {

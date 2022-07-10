@@ -1,4 +1,4 @@
-import { createEndpoint } from '../var';
+import { createEndpoint } from './api';
 
 const callMailAPI = createEndpoint('/mail');
 

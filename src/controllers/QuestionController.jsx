@@ -5,13 +5,11 @@ import { Question } from '../components';
 
 export default function QuestionController() {
     const { question_id } = useParams();
-    const { selectQuestion } = useQuestion();
-
-    const testQuestion = { upvotes: 123, text: '###markdown' }; // temp
+    const { loadQuestion, questionData } = useQuestion();
 
     useEffect(() => {
-        selectQuestion(question_id);
+        loadQuestion(question_id);
     }, []);
 
-    return <Question {...testQuestion} />;
+    return <Question {...questionData} />;
 }
