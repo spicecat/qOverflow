@@ -6,7 +6,6 @@ import Form from './Form';
 import MailUnit from './MailUnit';
 import Navbar from './Navbar';
 import PaginatedList from './PaginatedList';
-import ProfilePicture from './ProfilePicture';
 import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
@@ -20,7 +19,6 @@ export {
     MailUnit,
     Navbar,
     PaginatedList,
-    ProfilePicture,
     Question,
     SearchBar,
     VoteControl,

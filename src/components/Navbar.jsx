@@ -8,53 +8,32 @@ import {
     Box,
 } from '@mui/material';
 import Logo from '../assets/bdpa-logo.svg';
-import { ProfilePicture, SearchBar } from '.';
+import { SearchBar } from '.';
+import Gravatar from 'react-gravatar';
 
 export default function Navbar({ logout, userData }) {
-
     function ButtonGroup() {
         return userData.username ? (
             <>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/mail'
-                >
+                <Button color='inherit' component={Link} to='/mail'>
                     Mail
                 </Button>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/dashboard'
-                >
+                <Button color='inherit' component={Link} to='/dashboard'>
                     Account
                 </Button>
-                <Button
-                    color='inherit'
-                    onClick={logout}
-                >
+                <Button color='inherit' onClick={logout}>
                     Logout
                 </Button>
-                <IconButton
-                    component={Link}
-                    to='/'>
-                    <ProfilePicture email={userData.email} />
+                <IconButton component={Link} to='/'>
+                    <Gravatar size={40} email={userData.email} />
                 </IconButton>
             </>
         ) : (
             <>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/login'
-                >
+                <Button color='inherit' component={Link} to='/login'>
                     Login
                 </Button>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/register'
-                >
+                <Button color='inherit' component={Link} to='/register'>
                     Register
                 </Button>
             </>
@@ -64,20 +43,10 @@ export default function Navbar({ logout, userData }) {
     return (
         <AppBar position='static'>
             <Toolbar>
-                <IconButton
-                    component={Link}
-                    to='/'
-                >
-                    <img
-                        src={Logo}
-                        alt='bdpa logo'
-                        width='40'
-                        height='40'
-                    />
+                <IconButton component={Link} to='/'>
+                    <img src={Logo} alt='bdpa logo' width='40' height='40' />
                 </IconButton>
-                <Typography
-                    variant='h6'
-                    component='div'>
+                <Typography variant='h6' component='div'>
                     qOverflow
                 </Typography>
                 <SearchBar />
