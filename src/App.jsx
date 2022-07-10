@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ContextProvider } from '../contexts'
 import {
     Ask,
     Buffet,
@@ -14,7 +15,6 @@ import {
     Reset,
     Search,
 } from './containers';
-import { ContextProvider } from './components';
 
 export default function App() {
     return (

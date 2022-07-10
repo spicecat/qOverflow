@@ -10,7 +10,6 @@ import ProfilePicture from './ProfilePicture';
 import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
-import ContextProvider from './ContextProvider';
 
 export {
     Answer,
@@ -25,5 +24,4 @@ export {
     Question,
     SearchBar,
     VoteControl,
-    ContextProvider,
 };
