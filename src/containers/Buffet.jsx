@@ -5,38 +5,33 @@ import { Typography, Button } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { BuffetViewQuestion } from '../components';
+import { ListQuestion } from '../components';
 
 import { searchQuestions } from '../services/questionsServices';
 
 export default function Buffet() {
+    const [sort, setSort] = useState('');
+    const [questionSet, setQuestionSet] = useState([]);
+
     useEffect(() => {
         loadQuestions();
-    });
-
-    // api: https://qoverflow.api.hscc.bdpa.org/V
-
-    //key:
-
-    // '/questions/search' will return 100 questions
-
-    //let myURL = 'https://qoverflow.api.hscc.bdpa.org/v1/questions/search'
-
-    const [sort, setSort] = useState('Recent');
+    }, []);
 
     function loadQuestions() {
-        if (sort === 'Recent') {
-            searchQuestions().then((data) => {
-                return data;
+        if (sort) {
+            searchQuestions({ sort }).then((res) => {
+                setQuestionSet(() => res.questions);
+            });
+        } else {
+            searchQuestions().then((res) => {
+                setQuestionSet(() => res.questions);
             });
         }
     }
 
-    const handleSortChange = (event, newSort) => {
-        if (newSort !== null) {
-            setSort(newSort);
-            loadQuestions();
-        }
+    const handleSortChange = (e) => {
+        setSort(() => e.target.value);
+        loadQuestions();
     };
 
     return (
@@ -49,9 +44,7 @@ export default function Buffet() {
                     textAlign: 'center',
                 }}
             >
-                <Typography variant='h3' style={{}}>
-                    Top Questions
-                </Typography>
+                <Typography variant='h3'>Top Questions</Typography>
 
                 <Button
                     variant='contained'
@@ -69,15 +62,19 @@ export default function Buffet() {
                     onChange={handleSortChange}
                     style={{ display: 'block', marginTop: '1%' }}
                 >
-                    <ToggleButton value='Recent'>Recent</ToggleButton>
-                    <ToggleButton value='Best'>Best</ToggleButton>
-                    <ToggleButton value='Interesting'>Interesting</ToggleButton>
-                    <ToggleButton value='Hot'>Hot</ToggleButton>
+                    <ToggleButton value=''>Recent</ToggleButton>
+                    <ToggleButton value='u'>Best</ToggleButton>
+                    <ToggleButton value='uvc'>Interesting</ToggleButton>
+                    <ToggleButton value='uvac'>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </div>
-            <BuffetViewQuestion
-                questionTitle={'Sample Title'}
-            ></BuffetViewQuestion>
+            {questionSet.map((question) => (
+                <ListQuestion
+                    question={question}
+                    summaryLimit={50}
+                    key={question.question_id}
+                ></ListQuestion>
+            ))}
         </div>
     );
 }

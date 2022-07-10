@@ -2,7 +2,7 @@ import { createEndpoint } from '../var';
 
 const callQuestionsAPI = createEndpoint('/questions');
 
-const searchQuestions = (data) => // { creator, status, title, text }
+const searchQuestions = (data) => // { after, match, regexMatch, sort }
     callQuestionsAPI(
         'get',
         `/search`,
