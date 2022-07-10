@@ -9,14 +9,14 @@ export default function QuestionProvider({ children }) {
     const loadQuestion = async (question_id) => {
         const { success, question } = await getQuestion(question_id);
         if (success) {
-            // const { comments: questionComments = [] } = await getQuestionComments(question_id);
-            // question.comments = questionComments;
-            // const { answers = [] } = await getAnswers(question_id);
-            // for (const answer of answers) {
-            //     const { comments: answerComments } = await getAnswerComments(answer.answer_id);
-            //     answer.comments = answerComments
-            // }
-            // question.answers = answers;
+            const { comments: questionComments = [] } = await getQuestionComments(question_id);
+            question.comments = questionComments;
+            const { answers = [] } = await getAnswers(question_id);
+            for (const answer of answers) {
+                const { comments: answerComments } = await getAnswerComments(question_id, answer.answer_id);
+                answer.comments = answerComments
+            }
+            question.answers = answers;
             setQuestionData(question);
         }
     }
