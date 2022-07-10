@@ -1,5 +1,5 @@
 import Answer from './Answer';
-import BuffetViewQuestion from './BuffetViewQuestion';
+import ListQuestion from './ListQuestion';
 import Comment from './Comment';
 import CommentsList from './CommentsList';
 import Form from './Form';
@@ -13,7 +13,7 @@ import VoteControl from './VoteControl';
 
 export {
     Answer,
-    BuffetViewQuestion,
+    ListQuestion,
     Comment,
     CommentsList,
     Form,

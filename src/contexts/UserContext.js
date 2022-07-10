@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login, register } from '../services/userServices';
 
-const initialUserData = {}
+const initialUserData = {};
 
 const UserContext = createContext(initialUserData);
 
@@ -15,9 +15,9 @@ export default function UserProvider({ children }) {
         if (success) {
             setUserData(user);
             navigate('/');
-        } else
-            return { username: 'Username or password incorrect' };
+        } else return { username: 'Username or password incorrect' };
     }
+
     async function validateRegister(values) {
         const { success, error } = await register(values);
         if (success) return validateLogin(values);
@@ -39,7 +39,9 @@ export default function UserProvider({ children }) {
     }
 
     return (
-        <UserContext.Provider value={{ logout, userData, validateLogin, validateRegister }}>
+        <UserContext.Provider
+            value={{ logout, userData, validateLogin, validateRegister }}
+        >
             {children}
         </UserContext.Provider>
     );

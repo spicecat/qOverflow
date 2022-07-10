@@ -4,7 +4,7 @@ import { Typography, Button } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { BuffetViewQuestion, PaginatedList } from '../components';
+import { ListQuestion, PaginatedList } from '../components';
 
 export default function Questions() {
     useEffect(() => {
@@ -86,9 +86,7 @@ export default function Questions() {
                 </ToggleButtonGroup>
             </div>
 
-            <BuffetViewQuestion
-                questionTitle={'Sample Title'}
-            ></BuffetViewQuestion>
+            <ListQuestion question={'Sample Title'}></ListQuestion>
         </div>
     );
 }
