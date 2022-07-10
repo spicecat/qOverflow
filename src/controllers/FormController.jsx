@@ -3,7 +3,8 @@ import { Form } from '../components';
 
 export default function FormController({
     fields,
-    onSubmit,
+    onSubmit = () => 0,
+    validate,
     validationSchema,
     children,
 }) {
@@ -13,6 +14,8 @@ export default function FormController({
             {}
         ),
         onSubmit,
+        validate,
+        validateOnChange: false,
         validationSchema,
     });
 

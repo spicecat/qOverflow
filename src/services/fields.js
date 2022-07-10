@@ -20,6 +20,7 @@ const registerFields = [
     {
         id: 'username',
         title: 'Username',
+        
     },
     {
         id: 'email',

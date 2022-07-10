@@ -1,27 +1,15 @@
-import { useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts';
 import { FormController } from '../controllers';
 import { loginSchema } from '../services/schemas';
 import { loginFields } from '../services/fields';
-import { login } from '../services/userServices';
 
 export default function LoginController() {
-    const navigate = useNavigate();
-    const { setUserData } = useUser();
-
-    async function loginUser({ username, password }) {
-        const { user, success } = await login(username, password);
-
-        if (success) {
-            setUserData(() => user);
-            navigate('/');
-        }
-    }
+    const { validateLogin } = useUser();
 
     return (
         <FormController
             fields={loginFields}
-            onSubmit={loginUser}
+            validate={validateLogin}
             validationSchema={loginSchema}
         />
     );

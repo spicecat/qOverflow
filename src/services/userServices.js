@@ -12,18 +12,17 @@ const register = async ({ username, email, password }) => {
     );
 };
 
-const login = async (username, password) => {
-    try {
-        const { salt } = await getUser(username);
-        const { key } = await deriveKeyFromPassword(password, salt);
-        return callUsersAPI(
-            'post',
-            `/${username}/auth`,
-            { key }
-        );
-    } catch (err) {
-        return err.status;
-    }
+const login = async ({ username, password }) => {
+    const { user, ...error } = await getUser(username);
+    if (!user) return error
+
+    const { key } = await deriveKeyFromPassword(password, user.salt);
+    const { success } = await callUsersAPI(
+        'post',
+        `/${username}/auth`,
+        { key }
+    );
+    return { ...user, success }
 };
 
 const getUser = (username) =>

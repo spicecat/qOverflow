@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import { LoginController } from '../controllers';
 
