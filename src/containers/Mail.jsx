@@ -1,15 +1,15 @@
 import { Card, CardContent } from '@mui/material';
 import React from 'react';
-import { SendMailController, MailController } from '../controllers';
+import { Inbox, SendMail } from '../controllers';
 
 export default function Mail() {
     return (
         <Card>
             <CardContent>
-                <SendMailController />
+                <SendMail />
             </CardContent>
             <CardContent>
-                <MailController />
+                <Inbox />
             </CardContent>
         </Card>
     );

@@ -1,4 +1,5 @@
 import Answer from './Answer';
+import AnswersList from './AnswersList';
 import ListQuestion from './ListQuestion';
 import Comment from './Comment';
 import CommentsList from './CommentsList';
@@ -12,6 +13,7 @@ import VoteControl from './VoteControl';
 
 export {
     Answer,
+    AnswersList,
     ListQuestion,
     Comment,
     CommentsList,

@@ -3,7 +3,7 @@ import { List } from '@mui/material';
 import { Comment } from '.'
 
 export default function CommentsList({
-    comments=[]
+    comments
 }) {
 
     return (

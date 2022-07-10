@@ -4,7 +4,7 @@ import { useUser } from '../contexts';
 import { getMail } from '../services/mailServices';
 import { MailUnit } from '../components';
 
-export default function MailController() {
+export default function InboxController() {
     const { userData } = useUser();
     const [mail, setMail] = useState([]);
 

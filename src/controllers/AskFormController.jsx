@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { Form } from '.';
 import { useUser } from '../contexts';
-import { FormController } from '../controllers';
 import { questionSchema } from '../services/schemas';
 import { askQuestionFields } from '../services/fields';
 import { postQuestion } from '../services/questionsServices';
 
-export default function LoginController() {
+export default function AskFormController() {
     const navigate = useNavigate();
     const { userData } = useUser();
 
@@ -21,7 +21,7 @@ export default function LoginController() {
     }
 
     return (
-        <FormController
+        <Form
             fields={askQuestionFields}
             onSubmit={askQuestion}
             validationSchema={questionSchema}

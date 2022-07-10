@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { Form } from '.';
 import { useUser } from '../contexts';
-import { FormController } from '../controllers';
 import { resetSchema } from '../services/schemas';
 import { resetFields } from '../services/fields';
 import { updateUser } from '../services/userServices';
 import { deriveKeyFromPassword } from '../services/auth';
 
-export default function ResetController() {
+export default function ResetFormController() {
     const navigate = useNavigate();
     const { username } = useParams();
     const { setUserData } = useUser();
@@ -23,7 +23,7 @@ export default function ResetController() {
     }
 
     return (
-        <FormController
+        <Form
             fields={resetFields}
             onSubmit={changePassword}
             validationSchema={resetSchema}

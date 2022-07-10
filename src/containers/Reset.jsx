@@ -1,5 +1,5 @@
 import { Card, CardContent, Grid } from '@mui/material';
-import { ResetController } from '../controllers';
+import { ResetForm } from '../controllers';
 
 export default function Reset() {
     return (
@@ -14,7 +14,7 @@ export default function Reset() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <ResetController />
+                        <ResetForm />
                     </CardContent>
                 </Card>
             </Grid>

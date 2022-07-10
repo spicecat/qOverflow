@@ -3,7 +3,7 @@ import { List } from '@mui/material';
 import { Answer } from '.'
 
 export default function AnswersList({
-    answer=[]
+    answers
 }) {
 
     return (

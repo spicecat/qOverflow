@@ -1,10 +1,10 @@
+import { Form } from '.';
 import { useUser } from '../contexts';
-import { FormController } from '../controllers';
 import { mailSchema } from '../services/schemas';
 import { composeMailFields } from '../services/fields';
 import { postMail } from '../services/mailServices';
 
-export default function LoginController() {
+export default function SendMailController() {
     const { userData } = useUser();
 
     async function loginUser({ reciever, subject, text }) {
@@ -12,7 +12,7 @@ export default function LoginController() {
     }
 
     return (
-        <FormController
+        <Form
             fields={composeMailFields}
             onSubmit={loginUser}
             validationSchema={mailSchema}

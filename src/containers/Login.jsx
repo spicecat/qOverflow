@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { LoginController } from '../controllers';
+import { LoginForm } from '../controllers';
 
 export default function Login() {
     return (
@@ -15,7 +15,7 @@ export default function Login() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <LoginController />
+                        <LoginForm />
                         <Typography variant='body1'>
                             Forgot your password?{' '}
                             <Link to='/recover'>Recover Password</Link>

@@ -1,11 +1,11 @@
 import { Card, CardContent } from '@mui/material';
-import { AskController } from '../controllers';
+import { AskForm } from '../controllers';
 
 export default function Ask() {
     return (
         <Card>
             <CardContent>
-                <AskController />
+                <AskForm />
             </CardContent>
         </Card>
     );

@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
-import { ForgotPasswordController } from '../controllers';
+import { ForgotPasswordForm } from '../controllers';
 
 export default function ForgotPassword() {
     return (
@@ -15,7 +15,7 @@ export default function ForgotPassword() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <ForgotPasswordController />
+                        <ForgotPasswordForm />
                     </CardContent>
                 </Card>
             </Grid>

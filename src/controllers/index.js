@@ -1,23 +1,27 @@
-import FormController from './FormController';
-import LoginController from './LoginController';
-import NavbarController from './NavbarController';
-import QuestionController from './QuestionController';
-import RegisterController from './RegisterController';
-import ResetController from './ResetController';
-import ForgotPasswordController from './ForgotPasswordController';
-import SendMailController from './SendMailController';
-import MailController from './MailController';
-import AskController from './AskController';
+import AnswersList from './AnswersListController';
+import AskForm from './AskFormController';
+import CommentsList from './CommentsListController';
+import ForgotPasswordForm from './ForgotPasswordFormController';
+import Form from './FormController';
+import Inbox from './InboxController';
+import LoginForm from './LoginFormController';
+import Navbar from './NavbarController';
+import Question from './QuestionController';
+import RegisterForm from './RegisterFormController';
+import ResetForm from './ResetFormController';
+import SendMail from './SendMailController';
 
 export {
-    FormController,
-    LoginController,
-    RegisterController,
-    NavbarController,
-    QuestionController,
-    ResetController,
-    ForgotPasswordController,
-    SendMailController,
-    MailController,
-    AskController,
+    AnswersList,
+    AskForm,
+    CommentsList,
+    ForgotPasswordForm,
+    Form,
+    Inbox,
+    LoginForm,
+    Navbar,
+    Question,
+    RegisterForm,
+    ResetForm,
+    SendMail,
 };

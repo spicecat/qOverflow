@@ -1,8 +1,8 @@
-import { FormController } from '.';
+import { Form } from '.';
 import { recoverFields } from '../services/fields';
 import { recoverSchema } from '../services/schemas';
 
-export default function ForgotPasswordController() {
+export default function ForgotPasswordFormController() {
     async function recover({ username }) {
         console.log(
             `Visit http://localhost:3000/recover/${username} to reset your password`
@@ -10,7 +10,7 @@ export default function ForgotPasswordController() {
     }
 
     return (
-        <FormController
+        <Form
             fields={recoverFields}
             onSubmit={recover}
             validationSchema={recoverSchema}
