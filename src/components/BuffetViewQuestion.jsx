@@ -1,4 +1,4 @@
-import { ListItem, Typography } from "@mui/material"
+import { ListItem, Typography } from '@mui/material'
 
 export default function BuffetViewQuestion(props) {
     //this returns a question in format of buffet view style
@@ -6,7 +6,7 @@ export default function BuffetViewQuestion(props) {
     return (
         <>
 
-            <Typography variant="h5"> {props.questionTitle} </Typography>
+            <Typography variant='h5'> {props.questionTitle} </Typography>
 
 
         </>

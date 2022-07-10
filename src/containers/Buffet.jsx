@@ -18,9 +18,9 @@ export default function Buffet() {
 
     //key:
 
-    // "/questions/search" will return 100 questions
+    // '/questions/search' will return 100 questions
 
-    //let myURL = "https://qoverflow.api.hscc.bdpa.org/v1/questions/search"
+    //let myURL = 'https://qoverflow.api.hscc.bdpa.org/v1/questions/search'
 
     const [sort, setSort] = useState('Recent');
 
