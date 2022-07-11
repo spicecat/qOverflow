@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function ListQuestion({ question, summaryLimit }) {
     const {
-        questionID,
+        question_id,
         title,
         text,
         upvotes,
@@ -35,7 +35,7 @@ export default function ListQuestion({ question, summaryLimit }) {
                     <Typography
                         variant='h6'
                         component={Link}
-                        to={`questions/${questionID}`}
+                        to={`questions/${question_id}`}
                         style={linkStyle}
                     >
                         [{status}] {title}
