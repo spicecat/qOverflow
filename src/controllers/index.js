@@ -1,4 +1,5 @@
 import AnswersList from './AnswersListController';
+import AnswerVoteControl from './AnswerVoteControlController';
 import AskForm from './AskFormController';
 import CommentsList from './CommentsListController';
 import ForgotPasswordForm from './ForgotPasswordFormController';
@@ -14,6 +15,7 @@ import SendMail from './SendMailController';
 
 export {
     AnswersList,
+    AnswerVoteControl,
     AskForm,
     CommentsList,
     ForgotPasswordForm,
