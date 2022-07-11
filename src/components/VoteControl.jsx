@@ -1,4 +1,4 @@
-import { IconButton, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
+import { ButtonGroup, IconButton, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
@@ -11,42 +11,32 @@ export default function VoteControl({
 }) {
 
     return (
-        // <div style={{ textAlign: 'center' }}>
-        //     <Tooltip title='upvote' placement='right'>
-        //         <IconButton onClick={upvote}>
-        //             <ArrowDropUpIcon />
-        //         </IconButton>
-        //     </Tooltip>
-        //     <Typography>
-        //         {downvotes + upvotes}
-        //     </Typography>
-        //     <Tooltip title='downvote' placement='right'>
-        //         <IconButton onClick={downvote}>
-        //             <ArrowDropDownIcon />
-        //         </IconButton>
-        //     </Tooltip>
-        // </div>
-        <ToggleButtonGroup
-            exclusive
-            orientation='vertical'
-        >
-            <ToggleButton
-                disableRipple
-                style={{ borderRadius: 100, outlineWidth: 1, outlineStyle: 'solid' }}
-                value='upvote'
-            >
-                <ArrowDropUpIcon />
-            </ToggleButton>
-            <Typography style={{ margin: 10, textAlign: 'center' }}>
+        <ButtonGroup orientation='vertical'>
+            <Tooltip title='upvote' placement='right'>
+                <IconButton
+                    disableRipple
+                    onClick={upvote}
+                >
+                    <ArrowDropUpIcon
+                        color={vote === 'upvote' ? 'warning' : 'standard'}
+                        sx={{ fontSize: 50 }}
+                    />
+                </IconButton>
+            </Tooltip>
+            <Typography style={{ margin: 0, textAlign: 'center' }}>
                 {downvotes + upvotes}
             </Typography>
-            <ToggleButton
-                disableRipple
-                style={{ borderRadius: 100, outlineWidth: 0, outlineStyle: 'solid' }}
-                value='downvote'
-            >
-                <ArrowDropDownIcon sx={{ fontSize: 50 }} color='success' />
-            </ToggleButton>
-        </ToggleButtonGroup >
+            <Tooltip title='downvote' placement='right'>
+                <IconButton
+                    disableRipple
+                    onClick={downvote}
+                >
+                    <ArrowDropDownIcon
+                        color={vote === 'downvote' ? 'warning' : 'standard'}
+                        sx={{ fontSize: 50 }}
+                    />
+                </IconButton>
+            </Tooltip>
+        </ButtonGroup >
     )
 }
