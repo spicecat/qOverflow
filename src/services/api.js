@@ -1,13 +1,13 @@
 import superagent from 'superagent';
-import Throttle from 'superagent-throttle'
-import { API, API_KEY } from '../var'
+import Throttle from 'superagent-throttle';
+import { API, API_KEY } from '../var';
 
 const throttle = new Throttle({
     active: true,
-    rate: 5,
-    ratePer: 3000,
+    rate: 3,
+    ratePer: 1500,
     concurrent: 2
-})
+});
 
 const createEndpoint = (path) => async (op, endpoint, data) =>
     superagent[op](`${API}${path}${endpoint}`)
