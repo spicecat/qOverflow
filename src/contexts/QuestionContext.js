@@ -1,40 +1,39 @@
 import { createContext, useContext, useState } from 'react';
 import { useUser } from '.';
-import { checkAnswerVote, checkQuestionVote, getAnswers, getAnswerComments, getQuestion, getQuestionComments } from '../services/questionsServices';
+import { checkAnswerCommentVote, checkAnswerVote, checkCommentVote, checkQuestionVote, getAnswers, getAnswerComments, getQuestion, getQuestionComments } from '../services/questionsServices';
 
-const QuestionContext = createContext(null);
+const QuestionContext = createContext();
 
 export default function QuestionProvider({ children }) {
     const { userData: { username } } = useUser();
-    const [questionData, setQuestionData] = useState(null);
-
-    const getAnswerVoteStatus = (question_id, answer_id) =>
-        checkAnswerVote(question_id, answer_id, username)
-            .then(({ vote }) => vote);
-
-    const getQuestionVoteStatus = () =>
-        checkQuestionVote(questionData.question_id, username)
-            .then(({ vote }) => vote);
+    const [questionData, setQuestionData] = useState({});
 
     const loadQuestion = async (question_id) => {
         const { success, question } = await getQuestion(question_id);
         if (success) {
-            const { comments: questionComments = [] } = await getQuestionComments(question_id);
-            question.comments = questionComments;
+            question.vote = checkQuestionVote(question_id, username).then(({ vote }) => vote);
+
+            const { comments = [] } = await getQuestionComments(question_id);
+            question.commentsList = comments;
+            for (const comment of comments)
+                comment.vote = checkCommentVote(question_id, comment.comment_id, username).then(({ vote }) => vote);
+
             const { answers = [] } = await getAnswers(question_id);
+            question.answersList = answers;
             for (const answer of answers) {
                 const { comments: answerComments } = await getAnswerComments(question_id, answer.answer_id);
-                answer.comments = answerComments
+                answer.commentsList = answerComments
+                answer.vote = checkAnswerVote(question_id, answer.answer_id, username).then(({ vote }) => vote);
+
+                for (const answerComment of answerComments)
+                    answerComment.vote = checkAnswerCommentVote(question_id, answer.answer_id, answerComment.comment_id, username).then(({ vote }) => vote);
             }
-            question.answers = answers;
             setQuestionData(question);
         }
     }
 
     return (
         <QuestionContext.Provider value={{
-            getAnswerVoteStatus,
-            getQuestionVoteStatus,
             loadQuestion,
             questionData
         }}>

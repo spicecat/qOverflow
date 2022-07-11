@@ -4,11 +4,11 @@ import { login, register } from '../services/userServices';
 
 const initialUserData = {};
 
-const UserContext = createContext(initialUserData);
+const UserContext = createContext();
 
 export default function UserProvider({ children }) {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState(initialUserData);
 
     const validateLogin = async (values) => {
         const { success, error, ...user } = await login(values);

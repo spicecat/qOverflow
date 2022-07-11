@@ -3,14 +3,17 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function VoteControl({
+    downvote,
     downvotes = 0,
-    upvotes = 0
+    upvote,
+    upvotes = 0,
+    vote
 }) {
 
     return (
         <div style={{ textAlign: 'center' }}>
             <Tooltip title='upvote' placement='right'>
-                <IconButton onClick={() => console.log(11)}>
+                <IconButton onClick={upvote}>
                     <ArrowDropUpIcon />
                 </IconButton>
             </Tooltip>
@@ -18,7 +21,7 @@ export default function VoteControl({
                 {downvotes + upvotes}
             </Typography>
             <Tooltip title='downvote' placement='right'>
-                <IconButton>
+                <IconButton onClick={downvote}>
                     <ArrowDropDownIcon />
                 </IconButton>
             </Tooltip>
