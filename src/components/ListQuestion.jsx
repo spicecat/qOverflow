@@ -1,7 +1,14 @@
 import { ListItem, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getUser, hashEmail, getLevel } from '../services/userServices';
+import { useState } from 'react';
+
 
 export default function ListQuestion({ question, summaryLimit }) {
+
+    const [level, setLevel] = useState()
+    const [url, setUrl] = useState('')
+    
     const {
         question_id,
         title,
@@ -13,9 +20,24 @@ export default function ListQuestion({ question, summaryLimit }) {
         status,
         creator,
     } = question;
-    const createdAt = new Date(question.createdAt).toString();
+
+    const timeElapsed = Date.now() - question.createdAt;
+
+    const days = parseInt((timeElapsed) / (1000 * 60 * 60 * 24));
+    const hours = parseInt(Math.abs(timeElapsed) / (1000 * 60 * 60) % 24);
+    const minutes = parseInt(Math.abs(timeElapsed) / (1000 * 60) % 60);
+
+    const msg = days + " days, " + hours + " hours, and " + minutes + " minutes ago"
 
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
+
+    
+    
+    getUser(creator).then(function(res){
+        res = res.user;
+        setLevel(getLevel(res.points))
+        setUrl(hashEmail(res.email))
+    });
 
     return (
         <ListItem>
@@ -44,8 +66,10 @@ export default function ListQuestion({ question, summaryLimit }) {
                         {text.split(' ').slice(0, summaryLimit).join(' ') +
                             '...'}
                     </Typography>
+                    
                     <Typography variant='body1' textAlign='right'>
-                        Asked by {creator} at {createdAt}
+                        <img src = {url} alt = "creator pfp" width = '40' height = '40'></img>
+                        Asked by {creator} | level  {level} : {msg}
                     </Typography>
                 </Grid>
             </Grid>
