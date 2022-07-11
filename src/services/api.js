@@ -10,18 +10,20 @@ const throttle = new Throttle({
 });
 
 const createEndpoint = (path) => async (op, endpoint, data) =>
-    superagent[op](`${API}${path}${endpoint}`)
-        .use(throttle.plugin())
-        .set('Authorization', `bearer ${API_KEY}`)
-        .query(data)
-        .send(data)
-        .then(({ body }) => {
-            console.log('api', op, endpoint, data, body);
-            return body;
-        })
-        .catch(({ response = {}, status }) => {
-            console.log('err', op, endpoint, data, response, status)
-            return { ...response.body, status };
-        })
+    endpoint.includes('/undefined')
+        ? { success: false, status: 400 }
+        : superagent[op](`${API}${path}${endpoint}`)
+            .use(throttle.plugin())
+            .set('Authorization', `bearer ${API_KEY}`)
+            .query(data)
+            .send(data)
+            .then(({ body }) => {
+                console.log('api', op, endpoint, data, body);
+                return body;
+            })
+            .catch(({ response = {}, status }) => {
+                console.log('err', op, endpoint, data, response, status)
+                return { ...response.body, status };
+            })
 
 export { createEndpoint };
