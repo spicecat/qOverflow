@@ -9,7 +9,7 @@ export default function AskFormController() {
     const navigate = useNavigate();
     const { userData } = useUser();
 
-    async function askQuestion(fields) {
+    const askQuestion = async (fields) => {
         const { success } = await postQuestion({
             ...fields,
             creator: userData.username,

@@ -11,7 +11,7 @@ export default function ResetFormController() {
     const { username } = useParams();
     const { setUserData } = useUser();
 
-    async function changePassword({ password }) {
+    const changePassword = async ({ password }) => {
         const body = await deriveKeyFromPassword(password);
 
         const { user, success } = await updateUser(username, body);

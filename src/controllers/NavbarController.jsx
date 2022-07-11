@@ -4,5 +4,5 @@ import { Navbar } from '../components';
 export default function NavbarController() {
     const { logout, userData } = useUser();
 
-    return <Navbar logout={logout} userData={userData} />;
+    return <Navbar {...{ logout, userData }} />;
 }

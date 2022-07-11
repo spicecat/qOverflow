@@ -1,10 +1,20 @@
 import { createContext, useContext, useState } from 'react';
-import { getAnswers, getAnswerComments, getQuestion, getQuestionComments } from '../services/questionsServices';
+import { useUser } from '.';
+import { checkAnswerVote, checkQuestionVote, getAnswers, getAnswerComments, getQuestion, getQuestionComments } from '../services/questionsServices';
 
 const QuestionContext = createContext(null);
 
 export default function QuestionProvider({ children }) {
+    const { userData: { username } } = useUser();
     const [questionData, setQuestionData] = useState(null);
+
+    const getAnswerVoteStatus = (question_id, answer_id) =>
+        checkAnswerVote(question_id, answer_id, username)
+            .then(({ vote }) => vote);
+
+    const getQuestionVoteStatus = () =>
+        checkQuestionVote(questionData.question_id, username)
+            .then(({ vote }) => vote);
 
     const loadQuestion = async (question_id) => {
         const { success, question } = await getQuestion(question_id);
@@ -22,7 +32,12 @@ export default function QuestionProvider({ children }) {
     }
 
     return (
-        <QuestionContext.Provider value={{ loadQuestion, questionData }}>
+        <QuestionContext.Provider value={{
+            getAnswerVoteStatus,
+            getQuestionVoteStatus,
+            loadQuestion,
+            questionData
+        }}>
             {children}
         </QuestionContext.Provider>
     );

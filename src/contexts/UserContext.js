@@ -10,7 +10,7 @@ export default function UserProvider({ children }) {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
 
-    async function validateLogin(values) {
+    const validateLogin = async (values) => {
         const { success, error, ...user } = await login(values);
         if (success) {
             setUserData(user);
@@ -18,7 +18,7 @@ export default function UserProvider({ children }) {
         } else return { username: 'Username or password incorrect' };
     }
 
-    async function validateRegister(values) {
+    const validateRegister = async (values) => {
         const { success, error } = await register(values);
         if (success) return validateLogin(values);
         else {
@@ -40,7 +40,12 @@ export default function UserProvider({ children }) {
 
     return (
         <UserContext.Provider
-            value={{ logout, userData, validateLogin, validateRegister }}
+            value={{
+                logout,
+                userData,
+                validateLogin,
+                validateRegister
+            }}
         >
             {children}
         </UserContext.Provider>

@@ -9,14 +9,12 @@ export default function InboxController() {
     const [mail, setMail] = useState([]);
 
     useEffect(() => {
-        async function fetchMail() {
-            const { messages } = await getMail(userData?.username);
-
-            if (messages) {
+        const fetchMail = async () => {
+            const { success, messages } = await getMail(userData?.username);
+            if (success) {
                 setMail(() => messages);
             }
         }
-
         fetchMail();
     }, []);
 

@@ -7,6 +7,7 @@ import Inbox from './InboxController';
 import LoginForm from './LoginFormController';
 import Navbar from './NavbarController';
 import Question from './QuestionController';
+import QuestionVoteControl from './QuestionVoteControlController';
 import RegisterForm from './RegisterFormController';
 import ResetForm from './ResetFormController';
 import SendMail from './SendMailController';
@@ -21,6 +22,7 @@ export {
     LoginForm,
     Navbar,
     Question,
+    QuestionVoteControl,
     RegisterForm,
     ResetForm,
     SendMail,

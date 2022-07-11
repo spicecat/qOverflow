@@ -1,23 +1,22 @@
 //This for Q and A
 import { ListItem, ListItemText, Typography } from '@mui/material';
-import { CommentsList, VoteControl } from '.';
+import { CommentsList } from '.';
+import { QuestionVoteControl } from '../controllers';
 
 export default function Question({
     answers,
     comments,
     creator,
     createdAt,
-    downvotes,
     hasAcceptedAnswer,
     status,
     title,
     text,
-    upvotes,
     views,
 }) {
     return (
         <ListItem>
-            <VoteControl {...{ downvotes, upvotes }} />
+            <QuestionVoteControl />
             <ListItemText>
                 {text}
             </ListItemText>
