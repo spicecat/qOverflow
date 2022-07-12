@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import { getUser, hashEmail, getLevel } from '../services/userServices';
 import { useState } from 'react';
 
-
 export default function ListQuestion({ question, summaryLimit }) {
+    const [level, setLevel] = useState();
+    const [url, setUrl] = useState('');
 
-    const [level, setLevel] = useState()
-    const [url, setUrl] = useState('')
-    
     const {
         question_id,
         title,
@@ -23,20 +21,19 @@ export default function ListQuestion({ question, summaryLimit }) {
 
     const timeElapsed = Date.now() - question.createdAt;
 
-    const days = parseInt((timeElapsed) / (1000 * 60 * 60 * 24));
-    const hours = parseInt(Math.abs(timeElapsed) / (1000 * 60 * 60) % 24);
-    const minutes = parseInt(Math.abs(timeElapsed) / (1000 * 60) % 60);
+    const days = parseInt(timeElapsed / (1000 * 60 * 60 * 24));
+    const hours = parseInt((Math.abs(timeElapsed) / (1000 * 60 * 60)) % 24);
+    const minutes = parseInt((Math.abs(timeElapsed) / (1000 * 60)) % 60);
 
-    const msg = days + " days, " + hours + " hours, and " + minutes + " minutes ago"
+    const msg =
+        days + ' days, ' + hours + ' hours, and ' + minutes + ' minutes ago';
 
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
 
-    
-    
-    getUser(creator).then(function(res){
+    getUser(creator).then((res) => {
         res = res.user;
-        setLevel(getLevel(res.points))
-        setUrl(hashEmail(res.email))
+        setLevel(getLevel(res.points));
+        setUrl(hashEmail(res.email));
     });
 
     return (
@@ -66,10 +63,15 @@ export default function ListQuestion({ question, summaryLimit }) {
                         {text.split(' ').slice(0, summaryLimit).join(' ') +
                             '...'}
                     </Typography>
-                    
+
                     <Typography variant='body1' textAlign='right'>
-                        <img src = {url} alt = "creator pfp" width = '40' height = '40'></img>
-                        Asked by {creator} | level  {level} : {msg}
+                        <img
+                            src={url}
+                            alt='creator pfp'
+                            width='40'
+                            height='40'
+                        ></img>
+                        Asked by {creator} | level {level} : {msg}
                     </Typography>
                 </Grid>
             </Grid>
