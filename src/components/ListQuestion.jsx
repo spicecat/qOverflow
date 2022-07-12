@@ -1,43 +1,22 @@
 import { ListItem, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getUser, hashEmail, getLevel } from '../services/userServices';
-import { useState } from 'react';
+import { CreationInfoTag } from '../controllers';
 
-
-export default function ListQuestion({ question, summaryLimit }) {
-
-    const [level, setLevel] = useState()
-    const [url, setUrl] = useState('')
-    
-    const {
-        question_id,
-        title,
-        text,
-        upvotes,
-        downvotes,
+export default function ListQuestion({
+    question: {
         answers,
-        views,
-        status,
+        createdAt,
         creator,
-    } = question;
-
-    const timeElapsed = Date.now() - question.createdAt;
-
-    const days = parseInt((timeElapsed) / (1000 * 60 * 60 * 24));
-    const hours = parseInt(Math.abs(timeElapsed) / (1000 * 60 * 60) % 24);
-    const minutes = parseInt(Math.abs(timeElapsed) / (1000 * 60) % 60);
-
-    const msg = days + " days, " + hours + " hours, and " + minutes + " minutes ago"
-
-    const linkStyle = { textDecoration: 'none', color: 'inherit' };
-
-    
-    
-    getUser(creator).then(function(res){
-        res = res.user;
-        setLevel(getLevel(res.points))
-        setUrl(hashEmail(res.email))
-    });
+        downvotes,
+        question_id,
+        status,
+        text,
+        title,
+        upvotes,
+        views,
+    },
+    summaryLimit
+}) {
 
     return (
         <ListItem>
@@ -58,7 +37,7 @@ export default function ListQuestion({ question, summaryLimit }) {
                         variant='h6'
                         component={Link}
                         to={`questions/${question_id}`}
-                        style={linkStyle}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         [{status}] {title}
                     </Typography>
@@ -67,10 +46,7 @@ export default function ListQuestion({ question, summaryLimit }) {
                             '...'}
                     </Typography>
                     
-                    <Typography variant='body1' textAlign='right'>
-                        <img src = {url} alt = "creator pfp" width = '40' height = '40'></img>
-                        Asked by {creator} | level  {level} : {msg}
-                    </Typography>
+                    <CreationInfoTag {...{ createdAt, creator }} />
                 </Grid>
             </Grid>
         </ListItem>

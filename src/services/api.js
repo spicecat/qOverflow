@@ -4,8 +4,8 @@ import { API, API_KEY } from '../var';
 
 const throttle = new Throttle({
     active: true,
-    rate: 3,
-    ratePer: 1500,
+    rate: 2,
+    ratePer: 1000,
     concurrent: 2
 });
 

@@ -1,30 +1,30 @@
 import AnswersList from './AnswersListController';
-import AnswerVoteControl from './AnswerVoteControlController';
 import AskForm from './AskFormController';
 import CommentsList from './CommentsListController';
+import CreationInfoTag from './CreationInfoTagController';
 import ForgotPasswordForm from './ForgotPasswordFormController';
 import Form from './FormController';
 import Inbox from './InboxController';
 import LoginForm from './LoginFormController';
 import Navbar from './NavbarController';
 import Question from './QuestionController';
-import QuestionVoteControl from './QuestionVoteControlController';
+import VoteControl from './VoteControlController';
 import RegisterForm from './RegisterFormController';
 import ResetForm from './ResetFormController';
 import SendMail from './SendMailController';
 
 export {
     AnswersList,
-    AnswerVoteControl,
     AskForm,
     CommentsList,
+    CreationInfoTag,
     ForgotPasswordForm,
     Form,
     Inbox,
     LoginForm,
     Navbar,
     Question,
-    QuestionVoteControl,
+    VoteControl,
     RegisterForm,
     ResetForm,
     SendMail,

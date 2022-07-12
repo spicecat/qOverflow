@@ -19,13 +19,13 @@ export default function Buffet() {
 
     function loadQuestions() {
         if (sort) {
-            console.log({sort})
+            console.log({ sort })
             searchQuestions({ sort }).then((res) => {
-                setQuestionSet(() => res.questions);
+                setQuestionSet(res.questions ?? []);
             });
         } else {
             searchQuestions().then((res) => {
-                setQuestionSet(() => res.questions);
+                setQuestionSet(res.questions ?? []);
             });
         }
     }

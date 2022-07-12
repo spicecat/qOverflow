@@ -1,9 +1,10 @@
 import Answer from './Answer';
 import AnswersList from './AnswersList';
-import ListQuestion from './ListQuestion';
 import Comment from './Comment';
 import CommentsList from './CommentsList';
+import CreationInfoTag from './CreationInfoTag';
 import Form from './Form';
+import ListQuestion from './ListQuestion';
 import MailUnit from './MailUnit';
 import Navbar from './Navbar';
 import PaginatedList from './PaginatedList';
@@ -14,10 +15,11 @@ import VoteControl from './VoteControl';
 export {
     Answer,
     AnswersList,
-    ListQuestion,
+    CreationInfoTag,
     Comment,
     CommentsList,
     Form,
+    ListQuestion,
     MailUnit,
     Navbar,
     PaginatedList,

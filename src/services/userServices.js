@@ -1,39 +1,23 @@
 import { createEndpoint } from './api';
 import { deriveKeyFromPassword } from './auth';
-import { MD5 } from 'crypto-js';
 
 const callUsersAPI = createEndpoint('/users');
 
-const hashEmail = (email) => {
-
-    email = email.trim()
-    email = email.toLowerCase()
-
-    let url = "https://www.gravatar.com/avatar/"
-    let end = "?d=identicon"
-    email = MD5(email)
-    url += email + end;
-    
-    return url;
-
-
-}
 const getLevel = (points) => {
-    if(points<15){
+    if (points < 15)
         return 1;
-    }else if(points<50){
+    else if (points < 50)
         return 2;
-    }else if(points<125){
+    else if (points < 125)
         return 3;
-    }else if(points<1000){
+    else if (points < 1000)
         return 4;
-    }else if(points<3000){
+    else if (points < 3000)
         return 5;
-    }else if(points<10000){
+    else if (points < 10000)
         return 6;
-    }else{
+    else
         return 7;
-    }
 }
 
 const register = async ({ username, email, password }) => {
@@ -62,12 +46,22 @@ const getUser = (username) =>
     callUsersAPI(
         'get',
         `/${username}`
-    );
+    ).then(res => {
+        if (res.user) res.user.level = getLevel(res.user.points);
+        return res;
+    });
 
 const getUsers = () =>
     callUsersAPI(
         'get',
         ``
+    ).then(res => {
+        if (res.users)
+            for (const user of res.users)
+                user.level = getLevel(user.points);
+        return res;
+    }
+
     );
 
 const getUserQuestions = (username, data) => // { after }
@@ -107,6 +101,4 @@ export {
     register,
     updateUserPoints,
     updateUser,
-    hashEmail,
-    getLevel,
 };
