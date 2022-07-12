@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, Button } from '@mui/material';
+import {
+    Typography,
+    Button,
+    Box,
+    ToggleButton,
+    ToggleButtonGroup,
+    Pagination,
+} from '@mui/material';
 
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-import { ListQuestion } from '../components';
+import { ListQuestion, PaginationEngine } from '../components';
 
 import { searchQuestions } from '../services/questionsServices';
 
 export default function Buffet() {
     const [sort, setSort] = useState('');
     const [questionSet, setQuestionSet] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const count = 3;
 
     useEffect(() => {
         loadQuestions();
@@ -19,12 +25,7 @@ export default function Buffet() {
 
     function loadQuestions() {
         if (sort) {
-            console.log({ sort })
             searchQuestions({ sort }).then((res) => {
-                setQuestionSet(res.questions ?? []);
-            });
-        } else {
-            searchQuestions().then((res) => {
                 setQuestionSet(res.questions ?? []);
             });
         }
@@ -35,9 +36,23 @@ export default function Buffet() {
         loadQuestions();
     };
 
+    function handlePagChange(_, value) {
+        setCurrentPage(() => value);
+    }
+
+    function getComponents() {
+        return questionSet.map((question) => (
+            <ListQuestion
+                question={question}
+                summaryLimit={50}
+                key={question.question_id}
+            />
+        ));
+    }
+
     return (
-        <div>
-            <div
+        <Box>
+            <Box
                 style={{
                     width: '100%',
                     height: '60%',
@@ -68,14 +83,20 @@ export default function Buffet() {
                     <ToggleButton value='uvc'>Interesting</ToggleButton>
                     <ToggleButton value='uvac'>Hot</ToggleButton>
                 </ToggleButtonGroup>
-            </div>
-            {questionSet.map((question) => (
-                <ListQuestion
-                    question={question}
-                    summaryLimit={50}
-                    key={question.question_id}
-                ></ListQuestion>
-            ))}
-        </div>
+            </Box>
+            <PaginationEngine
+                components={getComponents()}
+                page={currentPage}
+                count={count}
+            />
+            <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
+                <Pagination
+                    count={Math.ceil(questionSet.length / count)}
+                    onChange={handlePagChange}
+                    page={currentPage}
+                    style={{}}
+                />
+            </Box>
+        </Box>
     );
 }

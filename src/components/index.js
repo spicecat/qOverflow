@@ -7,7 +7,7 @@ import Form from './Form';
 import ListQuestion from './ListQuestion';
 import MailUnit from './MailUnit';
 import Navbar from './Navbar';
-import PaginatedList from './PaginatedList';
+import PaginationEngine from './PaginationEngine';
 import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
@@ -22,7 +22,7 @@ export {
     ListQuestion,
     MailUnit,
     Navbar,
-    PaginatedList,
+    PaginationEngine,
     Question,
     SearchBar,
     VoteControl,

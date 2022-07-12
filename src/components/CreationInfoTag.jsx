@@ -12,12 +12,12 @@ export default function CreationInfoTag({
 }) {
     return (
         <Typography textAlign='right'>
-            <Gravatar size={20} email={email} />
+            <Gravatar email={email} size={20} style={{ borderRadius: '15%' }} />
             <Typography display='inline' margin={1}>
                 {username}
             </Typography>
             <Typography display='inline'>
-                Level {level}
+                <b>Level {level}</b>
             </Typography>
             <Typography display='inline' margin={1} variant='body2'>
                 <ReactTimeAgo date={createdAt} locale='en-US' />
