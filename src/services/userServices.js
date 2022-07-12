@@ -1,22 +1,8 @@
-import { MD5 } from 'crypto-js';
-
 import { createEndpoint } from './api';
 import { deriveKeyFromPassword } from './auth';
 import levels from '../assets/levels.json';
 
 const callUsersAPI = createEndpoint('/users');
-
-const hashEmail = (email) => {
-    email = email.trim();
-    email = email.toLowerCase();
-
-    let url = 'https://www.gravatar.com/avatar/';
-    let end = '?d=identicon';
-    email = MD5(email);
-    url += email + end;
-
-    return url;
-};
 
 const getLevel = (points) => {
     if (points < levels['Level 2']) {
@@ -85,6 +71,5 @@ export {
     register,
     updateUserPoints,
     updateUser,
-    hashEmail,
     getLevel,
 };

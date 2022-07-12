@@ -1,11 +1,12 @@
 import { ListItem, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getUser, hashEmail, getLevel } from '../services/userServices';
+import { getUser, getLevel } from '../services/userServices';
 import { useState } from 'react';
+import Gravatar from 'react-gravatar';
 
 export default function ListQuestion({ question, summaryLimit }) {
     const [level, setLevel] = useState();
-    const [url, setUrl] = useState('');
+    const [email, setEmail] = useState('');
 
     const {
         question_id,
@@ -30,10 +31,9 @@ export default function ListQuestion({ question, summaryLimit }) {
 
     const linkStyle = { textDecoration: 'none', color: 'inherit' };
 
-    getUser(creator).then((res) => {
-        res = res.user;
-        setLevel(getLevel(res.points));
-        setUrl(hashEmail(res.email));
+    getUser(creator).then(({ user }) => {
+        setLevel(getLevel(user.points));
+        setEmail(user.email);
     });
 
     return (
@@ -65,13 +65,13 @@ export default function ListQuestion({ question, summaryLimit }) {
                     </Typography>
 
                     <Typography variant='body1' textAlign='right'>
-                        <img
-                            src={url}
-                            alt='creator pfp'
-                            width='40'
-                            height='40'
-                        ></img>
-                        Asked by {creator} | level {level} : {msg}
+                        Asked by{' '}
+                        <Gravatar
+                            size={15}
+                            email={email}
+                            style={{ borderRadius: '15%' }}
+                        />
+                        {creator} <b>{level}</b> : {msg}
                     </Typography>
                 </Grid>
             </Grid>
