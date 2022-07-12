@@ -6,7 +6,7 @@ import CommentsList from './CommentsList';
 import Form from './Form';
 import MailUnit from './MailUnit';
 import Navbar from './Navbar';
-import PaginatedList from './PaginatedList';
+import PaginationEngine from './PaginationEngine';
 import Question from './Question';
 import SearchBar from './SearchBar';
 import VoteControl from './VoteControl';
@@ -20,7 +20,7 @@ export {
     Form,
     MailUnit,
     Navbar,
-    PaginatedList,
+    PaginationEngine,
     Question,
     SearchBar,
     VoteControl,
