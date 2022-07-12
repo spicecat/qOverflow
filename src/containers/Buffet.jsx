@@ -56,8 +56,8 @@ export default function Buffet() {
     }
 
     return (
-        <div>
-            <div
+        <Box>
+            <Box
                 style={{
                     width: '100%',
                     height: '60%',
@@ -88,7 +88,7 @@ export default function Buffet() {
                     <ToggleButton value='uvc'>Interesting</ToggleButton>
                     <ToggleButton value='uvac'>Hot</ToggleButton>
                 </ToggleButtonGroup>
-            </div>
+            </Box>
             <PaginationEngine
                 components={getComponents()}
                 page={currentPage}
@@ -102,6 +102,6 @@ export default function Buffet() {
                     style={{}}
                 />
             </Box>
-        </div>
+        </Box>
     );
 }
