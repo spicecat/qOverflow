@@ -12,7 +12,7 @@ export default function AskFormController() {
     const { userData } = useUser();
     useEffect(() => {
         if(checkAuth()){
-            navigate('/login', {state: {name : "ask", msg : "you need to be authenticated to access this feature" , prevPath: '/ask'}})
+            navigate('/login', {state: {name : 'ask', msg : 'you need to be authenticated to access this feature' , prevPath: '/ask'}})
         }
     }, []);
 

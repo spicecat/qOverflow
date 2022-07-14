@@ -6,9 +6,8 @@ export default function QA() {
 
     return (
         <List>
-            Question
             <Question />
-            {/* <AnswersList /> */}
+            <AnswersList />
         </List>
-    )
+    );
 }

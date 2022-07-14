@@ -3,9 +3,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function VoteControl({
-    downvote,
     downvotes = 0,
-    upvote,
+    handleDownvote,
+    handleUpvote,
     upvotes = 0,
     vote
 }) {
@@ -15,7 +15,7 @@ export default function VoteControl({
             <Tooltip title='upvote' placement='right'>
                 <IconButton
                     disableRipple
-                    onClick={upvote}
+                    onClick={handleUpvote}
                 >
                     <ArrowDropUpIcon
                         color={vote === 'upvote' ? 'warning' : 'standard'}
@@ -23,13 +23,13 @@ export default function VoteControl({
                     />
                 </IconButton>
             </Tooltip>
-            <Typography style={{ margin: 0, textAlign: 'center' }}>
+            <Typography style={{ margin: -10, textAlign: 'center' }}>
                 {downvotes + upvotes}
             </Typography>
             <Tooltip title='downvote' placement='right'>
                 <IconButton
                     disableRipple
-                    onClick={downvote}
+                    onClick={handleDownvote}
                 >
                     <ArrowDropDownIcon
                         color={vote === 'downvote' ? 'warning' : 'standard'}

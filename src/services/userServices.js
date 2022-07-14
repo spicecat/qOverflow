@@ -1,6 +1,6 @@
 import { createEndpoint } from './api';
 import { deriveKeyFromPassword } from './auth';
-import levels from '../assets/levels.json';
+import levels from './levels.json';
 
 const callUsersAPI = createEndpoint('/users');
 
@@ -38,9 +38,27 @@ const login = async ({ username, password }) => {
     return { ...user, success };
 };
 
-const getUser = (username) => callUsersAPI('get', `/${username}`);
+const getUser = (username) =>
+    callUsersAPI(
+        'get',
+        `/${username}`
+    ).then(res => {
+        if (res.user) res.user.level = getLevel(res.user.points);
+        return res;
+    });
 
-const getUsers = () => callUsersAPI('get', ``);
+const getUsers = () =>
+    callUsersAPI(
+        'get',
+        ``
+    ).then(res => {
+        if (res.users)
+            for (const user of res.users)
+                user.level = getLevel(user.points);
+        return res;
+    }
+
+    );
 
 const getUserQuestions = (
     username,
@@ -71,5 +89,4 @@ export {
     register,
     updateUserPoints,
     updateUser,
-    getLevel,
 };
