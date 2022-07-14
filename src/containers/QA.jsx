@@ -8,7 +8,7 @@ export default function QA() {
         <List>
             Question
             <Question />
-            {/* <AnswersList /> */}
+            <AnswersList />
         </List>
     )
 }

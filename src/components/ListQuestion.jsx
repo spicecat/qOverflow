@@ -14,8 +14,7 @@ export default function ListQuestion({
         title,
         upvotes,
         views,
-    },
-    summaryLimit
+    }
 }) {
 
     return (
@@ -41,9 +40,8 @@ export default function ListQuestion({
                     >
                         [{status}] {title}
                     </Typography>
-                    <Typography variant='body1'>
-                        {text.split(' ').slice(0, summaryLimit).join(' ') +
-                            '...'}
+                    <Typography noWrap variant='body1'>
+                            {text}
                     </Typography>
                     
                     <CreationInfoTag {...{ createdAt, creator }} />

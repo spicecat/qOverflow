@@ -14,7 +14,7 @@ export default function QuestionController() {
 
     useEffect(() => {
         loadQuestion(question_id);
-    }, []);
+    }, [question_id]);
 
     return <Question {...questionData} />;
 }

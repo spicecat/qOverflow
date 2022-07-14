@@ -36,7 +36,7 @@ export default function Buffet() {
         loadQuestions();
     };
 
-    function handlePagChange(_, value) {
+    function handlePageChange(_, value) {
         setCurrentPage(() => value);
     }
 
@@ -44,7 +44,6 @@ export default function Buffet() {
         return questionSet.map((question) => (
             <ListQuestion
                 question={question}
-                summaryLimit={50}
                 key={question.question_id}
             />
         ));
@@ -92,7 +91,7 @@ export default function Buffet() {
             <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
                 <Pagination
                     count={Math.ceil(questionSet.length / count)}
-                    onChange={handlePagChange}
+                    onChange={handlePageChange}
                     page={currentPage}
                     style={{}}
                 />

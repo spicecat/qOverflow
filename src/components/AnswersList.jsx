@@ -1,16 +1,9 @@
 //This for Q and A
-import { List } from '@mui/material';
-import { Answer } from '.'
+import { Answer, PaginatedList } from '.'
 
-export default function AnswersList({
-    answers
-}) {
+export default function AnswersList({ answers, count }) {
 
     return (
-        <List>
-            {answers.map(answer => (
-                <Answer {...answer} />
-            ))}
-        </List>
+        <PaginatedList count={count} Component={Answer} data={answers} />
     )
 }
