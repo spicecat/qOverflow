@@ -14,31 +14,57 @@ import { ListQuestion, PaginationEngine } from '../components';
 import { searchQuestions } from '../services/questionsServices';
 
 export default function Buffet() {
-    const [sort, setSort] = useState('');
+
+    const recent = {qmatch : "?", sortType : ""}
+    const best = {qmatch: "?", sortType: "&sort=u"}
+    const interesting =  {qmatch: "?match=" + encodeURIComponent(JSON.stringify({'answers' : 0})), sortType: '&sort=uvc'}
+    const hot =  {qmatch: "?match=" + encodeURIComponent(JSON.stringify({'hasAcceptedAnswer' : false})), sortType: '&sort=uvac'}
+
+    const sortObjArr = [recent, best, interesting, hot]
+
+    const [sort, setSort] = useState(0);
+
     const [questionSet, setQuestionSet] = useState([]);
+
+    
+    
+    
+    
+    
+
     const [currentPage, setCurrentPage] = useState(1);
     const count = 3;
 
     useEffect(() => {
-        loadQuestions();
+        loadQuestions(0);
+        
     }, []);
 
-    function loadQuestions() {
-        if (sort) {
-            console.log({ sort });
-            searchQuestions({ sort }).then((res) => {
+    function loadQuestions(newSort) {
+        
+        
+        if (newSort >= 0) {
+            
+            
+            searchQuestions(sortObjArr[newSort].qmatch, sortObjArr[newSort].sortType).then((res) => {
                 setQuestionSet(() => res.questions);
+                //hasAcceptedAnswer
             });
         } else {
-            searchQuestions().then((res) => {
+            searchQuestions("", "").then((res) => {
                 setQuestionSet(() => res.questions);
             });
         }
     }
 
-    const handleSortChange = (e) => {
-        setSort(() => e.target.value);
-        loadQuestions();
+    const handleSortChange = (e, newSort) => {
+        
+        if(newSort !== sort){
+
+            setSort(newSort);
+            
+            loadQuestions(newSort);
+        }
     };
 
     function handlePagChange(_, value) {
@@ -78,15 +104,16 @@ export default function Buffet() {
 
                 <ToggleButtonGroup
                     color='primary'
-                    value={sort}
+                    value = {sort}
                     exclusive
-                    onChange={handleSortChange}
+                    onChange = {handleSortChange}
                     style={{ display: 'block', marginTop: '1%' }}
                 >
-                    <ToggleButton value=''>Recent</ToggleButton>
-                    <ToggleButton value='u'>Best</ToggleButton>
-                    <ToggleButton value='uvc'>Interesting</ToggleButton>
-                    <ToggleButton value='uvac'>Hot</ToggleButton>
+                    <ToggleButton value = {0} >Recent</ToggleButton>
+                    <ToggleButton value= {1}>Best</ToggleButton>
+                    <ToggleButton value = {2} >Interesting</ToggleButton>
+                    <ToggleButton value= {3}>Hot</ToggleButton>
+
                 </ToggleButtonGroup>
             </Box>
             <PaginationEngine

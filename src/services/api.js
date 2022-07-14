@@ -15,6 +15,7 @@ const createEndpoint = (path) => async (op, endpoint, data) =>
         : superagent[op](`${API}${path}${endpoint}`)
             .use(throttle.plugin())
             .set('Authorization', `bearer ${API_KEY}`)
+            .set('Content-Type', 'application/json' )
             .query(data)
             .send(data)
             .then(({ body }) => {

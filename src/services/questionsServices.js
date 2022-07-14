@@ -2,11 +2,12 @@ import { createEndpoint } from './api';
 
 const callQuestionsAPI = createEndpoint('/questions');
 
-const searchQuestions = (data) => // { after, match, regexMatch, sort }
+const searchQuestions = (qmatch, sortType) => // { after, match, regexMatch, sort }
+    
     callQuestionsAPI(
         'get',
-        `/search`,
-        data
+        `/search${qmatch}`,
+        sortType
     );
 
 const postQuestion = (data) => // { creator, status, title, text }
