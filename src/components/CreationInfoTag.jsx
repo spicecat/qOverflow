@@ -13,13 +13,13 @@ export default function CreationInfoTag({
     return (
         <div style={{ textAlign: 'right' }}>
             <Gravatar email={email} size={20} style={{ borderRadius: '15%' }} />
-            <Typography display='inline' margin={1}>
+            <Typography display='inline' m={1}>
                 {username}
             </Typography>
             <Typography display='inline'>
                 <b>Level {level}</b>
             </Typography>
-            <Typography display='inline' margin={1} variant='body2'>
+            <Typography display='inline' m={1} variant='body2'>
                 <ReactTimeAgo date={createdAt} locale='en-US' />
             </Typography>
         </div>

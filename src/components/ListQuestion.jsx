@@ -25,9 +25,7 @@ export default function ListQuestion({
                         <Typography variant='body1'>
                             {upvotes - downvotes} votes
                         </Typography>
-                        <Typography variant='body1'>
-                            {answers} answers
-                        </Typography>
+                        <Typography variant='body1'>{answers} answers</Typography>
                         <Typography variant='body1'>{views} views</Typography>
                     </Stack>
                 </Grid>
@@ -40,10 +38,8 @@ export default function ListQuestion({
                     >
                         [{status}] {title}
                     </Typography>
-                    <Typography noWrap variant='body1'>
-                            {text}
-                    </Typography>
-                    
+                    <Typography noWrap variant='body1'>{text}</Typography>
+
                     <CreationInfoTag {...{ createdAt, creator }} />
                 </Grid>
             </Grid>
