@@ -38,6 +38,7 @@ export function AnswerCommentsList({ answer_id, comments: count, question_id }) 
 
 export function AnswersList({ answers: count, question_id }) {
     const getData = () => getAnswers(question_id).then(({ answers }) => answers.map(answer => ({ ...answer, question_id })));
+    
 
     return <PaginatedListController {...{ count, Component: Answer, getData }} />;
 }

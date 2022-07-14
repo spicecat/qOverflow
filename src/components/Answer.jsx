@@ -1,6 +1,8 @@
-import { ListItem, ListItemText } from '@mui/material';
+import { ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
 import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../controllers';
+import { } from '../services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -16,7 +18,16 @@ export default function Answer({
     return (
         <span key={answer_id}>
             <ListItem disablePadding>
-                <VoteControl {...{ downvotes, upvotes }} />
+                <ButtonGroup orientation='vertical'>
+                    <VoteControl {...{ downvotes, upvotes }} />
+                    {accepted && (
+                        <div style={{ textAlign: 'center' }}>
+                            <Tooltip title='Accepted Answer' placement='right'>
+                                <CheckIcon color='success' />
+                            </Tooltip>
+                        </div>
+                    )}
+                </ButtonGroup>
                 <ListItemText>
                     <ReactMarkdown>
                         {text}
