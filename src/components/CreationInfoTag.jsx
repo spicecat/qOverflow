@@ -8,7 +8,8 @@ export default function CreationInfoTag({
         email,
         level,
         username
-    } = {}
+    } = {},
+    text = 'asked'
 }) {
     return (
         <div style={{ textAlign: 'right' }}>
@@ -20,7 +21,7 @@ export default function CreationInfoTag({
                 <b>Level {level}</b>
             </Typography>
             <Typography display='inline' m={1} variant='body2'>
-                <ReactTimeAgo date={createdAt} locale='en-US' />
+                {text} <ReactTimeAgo date={createdAt} locale='en-US' />
             </Typography>
         </div>
     );

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { CreationInfoTag } from '../components';
 import { getUser } from '../services/userServices';
 
-export default function CreationInfoTagController({ createdAt, creator }) {
+export default function CreationInfoTagController({ creator, ...props }) {
     const [creatorInfo, setCreatorInfo] = useState()
 
     useEffect(() => {
@@ -13,5 +13,5 @@ export default function CreationInfoTagController({ createdAt, creator }) {
         loadCreator();
     }, [creator]);
 
-    return creatorInfo && <CreationInfoTag {...{ createdAt, creatorInfo }} />;
+    return creatorInfo && <CreationInfoTag {...{ creatorInfo, ...props }} />;
 }

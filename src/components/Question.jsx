@@ -33,20 +33,18 @@ export default function Question({
                 <Typography display='inline' m={1}>Views: {views}</Typography>
                 <Typography display='inline' m={1}>Answers: {answers} </Typography>
                 <Typography display='inline' m={1}>Comments: {comments} </Typography>
-                <Typography display='inline' m={1}>
-                    Status: <Chip
-                        color={statusColor(status)}
-                        label={status}
-                        size='small'
-                    />
-                </Typography>
-                <Typography display='inline' m={1}>
-                    Accepted Answer: <Chip
-                        color={hasAcceptedAnswer ? 'success' : 'error'}
-                        label={hasAcceptedAnswer ? 'yes' : 'no'}
-                        size='small'
-                    />
-                </Typography>
+                <Typography display='inline' m={1}> Status:</Typography>
+                <Chip
+                    color={statusColor(status)}
+                    label={status}
+                    size='small'
+                />
+                <Typography display='inline' m={1}>Accepted Answer:</Typography>
+                <Chip
+                    color={hasAcceptedAnswer ? 'success' : 'error'}
+                    label={hasAcceptedAnswer ? 'yes' : 'no'}
+                    size='small'
+                />
             </Box>
             <Divider />
             <ListItem>

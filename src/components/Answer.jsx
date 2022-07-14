@@ -20,7 +20,7 @@ export default function Answer({
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CreationInfoTag {...{ createdAt, creator }} />
+                    <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                 </ListItemText>
             </ListItem>
             <Divider />
