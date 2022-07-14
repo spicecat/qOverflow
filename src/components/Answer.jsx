@@ -1,4 +1,4 @@
-import { Divider, ListItem, ListItemText } from '@mui/material';
+import { ListItem, ListItemText } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../controllers';
 
@@ -9,6 +9,7 @@ export default function Answer({
     creator,
     createdAt,
     downvotes,
+    question_id,
     text,
     upvotes
 }) {
@@ -24,7 +25,7 @@ export default function Answer({
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-                <AnswerCommentsList {...{ answer_id, comments }} />
+                <AnswerCommentsList {...{ answer_id, comments, question_id }} />
             </ListItem>
         </span>
     )

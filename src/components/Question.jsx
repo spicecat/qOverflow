@@ -1,6 +1,6 @@
-import { Box, Chip, List, Divider, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CommentsList, CreationInfoTag, VoteControl } from '../controllers';
+import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from '../controllers';
 
 const statusColor = (status) => {
     switch (status) {
@@ -18,6 +18,7 @@ export default function Question({
     createdAt,
     downvotes,
     hasAcceptedAnswer,
+    question_id,
     status,
     title,
     text,
@@ -26,7 +27,7 @@ export default function Question({
     vote
 }) {
     return (
-        <List>
+        <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
                 <Typography display='inline' m={1}>Views: {views}</Typography>
@@ -56,8 +57,9 @@ export default function Question({
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-                <CommentsList />
+                <CommentsList {...{comments, question_id}}/>
             </ListItem>
-        </List>
+            <AnswersList {...{answers, question_id}}/>
+        </>
     );
 }

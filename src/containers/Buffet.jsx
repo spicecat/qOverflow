@@ -47,7 +47,7 @@ export default function Buffet() {
                 setQuestionSet(res.questions ?? []);
                 //hasAcceptedAnswer
             });
-        };
+        }
 
 
     }

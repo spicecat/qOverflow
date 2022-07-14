@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useQuestion } from '../contexts';
 import { Answer, Comment, PaginatedList } from '../components';
 import { getAnswerComments, getAnswers, getQuestionComments } from '../services/questionsServices';
 
@@ -31,25 +30,19 @@ function PaginatedListController({ count = 0, Component, getData }) {
     );
 }
 
-export function AnswerCommentsList({ answer_id, comments: count }) {
-    const { questionData: { question_id } } = useQuestion();
-
+export function AnswerCommentsList({ answer_id, comments: count, question_id }) {
     const getData = () => getAnswerComments(question_id, answer_id).then(({ comments }) => comments);
 
     return <PaginatedListController {...{ count, Component: Comment, getData }} />;
 }
 
-export function AnswersList() {
-    const { questionData: { question_id, answers: count } } = useQuestion();
-
-    const getData = () => getAnswers(question_id).then(({ answers }) => answers);
+export function AnswersList({ answers: count, question_id }) {
+    const getData = () => getAnswers(question_id).then(({ answers }) => answers.map(answer => ({ ...answer, question_id })));
 
     return <PaginatedListController {...{ count, Component: Answer, getData }} />;
 }
 
-export function CommentsList() {
-    const { questionData: { question_id, comments: count } } = useQuestion();
-
+export function CommentsList({ comments: count, question_id }) {
     const getData = () => getQuestionComments(question_id).then(({ comments }) => comments);
 
     return <PaginatedListController {...{ count, Component: Comment, getData }} />;
