@@ -24,7 +24,7 @@ export default function Answer({
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-            <AnswerCommentsList {...{ answer_id, comments }} />
+                <AnswerCommentsList {...{ answer_id, comments }} />
             </ListItem>
         </span>
     )

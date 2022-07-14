@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    Typography,
     Button,
     Box,
+    List,
+    Pagination,
     ToggleButton,
     ToggleButtonGroup,
-    Pagination,
+    Typography,
 } from '@mui/material';
 
 import { ListQuestion, PaginationEngine } from '../components';
@@ -15,10 +16,10 @@ import { searchQuestions } from '../services/questionsServices';
 
 export default function Buffet() {
 
-    const recent = {qmatch : "?", sortType : ""}
-    const best = {qmatch: "?", sortType: "&sort=u"}
-    const interesting =  {qmatch: "?match=" + encodeURIComponent(JSON.stringify({'answers' : 0})), sortType: '&sort=uvc'}
-    const hot =  {qmatch: "?match=" + encodeURIComponent(JSON.stringify({'hasAcceptedAnswer' : false})), sortType: '&sort=uvac'}
+    const recent = { qmatch: "?", sortType: "" }
+    const best = { qmatch: "?", sortType: "&sort=u" }
+    const interesting = { qmatch: "?match=" + encodeURIComponent(JSON.stringify({ 'answers': 0 })), sortType: '&sort=uvc' }
+    const hot = { qmatch: "?match=" + encodeURIComponent(JSON.stringify({ 'hasAcceptedAnswer': false })), sortType: '&sort=uvac' }
 
     const sortObjArr = [recent, best, interesting, hot]
 
@@ -26,37 +27,37 @@ export default function Buffet() {
 
     const [questionSet, setQuestionSet] = useState([]);
 
-    
+
 
     const [currentPage, setCurrentPage] = useState(1);
     const count = 3;
 
     useEffect(() => {
         loadQuestions(0);
-        
+
     }, []);
 
     function loadQuestions(newSort) {
-        
-        
+
+
         if (newSort >= 0) {
-            
-            
+
+
             searchQuestions(sortObjArr[newSort].qmatch, sortObjArr[newSort].sortType).then((res) => {
                 setQuestionSet(res.questions ?? []);
                 //hasAcceptedAnswer
             });
         };
-        
-        
+
+
     }
 
-    const handleSortChange = (e, newSort) => {
-        
-        if(newSort !== sort){
+    const handleSortChange = (_, newSort) => {
+
+        if (newSort !== sort) {
 
             setSort(newSort);
-            
+
             loadQuestions(newSort);
         }
     };
@@ -97,23 +98,25 @@ export default function Buffet() {
 
                 <ToggleButtonGroup
                     color='primary'
-                    value = {sort}
+                    value={sort}
                     exclusive
-                    onChange = {handleSortChange}
+                    onChange={handleSortChange}
                     style={{ display: 'block', marginTop: '1%' }}
                 >
-                    <ToggleButton value = {0} >Recent</ToggleButton>
-                    <ToggleButton value= {1}>Best</ToggleButton>
-                    <ToggleButton value = {2} >Interesting</ToggleButton>
-                    <ToggleButton value= {3}>Hot</ToggleButton>
+                    <ToggleButton value={0} >Recent</ToggleButton>
+                    <ToggleButton value={1}>Best</ToggleButton>
+                    <ToggleButton value={2} >Interesting</ToggleButton>
+                    <ToggleButton value={3}>Hot</ToggleButton>
 
                 </ToggleButtonGroup>
             </Box>
-            <PaginationEngine
-                components={getComponents()}
-                page={currentPage}
-                count={count}
-            />
+            <List sx={{ pl: 2, pr: 2 }}>
+                <PaginationEngine
+                    components={getComponents()}
+                    page={currentPage}
+                    count={count}
+                />
+            </List>
             <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
                 <Pagination
                     count={Math.ceil(questionSet.length / count)}

@@ -1,4 +1,4 @@
-import { ListItem, Grid, Stack, Typography } from '@mui/material';
+import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { CreationInfoTag } from '../controllers';
 
@@ -18,31 +18,33 @@ export default function ListQuestion({
 }) {
 
     return (
-        <ListItem>
-            <Grid container>
-                <Grid item xs={2}>
-                    <Stack justifyContent='center' sx={{ height: '100%' }}>
-                        <Typography variant='body1'>
-                            {upvotes - downvotes} votes
+        <span>
+            <ListItem disablePadding>
+                <Grid container>
+                    <Grid item xs={2}>
+                        <Stack justifyContent='center' sx={{ height: '100%' }}>
+                            <Typography variant='body1'>
+                                {upvotes - downvotes} votes
+                            </Typography>
+                            <Typography variant='body1'>{answers} answers</Typography>
+                            <Typography variant='body1'>{views} views</Typography>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={10}>
+                        <Typography
+                            variant='h6'
+                            component={Link}
+                            to={`questions/${question_id}`}
+                            style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
+                            [{status}] {title}
                         </Typography>
-                        <Typography variant='body1'>{answers} answers</Typography>
-                        <Typography variant='body1'>{views} views</Typography>
-                    </Stack>
+                        <Typography noWrap variant='body1'>{text}</Typography>
+                        <CreationInfoTag {...{ createdAt, creator }} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={10}>
-                    <Typography
-                        variant='h6'
-                        component={Link}
-                        to={`questions/${question_id}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                        [{status}] {title}
-                    </Typography>
-                    <Typography noWrap variant='body1'>{text}</Typography>
-
-                    <CreationInfoTag {...{ createdAt, creator }} />
-                </Grid>
-            </Grid>
-        </ListItem>
+            </ListItem>
+            <Divider />
+        </span>
     );
 }
