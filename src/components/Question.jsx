@@ -55,7 +55,7 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
-            {/* <CommentsList /> */}
+            <CommentsList />
         </List>
     );
 }
