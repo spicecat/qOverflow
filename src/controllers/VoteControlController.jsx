@@ -33,11 +33,13 @@ export default function VoteControlController({
         }
     }
 
-    return <VoteControl {...{
-        downvotes,
-        handleDownvote,
-        handleUpvote,
-        upvotes,
-        vote
-    }} />;
+    return downvotes !== undefined && (
+        <VoteControl {...{
+            downvotes,
+            handleDownvote,
+            handleUpvote,
+            upvotes,
+            vote
+        }} />
+    );
 }

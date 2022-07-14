@@ -3,10 +3,10 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function VoteControl({
-    downvotes = 0,
+    downvotes,
     handleDownvote,
     handleUpvote,
-    upvotes = 0,
+    upvotes,
     vote
 }) {
 
@@ -24,7 +24,7 @@ export default function VoteControl({
                 </IconButton>
             </Tooltip>
             <Typography style={{ margin: -10, textAlign: 'center' }}>
-                {downvotes + upvotes}
+                {upvotes - downvotes}
             </Typography>
             <Tooltip title='downvote' placement='right'>
                 <IconButton

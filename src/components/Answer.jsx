@@ -1,6 +1,5 @@
 import { Divider, ListItem, ListItemText } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CommentsList } from '.';
 import { CreationInfoTag, VoteControl } from '../controllers';
 
 export default function Answer({

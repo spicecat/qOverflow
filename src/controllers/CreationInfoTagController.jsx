@@ -13,5 +13,7 @@ export default function CreationInfoTagController({ creator, ...props }) {
         loadCreator();
     }, [creator]);
 
-    return creatorInfo && <CreationInfoTag {...{ creatorInfo, ...props }} />;
+    return creatorInfo && (
+        <CreationInfoTag {...{ creatorInfo, ...props }} />
+    );
 }

@@ -1,7 +1,8 @@
-import { ListItem, ListItemText, Typography } from '@mui/material';
-import { VoteControl } from '.';
+import { Divider, ListItem, ListItemText } from '@mui/material';
+import { CreationInfoTag, VoteControl } from '.';
 
 export default function Comment({
+    comment_id,
     creator,
     createdAt,
     downvotes,
@@ -9,11 +10,15 @@ export default function Comment({
     upvotes
 }) {
     return (
-        <ListItem>
-            <VoteControl {...{ downvotes, upvotes }} />
-            <ListItemText>
-                {text}
-            </ListItemText>
-        </ListItem>
-    )
+        <span key={comment_id}>
+            <ListItem>
+                <VoteControl {...{ downvotes, upvotes }} />
+                <ListItemText>
+                    {text}
+                    <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
+                </ListItemText>
+            </ListItem>
+            <Divider />
+        </span>
+    );
 }

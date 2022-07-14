@@ -1,7 +1,6 @@
 import { Box, Chip, List, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CommentsList } from '.';
-import { CreationInfoTag, VoteControl } from '../controllers';
+import { CommentsList, CreationInfoTag, VoteControl } from '../controllers';
 
 const statusColor = (status) => {
     switch (status) {
@@ -56,6 +55,7 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
+            {/* <CommentsList /> */}
         </List>
     );
 }
