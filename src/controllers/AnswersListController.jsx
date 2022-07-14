@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useQuestion } from '../contexts';
 import { AnswersList } from '../components';
 import { getAnswers } from '../services/questionsServices';

@@ -1,5 +1,5 @@
-//This for Q and A
 import { ListItem, ListItemText, Typography } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 import { CommentsList } from '.';
 import { VoteControl } from '../controllers';
 
@@ -20,9 +20,12 @@ export default function Question({
     return (
         <ListItem>
             <VoteControl {...{ downvotes, upvotes, vote }} />
-            <ListItemText>
-                {text}
-            </ListItemText>
+                <ListItemText>
+                    <ReactMarkdown>
+                        {text}
+                    </ReactMarkdown>
+                    <CreationInfoTag {...{ createdAt, creator }} />
+                </ListItemText>
         </ListItem>
     );
 }

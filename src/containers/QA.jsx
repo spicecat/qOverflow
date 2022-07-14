@@ -10,5 +10,5 @@ export default function QA() {
             <Question />
             <AnswersList />
         </List>
-    )
+    );
 }

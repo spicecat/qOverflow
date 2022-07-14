@@ -1,6 +1,7 @@
 import { Divider, ListItem, ListItemText } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 import { CommentsList } from '.';
-import { VoteControl } from '../controllers';
+import { CreationInfoTag, VoteControl } from '../controllers';
 
 export default function Answer({
     accepted,
@@ -16,7 +17,10 @@ export default function Answer({
             <ListItem>
                 <VoteControl {...{ downvotes, upvotes }} />
                 <ListItemText>
-                    {text}
+                    <ReactMarkdown>
+                        {text}
+                    </ReactMarkdown>
+                    <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
             <Divider />
