@@ -8,12 +8,14 @@ export default function PaginatedList({
     page
 }) {
     return (
-        <List sx={{ width: '100%'}}>
-            <Pagination
-                count={count}
-                onChange={handleChangePage}
-                page={page}
-            />
+        <List sx={{ width: '100%' }}>
+            {count > 1 && (
+                <Pagination
+                    count={count}
+                    onChange={handleChangePage}
+                    page={page}
+                />
+            )}
             {data.map(item => Component(item))}
         </List>
     );
