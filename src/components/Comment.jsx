@@ -11,7 +11,7 @@ export default function Comment({
 }) {
     return (
         <span key={comment_id}>
-            <ListItem>
+            <ListItem disablePadding>
                 <VoteControl {...{ downvotes, upvotes }} />
                 <ListItemText>
                     {text}

@@ -1,10 +1,11 @@
 import { Divider, ListItem, ListItemText } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CreationInfoTag, VoteControl } from '../controllers';
+import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../controllers';
 
 export default function Answer({
     accepted,
     answer_id,
+    comments,
     creator,
     createdAt,
     downvotes,
@@ -13,7 +14,7 @@ export default function Answer({
 }) {
     return (
         <span key={answer_id}>
-            <ListItem>
+            <ListItem disablePadding>
                 <VoteControl {...{ downvotes, upvotes }} />
                 <ListItemText>
                     <ReactMarkdown>
@@ -22,7 +23,9 @@ export default function Answer({
                     <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                 </ListItemText>
             </ListItem>
-            <Divider />
+            <ListItem sx={{ pl: 8 }}>
+            <AnswerCommentsList {...{ answer_id, comments }} />
+            </ListItem>
         </span>
     )
 }

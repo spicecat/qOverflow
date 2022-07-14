@@ -46,7 +46,7 @@ export default function Question({
                 />
             </Box>
             <Divider />
-            <ListItem>
+            <ListItem disablePadding>
                 <VoteControl {...{ downvotes, upvotes, vote }} />
                 <ListItemText>
                     <ReactMarkdown>
@@ -55,7 +55,9 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
-            <CommentsList />
+            <ListItem sx={{ pl: 8 }}>
+                <CommentsList />
+            </ListItem>
         </List>
     );
 }

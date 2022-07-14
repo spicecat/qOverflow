@@ -27,10 +27,6 @@ export default function Buffet() {
     const [questionSet, setQuestionSet] = useState([]);
 
     
-    
-    
-    
-    
 
     const [currentPage, setCurrentPage] = useState(1);
     const count = 3;

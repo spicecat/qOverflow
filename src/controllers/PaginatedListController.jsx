@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuestion } from '../contexts';
 import { Answer, Comment, PaginatedList } from '../components';
-import { getAnswers, getQuestionComments } from '../services/questionsServices';
+import { getAnswerComments, getAnswers, getQuestionComments } from '../services/questionsServices';
 
 const rowsPerPage = 5;
 function PaginatedListController({ count = 0, Component, getData }) {
@@ -29,6 +29,14 @@ function PaginatedListController({ count = 0, Component, getData }) {
             rowsPerPage
         }} />
     );
+}
+
+export function AnswerCommentsList({ answer_id, comments: count }) {
+    const { questionData: { question_id } } = useQuestion();
+
+    const getData = () => getAnswerComments(question_id, answer_id).then(({ comments }) => comments);
+
+    return <PaginatedListController {...{ count, Component: Comment, getData }} />;
 }
 
 export function AnswersList() {

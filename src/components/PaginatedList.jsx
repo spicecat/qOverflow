@@ -8,7 +8,7 @@ export default function PaginatedList({
     page
 }) {
     return (
-        <List>
+        <List sx={{ width: '100%'}}>
             <Pagination
                 count={count}
                 onChange={handleChangePage}
