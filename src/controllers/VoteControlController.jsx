@@ -46,7 +46,7 @@ export default function VoteControlController({
         doLoadVote();
     }, []);
 
-    return downvotes !== undefined && vote && (
+    return downvotes !== undefined && (
         <VoteControl {...{
             downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,
