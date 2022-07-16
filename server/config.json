@@ -1,0 +1,15 @@
+{
+    "askQuestion": 1,
+    "answerQuestion": 2,
+    "upvoteQuestion": 5,
+    "downvoteQuestion": 1,
+    "upvoteAnswer": 10,
+    "downvoteAnswer": 5,
+    "userDownvotes": 1,
+    "acceptAnswer": 15,
+
+    "mailExpires": 10000,
+    "userExpires": 100000,
+
+    "errorGeneric": "Oops! Something went wrong! Please try again."
+}

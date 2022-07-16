@@ -1,0 +1,49 @@
+{
+    "name": "qoverflow-client",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "",
+    "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@mui/icons-material": "^5.8.4",
+        "@mui/material": "^5.8.7",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^16.0.1",
+        "formik": "^2.2.9",
+        "gh-pages": "^4.0.0",
+        "marked": "^4.0.18",
+        "react": "^18.2.0",
+        "react-gravatar": "^2.6.3",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "^5.0.1",
+        "remove-markdown": "^0.5.0",
+        "superagent": "^8.0.0",
+        "superagent-throttle": "^1.0.1",
+        "universal-cookie": "^4.0.4",
+        "yup": "^0.32.11"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
