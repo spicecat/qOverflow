@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { VoteControl } from '../components';
+import { useEffect, useState } from 'react';
+import { useUser } from '../contexts';
+import { VoteControl } from '../components/QAComponents';
 
 export default function VoteControlController({
     downvotes,
@@ -7,38 +8,50 @@ export default function VoteControlController({
     updateVote,
     upvotes,
 }) {
+    const { userData: { username } } = useUser();
     const [vote, setVote] = useState()
-    const handleDownvote = () => {
-        console.log(-1, 1)
-        if (vote === 'downvote') {
-            setVote()
-            updateVote({ operation: 'decrement', target: 'downvotes' })
-        } else {
-            setVote('downvote')
-            if (vote === 'upvote')
-                updateVote({ operation: 'decrement', target: 'upvotes' })
-            updateVote({ operation: 'increment', target: 'downvotes' })
-        }
-    }
-    const handleUpvote = () => {
-        console.log(-1, 1)
-        if (vote === 'upvote') {
-            setVote()
-            updateVote({ operation: 'decrement', target: 'upvotes' })
-        } else {
-            setVote('upvote')
-            if (vote === 'downvote')
-                updateVote({ operation: 'decrement', target: 'downvotes' })
-            updateVote({ operation: 'increment', target: 'upvotes' })
-        }
+    const [original, setOriginal] = useState()
+
+    const loadVote = async () => {
+        const { success, vote: newVote } = await getVote(username);
+        if (success)
+            setVote(newVote || 'none');
+        return newVote;
     }
 
-    return downvotes !== undefined && (
+    const handleDownvote = async () => {
+        if (vote === 'downvoted')
+            await updateVote(username, { operation: 'decrement', target: 'downvotes' });
+        else {
+            if (vote === 'upvoted')
+                await updateVote(username, { operation: 'decrement', target: 'upvotes' });
+            await updateVote(username, { operation: 'increment', target: 'downvotes' });
+        }
+        await loadVote();
+    }
+    const handleUpvote = async () => {
+        if (vote === 'upvoted')
+            await updateVote(username, { operation: 'decrement', target: 'upvotes' });
+        else {
+            if (vote === 'downvoted')
+                await updateVote(username, { operation: 'decrement', target: 'downvotes' });
+            await updateVote(username, { operation: 'increment', target: 'upvotes' });
+        }
+        await loadVote();
+    }
+
+    useEffect(() => {
+        const doLoadVote = async () =>
+            setOriginal(await loadVote());
+        doLoadVote();
+    }, []);
+
+    return downvotes !== undefined && vote && (
         <VoteControl {...{
-            downvotes,
+            downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,
             handleUpvote,
-            upvotes,
+            upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
             vote
         }} />
     );

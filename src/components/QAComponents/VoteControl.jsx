@@ -14,7 +14,7 @@ export default function VoteControl({
         <ButtonGroup orientation='vertical'>
             <Tooltip title='upvote' placement='right'>
                 <ArrowDropUpIcon
-                    color={vote === 'upvote' ? 'warning' : 'standard'}
+                    color={vote === 'upvoted' ? 'warning' : 'standard'}
                     onClick={handleUpvote}
                     sx={{ fontSize: 50 }}
                 />
@@ -24,7 +24,7 @@ export default function VoteControl({
             </Typography>
             <Tooltip title='downvote' placement='right'>
                 <ArrowDropDownIcon
-                    color={vote === 'downvote' ? 'warning' : 'standard'}
+                    color={vote === 'downvoted' ? 'warning' : 'standard'}
                     onClick={handleDownvote}
                     sx={{ fontSize: 50 }}
                 />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Answer, Comment, PaginatedList } from '../components';
+import { PaginatedList } from '../components';
+import { Answer, AnswerComment, Comment } from '../components/QAComponents';
 import { getAnswerComments, getAnswers, getQuestionComments } from '../services/questionsServices';
 
 const rowsPerPage = 5;
@@ -31,20 +32,28 @@ function PaginatedListController({ count = 0, Component, getData }) {
 }
 
 export function AnswerCommentsList({ answer_id, comments: count, question_id }) {
-    const getData = () => getAnswerComments(question_id, answer_id).then(({ comments }) => comments);
+    const getData = () =>
+        getAnswerComments(question_id, answer_id).then(({ comments }) =>
+            comments.map(comment => ({ ...comment, answer_id, question_id }))
+        );
 
-    return <PaginatedListController {...{ count, Component: Comment, getData }} />;
+    return <PaginatedListController {...{ count, Component: AnswerComment, getData }} />;
 }
 
 export function AnswersList({ answers: count, question_id }) {
-    const getData = () => getAnswers(question_id).then(({ answers }) => answers.map(answer => ({ ...answer, question_id })));
-    
+    const getData = () =>
+        getAnswers(question_id).then(({ answers }) =>
+            answers.map(answer => ({ ...answer, question_id }))
+        );
 
     return <PaginatedListController {...{ count, Component: Answer, getData }} />;
 }
 
 export function CommentsList({ comments: count, question_id }) {
-    const getData = () => getQuestionComments(question_id).then(({ comments }) => comments);
+    const getData = () =>
+        getQuestionComments(question_id).then(({ comments }) =>
+            comments.map(comment => ({ ...comment, question_id }))
+        );
 
     return <PaginatedListController {...{ count, Component: Comment, getData }} />;
 }

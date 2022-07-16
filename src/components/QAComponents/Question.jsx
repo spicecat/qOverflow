@@ -1,6 +1,7 @@
 import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from '../controllers';
+import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from '../../controllers';
+import { getQuestionVote, updateQuestionVote } from '../../services/questionsServices';
 
 const statusColor = (status) => {
     switch (status) {
@@ -23,9 +24,11 @@ export default function Question({
     title,
     text,
     upvotes,
-    views,
-    vote
+    views
 }) {
+    const getVote = (username) => getQuestionVote(question_id, username);
+    const updateVote = (username, data) => updateQuestionVote(question_id, username, data);
+
     return (
         <>
             <Box m={2}>
@@ -48,7 +51,7 @@ export default function Question({
             </Box>
             <Divider />
             <ListItem disablePadding>
-                <VoteControl {...{ downvotes, upvotes, vote }} />
+                <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
                 <ListItemText>
                     <ReactMarkdown>
                         {text}
@@ -57,9 +60,9 @@ export default function Question({
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-                <CommentsList {...{comments, question_id}}/>
+                <CommentsList {...{ comments, question_id }} />
             </ListItem>
-            <AnswersList {...{answers, question_id}}/>
+            <AnswersList {...{ answers, question_id }} />
         </>
     );
 }

@@ -1,5 +1,5 @@
 import { List } from '@mui/material';
-import { Question } from '../controllers'
+import { Question } from '../controllers';
 
 export default function QA() {
     //This for Q and A

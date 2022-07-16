@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Question } from '../components';
+import { Question } from '../components/QAComponents';
 import { getQuestion } from '../services/questionsServices';
 
 export default function QuestionController() {

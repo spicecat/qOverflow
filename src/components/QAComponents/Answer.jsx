@@ -1,8 +1,8 @@
 import { ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../controllers';
-import { } from '../services/questionsServices';
+import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../../controllers';
+import { getAnswerVote, updateAnswerVote } from '../../services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -15,11 +15,14 @@ export default function Answer({
     text,
     upvotes
 }) {
+    const getVote = (username) => getAnswerVote(question_id, answer_id, username);
+    const updateVote = (username, data) => updateAnswerVote(question_id, answer_id, username, data);
+
     return (
         <span key={answer_id}>
             <ListItem disablePadding>
                 <ButtonGroup orientation='vertical'>
-                    <VoteControl {...{ downvotes, upvotes }} />
+                    <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
                     {accepted && (
                         <div style={{ textAlign: 'center' }}>
                             <Tooltip title='Accepted Answer' placement='right'>

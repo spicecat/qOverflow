@@ -32,9 +32,7 @@ const login = async ({ username, password }) => {
     if (!user) return error;
 
     const { key } = await deriveKeyFromPassword(password, user.salt);
-    const { success } = await callUsersAPI('post', `/${username}/auth`, {
-        key,
-    });
+    const { success } = await callUsersAPI('post', `/${username}/auth`, { key });
     return { ...user, success };
 };
 
