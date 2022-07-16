@@ -19,9 +19,11 @@ export default function VoteControl({
                     sx={{ fontSize: 50 }}
                 />
             </Tooltip>
-            <Typography style={{ margin: -10, textAlign: 'center' }}>
-                {upvotes - downvotes}
-            </Typography>
+            <Tooltip title={`${upvotes} / ${downvotes}`} placement='right'>
+                <Typography style={{ margin: -10, textAlign: 'center' }}>
+                    {upvotes - downvotes}
+                </Typography>
+            </Tooltip>
             <Tooltip title='downvote' placement='right'>
                 <ArrowDropDownIcon
                     color={vote === 'downvoted' ? 'warning' : 'standard'}
