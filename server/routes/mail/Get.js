@@ -1,33 +1,17 @@
-const createRequest = require('../../utils/api');
 const config = require('../../config.json');
-const { checkOutdated } = require('../../utils/checkOutdated');
-const getAllMail = require('../../utils/getAllMail');
-const Mail = require('../../db/models/Mail');
+const createRequest = require('../../utils/api');
 
 async function Get(req, res, next) {
     const { username } = req.params;
+    const { after } = req.query;
 
-    const messages = Mail.find({ reciever: username }).sort({
-        createdAt: 'descending',
+    const { success, mail } = await createRequest('get', `/mail/${username}`, {
+        after,
     });
 
-    if (mail.length === 0 && checkOutdated(mail[0], config.mailExpires)) {
-        try {
-            await getAllMail();
-        } catch {
-            return res
-                .status(500)
-                .send({ success: false, error: config.errorGeneric });
-        }
-    } else {
-        return res.send({ success: true, messages });
-    }
-
-    const newMessages = Mail.find({ reciever, username }).sort({
-        createdAt: 'descending',
-    });
-
-    return res.send({ success: true, messages: newMessages });
+    return success
+        ? res.send({ success: true, messages })
+        : res.status(500).send({ success: false, error: config.errorGeneric });
 }
 
 module.exports = Get;
