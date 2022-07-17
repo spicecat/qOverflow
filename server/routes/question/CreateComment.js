@@ -1,3 +1,5 @@
+const config = require('../../config.json');
+
 async function CreateComment(req, res, next) {
     const user = req.user;
     const { questionID } = req.params;
@@ -11,12 +13,19 @@ async function CreateComment(req, res, next) {
         'post',
         `/questions/${questionID}/comments`,
         {
-            creator: user,
+            creator: user.username,
             text,
         }
     );
 
-    return success ? res.send() : res.status(500).send('Something went wrong.');
+    Comment.create({
+        ...comment,
+        id: comment_id,
+        docModel: 'Question',
+        parentID: questionID,
+    });
+
+    return success ? res.send() : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = CreateComment;
