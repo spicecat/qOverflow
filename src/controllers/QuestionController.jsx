@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { QuestionProvider } from 'contexts'
 import { Question } from 'components/QAComponents';
 import { getQuestion } from 'services/questionsServices';
 
@@ -17,6 +18,8 @@ export default function QuestionController() {
     }, [question_id]);
 
     return questionData && (
-        <Question {...questionData} />
+        <QuestionProvider>
+            <Question {...questionData} />
+        </QuestionProvider>
     );
 }

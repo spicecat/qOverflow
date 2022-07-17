@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserProvider, QuestionProvider } from 'contexts';
+import { UserProvider } from 'contexts';
 import {
     Ask,
     Buffet,
@@ -39,9 +39,7 @@ export default function App() {
                             <Route index element={<Questions />} />
                             <Route path='search' element={<Search />} />
                             <Route path='ask' element={<Ask />} />
-                            {/* <QuestionProvider> */}
                             <Route path=':question_id' element={<QA />} />
-                            {/* </QuestionProvider> */}
                         </Route>
 
                         <Route path='dashboard' element={<Dashboard />} />
