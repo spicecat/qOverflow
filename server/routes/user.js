@@ -14,14 +14,14 @@ const RequestReset = require('./user/RequestReset');
 const ResetPassword = require('./user/ResetPassword');
 const Update = require('./user/Update');
 
-router.get('/', GetUser);
+router.get('/:username', GetUser);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
 router.get('/login', basicAuth, Login);
 router.get('/logout', tokenAuth, Logout);
-router.post('/register', Register);
 router.get('/reset', RequestReset);
+router.post('/register', Register);
 router.post('/reset/:id', ResetPassword);
-router.patch('/update', tokenAuth, Update);
+router.patch('/', tokenAuth, Update);
 
 module.exports = router;
