@@ -1,5 +1,5 @@
 const config = require('../../config.json');
-const paginatedFetch = require('../../utils/paginatedFetch');
+const fetchMail = require('../../utils/fetchMail');
 const Mail = require('../../db/models/Mail');
 const User = require('../../db/models/User');
 
@@ -18,7 +18,7 @@ async function Get(req, res, next) {
     }
 
     const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
-    const { success, requests } = await paginatedFetch(
+    const { success, requests } = await fetchMail(
         `/mail/${username}`,
         recentTimestamp
     );
