@@ -1,8 +1,8 @@
 import { ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-import { AnswerCommentsList, CreationInfoTag, VoteControl } from '../../controllers';
-import { getAnswerVote, updateAnswerVote } from '../../services/questionsServices';
+import { AnswerCommentsList, CreationInfoTag, VoteControl } from 'controllers';
+import { getAnswerVote, updateAnswerVote } from 'services/questionsServices';
 
 export default function Answer({
     accepted,

@@ -1,6 +1,6 @@
 import superagent from 'superagent';
 import Throttle from 'superagent-throttle';
-import { API, API_KEY } from '../var';
+import { API, API_KEY } from 'var';
 
 const throttle = new Throttle({
     active: true,

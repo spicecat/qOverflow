@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CreationInfoTag } from '../components';
-import { getUser } from '../services/userServices';
+import { CreationInfoTag } from 'components';
+import { getUser } from 'services/userServices';
 
 export default function CreationInfoTagController({ creator, ...props }) {
     const [creatorInfo, setCreatorInfo] = useState()

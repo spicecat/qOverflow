@@ -1,5 +1,5 @@
 import { Card, CardContent, Grid } from '@mui/material';
-import { ResetForm } from '../controllers';
+import { ResetForm } from 'controllers';
 
 export default function Reset() {
     return (

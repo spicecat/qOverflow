@@ -1,9 +1,9 @@
 import { useNavigate} from 'react-router-dom';
 import { Form } from '.';
-import { useUser } from '../contexts';
-import { questionSchema } from '../services/schemas';
-import { askQuestionFields } from '../services/fields';
-import { postQuestion } from '../services/questionsServices';
+import { useUser } from 'contexts';
+import { questionSchema } from 'services/schemas';
+import { askQuestionFields } from 'services/fields';
+import { postQuestion } from 'services/questionsServices';
 import { useEffect } from 'react';
 
 export default function AskFormController() {

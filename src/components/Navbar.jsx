@@ -7,7 +7,7 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import Logo from '../assets/bdpa-logo.svg';
+import Logo from 'assets/bdpa-logo.svg';
 import { SearchBar } from '.';
 import Gravatar from 'react-gravatar';
 

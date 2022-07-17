@@ -10,9 +10,9 @@ import {
     Typography,
 } from '@mui/material';
 
-import { ListQuestion, PaginationEngine } from '../components';
+import { ListQuestion, PaginationEngine } from 'components';
 
-import { searchQuestions } from '../services/questionsServices';
+import { searchQuestions } from 'services/questionsServices';
 
 export default function Buffet() {
 

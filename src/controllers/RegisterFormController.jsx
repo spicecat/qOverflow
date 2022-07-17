@@ -1,7 +1,7 @@
-import { useUser } from '../contexts';
+import { useUser } from 'contexts';
 import { Form } from '.';
-import { registerSchema } from '../services/schemas';
-import { registerFields } from '../services/fields';
+import { registerSchema } from 'services/schemas';
+import { registerFields } from 'services/fields';
 
 export default function RegisterFormController() {
     const { validateRegister } = useUser();

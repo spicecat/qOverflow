@@ -1,6 +1,6 @@
 import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { CreationInfoTag } from '../controllers';
+import { CreationInfoTag } from 'controllers';
 
 export default function ListQuestion({
     question: {

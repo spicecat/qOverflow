@@ -1,6 +1,6 @@
 import { Form } from '.';
-import { recoverFields } from '../services/fields';
-import { recoverSchema } from '../services/schemas';
+import { recoverFields } from 'services/fields';
+import { recoverSchema } from 'services/schemas';
 
 export default function ForgotPasswordFormController() {
     const recover = ({ username }) => {

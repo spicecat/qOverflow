@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useUser } from '../contexts';
-import { VoteControl } from '../components/QAComponents';
+import { useUser } from 'contexts';
+import { VoteControl } from 'components/QAComponents';
 
 export default function VoteControlController({
     downvotes,

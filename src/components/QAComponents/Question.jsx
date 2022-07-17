@@ -1,7 +1,7 @@
 import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from '../../controllers';
-import { getQuestionVote, updateQuestionVote } from '../../services/questionsServices';
+import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from 'controllers';
+import { getQuestionVote, updateQuestionVote } from 'services/questionsServices';
 
 const statusColor = (status) => {
     switch (status) {

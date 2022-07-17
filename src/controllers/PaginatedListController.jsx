@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { PaginatedList } from '../components';
-import { Answer, AnswerComment, Comment } from '../components/QAComponents';
-import { getAnswerComments, getAnswers, getQuestionComments } from '../services/questionsServices';
+import { PaginatedList } from 'components';
+import { Answer, AnswerComment, Comment } from 'components/QAComponents';
+import { getAnswerComments, getAnswers, getQuestionComments } from 'services/questionsServices';
 
 const rowsPerPage = 5;
 function PaginatedListController({ count = 0, Component, getData }) {

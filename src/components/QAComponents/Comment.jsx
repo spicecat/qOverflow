@@ -1,6 +1,6 @@
 import { Divider, ListItem, ListItemText } from '@mui/material';
-import { CreationInfoTag, VoteControl } from '../../controllers';
-import { getCommentVote, updateCommentVote } from '../../services/questionsServices';
+import { CreationInfoTag, VoteControl } from 'controllers';
+import { getCommentVote, updateCommentVote } from 'services/questionsServices';
 
 export default function Comment({
     comment_id,
