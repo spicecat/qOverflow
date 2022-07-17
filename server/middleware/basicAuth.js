@@ -22,20 +22,15 @@ async function basicAuth(req, res, next) {
         );
 
         if (checkCacheAuth.success) {
-            req.user = cacheUser.username;
+            req.user = cacheUser;
             return next();
         }
     }
 
     const { user, success } = await createRequest('get', `/users/${username}`);
-    await User.create(user);
+    if (!success) return res.status(500).send(config.errorGeneric);
 
-    if (!success) {
-        return res.status(500).send({
-            success: false,
-            error: config.errorGeneric,
-        });
-    }
+    const dbUser = await User.create({ ...user, id: user.user_id });
 
     const { key } = await deriveKeyFromPassword(password, user.salt);
     const checkAuth = await createRequest('post', `/users/${username}/auth`, {
@@ -43,13 +38,10 @@ async function basicAuth(req, res, next) {
     });
 
     if (checkAuth.success) {
-        req.user = user;
+        req.user = dbUser;
         return next();
     } else {
-        return res.status(401).send({
-            success: false,
-            error: 'Login failed. Please check your username and password and try again.',
-        });
+        return res.status(403).send(config.errorFailed);
     }
 }
 

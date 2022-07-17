@@ -4,9 +4,10 @@ async function Login(req, res, next) {
     const user = req.user;
     const remember = req.body.remember;
 
-    await Token.destroy({ where: { ownerID: user.id } });
+    await Token.findByIdAndDelete(user.token);
 
-    const token = await user.createToken({
+    const token = await Token.create({
+        user: user._id,
         expires: remember,
     });
 

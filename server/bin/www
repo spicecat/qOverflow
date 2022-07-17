@@ -48,7 +48,7 @@ const cronQueue = new Queue(
 cronQueue.process('getAllQuestions', getAllQuestions);
 cronQueue.process('getAllUsers', getAllUsers);
 
-cronQueue.add('getAllUsers', {}, { repeat: { cron: '*/2 * * * *' } });
+cronQueue.add('getAllUsers', {}, { repeat: { cron: '*/5 * * * *' } });
 cronQueue.add('getAllQuestions', {}, { repeat: { every: 30000 } });
 
 server.listen(port);

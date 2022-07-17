@@ -3,20 +3,24 @@ const fetchQuestions = require('../utils/fetchQuestions');
 
 async function getAllQuestions(job, done) {
     console.log('[INFO]: Refreshing question database.');
-    const { success, requests } = await fetchQuestions();
+    const { success, requests } = await fetchQuestions(`/questions/search`);
 
     if (!success) console.log('[ERROR]: Question fetch failed');
 
-    await Question.deleteMany();
+    const completeQuestions = await requests.reduce(async (acc, req) => {
+        const reformat = req.questions.map((question) => ({
+            ...question,
+            id: question.question_id,
+        }));
+        return [...reformat, ...acc];
+    }, []);
 
-    requests.map(async ({ questions }) => {
-        await Question.create(
-            questions.map((question) => ({
-                ...question,
-                id: question.question_id,
-            }))
-        );
-    });
+    completeQuestions.map(
+        async (question) =>
+            await Question.findByIdAndUpdate(question.id, question, {
+                upsert: true,
+            })
+    );
 
     done();
 }

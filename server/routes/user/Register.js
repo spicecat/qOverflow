@@ -1,6 +1,6 @@
 const createRequest = require('../../utils/api');
 const deriveKeyFromPassword = require('../../utils/auth');
-
+const config = require('../../config.json');
 const User = require('../../db/models/User');
 
 async function Register(req, res, next) {
@@ -12,7 +12,7 @@ async function Register(req, res, next) {
 
     const { salt, key } = await deriveKeyFromPassword(password);
 
-    const response = await createRequest('post', '/users', {
+    const { success } = await createRequest('post', '/users', {
         username,
         email,
         salt,
@@ -21,9 +21,7 @@ async function Register(req, res, next) {
 
     await User.create({ username, email, points, salt });
 
-    return response.success
-        ? res.send()
-        : res.status(500).send('Something went wrong.');
+    return success ? res.send() : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = Register;

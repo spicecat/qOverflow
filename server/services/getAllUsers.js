@@ -7,16 +7,20 @@ async function getAllUsers(job, done) {
 
     if (!success) console.log('[ERROR]: User fetch failed');
 
-    await User.deleteMany();
+    const completeUsers = await requests.reduce(async (acc, req) => {
+        const reformat = req.users.map((user) => ({
+            ...user,
+            id: user.user_id,
+        }));
+        return [...reformat, ...acc];
+    }, []);
 
-    requests.map(async ({ users }) => {
-        await User.create(
-            users.map((user) => ({
-                ...user,
-                id: user.user_id,
-            }))
-        );
-    });
+    completeUsers.map(
+        async (user) =>
+            await User.findByIdAndUpdate(user.id, user, {
+                upsert: true,
+            })
+    );
 
     done();
 }
