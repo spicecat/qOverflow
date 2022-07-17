@@ -1,7 +1,7 @@
-import { Box, Chip, List, Divider, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CommentsList } from '.';
-import { CreationInfoTag, VoteControl } from '../controllers';
+import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from 'controllers';
+import { getQuestionVote, updateQuestionVote } from 'services/questionsServices';
 
 const statusColor = (status) => {
     switch (status) {
@@ -19,15 +19,18 @@ export default function Question({
     createdAt,
     downvotes,
     hasAcceptedAnswer,
+    question_id,
     status,
     title,
     text,
     upvotes,
-    views,
-    vote
+    views
 }) {
+    const getVote = (username) => getQuestionVote(question_id, username);
+    const updateVote = (username, data) => updateQuestionVote(question_id, username, data);
+
     return (
-        <List>
+        <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
                 <Typography display='inline' m={1}>Views: {views}</Typography>
@@ -47,15 +50,19 @@ export default function Question({
                 />
             </Box>
             <Divider />
-            <ListItem>
-                <VoteControl {...{ downvotes, upvotes, vote }} />
+            <ListItem disablePadding>
+                <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes }} />
                 <ListItemText>
+                    <CreationInfoTag {...{ createdAt, creator }} />
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
-        </List>
+            <ListItem sx={{ pl: 8 }}>
+                <CommentsList {...{ comments, question_id }} />
+            </ListItem>
+            <AnswersList {...{ answers, question_id }} />
+        </>
     );
 }

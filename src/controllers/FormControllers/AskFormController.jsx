@@ -1,10 +1,10 @@
-import { useNavigate} from 'react-router-dom';
-import { Form } from '.';
-import { useUser } from '../contexts';
-import { questionSchema } from '../services/schemas';
-import { askQuestionFields } from '../services/fields';
-import { postQuestion } from '../services/questionsServices';
 import { useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
+import { Form } from 'controllers/FormControllers';
+import { useUser } from 'contexts';
+import { questionSchema } from 'services/schemas';
+import { askQuestionFields } from 'services/fields';
+import { postQuestion } from 'services/questionsServices';
 
 export default function AskFormController() {
     
@@ -12,7 +12,7 @@ export default function AskFormController() {
     const { userData } = useUser();
     useEffect(() => {
         if(checkAuth()){
-            navigate('/login', {state: {name : 'ask', msg : 'you need to be authenticated to access this feature' , prevPath: '/ask'}})
+            navigate('/users/login', {state: {name : 'ask', msg : 'you need to be authenticated to access this feature' , prevPath: '/ask'}})
         }
     }, []);
 

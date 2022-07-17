@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { Form } from '../components';
+import { Form } from 'components';
 
 export default function FormController({
     fields,

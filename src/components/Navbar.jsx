@@ -7,8 +7,8 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import Logo from '../assets/bdpa-logo.svg';
-import { SearchBar } from '.';
+import Logo from 'assets/bdpa-logo.svg';
+import { SearchBar } from 'components';
 import Gravatar from 'react-gravatar';
 
 export default function Navbar({ logout, userData }) {
@@ -30,10 +30,10 @@ export default function Navbar({ logout, userData }) {
             </>
         ) : (
             <>
-                <Button color='inherit' component={Link} to='/login'>
+                <Button color='inherit' component={Link} to='/users/login'>
                     Login
                 </Button>
-                <Button color='inherit' component={Link} to='/register'>
+                <Button color='inherit' component={Link} to='/users/register'>
                     Register
                 </Button>
             </>

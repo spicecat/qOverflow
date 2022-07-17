@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, register } from '../services/userServices';
+import { login, register } from 'services/userServices';
 
 const initialUserData = {};
 
@@ -33,7 +33,7 @@ export default function UserProvider({ children }) {
         }
     }
 
-    function logout() {
+    const logout = () => {
         setUserData(initialUserData);
         navigate('/');
     }

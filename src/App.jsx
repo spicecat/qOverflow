@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ContextProvider } from './contexts';
+import { UserProvider, QuestionProvider } from 'contexts';
 import {
     Ask,
     Buffet,
@@ -14,18 +14,24 @@ import {
     Register,
     Reset,
     Search,
-} from './containers';
+} from 'containers';
 
 export default function App() {
     return (
         <BrowserRouter basename=''>
-            <ContextProvider>
+            <UserProvider>
                 <Routes>
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Buffet />} />
 
-                        <Route path='login' element={<Login />} />
-                        <Route path='register' element={<Register />} />
+                        <Route path='users'>
+                            <Route path='login' element={<Login />} />
+                            <Route path='register' element={<Register />} />
+                            <Route path='recover'>
+                                <Route index element={<ForgotPassword />} />
+                                <Route path=':username' element={<Reset />} />
+                            </Route>
+                        </Route>
 
                         <Route path='mail' element={<Mail />} />
 
@@ -33,20 +39,18 @@ export default function App() {
                             <Route index element={<Questions />} />
                             <Route path='search' element={<Search />} />
                             <Route path='ask' element={<Ask />} />
+                            {/* <QuestionProvider> */}
                             <Route path=':question_id' element={<QA />} />
+                            {/* </QuestionProvider> */}
                         </Route>
 
                         <Route path='dashboard' element={<Dashboard />} />
 
-                        <Route path='recover'>
-                            <Route index element={<ForgotPassword />} />
-                            <Route path=':username' element={<Reset />} />
-                        </Route>
 
                         <Route path='*' element={<NotFound />} />
                     </Route>
                 </Routes>
-            </ContextProvider>
+            </UserProvider>
         </BrowserRouter>
     );
 }

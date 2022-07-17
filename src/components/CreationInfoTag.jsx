@@ -12,7 +12,7 @@ export default function CreationInfoTag({
     text = 'asked'
 }) {
     return (
-        <div style={{ textAlign: 'right' }}>
+        <div>
             <Gravatar email={email} size={20} style={{ borderRadius: '15%' }} />
             <Typography display='inline' m={1}>
                 {username}

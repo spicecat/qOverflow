@@ -1,20 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuestion } from '../contexts';
-import { Question } from '../components';
+import { Question } from 'components/QAComponents';
+import { getQuestion } from 'services/questionsServices';
 
-import {
-    checkQuestionVote,
-    updateQuestionVote,
-
-} from '../services/questionsServices';
 export default function QuestionController() {
     const { question_id } = useParams();
-    const { loadQuestion, questionData } = useQuestion();
+    const [questionData, setQuestionData] = useState();
 
     useEffect(() => {
-        loadQuestion(question_id);
+        const loadQuestion = async () => {
+            const { success, question } = await getQuestion(question_id);
+            if (success)
+                setQuestionData(question);
+        }
+        loadQuestion();
     }, [question_id]);
 
-    return <Question {...questionData} />;
+    return questionData && (
+        <Question {...questionData} />
+    );
 }

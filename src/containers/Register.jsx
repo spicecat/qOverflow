@@ -1,7 +1,7 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
-import CAPTCHA from '../assets/captcha.jpg';
-import { RegisterForm } from '../controllers';
+import CAPTCHA from 'assets/captcha.jpg';
+import { RegisterForm } from 'controllers/FormControllers';
 
 export default function Register() {
     return (

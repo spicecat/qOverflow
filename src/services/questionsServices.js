@@ -30,7 +30,7 @@ const updateQuestion = (question_id, data) =>  // { status, title, text, views, 
         data
     );
 
-const checkQuestionVote = (question_id, username) =>
+const getQuestionVote = (question_id, username) =>
     callQuestionsAPI(
         'get',
         `/${question_id}/vote/${username}`
@@ -63,7 +63,7 @@ const deleteQuestionComment = (question_id, comment_id) =>
         `/${question_id}/comments/${comment_id}`
     );
 
-const checkCommentVote = (question_id, comment_id, username) =>
+const getCommentVote = (question_id, comment_id, username) =>
     callQuestionsAPI(
         'get',
         `/${question_id}/comments/${comment_id}/vote/${username}`
@@ -101,7 +101,7 @@ const updateAnswer = (question_id, answer_id, data) => // { text, upvotes, downv
         data
     );
 
-const checkAnswerVote = (question_id, answer_id, username) =>
+const getAnswerVote = (question_id, answer_id, username) =>
     callQuestionsAPI(
         'get',
         `/${question_id}/answers/${answer_id}/vote/${username}`
@@ -133,7 +133,7 @@ const deleteAnswerComment = (question_id, answer_id, comment_id) =>
         `/${question_id}/answers/${answer_id}/comments/${comment_id}`
     );
 
-const checkAnswerCommentVote = (
+const getAnswerCommentVote = (
     question_id,
     answer_id,
     comment_id,
@@ -158,10 +158,10 @@ const updateAnswerCommentVote = (
     );
 
 export {
-    checkAnswerCommentVote,
-    checkAnswerVote,
-    checkCommentVote,
-    checkQuestionVote,
+    getAnswerCommentVote,
+    getAnswerVote,
+    getCommentVote,
+    getQuestionVote,
     deleteAnswerComment,
     deleteQuestionComment,
     getAnswerComments,

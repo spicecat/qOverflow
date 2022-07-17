@@ -26,7 +26,7 @@ export default function Login() {
                         <LoginForm />
                         <Typography variant='body1'>
                             Forgot your password?{' '}
-                            <Link to='/recover'>Recover Password</Link>
+                            <Link to='/users/recover'>Recover Password</Link>
                         </Typography>
                     </CardContent>
                 </Card>
