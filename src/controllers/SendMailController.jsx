@@ -1,5 +1,5 @@
 import { useUser } from 'contexts';
-import { Form } from 'controllers';
+import { Form } from 'controllers/FormControllers';
 import { composeMailFields } from 'services/fields';
 import { postMail } from 'services/mailServices';
 import { mailSchema } from 'services/schemas';

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form } from 'controllers';
+import { Form } from 'controllers/FormControllers';
 import { useUser } from 'contexts';
 import { deriveKeyFromPassword } from 'services/auth';
 import { resetFields } from 'services/fields';

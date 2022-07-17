@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
-import { Form } from 'controllers';
+import { Form } from 'controllers/FormControllers';
 import { useUser } from 'contexts';
 import { questionSchema } from 'services/schemas';
 import { askQuestionFields } from 'services/fields';

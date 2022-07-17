@@ -9,5 +9,5 @@ export {
     AnswerComment,
     Comment,
     Question,
-    VoteControl,
+    VoteControl
 };
