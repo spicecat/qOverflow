@@ -72,7 +72,9 @@ const askQuestionFields = [
     {
         id: 'text',
         label: 'Text',
-    },
+        multiline: true
+    }
+   
 ];
 
 export {
