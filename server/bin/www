@@ -8,6 +8,10 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 const mongoose = require('mongoose');
+const Queue = require('bull');
+
+const getAllQuestions = require('../services/getAllQuestions');
+const getAllUsers = require('../services/getAllUsers');
 
 require('dotenv').config();
 
@@ -36,6 +40,16 @@ mongoose.connection.on(
     'error',
     console.error.bind(console, 'MongoDB connection error:')
 );
+
+const cronQueue = new Queue(
+    'questionQueue',
+    'redis://default:redispw@localhost:49166'
+);
+cronQueue.process('getAllQuestions', getAllQuestions);
+cronQueue.process('getAllUsers', getAllUsers);
+
+cronQueue.add('getAllUsers', {}, { repeat: { cron: '*/2 * * * *' } });
+cronQueue.add('getAllQuestions', {}, { repeat: { every: 30000 } });
 
 server.listen(port);
 server.on('error', onError);

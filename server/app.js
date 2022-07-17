@@ -1,4 +1,3 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -25,12 +24,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', userRouter);
 app.use('/mail', mailRouter);
 app.use('/question', questionRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    return res
-        .status(404)
-        .send({ success: false, error: 'This URL does not exist.' });
-});
 
 module.exports = app;

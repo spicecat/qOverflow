@@ -8,8 +8,26 @@
     "userDownvotes": 1,
     "acceptAnswer": 15,
 
-    "mailExpires": 10000,
+    "mailExpires": 20000,
     "userExpires": 100000,
+    "answerExpires": 60000,
+    "questionExpires": 60000,
+    "voteExpires": 60000,
 
-    "errorGeneric": "Oops! Something went wrong! Please try again."
+    "errorGeneric": {
+        "success": false,
+        "error": "Oops! Something went wrong."
+    },
+    "errorIncomplete": {
+        "success": false,
+        "error": "Your request is missing information."
+    },
+    "errorForbidden": {
+        "success": false,
+        "error": "You are not authorized to do that."
+    },
+    "errorFailed": {
+        "success": false,
+        "error": "Request failed. Please check form and try again."
+    }
 }
