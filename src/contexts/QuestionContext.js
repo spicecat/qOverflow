@@ -3,10 +3,8 @@ import { createContext, useContext } from 'react';
 const QuestionContext = createContext();
 
 export default function QuestionProvider({ children }) {
-
     return (
-        <QuestionContext.Provider value={{
-        }}>
+        <QuestionContext.Provider value={{}}>
             {children}
         </QuestionContext.Provider>
     );

@@ -30,10 +30,10 @@ export default function Navbar({ logout, userData }) {
             </>
         ) : (
             <>
-                <Button color='inherit' component={Link} to='/login'>
+                <Button color='inherit' component={Link} to='/users/login'>
                     Login
                 </Button>
-                <Button color='inherit' component={Link} to='/register'>
+                <Button color='inherit' component={Link} to='/users/register'>
                     Register
                 </Button>
             </>

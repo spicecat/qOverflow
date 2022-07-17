@@ -1,11 +1,9 @@
-import { QuestionProvider, UserProvider } from 'contexts';
+import { UserProvider } from 'contexts';
 
 export default function ContextProvider({ children }) {
     return (
         <UserProvider>
-            <QuestionProvider>
-                {children}
-            </QuestionProvider>
+            {children}
         </UserProvider>
     );
 }
