@@ -17,10 +17,10 @@ export default function Comment({
     return (
         <span key={comment_id}>
             <ListItem disablePadding>
-                <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
                 <ListItemText>
-                    {text}
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
+                    {text}
+                    <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
                 </ListItemText>
             </ListItem>
             <Divider />

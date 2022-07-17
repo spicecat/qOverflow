@@ -31,6 +31,7 @@ export default function ListQuestion({
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
+                        <CreationInfoTag {...{ createdAt, creator }} />
                         <Typography
                             variant='h6'
                             component={Link}
@@ -40,7 +41,6 @@ export default function ListQuestion({
                             [{status}] {title}
                         </Typography>
                         <Typography noWrap variant='body1'>{text}</Typography>
-                        <CreationInfoTag {...{ createdAt, creator }} />
                     </Grid>
                 </Grid>
             </ListItem>

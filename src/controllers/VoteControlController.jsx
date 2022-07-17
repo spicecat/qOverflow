@@ -5,6 +5,7 @@ import { VoteControl } from '../components/QAComponents';
 export default function VoteControlController({
     downvotes,
     getVote,
+    orientation,
     updateVote,
     upvotes,
 }) {
@@ -51,6 +52,7 @@ export default function VoteControlController({
             downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,
             handleUpvote,
+            orientation,
             upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
             vote
         }} />

@@ -51,12 +51,12 @@ export default function Question({
             </Box>
             <Divider />
             <ListItem disablePadding>
-                <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
+                <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes }} />
                 <ListItemText>
+                    <CreationInfoTag {...{ createdAt, creator }} />
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CreationInfoTag {...{ createdAt, creator }} />
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>

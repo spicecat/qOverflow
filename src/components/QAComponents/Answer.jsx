@@ -22,7 +22,7 @@ export default function Answer({
         <span key={answer_id}>
             <ListItem disablePadding>
                 <ButtonGroup orientation='vertical'>
-                    <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
+                    <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes }} />
                     {accepted && (
                         <div style={{ textAlign: 'center' }}>
                             <Tooltip title='Accepted Answer' placement='right'>
@@ -32,10 +32,10 @@ export default function Answer({
                     )}
                 </ButtonGroup>
                 <ListItemText>
+                    <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
