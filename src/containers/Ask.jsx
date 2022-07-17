@@ -1,16 +1,13 @@
-<<<<<<< HEAD
 import { Card, CardContent, Paper, Typography } from '@mui/material';
-import { AskForm } from '../controllers';
+import { AskForm } from '../controllers/FormControllers';
 import ReactMarkdown from 'react-markdown';
-import { useForm } from '../contexts/FormContext';
+import { useForm } from '../contexts';
+import {MdPreview} from 'components'
 
 
-=======
-import { Card, CardContent } from '@mui/material';
-import { AskForm } from 'controllers/FormControllers';
->>>>>>> fb8023fcd79e9e1390e47f3ea4f22a605274b5a4
 
 export default function Ask() {
+    
     
     const {content} = useForm()
 
@@ -28,13 +25,12 @@ export default function Ask() {
             <Card>
                 <CardContent>
                     <AskForm></AskForm>
+                    <MdPreview/>
                 </CardContent>
+                
             </Card>
-
-            <Paper variant = "outlined">
-                <Typography variant = "h5"> Text Preview: </Typography>
-                <ReactMarkdown children={content}/>
-            </Paper>
+            
+            
             
         </div>
         

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent, Grid, Typography, Alert } from '@mui/material';
-import { LoginForm } from '../controllers';
+import { LoginForm } from '../controllers/FormControllers';
 
 export default function Login() {
     let location = useLocation();
