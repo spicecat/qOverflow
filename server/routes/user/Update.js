@@ -1,18 +1,28 @@
 const createRequest = require('../../utils/api');
-const deriveKeyFromPassword = require('../../utils/auth');
+const User = require('../../db/models/User');
 
-async function RequestReset(req, res, next) {
+async function Update(req, res, next) {
     const user = req.user;
+    const { email, password } = req.body;
+
+    var userBody = {};
+    if (email) userBody = { ...userBody, email };
+    if (password) {
+        const { salt, key } = await deriveKeyFromPassword(password);
+        userBody = { ...userBody, salt, key };
+    }
 
     const { success } = await createRequest(
         'patch',
-        `/users/${user}`,
-        req.body
+        `/users/${user.username}`,
+        userBody
     );
 
+    await User.findOneAndDelete({ username: user.username });
+
     return success
-        ? res.send('Your account details have been changed.')
-        : res.status(500).send('Something went wrong.');
+        ? res.send({ success: true })
+        : res.status(500).send(config.errorGeneric);
 }
 
-module.exports = RequestReset;
+module.exports = Update;
