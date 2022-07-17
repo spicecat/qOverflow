@@ -1,6 +1,4 @@
 import { ButtonGroup, Tooltip, Typography } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
@@ -14,8 +12,8 @@ export default function VoteControl({
 }) {
 
     return (
-        <div style={{ marginRight: 8 }}>
-            <ButtonGroup {...{ orientation }}>
+        <span style={{ marginRight: 8 }}>
+            <ButtonGroup {...{ orientation, style: { alignItems: 'center'} }} >
                 <Tooltip title='upvote' placement='right'>
                     <ThumbUpOutlinedIcon
                         color={vote === 'upvoted' ? 'warning' : 'standard'}
@@ -34,6 +32,6 @@ export default function VoteControl({
                     />
                 </Tooltip>
             </ButtonGroup >
-        </div>
+        </span >
     )
 }

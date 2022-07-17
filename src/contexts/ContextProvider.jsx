@@ -1,4 +1,4 @@
-import { QuestionProvider, UserProvider } from '.';
+import { QuestionProvider, UserProvider } from 'contexts';
 
 export default function ContextProvider({ children }) {
     return (

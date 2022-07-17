@@ -1,4 +1,4 @@
-import { Form } from '.';
+import { Form } from 'controllers';
 import { recoverFields } from 'services/fields';
 import { recoverSchema } from 'services/schemas';
 

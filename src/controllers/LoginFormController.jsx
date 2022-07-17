@@ -1,5 +1,5 @@
 import { useUser } from 'contexts';
-import { Form } from '.';
+import { Form } from 'controllers';
 import { loginSchema } from 'services/schemas';
 import { loginFields } from 'services/fields';
 

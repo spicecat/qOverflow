@@ -1,8 +1,8 @@
-import { Form } from '.';
 import { useUser } from 'contexts';
-import { mailSchema } from 'services/schemas';
+import { Form } from 'controllers';
 import { composeMailFields } from 'services/fields';
 import { postMail } from 'services/mailServices';
+import { mailSchema } from 'services/schemas';
 
 export default function SendMailController() {
     const { userData } = useUser();

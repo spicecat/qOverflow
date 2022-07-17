@@ -8,7 +8,7 @@ import {
     Box,
 } from '@mui/material';
 import Logo from 'assets/bdpa-logo.svg';
-import { SearchBar } from '.';
+import { SearchBar } from 'components';
 import Gravatar from 'react-gravatar';
 
 export default function Navbar({ logout, userData }) {

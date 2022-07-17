@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form } from '.';
+import { Form } from 'controllers';
 import { useUser } from 'contexts';
-import { resetSchema } from 'services/schemas';
-import { resetFields } from 'services/fields';
-import { updateUser } from 'services/userServices';
 import { deriveKeyFromPassword } from 'services/auth';
+import { resetFields } from 'services/fields';
+import { resetSchema } from 'services/schemas';
+import { updateUser } from 'services/userServices';
 
 export default function ResetFormController() {
     const navigate = useNavigate();
