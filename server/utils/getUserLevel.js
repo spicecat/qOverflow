@@ -12,7 +12,9 @@ function getUserLevel(points) {
             return 3;
         case points > 15:
             return 2;
-        default:
+        case points > 0:
             return 1;
+        default:
+            return 0;
     }
 }
