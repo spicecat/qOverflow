@@ -18,14 +18,14 @@ async function GetAnswerComments(req, res, next) {
 
         await requests
             .reduce(async (acc, req) => {
-                const reformat = req.answers.map((answer) => ({
-                    ...answer,
-                    id: answer.answer_id,
+                const reformat = req.comments.map((comment) => ({
+                    ...comment,
+                    id: comment.comment_id,
                 }));
                 return [...reformat, ...acc];
             }, [])
-            .map(async (answer) => {
-                return await Comment.findByIdAndUpdate(answer.id, answer, {
+            .map(async (comment) => {
+                return await Comment.findByIdAndUpdate(comment.id, comment, {
                     upsert: true,
                 });
             });
