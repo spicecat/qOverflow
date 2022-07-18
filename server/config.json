@@ -12,6 +12,7 @@
     "userExpires": 100000,
     "answerExpires": 60000,
     "questionExpires": 60000,
+    "commentExpires": 60000,
     "voteExpires": 60000,
 
     "errorGeneric": {
@@ -29,5 +30,9 @@
     "errorFailed": {
         "success": false,
         "error": "Request failed. Please check form and try again."
+    },
+    "errorNotFound": {
+        "success": false,
+        "error": "That object was not found. Please check the URI and try again."
     }
 }
