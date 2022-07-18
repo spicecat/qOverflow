@@ -34,5 +34,9 @@
     "errorNotFound": {
         "success": false,
         "error": "That object was not found. Please check the URI and try again."
+    },
+    "errorUnauthed": {
+        "success": false,
+        "error": "You are unauthenticated, please include your JWT."
     }
 }
