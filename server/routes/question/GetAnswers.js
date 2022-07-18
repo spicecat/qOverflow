@@ -1,5 +1,3 @@
-const createRequest = require('../../utils/api');
-const fetchComments = require('../../utils/fetchComments');
 const config = require('../../config.json');
 
 const Question = require('../../db/models/Question');
