@@ -4,22 +4,22 @@ var router = express.Router();
 const basicAuth = require('../middleware/basicAuth');
 const tokenAuth = require('../middleware/tokenAuth');
 
-const Questions = require('./user/Questions');
 const Answers = require('./user/Answers');
+const Edit = require('./user/Edit');
 const GetUser = require('./user/GetUser');
 const Login = require('./user/Login');
 const Logout = require('./user/Logout');
+const Questions = require('./user/Questions');
 const Register = require('./user/Register');
 const RequestReset = require('./user/RequestReset');
 const ResetPassword = require('./user/ResetPassword');
-const Edit = require('./user/Edit');
 
 router.get('/:username', GetUser);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
-router.get('/login', basicAuth, Login);
 router.get('/logout', tokenAuth, Logout);
 router.get('/reset', RequestReset);
+router.post('/login', basicAuth, Login);
 router.post('/register', Register);
 router.post('/reset/:id', ResetPassword);
 router.patch('/', tokenAuth, Edit);
