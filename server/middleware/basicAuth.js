@@ -5,10 +5,14 @@ const config = require('../config.json');
 const User = require('../db/models/User');
 
 async function basicAuth(req, res, next) {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(400).send(config.errorIncomplete);
+    const authHeader = req.get('Authorization');
+    const b64Encoded = authHeader.split(' ')[1];
+
+    if (!b64Encoded) {
+        return res.status(401).send(config.errorIncomplete);
     }
+
+    const [username, password] = atob(b64Encoded).split(':');
 
     const cacheUser = await User.findOne({ username });
     if (cacheUser) {
