@@ -12,9 +12,13 @@ import { SearchBar } from 'components';
 import Gravatar from 'react-gravatar';
 
 export default function Navbar({ logout, userData }) {
+    //userData.level
+    //userData.points
     function ButtonGroup() {
         return userData.username ? (
             <>
+                <Typography variant = "button">Level: <b> {userData.level}    &nbsp; </b> Points: <b> {userData.points}</b></Typography>
+                
                 <Button color='inherit' component={Link} to='/mail'>
                     Mail
                 </Button>
