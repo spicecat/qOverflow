@@ -1,6 +1,7 @@
 import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { AnswersList, CommentsList, CreationInfoTag, VoteControl } from 'controllers';
+import { CreationInfoTag } from 'controllers';
+import { VoteControl } from 'controllers/QAControllers';
 import { getQuestionVote, updateQuestionVote } from 'services/questionsServices';
 
 const statusColor = (status) => {
@@ -59,10 +60,6 @@ export default function Question({
                     </ReactMarkdown>
                 </ListItemText>
             </ListItem>
-            <ListItem sx={{ pl: 8 }}>
-                <CommentsList {...{ comments, question_id }} />
-            </ListItem>
-            <AnswersList {...{ answers, question_id }} />
         </>
     );
 }

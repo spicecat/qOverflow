@@ -1,17 +1,24 @@
+import { ButtonGroup, Typography } from '@mui/material'
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
-import { VoteControl } from 'controllers';
+import { Form } from 'controllers/FormControllers';
+import { commentFields } from 'services/fields';
+import { commentSchema } from 'services/schemas';
 
-export default function CommentControl({
-    downvotes,
-    getVote,
-    updateVote,
-    upvotes
-}) {
+export default function CommentControl() {
 
     return (
-        <div>
-            <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
-            <AddCommentOutlinedIcon />
-        </div>
+        <span>
+            <ButtonGroup style={{ alignItems: 'center' }}>
+                <AddCommentOutlinedIcon />
+                <Typography m={1}>
+                    Comment
+                </Typography>
+            </ButtonGroup>
+            <Form
+                fields={commentFields}
+                onSubmit={() => console.log(123)}
+                schema={commentSchema}
+            />
+        </span>
     )
 }

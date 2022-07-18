@@ -20,10 +20,10 @@ export default function ResetFormController() {
     }
 
     return (
-        <Form
-            fields={resetFields}
-            onSubmit={changePassword}
-            validationSchema={resetSchema}
-        />
+        Form({
+            fields: resetFields,
+            onSubmit: changePassword,
+            validationSchema: resetSchema
+        })
     );
 }

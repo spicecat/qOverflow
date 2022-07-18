@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { Divider, ListItem, ListItemText } from '@mui/material';
-import { CreationInfoTag, VoteControl } from 'controllers';
+import { useAnswer } from 'contexts';
+import { CreationInfoTag } from 'controllers';
+import { VoteControl } from 'controllers/QAControllers';
 import { getAnswerCommentVote, updateAnswerCommentVote } from 'services/questionsServices';
 
 export default function AnswerComment({
@@ -12,8 +15,14 @@ export default function AnswerComment({
     question_id,
     upvotes
 }) {
+    const { answerData, setAnswerData } = useAnswer();
+
     const getVote = (username) => getAnswerCommentVote(question_id, answer_id, comment_id, username);
     const updateVote = (username, data) => updateAnswerCommentVote(question_id, answer_id, comment_id, username, data);
+
+    useEffect(() => {
+        setAnswerData(answerData + answer_id);
+    }, [])
 
     return (
         <span key={comment_id}>
@@ -22,9 +31,10 @@ export default function AnswerComment({
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
                     {text}
                     <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
+                    {/* <button onClick={()=>console.log(11, answer_id, answerData)}>asdf</button> */}
                 </ListItemText>
             </ListItem>
             <Divider />
-        </span>
+        </span >
     );
 }
