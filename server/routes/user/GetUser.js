@@ -22,9 +22,11 @@ async function GetUser(req, res, next) {
 
     const newUser = await User.create({ ...user, id: user.user_id });
     return res.send({
-        username: newUser.username,
-        email: newUser.email,
-        points: newUser.points,
+        user: {
+            username: newUser.username,
+            email: newUser.email,
+            points: newUser.points,
+        },
     });
 }
 
