@@ -10,10 +10,10 @@ export default function ForgotPasswordFormController() {
     }
 
     return (
-        <Form
-            fields={recoverFields}
-            onSubmit={recover}
-            validationSchema={recoverSchema}
-        />
+        Form({
+            fields: recoverFields,
+            onSubmit: recover,
+            validationSchema: recoverSchema
+        })
     );
 }

@@ -7,10 +7,10 @@ export default function RegisterFormController() {
     const { validateRegister } = useUser();
 
     return (
-        <Form
-            fields={registerFields}
-            validate={validateRegister}
-            validationSchema={registerSchema}
-        />
+        Form({
+            fields: registerFields,
+            validate: validateRegister,
+            validationSchema: registerSchema
+        })
     );
 }

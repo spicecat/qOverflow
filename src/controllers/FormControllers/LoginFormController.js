@@ -7,10 +7,10 @@ export default function LoginFormController() {
     const { validateLogin } = useUser();
 
     return (
-        <Form
-            fields={loginFields}
-            validate={validateLogin}
-            validationSchema={loginSchema}
-        />
+        Form({
+            fields: loginFields,
+            validate: validateLogin,
+            validationSchema: loginSchema
+        })
     );
 }

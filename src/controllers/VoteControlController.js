@@ -48,13 +48,13 @@ export default function VoteControlController({
     }, []);
 
     return downvotes !== undefined && (
-        <VoteControl {...{
+        VoteControl({
             downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,
             handleUpvote,
             orientation,
             upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
             vote
-        }} />
+        })
     );
 }
