@@ -15,11 +15,16 @@ async function CreateQuestion(req, res, next) {
         text,
     });
 
+    if (!success) return res.status(500).send(config.errorGeneric);
+
     await Question.create({ ...question, id: question_id });
 
-    return success
-        ? res.send({ success: true })
-        : res.status(500).send(config.errorGeneric);
+    await createRequest('patch', `/users/${user.username}/points`, {
+        operation: 'increment',
+        amount: 1,
+    });
+
+    return res.send({ success: true });
 }
 
 module.exports = CreateQuestion;

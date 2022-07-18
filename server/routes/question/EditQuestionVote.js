@@ -2,6 +2,7 @@ const createRequest = require('../../utils/api');
 const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
+const Question = require('../../db/models/Question');
 
 async function EditQuestionVote(req, res, next) {
     const user = req.user;
@@ -21,6 +22,7 @@ async function EditQuestionVote(req, res, next) {
 
     if (!operation) return res.status(400).send(config.errorIncomplete);
 
+    const cachedQuestion = await Question.findByID(questionID);
     var cachedVote = await Vote.findOneAndDelete({
         parentID: questionID,
         creator: user.username,
@@ -46,6 +48,11 @@ async function EditQuestionVote(req, res, next) {
                 target: 'downvotes',
             });
 
+            await createRequest('patch', `/users/${user.username}/points`, {
+                operation: 'decrement',
+                amount: 1,
+            });
+
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
@@ -55,12 +62,35 @@ async function EditQuestionVote(req, res, next) {
                 docModel: 'Question',
             });
 
+            await createRequest(
+                'patch',
+                `/users/${cachedQuestion.creator}/points`,
+                {
+                    operation: 'decrement',
+                    amount: 6,
+                }
+            );
+
             return res.send({ success: true, vote: 'downvoted' });
         }
+
+        await createRequest(
+            'patch',
+            `/users/${cachedQuestion.creator}/points`,
+            {
+                operation: 'decrement',
+                amount: 5,
+            }
+        );
     } else if (cachedVote.status === 'downvoted') {
         const { success } = await createRequest('patch', URL, {
             operation: 'decrement',
             target: 'downvotes',
+        });
+
+        await createRequest('patch', `/users/${user.username}/points`, {
+            operation: 'increment',
+            amount: 1,
         });
 
         if (!success) return res.status(500).send(config.errorGeneric);
@@ -80,8 +110,26 @@ async function EditQuestionVote(req, res, next) {
                 docModel: 'Question',
             });
 
+            await createRequest(
+                'patch',
+                `/users/${cachedQuestion.creator}/points`,
+                {
+                    operation: 'increment',
+                    amount: 6,
+                }
+            );
+
             return res.send({ success: true, vote: 'upvoted' });
         }
+
+        await createRequest(
+            'patch',
+            `/users/${cachedQuestion.creator}/points`,
+            {
+                operation: 'increment',
+                amount: 1,
+            }
+        );
     } else {
         if (operation === 'upvote') {
             const { success } = await createRequest('patch', URL, {
@@ -98,6 +146,15 @@ async function EditQuestionVote(req, res, next) {
                 docModel: 'Question',
             });
 
+            await createRequest(
+                'patch',
+                `/users/${cachedQuestion.creator}/points`,
+                {
+                    operation: 'increment',
+                    amount: 5,
+                }
+            );
+
             return res.send({ success: true, vote: 'upvoted' });
         } else if (operation === 'downvote') {
             const { success } = await createRequest('patch', URL, {
@@ -107,11 +164,25 @@ async function EditQuestionVote(req, res, next) {
 
             if (!success) return res.status(500).send(config.errorGeneric);
 
+            await createRequest(
+                'patch',
+                `/users/${cachedQuestion.creator}/points`,
+                {
+                    operation: 'decrement',
+                    amount: 1,
+                }
+            );
+
             await Vote.create({
                 parentID: questionID,
                 creator: user.username,
                 status: 'downvoted',
                 docModel: 'Question',
+            });
+
+            await createRequest('patch', `/users/${user.username}/points`, {
+                operation: 'decrement',
+                amount: 1,
             });
 
             return res.send({ success: true, vote: 'downvoted' });

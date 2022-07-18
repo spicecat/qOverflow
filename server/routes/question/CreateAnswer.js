@@ -28,6 +28,11 @@ async function CreateAnswer(req, res, next) {
 
     await Answer.create({ ...answer, id: answer.answer_id, questionID });
 
+    await createRequest('patch', `/users/${user.username}/points`, {
+        operation: 'increment',
+        amount: 2,
+    });
+
     return res.send({ success: true });
 }
 

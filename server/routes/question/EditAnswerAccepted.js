@@ -27,7 +27,12 @@ async function EditAnswerAccepted(req, res, next) {
         return res.status(500).send(config.errorGeneric);
     }
 
-    await Answer.findByIdAndDelete(answerID);
+    const cachedAnswer = await Answer.findByIdAndDelete(answerID);
+
+    await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+        operation: 'increment',
+        amount: 15,
+    });
 
     return res.send({ success: true });
 }
