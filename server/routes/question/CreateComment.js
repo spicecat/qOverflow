@@ -25,7 +25,9 @@ async function CreateComment(req, res, next) {
         parentID: questionID,
     });
 
-    return success ? res.send() : res.status(500).send(config.errorGeneric);
+    return success
+        ? res.send({ success: true })
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = CreateComment;

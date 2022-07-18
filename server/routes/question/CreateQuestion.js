@@ -17,7 +17,9 @@ async function CreateQuestion(req, res, next) {
 
     await Question.create({ ...question, id: question_id });
 
-    return success ? res.send() : res.status(500).send(config.errorGeneric);
+    return success
+        ? res.send({ success: true })
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = CreateQuestion;

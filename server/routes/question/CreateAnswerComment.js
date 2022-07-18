@@ -25,7 +25,9 @@ async function CreateAnswerComment(req, res, next) {
         parentID: answerID,
     });
 
-    return success ? res.send() : res.status(500).send('Something went wrong.');
+    return success
+        ? res.send({ success: true })
+        : res.status(500).send('Something went wrong.');
 }
 
 module.exports = CreateAnswerComment;

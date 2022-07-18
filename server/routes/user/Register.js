@@ -21,7 +21,9 @@ async function Register(req, res, next) {
 
     await User.create({ username, email, points, salt });
 
-    return success ? res.send() : res.status(500).send(config.errorGeneric);
+    return success
+        ? res.send({ success: true })
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = Register;

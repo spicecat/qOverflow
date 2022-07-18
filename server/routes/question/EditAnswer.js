@@ -27,9 +27,13 @@ async function EditAnswer(req, res, next) {
     }
 
     const answer = { ...answerPull.answer, id: answerPull.answer.answer_id };
-    await Answer.findByIdAndUpdate(answer.id, answer, { upsert: true });
+    const newAnswer = await Answer.findByIdAndUpdate(answer.id, answer, {
+        upsert: true,
+    });
 
-    return success ? res.send() : res.status(500).send('Something went wrong.');
+    return success
+        ? res.send({ success: true, answer: newAnswer })
+        : res.status(500).send('Something went wrong.');
 }
 
 module.exports = EditAnswer;
