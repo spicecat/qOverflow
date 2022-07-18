@@ -12,7 +12,7 @@ const Logout = require('./user/Logout');
 const Register = require('./user/Register');
 const RequestReset = require('./user/RequestReset');
 const ResetPassword = require('./user/ResetPassword');
-const Update = require('./user/Update');
+const Edit = require('./user/Edit');
 
 router.get('/:username', GetUser);
 router.get('/questions', tokenAuth, Questions);
@@ -22,6 +22,6 @@ router.get('/logout', tokenAuth, Logout);
 router.get('/reset', RequestReset);
 router.post('/register', Register);
 router.post('/reset/:id', ResetPassword);
-router.patch('/', tokenAuth, Update);
+router.patch('/', tokenAuth, Edit);
 
 module.exports = router;

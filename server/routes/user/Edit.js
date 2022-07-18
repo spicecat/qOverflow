@@ -1,7 +1,7 @@
 const createRequest = require('../../utils/api');
 const User = require('../../db/models/User');
 
-async function Update(req, res, next) {
+async function Edit(req, res, next) {
     const user = req.user;
     const { email, password } = req.body;
 
@@ -25,4 +25,4 @@ async function Update(req, res, next) {
         : res.status(500).send(config.errorGeneric);
 }
 
-module.exports = Update;
+module.exports = Edit;
