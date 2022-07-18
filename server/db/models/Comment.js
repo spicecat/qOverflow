@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const Comment = mongoose.Schema(
     {
-        parentID: { type: mongoose.Schema.Types.ObjectId, ref: 'docModel' },
-        creator: { type: String, required: true },
+        parentID: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
         createdAt: { type: Date, required: true },
         text: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },
@@ -16,5 +15,12 @@ const Comment = mongoose.Schema(
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
+
+Comment.virtual('creator', {
+    ref: 'User',
+    localField: 'creator',
+    foreignField: 'username',
+    justOne: true,
+});
 
 module.exports = mongoose.model('Comment', Comment);

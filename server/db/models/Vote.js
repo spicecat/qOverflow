@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const Comment = mongoose.Schema(
+const Vote = mongoose.Schema(
     {
-        parentID: { type: mongoose.Schema.Types.ObjectId, ref: 'docModel' },
+        parentID: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
         creator: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required: true,
             ref: 'User',
         },
@@ -22,4 +22,4 @@ const Comment = mongoose.Schema(
     { timestamps: { createdAt: false, updatedAt: true } }
 );
 
-module.exports = mongoose.model('Comment', Comment);
+module.exports = mongoose.model('Vote', Vote);

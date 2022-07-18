@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 
-const ResetRequestSchema = mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
+const ResetRequest = mongoose.Schema({
+    expireAt: { type: Date, expires: 1800 },
 });
 
-module.exports = mongoose.model('ResetRequest', ResetRequestSchema);
+ResetRequest.virtual('user', {
+    ref: 'User',
+    localField: 'user',
+    foreignField: 'username',
+    justOne: true,
+});
+
+module.exports = mongoose.model('ResetRequest', ResetRequest);
