@@ -7,7 +7,7 @@ const User = require('../db/models/User');
 async function basicAuth(req, res, next) {
     const { username, password } = req.body;
     if (!username || !password) {
-        return res.status(400).send('Your request is malformed.');
+        return res.status(400).send(config.errorIncomplete);
     }
 
     const cacheUser = await User.findOne({ username });
