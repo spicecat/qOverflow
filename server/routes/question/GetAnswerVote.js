@@ -19,7 +19,7 @@ async function GetAnswerVote(req, res, next) {
         `/questions/${questionID}/answers/${answerID}/vote/${user.username}`
     );
 
-    if (!success) return res.status(500).send(config.errorGeneric);
+    if (!success) return res.send({ success: true, vote: null });
 
     const newVote = await Vote.create({
         parentID: answerID,
