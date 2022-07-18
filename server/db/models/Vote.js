@@ -18,6 +18,7 @@ const Vote = mongoose.Schema(
             required: true,
             enum: ['Question', 'Answer', 'Comment'],
         },
+        expireAt: { type: Date, expire: 300 },
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
