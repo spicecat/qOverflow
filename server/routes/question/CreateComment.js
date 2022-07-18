@@ -1,12 +1,19 @@
 const config = require('../../config.json');
+const Question = require('../../db/models/Question');
 
 async function CreateComment(req, res, next) {
     const user = req.user;
     const { questionID } = req.params;
     const { text } = req.body;
 
+    const cachedQuestion = await Question.findById(questionID);
+
+    if (getUserLevel(user.points) < 3 && cachedQuestion?.creator !== username) {
+        return res.status(403).send(config.errorForbidden);
+    }
+
     if (!text) {
-        return res.status(400).send('Your request is missing information.');
+        return res.status(400).send(config.errorIncomplete);
     }
 
     const { success } = await createRequest(
@@ -18,7 +25,7 @@ async function CreateComment(req, res, next) {
         }
     );
 
-    Comment.create({
+    await Comment.create({
         ...comment,
         id: comment_id,
         docModel: 'Question',

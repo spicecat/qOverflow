@@ -1,9 +1,16 @@
 const Comment = require('../../db/models/Comment');
+const Answer = require('../../db/models/Answer');
 
 async function CreateAnswerComment(req, res, next) {
     const { username } = req.user;
     const { questionID, answerID } = req.params;
     const { text } = req.body;
+
+    const cachedAnswer = await Answer.findById(answerID);
+
+    if (getUserLevel(user.points) < 3 && cachedAnswer?.creator !== username) {
+        return res.status(403).send(config.errorForbidden);
+    }
 
     if (!text) {
         return res.status(400).send({ success: false });

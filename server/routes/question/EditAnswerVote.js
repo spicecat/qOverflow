@@ -1,5 +1,6 @@
 const createRequest = require('../../utils/api');
 const config = require('../../config.json');
+const getUserLevel = require('../../utils/getUserLevel');
 
 const Vote = require('../../db/models/Vote');
 
@@ -7,6 +8,15 @@ async function EditAnswerVote(req, res, next) {
     const user = req.user;
     const { questionID, answerID } = req.params;
     const { operation } = req.body;
+
+    const userLevel = getUserLevel(user.points);
+    if (operation === 'upvote' && userLevel < 2) {
+        return res.status(403).send(config.errorForbidden);
+    }
+
+    if (operation === 'downvote' && userLevel < 4) {
+        return res.status(403).send(config.errorForbidden);
+    }
 
     const URL = `/questions/${questionID}/answers/${answerID}/vote/${user.username}`;
 
