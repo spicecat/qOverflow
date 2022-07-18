@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ResetRequest = mongoose.Schema({
-    user: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
+    user: { type: String, required: true },
     expireAt: { type: Date, expires: 1800 },
 });
 

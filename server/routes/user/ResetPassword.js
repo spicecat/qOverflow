@@ -16,12 +16,12 @@ async function RequestReset(req, res, next) {
 
     const { salt, key } = deriveKeyFromPassword(password);
 
-    const { success } = await createRequest('patch', `/users/${req.user}`, {
+    const { success } = await createRequest('patch', `/users/${request.user}`, {
         salt,
         key,
     });
 
-    await User.findOneAndDelete({ username: req.user });
+    await User.findOneAndDelete({ username: request.user });
 
     return success
         ? res.send({ success: true })

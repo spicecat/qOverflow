@@ -7,8 +7,6 @@ async function Login(req, res, next) {
     const user = req.user;
     const remember = req.body.remember;
 
-    await Token.deleteMany({ user: user.username });
-
     const secretKey = mongoose.Types.ObjectId();
     const accessToken = jwt.sign({ id: user.id }, secretKey.toString());
 
@@ -16,6 +14,7 @@ async function Login(req, res, next) {
         _id: secretKey,
         token: accessToken,
         expires: remember,
+        user: user.id,
     });
 
     return res.send({ success: true, token: token.accessToken, user });
