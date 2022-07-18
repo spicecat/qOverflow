@@ -25,6 +25,12 @@ async function GetAnswers(req, res, next) {
                 return [...reformat, ...acc];
             }, [])
             .map(async (answer) => {
+                if (answer.accepted) {
+                    await Question.findByIdAndUpdate(questionID, {
+                        hasAccepted: true,
+                    });
+                }
+
                 return await Answer.findByIdAndUpdate(answer.id, answer, {
                     upsert: true,
                 });

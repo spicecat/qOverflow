@@ -3,7 +3,7 @@ const config = require('../../config.json');
 
 async function EditAnswer(req, res, next) {
     const user = req.user;
-    const { token, ...body } = req.body;
+    const body = req.body;
     const { questionID, answerID } = req.params;
 
     const answerPull = await createRequest(
