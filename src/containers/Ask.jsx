@@ -1,12 +1,38 @@
-import { Card, CardContent } from '@mui/material';
-import { AskForm } from 'controllers/FormControllers';
+import { Card, CardContent, Paper, Typography } from '@mui/material';
+import { AskForm } from '../controllers/FormControllers';
+import ReactMarkdown from 'react-markdown';
+import { useForm } from '../contexts';
+import {MdPreview} from 'components'
+
+
 
 export default function Ask() {
+    
+    
+    const {content} = useForm()
+
+
+   
+    
+    
+    
+    
+
+    
+    
     return (
-        <Card>
-            <CardContent>
-                <AskForm />
-            </CardContent>
-        </Card>
+        <div>
+            <Card>
+                <CardContent>
+                    <AskForm></AskForm>
+                    <MdPreview/>
+                </CardContent>
+                
+            </Card>
+            
+            
+            
+        </div>
+        
     );
 }

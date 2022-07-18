@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserProvider, QuestionProvider } from 'contexts';
+import { UserProvider, QuestionProvider, FormProvider } from './contexts';
 import {
     Ask,
     Buffet,
@@ -14,40 +14,36 @@ import {
     Register,
     Reset,
     Search,
-} from 'containers';
+} from './containers';
 
 export default function App() {
     return (
         <BrowserRouter basename=''>
             <UserProvider>
-                <Routes>
-                    <Route path='/' element={<Layout />}>
-                        <Route index element={<Buffet />} />
-
-                        <Route path='users'>
-                            <Route path='login' element={<Login />} />
-                            <Route path='register' element={<Register />} />
-                            <Route path='recover'>
-                                <Route index element={<ForgotPassword />} />
-                                <Route path=':username' element={<Reset />} />
+                <FormProvider>
+                    <Routes>
+                        <Route path='/' element={<Layout />}>
+                            <Route index element={<Buffet />} />
+                            <Route path='dashboard' element={<Dashboard />} />
+                            <Route path='mail' element={<Mail />} />
+                            <Route path='questions'>
+                                <Route index element={<Questions />} />
+                                <Route path='search' element={<Search />} />
+                                <Route path='ask' element={<Ask />} />
+                                <Route path=':question_id' element={<QuestionProvider children={<QA />} />} />
                             </Route>
+                            <Route path='users'>
+                                <Route path='login' element={<Login />} />
+                                <Route path='register' element={<Register />} />
+                                <Route path='recover'>
+                                    <Route index element={<ForgotPassword />} />
+                                    <Route path=':username' element={<Reset />} />
+                                </Route>
+                            </Route>
+                            <Route path='*' element={<NotFound />} />
                         </Route>
-
-                        <Route path='mail' element={<Mail />} />
-
-                        <Route path='questions'>
-                            <Route index element={<Questions />} />
-                            <Route path='search' element={<Search />} />
-                            <Route path='ask' element={<Ask />} />
-                            <Route path=':question_id' element={<QuestionProvider children={<QA />} />} />
-                        </Route>
-
-                        <Route path='dashboard' element={<Dashboard />} />
-
-
-                        <Route path='*' element={<NotFound />} />
-                    </Route>
-                </Routes>
+                    </Routes>
+                </FormProvider>
             </UserProvider>
         </BrowserRouter>
     );

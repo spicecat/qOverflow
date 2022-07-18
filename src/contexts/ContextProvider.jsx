@@ -1,9 +1,11 @@
-import { UserProvider } from 'contexts';
+import { UserProvider, FormProvider } from '.';
 
 export default function ContextProvider({ children }) {
     return (
         <UserProvider>
-            {children}
+            <FormProvider>
+                {children}
+            </FormProvider>
         </UserProvider>
     );
 }

@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
-import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { LoginForm } from 'controllers/FormControllers';
+import { Link, useLocation } from 'react-router-dom';
+import { Card, CardContent, Grid, Typography, Alert } from '@mui/material';
+import { LoginForm } from '../controllers/FormControllers';
 
 export default function Login() {
+    let location = useLocation();
+
+    function returnMsg(){
+        if(location.state){
+            return location.state.msg;
+        }
+    }
+
     return (
         <Grid
             container
@@ -22,6 +30,7 @@ export default function Login() {
                         </Typography>
                     </CardContent>
                 </Card>
+                {returnMsg() ? <Alert severity="warning"> {returnMsg()} </Alert> : null }
             </Grid>
             <Grid item xs={3.5} />
         </Grid>
