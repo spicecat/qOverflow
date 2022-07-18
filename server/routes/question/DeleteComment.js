@@ -1,4 +1,5 @@
 const Comment = require('../../db/models/Comment');
+const config = require('../../config.json');
 
 async function DeleteComment(req, res, next) {
     const { questionID, commentID } = req.params;
@@ -19,8 +20,8 @@ async function DeleteComment(req, res, next) {
     Comment.findByIdAndDelete(commentID);
 
     return success
-        ? res.send({ success: true })
-        : res.status(500).send('Something went wrong.');
+        ? res.sendStatus(200)
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = DeleteComment;

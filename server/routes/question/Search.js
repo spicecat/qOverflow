@@ -1,4 +1,5 @@
 const createRequest = require('../../utils/api');
+const config = require('../../config.json');
 
 const Question = require('../../db/models/Question');
 
@@ -24,7 +25,7 @@ async function Search(req, res, next) {
 
     return success
         ? res.send(questionSet)
-        : res.status(500).send('Something went wrong.');
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = Search;

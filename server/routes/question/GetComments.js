@@ -33,7 +33,7 @@ async function GetComments(req, res, next) {
 
     const comments = await Comment.find({ parentID: questionID });
 
-    return res.send({ success: true, comments });
+    return res.send({ comments });
 }
 
 module.exports = GetComments;

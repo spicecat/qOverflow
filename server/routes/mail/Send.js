@@ -24,7 +24,7 @@ async function Send(req, res, next) {
 
     await Mail.create({ ...message, id: message.mail_id });
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = Send;

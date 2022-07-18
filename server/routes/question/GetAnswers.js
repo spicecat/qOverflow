@@ -39,7 +39,7 @@ async function GetAnswers(req, res, next) {
 
     const answers = await Answer.find({ questionID });
 
-    return res.send({ success: true, answers });
+    return res.send({ answers });
 }
 
 module.exports = GetAnswers;

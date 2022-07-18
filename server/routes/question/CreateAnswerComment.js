@@ -1,5 +1,6 @@
 const Comment = require('../../db/models/Comment');
 const Answer = require('../../db/models/Answer');
+const config = require('../../config.json');
 
 async function CreateAnswerComment(req, res, next) {
     const { username } = req.user;
@@ -33,8 +34,8 @@ async function CreateAnswerComment(req, res, next) {
     });
 
     return success
-        ? res.send({ success: true })
-        : res.status(500).send('Something went wrong.');
+        ? res.sendStatus(200)
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = CreateAnswerComment;

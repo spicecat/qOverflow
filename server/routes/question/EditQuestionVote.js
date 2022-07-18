@@ -71,7 +71,7 @@ async function EditQuestionVote(req, res, next) {
                 }
             );
 
-            return res.send({ success: true, vote: 'downvoted' });
+            return res.send({ vote: 'downvoted' });
         }
 
         await createRequest(
@@ -119,7 +119,7 @@ async function EditQuestionVote(req, res, next) {
                 }
             );
 
-            return res.send({ success: true, vote: 'upvoted' });
+            return res.send({ vote: 'upvoted' });
         }
 
         await createRequest(
@@ -155,7 +155,7 @@ async function EditQuestionVote(req, res, next) {
                 }
             );
 
-            return res.send({ success: true, vote: 'upvoted' });
+            return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
@@ -185,11 +185,11 @@ async function EditQuestionVote(req, res, next) {
                 amount: 1,
             });
 
-            return res.send({ success: true, vote: 'downvoted' });
+            return res.send({ vote: 'downvoted' });
         }
     }
 
-    return res.send({ success: true, vote: null });
+    return res.send({ vote: null });
 }
 
 module.exports = EditQuestionVote;

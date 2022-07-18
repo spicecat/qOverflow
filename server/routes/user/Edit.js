@@ -21,7 +21,7 @@ async function Edit(req, res, next) {
     await User.findOneAndDelete({ username: user.username });
 
     return success
-        ? res.send({ success: true })
+        ? res.sendStatus(200)
         : res.status(500).send(config.errorGeneric);
 }
 

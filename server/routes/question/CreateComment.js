@@ -33,7 +33,7 @@ async function CreateComment(req, res, next) {
     });
 
     return success
-        ? res.send({ success: true })
+        ? res.sendStatus(200)
         : res.status(500).send(config.errorGeneric);
 }
 

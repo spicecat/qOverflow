@@ -8,7 +8,7 @@ async function GetAnswerVote(req, res, next) {
     const { questionID, answerID } = req.params;
 
     if (getUserLevel(user.points) < 2) {
-        return res.send({ success: true, vote: null });
+        return res.send({ vote: null });
     }
 
     const cachedVote = await Vote.findOne({
@@ -16,14 +16,14 @@ async function GetAnswerVote(req, res, next) {
         creator: user.username,
     });
 
-    if (cachedVote) return res.send({ success: true, vote: vote.status });
+    if (cachedVote) return res.send({ vote: vote.status });
 
     const { success, vote } = await createRequest(
         'get',
         `/questions/${questionID}/answers/${answerID}/vote/${user.username}`
     );
 
-    if (!success) return res.send({ success: true, vote: null });
+    if (!success) return res.send({ vote: null });
 
     const newVote = await Vote.create({
         parentID: answerID,
@@ -32,7 +32,7 @@ async function GetAnswerVote(req, res, next) {
         docModel: 'Answer',
     });
 
-    return res.send({ success: true, vote: newVote.status });
+    return res.send({ vote: newVote.status });
 }
 
 module.exports = GetAnswerVote;

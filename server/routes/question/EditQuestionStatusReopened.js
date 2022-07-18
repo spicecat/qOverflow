@@ -29,7 +29,7 @@ async function EditQuestionStatusReopened(req, res, next) {
             reopen: { $pull: user.username },
         });
 
-        return res.send({ success: true });
+        return res.sendStatus(200);
     } else {
         await Question.findByIdAndUpdate(questionID, {
             reopen: { $push: user.username },
@@ -49,11 +49,11 @@ async function EditQuestionStatusReopened(req, res, next) {
         );
 
         return success
-            ? res.send({ success: true, status: cachedQuestion.status })
+            ? res.send({ status: cachedQuestion.status })
             : res.status(500).send(config.errorGeneric);
     }
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = EditQuestionStatusReopened;

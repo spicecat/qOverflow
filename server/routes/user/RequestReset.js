@@ -8,7 +8,7 @@ async function RequestReset(req, res, next) {
         `Your request to reset your password has been reciever. Visit http://localhost:3000/reset/${request.id} to reset your password.`
     );
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = RequestReset;

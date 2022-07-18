@@ -16,27 +16,21 @@
     "voteExpires": 60000,
 
     "errorGeneric": {
-        "success": false,
         "error": "Oops! Something went wrong."
     },
     "errorIncomplete": {
-        "success": false,
         "error": "Your request is missing information."
     },
     "errorForbidden": {
-        "success": false,
         "error": "You are not authorized to do that."
     },
     "errorFailed": {
-        "success": false,
         "error": "Request failed. Please check form and try again."
     },
     "errorNotFound": {
-        "success": false,
         "error": "That object was not found. Please check the URI and try again."
     },
     "errorUnauthed": {
-        "success": false,
         "error": "You are unauthenticated, please include your JWT."
     }
 }

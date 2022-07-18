@@ -29,7 +29,7 @@ async function EditAnswer(req, res, next) {
     };
     await Question.findByIdAndUpdate(question.id, question, { upsert: true });
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = EditAnswer;

@@ -24,7 +24,7 @@ async function RequestReset(req, res, next) {
     await User.findOneAndDelete({ username: request.user });
 
     return success
-        ? res.send({ success: true })
+        ? res.sendStatus(200)
         : res.status(500).send(config.errorGeneric);
 }
 

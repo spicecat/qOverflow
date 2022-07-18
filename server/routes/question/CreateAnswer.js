@@ -33,7 +33,7 @@ async function CreateAnswer(req, res, next) {
         amount: 2,
     });
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = CreateAnswer;

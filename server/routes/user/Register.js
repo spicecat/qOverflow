@@ -7,7 +7,7 @@ async function Register(req, res, next) {
     const { username, email, password } = req.body;
 
     if (!username || !email | !passowrd) {
-        return res.status(400).send('Your request is missing information.');
+        return res.status(400).send(config.errorIncomplete);
     }
 
     const { salt, key } = await deriveKeyFromPassword(password);
@@ -22,7 +22,7 @@ async function Register(req, res, next) {
     await User.create({ username, email, points, salt });
 
     return success
-        ? res.send({ success: true })
+        ? res.sendStatus(200)
         : res.status(500).send(config.errorGeneric);
 }
 

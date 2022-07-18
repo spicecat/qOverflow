@@ -14,7 +14,7 @@ async function Get(req, res, next) {
         cachedMail.length &&
         user.lastMailFetch + config.mailExpires > Date.now()
     ) {
-        return res.send({ success: true, messages: cachedMail });
+        return res.send({ messages: cachedMail });
     }
 
     const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
@@ -45,7 +45,7 @@ async function Get(req, res, next) {
         createdAt: 'desc',
     });
 
-    return res.send({ success: true, messages: updatedCache });
+    return res.send({ messages: updatedCache });
 }
 
 module.exports = Get;

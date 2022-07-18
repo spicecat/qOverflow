@@ -24,7 +24,7 @@ async function CreateQuestion(req, res, next) {
         amount: 1,
     });
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = CreateQuestion;

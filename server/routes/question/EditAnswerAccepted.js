@@ -34,7 +34,7 @@ async function EditAnswerAccepted(req, res, next) {
         amount: 15,
     });
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = EditAnswerAccepted;

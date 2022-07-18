@@ -31,9 +31,7 @@ async function EditAnswer(req, res, next) {
         upsert: true,
     });
 
-    return success
-        ? res.send({ success: true, answer: newAnswer })
-        : res.status(500).send('Something went wrong.');
+    return res.send({ answer: newAnswer });
 }
 
 module.exports = EditAnswer;

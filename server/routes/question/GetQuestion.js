@@ -21,7 +21,7 @@ async function GetQuestion(req, res, next) {
         cachedQuestion = await Question.findById(questionID);
     }
 
-    return res.send({ success: true, question: cachedQuestion });
+    return res.send({ question: cachedQuestion });
 }
 
 module.exports = GetQuestion;

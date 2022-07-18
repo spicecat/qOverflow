@@ -5,7 +5,7 @@ async function Logout(req, res, next) {
 
     await Token.findByIdAndDelete(user.token);
 
-    return res.send({ success: true });
+    return res.sendStatus(200);
 }
 
 module.exports = Logout;

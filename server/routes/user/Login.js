@@ -17,7 +17,7 @@ async function Login(req, res, next) {
         user: user.id,
     });
 
-    return res.send({ success: true, token: token.accessToken, user });
+    return res.send({ token: token.accessToken, user });
 }
 
 module.exports = Login;

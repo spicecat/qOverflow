@@ -21,8 +21,8 @@ async function DeleteAnswerComment(req, res, next) {
     await Comment.findByIdAndDelete(commentID);
 
     return success
-        ? res.send({ success: true })
-        : res.status(500).send('Something went wrong.');
+        ? res.sendStatus(200)
+        : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = DeleteAnswerComment;
