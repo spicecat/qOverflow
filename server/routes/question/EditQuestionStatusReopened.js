@@ -3,7 +3,7 @@ const getUserLevel = require('../../utils/getUserLevel');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function EditQuestionStatusReopen(req, res, next) {
+async function EditQuestionStatusReopened(req, res, next) {
     const user = req.user;
     const { questionID } = req.params;
 
@@ -56,4 +56,4 @@ async function EditQuestionStatusReopen(req, res, next) {
     return res.send({ success: true });
 }
 
-module.exports = EditQuestionStatusReopen;
+module.exports = EditQuestionStatusReopened;
