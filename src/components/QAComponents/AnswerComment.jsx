@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Divider, ListItem, ListItemText } from '@mui/material';
 import { useAnswer } from 'contexts';
-import { CreationInfoTag, VoteControl } from 'controllers';
+import { CreationInfoTag } from 'controllers';
+import { VoteControl } from 'controllers/QAControllers';
 import { getAnswerCommentVote, updateAnswerCommentVote } from 'services/questionsServices';
 
 export default function AnswerComment({

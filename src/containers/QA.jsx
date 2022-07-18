@@ -1,5 +1,5 @@
 import { List, ListItem } from '@mui/material';
-import { AnswersList, CommentsList, Question } from 'controllers';
+import { AnswersList, CommentsList, Question } from 'controllers/QAControllers';
 
 export default function QA() {
 

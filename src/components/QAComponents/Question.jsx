@@ -1,6 +1,7 @@
 import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { CreationInfoTag, VoteControl } from 'controllers';
+import { CreationInfoTag } from 'controllers';
+import { VoteControl } from 'controllers/QAControllers';
 import { getQuestionVote, updateQuestionVote } from 'services/questionsServices';
 
 const statusColor = (status) => {

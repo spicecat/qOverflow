@@ -23,8 +23,8 @@ export default function SendMailController() {
         }
     }
 
-    const sendMail = ({ reciever, subject, text }) =>
-        postMail(userData.username, reciever, subject, text);
+    const sendMail = ({ receiver, subject, text }) =>
+        postMail(userData.username, receiver, subject, text);
 
     return Form({
         fields: composeMailFields,

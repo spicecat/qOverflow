@@ -1,7 +1,7 @@
 import { useUser } from 'contexts';
 import { Form } from 'controllers/FormControllers';
-import { loginSchema } from 'services/schemas';
 import { loginFields } from 'services/fields';
+import { loginSchema } from 'services/schemas';
 
 export default function LoginFormController() {
     const { validateLogin } = useUser();
