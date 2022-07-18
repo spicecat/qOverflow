@@ -8,12 +8,7 @@ async function Answers(req, res, next) {
     if (user.lastAnswerFetch + config.answerExpires > Date.now()) {
         const cachedAnswers = await Answer.find({
             creator: user.username,
-        })
-            .populate({
-                path: 'creator',
-                select: '-salt',
-            })
-            .sort({ createdAt: 'desc' });
+        }).sort({ createdAt: 'desc' });
 
         return res.send(cachedAnswers);
     }
@@ -40,12 +35,7 @@ async function Answers(req, res, next) {
 
     const cachedAnswers = await Answer.find({
         creator: user.username,
-    })
-        .populate({
-            path: 'creator',
-            select: '-salt',
-        })
-        .sort({ createdAt: 'desc' });
+    }).sort({ createdAt: 'desc' });
 
     return res.send(cachedAnswers);
 }

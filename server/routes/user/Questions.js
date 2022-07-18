@@ -6,10 +6,7 @@ async function Questions(req, res, next) {
 
     const cachedQuestions = await Question.find({
         creator: user.username,
-    }).populate({
-        path: 'creator',
-        select: '-salt',
-    });
+    }).sort({ createdAt: 'desc' });
 
     return res.send(cachedQuestions);
 }
