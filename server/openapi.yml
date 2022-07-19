@@ -16,7 +16,7 @@ paths:
             summary: Modify user information
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -50,7 +50,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -69,7 +69,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -88,7 +88,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -106,7 +106,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -134,7 +134,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -149,7 +149,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -185,7 +185,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -214,7 +214,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -236,7 +236,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -255,7 +255,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -283,7 +283,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -309,7 +309,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -325,7 +325,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -407,7 +407,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -421,7 +421,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -432,7 +432,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -456,7 +456,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -474,7 +474,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -522,7 +522,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -537,7 +537,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -548,7 +548,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -573,7 +573,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -591,7 +591,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -618,7 +618,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -628,7 +628,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -654,7 +654,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -669,7 +669,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -680,7 +680,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -706,7 +706,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -724,7 +724,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -774,7 +774,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -789,7 +789,7 @@ paths:
                 - BearerAuth: []
             requestBody:
                 content:
-                    '*/*':
+                    'application/json':
                         schema:
                             type: object
                             properties:
@@ -800,7 +800,7 @@ paths:
                 '200':
                     description: OK
                     content:
-                        '*/*':
+                        'application/json':
                             schema:
                                 type: object
                                 properties:
@@ -947,7 +947,7 @@ components:
         BadRequest:
             description: Bad request
             content:
-                '*/*':
+                'application/json':
                     schema:
                         type: object
                         properties:
@@ -957,7 +957,7 @@ components:
         ServerError:
             description: Server Error
             content:
-                '*/*':
+                'application/json':
                     schema:
                         type: object
                         properties:
@@ -967,7 +967,7 @@ components:
         Unauthorized:
             description: User unauthorized
             content:
-                '*/*':
+                'application/json':
                     schema:
                         type: object
                         properties:
@@ -977,7 +977,7 @@ components:
         Forbidden:
             description: User not allowed
             content:
-                '*/*':
+                'application/json':
                     schema:
                         type: object
                         properties:
@@ -987,7 +987,7 @@ components:
         NotFound:
             description: Not Found
             content:
-                '*/*':
+                'application/json':
                     schema:
                         type: object
                         properties:
