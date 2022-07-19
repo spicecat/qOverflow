@@ -12,14 +12,14 @@ async function fetchMail(
     const request = await createRequest('get', url, { after });
 
     if (!request.success) return config.errorGeneric;
-    if (!request.answers.length) return acc;
+    if (!request.messages.length) return acc;
 
     const newAcc = {
         success: true,
         requests: [...acc.requests, request],
     };
 
-    const oldest = request.answers[request.answers.length - 1];
+    const oldest = request.messages[request.messages.length - 1];
     if (oldest.createdAt < recentTimestamp) {
         return newAcc;
     }

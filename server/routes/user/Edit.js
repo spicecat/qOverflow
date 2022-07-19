@@ -1,5 +1,7 @@
 const createRequest = require('../../utils/api');
+const deriveKeyFromPassword = require('../../utils/auth');
 const User = require('../../db/models/User');
+const config = require('../../config.json');
 
 async function Edit(req, res, next) {
     const user = req.user;

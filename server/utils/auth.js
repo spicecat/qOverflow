@@ -1,3 +1,5 @@
+const crypto = require('crypto').webcrypto;
+
 const KEY_SIZE_BYTES = 64;
 const SALT_SIZE_BYTES = 16;
 
@@ -17,9 +19,9 @@ const deriveKeyFromPassword = async (password, saltBuffer) => {
 
     saltBuffer = saltBuffer
         ? convertHexToBuffer(saltBuffer)
-        : window.crypto.getRandomValues(new Uint8Array(SALT_SIZE_BYTES));
+        : crypto.getRandomValues(new Uint8Array(SALT_SIZE_BYTES));
 
-    const plaintextKey = await window.crypto.subtle.importKey(
+    const plaintextKey = await crypto.subtle.importKey(
         'raw',
         passwordBuffer,
         'PBKDF2',
@@ -27,7 +29,7 @@ const deriveKeyFromPassword = async (password, saltBuffer) => {
         ['deriveBits']
     );
 
-    const pbkdf2Buffer = await window.crypto.subtle.deriveBits(
+    const pbkdf2Buffer = await crypto.subtle.deriveBits(
         {
             name: 'PBKDF2',
             salt: saltBuffer,

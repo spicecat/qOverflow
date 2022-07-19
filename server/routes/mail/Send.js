@@ -4,15 +4,15 @@ const createRequest = require('../../utils/api');
 
 async function Send(req, res, next) {
     const { username } = req.user;
-    const { reciever, subject, text } = req.body;
+    const { receiver, subject, text } = req.body;
 
-    if (!reciever | !subject | !text) {
+    if (!receiver | !subject | !text) {
         return res.status(400).send(config.errorIncomplete);
     }
 
     const { success, message } = await createRequest('post', `/mail`, {
         sender: username,
-        reciever,
+        receiver,
         subject,
         text,
     });

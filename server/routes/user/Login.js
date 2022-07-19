@@ -14,10 +14,10 @@ async function Login(req, res, next) {
         _id: secretKey,
         token: accessToken,
         expires: remember,
-        user: user.id,
+        user: user.username,
     });
 
-    return res.send({ token: token.accessToken, user });
+    return res.send({ token: token.token, user });
 }
 
 module.exports = Login;

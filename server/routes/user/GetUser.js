@@ -1,11 +1,11 @@
 const createRequest = require('../../utils/api');
-
+const config = require('../../config.json');
 const User = require('../../db/models/User');
 
 async function GetUser(req, res, next) {
     const { username } = req.params;
 
-    const cachedUser = await User.find({ username }).select([
+    const cachedUser = await User.findOne({ username }).select([
         'username',
         'email',
         'points',
@@ -13,10 +13,7 @@ async function GetUser(req, res, next) {
 
     if (cachedUser) return res.send(cachedUser);
 
-    const { success, user } = await createRequest(
-        'get',
-        `/users/${req.query.user}`
-    );
+    const { success, user } = await createRequest('get', `/users/${username}`);
 
     if (!success) return res.status(500).send(config.errorGeneric);
 

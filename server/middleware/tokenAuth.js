@@ -24,8 +24,9 @@ async function tokenAuth(req, res, next) {
         return res.status(401).send(config.errorUnauthed);
     }
 
-    const decoded = jwt.verify(result.token, result.id);
-    const user = await User.findById(decoded.id);
+    const user = await User.findOne({ username: result.user });
+
+    if (!user) return res.status(401).send(config.errorUnauthed);
 
     req.user = user;
 

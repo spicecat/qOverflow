@@ -19,7 +19,7 @@ async function Get(req, res, next) {
 
     const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
     const { success, requests } = await fetchMail(
-        `/mail/${username}`,
+        `/mail/${user.username}`,
         recentTimestamp
     );
 
@@ -41,7 +41,7 @@ async function Get(req, res, next) {
 
     await User.findByIdAndUpdate(user.id, { lastMailFetch: Date.now() });
 
-    const updatedCache = await Mail.find({ reciever: username }).sort({
+    const updatedCache = await Mail.find({ receiver: user.username }).sort({
         createdAt: 'desc',
     });
 
