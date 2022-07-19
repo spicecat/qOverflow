@@ -10,6 +10,7 @@ const CreateQuestion = require('./question/CreateQuestion');
 const DeleteAnswerComment = require('./question/DeleteAnswerComment');
 const DeleteComment = require('./question/DeleteComment');
 const EditAnswer = require('./question/EditAnswer');
+const EditAnswerAccepted = require('./question/EditAnswerAccepted');
 const EditAnswerCommentVote = require('./question/EditAnswerCommentVote');
 const EditAnswerVote = require('./question/EditAnswerVote');
 const EditCommentVote = require('./question/EditCommentVote');
@@ -52,6 +53,11 @@ router.patch(
 router.get('/:questionID/answers', GetAnswers);
 router.post('/:questionID/answers', tokenAuth, CreateAnswer);
 router.patch('/:questionID/answers/:answerID', tokenAuth, EditAnswer);
+router.patch(
+    '/:questionID/answers/:answerID/accept',
+    tokenAuth,
+    EditAnswerAccepted
+);
 router.get('/:questionID/answers/:answerID/vote', GetAnswerVote);
 router.patch('/:questionID/answers/:answerID/vote', tokenAuth, EditAnswerVote);
 

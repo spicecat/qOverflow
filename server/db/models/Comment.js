@@ -7,7 +7,7 @@ const Comment = mongoose.Schema(
         text: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },
         downvotes: { type: Number, required: true, default: 0 },
-        createdAt: { type: Date, required: true },
+        createdAt: { type: Date, required: true, default: Date.now },
         docModel: {
             type: String,
             required: true,

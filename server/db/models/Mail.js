@@ -6,7 +6,7 @@ const Mail = mongoose.Schema(
         receiver: { type: String, required: true },
         subject: { type: String, required: true },
         text: { type: String, required: true },
-        createdAt: { type: Date, required: true },
+        createdAt: { type: Date, required: true, default: Date.now },
     },
     { timestamps: false }
 );

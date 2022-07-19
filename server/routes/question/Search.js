@@ -7,8 +7,10 @@ async function Search(req, res, next) {
     const { success, questions } = await createRequest(
         'get',
         `/questions/search`,
-        req.params
+        req.query
     );
+
+    if (!success) return res.status(500).send(config.errorGeneric);
 
     const questionSet = await questions
         .map((question) => ({
@@ -21,11 +23,7 @@ async function Search(req, res, next) {
             });
         });
 
-    await Question.create(questionSet);
-
-    return success
-        ? res.send(questionSet)
-        : res.status(500).send(config.errorGeneric);
+    return res.send(questionSet);
 }
 
 module.exports = Search;

@@ -3,6 +3,7 @@ const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 const Question = require('../../db/models/Question');
+const User = require('../../db/models/User');
 
 async function EditQuestionVote(req, res, next) {
     const user = req.user;
@@ -53,6 +54,8 @@ async function EditQuestionVote(req, res, next) {
                 amount: 1,
             });
 
+            await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
+
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
@@ -92,6 +95,8 @@ async function EditQuestionVote(req, res, next) {
             operation: 'increment',
             amount: 1,
         });
+
+        await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
@@ -184,6 +189,7 @@ async function EditQuestionVote(req, res, next) {
                 operation: 'decrement',
                 amount: 1,
             });
+            await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
 
             return res.send({ vote: 'downvoted' });
         }
