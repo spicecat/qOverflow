@@ -1,5 +1,6 @@
 const Question = require('../../db/models/Question');
 const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function CreateQuestion(req, res, next) {
     const user = req.user;
@@ -17,7 +18,7 @@ async function CreateQuestion(req, res, next) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Question.create({ ...question, id: question_id });
+    await Question.create({ ...question, _id: question.question_id });
 
     await createRequest('patch', `/users/${user.username}/points`, {
         operation: 'increment',

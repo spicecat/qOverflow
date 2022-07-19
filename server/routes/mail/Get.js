@@ -29,7 +29,7 @@ async function Get(req, res, next) {
         .reduce(async (acc, req) => {
             const reformat = req.messages.map((message) => ({
                 ...message,
-                id: message.mail_id,
+                _id: message.mail_id,
             }));
             return [...reformat, ...acc];
         }, [])

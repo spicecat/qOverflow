@@ -1,7 +1,9 @@
 const Comment = require('../../db/models/Comment');
 const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function DeleteComment(req, res, next) {
+    const user = req.user;
     const { questionID, commentID } = req.params;
 
     const comment = await Comment.findById(commentID);
@@ -17,7 +19,7 @@ async function DeleteComment(req, res, next) {
         `/questions/${questionID}/comments/${commentID}`
     );
 
-    Comment.findByIdAndDelete(commentID);
+    await Comment.findByIdAndDelete(commentID);
 
     return success
         ? res.sendStatus(200)

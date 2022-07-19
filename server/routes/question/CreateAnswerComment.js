@@ -1,6 +1,8 @@
 const Comment = require('../../db/models/Comment');
 const Answer = require('../../db/models/Answer');
 const config = require('../../config.json');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function CreateAnswerComment(req, res, next) {
     const { username } = req.user;
@@ -28,7 +30,7 @@ async function CreateAnswerComment(req, res, next) {
 
     await Comment.create({
         ...comment,
-        id: comment_id,
+        _id: comment.comment_id,
         docModel: 'Answer',
         parentID: answerID,
     });

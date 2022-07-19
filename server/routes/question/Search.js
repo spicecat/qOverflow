@@ -23,7 +23,7 @@ async function Search(req, res, next) {
             });
         });
 
-    return res.send(questionSet);
+    return res.send({ questions: questionSet });
 }
 
 module.exports = Search;

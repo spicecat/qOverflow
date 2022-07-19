@@ -19,7 +19,7 @@ async function Send(req, res, next) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Mail.create({ ...message, id: message.mail_id });
+    await Mail.create({ ...message, _id: message.mail_id });
 
     return res.sendStatus(200);
 }

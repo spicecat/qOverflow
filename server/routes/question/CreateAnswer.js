@@ -2,6 +2,7 @@ const Answer = require('../../db/models/Answer');
 const Question = require('../../db/models/Question');
 const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
+const createRequest = require('../../utils/api');
 
 async function CreateAnswer(req, res, next) {
     const user = req.user;
@@ -40,7 +41,7 @@ async function CreateAnswer(req, res, next) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Answer.create({ ...answer, id: answer.answer_id, questionID });
+    await Answer.create({ ...answer, _id: answer.answer_id, questionID });
 
     await createRequest('patch', `/users/${user.username}/points`, {
         operation: 'increment',

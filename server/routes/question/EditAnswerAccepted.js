@@ -1,6 +1,7 @@
 const Answer = require('../../db/models/Answer');
 const Question = require('../../db/models/Question');
 const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function EditAnswerAccepted(req, res, next) {
     const user = req.user;

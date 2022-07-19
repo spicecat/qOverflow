@@ -1,5 +1,4 @@
 const Question = require('../../db/models/Question');
-const fetchQuestions = require('../../utils/fetchQuestions');
 
 async function Questions(req, res, next) {
     const user = req.user;

@@ -1,5 +1,6 @@
 const Question = require('../../db/models/Answer');
 const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function EditAnswer(req, res, next) {
     const user = req.user;
@@ -17,8 +18,8 @@ async function EditAnswer(req, res, next) {
 
     const patchQuestion = await createRequest(
         'patch',
-        `/questions/${questionID}/answers/${answerID}`,
-        body
+        `/questions/${questionID}`,
+        { text }
     );
 
     if (!patchQuestion.success) {

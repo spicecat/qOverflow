@@ -1,5 +1,4 @@
 const createRequest = require('../../utils/api');
-const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 

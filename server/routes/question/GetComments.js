@@ -16,7 +16,7 @@ async function GetComments(req, res, next) {
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
-        await requests
+        comments = await requests
             .reduce(async (acc, req) => {
                 const reformat = req.comments.map((comment) => ({
                     ...comment,
@@ -30,8 +30,7 @@ async function GetComments(req, res, next) {
                 });
             });
     }
-
-    const comments = await Comment.find({ parentID: questionID });
+    var comments = await Comment.find({ parentID: questionID });
 
     return res.send({ comments });
 }
