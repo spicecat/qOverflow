@@ -3,8 +3,10 @@ const config = require('../../config.json');
 
 async function EditAnswer(req, res, next) {
     const user = req.user;
-    const { token, ...body } = req.body;
+    const { text } = req.body;
     const { questionID } = req.params;
+
+    if (!text) return res.status(400).send(config.errorIncomplete);
 
     const questionPull = await createRequest('get', `/questions/${questionID}`);
 

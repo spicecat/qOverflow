@@ -37,7 +37,7 @@ async function Answers(req, res, next) {
         creator: user.username,
     }).sort({ createdAt: 'desc' });
 
-    return res.send(cachedAnswers);
+    return res.send({ answers: cachedAnswers });
 }
 
 module.exports = Answers;

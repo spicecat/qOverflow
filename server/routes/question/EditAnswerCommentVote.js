@@ -8,6 +8,8 @@ async function EditAnswerVote(req, res, next) {
     const { questionID, answerID, commentID } = req.params;
     const { operation } = req.body;
 
+    if (!operation) return res.status(400).send(config.errorIncomplete);
+
     const userLevel = getUserLevel(user.points);
     if (operation === 'upvote' && userLevel < 2) {
         return res.status(403).send(config.errorForbidden);
@@ -18,8 +20,6 @@ async function EditAnswerVote(req, res, next) {
     }
 
     const URL = `/questions/${questionID}/answerID/${answerID}/comments/${commentID}/vote/${user.username}`;
-
-    if (!operation) return res.status(400).send(config.errorIncomplete);
 
     var cachedVote = await Vote.findOneAndDelete({
         parentID: commentID,

@@ -28,7 +28,7 @@
         "error": "Request failed. Please check form and try again."
     },
     "errorNotFound": {
-        "error": "That object was not found. Please check the URI and try again."
+        "error": "That resource was not found. Please check the URI and try again."
     },
     "errorUnauthed": {
         "error": "You are unauthenticated, please include your JWT."

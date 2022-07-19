@@ -3,12 +3,14 @@ const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 
 const Vote = require('../../db/models/Vote');
-const Answer = require('../../db/mdoels/Answer');
+const Answer = require('../../db/models/Answer');
 
 async function EditAnswerVote(req, res, next) {
     const user = req.user;
     const { questionID, answerID } = req.params;
     const { operation } = req.body;
+
+    if (!operation) return res.status(400).send(config.errorIncomplete);
 
     const userLevel = getUserLevel(user.points);
     if (operation === 'upvote' && userLevel < 2) {
@@ -20,8 +22,6 @@ async function EditAnswerVote(req, res, next) {
     }
 
     const URL = `/questions/${questionID}/answers/${answerID}/vote/${user.username}`;
-
-    if (!operation) return res.status(400).send(config.errorIncomplete);
 
     const cachedAnswer = await Answer.findById(answerID);
     var cachedVote = await Vote.findOneAndDelete({

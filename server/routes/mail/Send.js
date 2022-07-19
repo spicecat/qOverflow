@@ -7,10 +7,7 @@ async function Send(req, res, next) {
     const { reciever, subject, text } = req.body;
 
     if (!reciever | !subject | !text) {
-        return res.status(400).send({
-            success: false,
-            error: 'Your message is missing information.',
-        });
+        return res.status(400).send(config.errorIncomplete);
     }
 
     const { success, message } = await createRequest('post', `/mail`, {

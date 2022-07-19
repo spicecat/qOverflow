@@ -8,7 +8,7 @@ async function Questions(req, res, next) {
         creator: user.username,
     }).sort({ createdAt: 'desc' });
 
-    return res.send(cachedQuestions);
+    return res.send({ questions: cachedQuestions });
 }
 
 module.exports = Questions;

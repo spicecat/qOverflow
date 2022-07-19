@@ -17,10 +17,10 @@ const ResetPassword = require('./user/ResetPassword');
 router.get('/:username', GetUser);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
-router.get('/logout', tokenAuth, Logout);
-router.get('/reset', RequestReset);
-router.post('/login', basicAuth, Login);
 router.post('/register', Register);
+router.post('/login', basicAuth, Login);
+router.delete('/logout', tokenAuth, Logout);
+router.get('/reset', RequestReset);
 router.post('/reset/:id', ResetPassword);
 router.patch('/', tokenAuth, Edit);
 

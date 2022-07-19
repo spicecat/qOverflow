@@ -21,7 +21,7 @@ async function tokenAuth(req, res, next) {
         date.setDate(date.getDate + 1) > result.createdAt
     ) {
         await Token.findOneAndDelete({ token });
-        return res.status(401).send(config.errorFailed);
+        return res.status(401).send(config.errorUnauthed);
     }
 
     const decoded = jwt.verify(result.token, result.id);
