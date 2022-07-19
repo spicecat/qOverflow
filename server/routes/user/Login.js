@@ -10,10 +10,12 @@ async function Login(req, res, next) {
     const secretKey = mongoose.Types.ObjectId();
     const accessToken = jwt.sign({ id: user.id }, secretKey.toString());
 
+    await Token.deleteMany({ user: user.username });
+
     const token = await Token.create({
         _id: secretKey,
         token: accessToken,
-        expires: remember,
+        expires: !remember,
         user: user.username,
     });
 
