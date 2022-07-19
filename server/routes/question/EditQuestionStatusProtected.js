@@ -7,13 +7,16 @@ async function EditQuestionStatusProtected(req, res, next) {
     const user = req.user;
     const { questionID } = req.params;
 
+    // Verify that user has required level
     if (getUserLevel(user.points) < 6) {
         return res.status(403).send(config.errorForbidden);
     }
 
+    // Verify that question exists
     const cachedQuestion = await Question.findById(questionID);
     if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
 
+    // Verify that question does not have incompatible status
     if (
         cachedQuestion.status === 'closed' ||
         cachedQuestion.status === 'protected'
@@ -24,6 +27,7 @@ async function EditQuestionStatusProtected(req, res, next) {
         });
     }
 
+    // Toggle vote
     if (cachedQuestion.protect.includes(user.username)) {
         await Question.findByIdAndUpdate(questionID, {
             protect: { $pull: user.username },
@@ -36,6 +40,7 @@ async function EditQuestionStatusProtected(req, res, next) {
         });
     }
 
+    // Patch question status if required
     if (cachedQuestion.protect.length === 2) {
         const cachedQuestion = await Question.findByIdAndUpdate(questionID, {
             protect: [],
@@ -47,6 +52,7 @@ async function EditQuestionStatusProtected(req, res, next) {
             `/questions/${questionID}`,
             { status: 'protected' }
         );
+        await Question.findByIdAndUpdate(questionID, { status: 'protected' });
 
         return success
             ? res.send({ status: cachedQuestion.status })

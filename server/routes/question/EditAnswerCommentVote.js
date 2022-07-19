@@ -8,8 +8,10 @@ async function EditAnswerVote(req, res, next) {
     const { questionID, answerID, commentID } = req.params;
     const { operation } = req.body;
 
+    // Verify that an operation is in response body
     if (!operation) return res.status(400).send(config.errorIncomplete);
 
+    // Verify that user has required permissions
     const userLevel = getUserLevel(user.points);
     if (operation === 'upvote' && userLevel < 2) {
         return res.status(403).send(config.errorForbidden);
@@ -21,6 +23,7 @@ async function EditAnswerVote(req, res, next) {
 
     const URL = `/questions/${questionID}/answerID/${answerID}/comments/${commentID}/vote/${user.username}`;
 
+    // Get the cached vote, and refresh cache if not present
     var cachedVote = await Vote.findOneAndDelete({
         parentID: commentID,
         creator: user.username,
@@ -33,6 +36,7 @@ async function EditAnswerVote(req, res, next) {
     }
 
     if (cachedVote.status === 'upvoted') {
+        // Undo upvote if previously upvoted
         const { success } = await createRequest('patch', URL, {
             operation: 'decrement',
             target: 'upvotes',
@@ -40,6 +44,7 @@ async function EditAnswerVote(req, res, next) {
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
+        // If downvote, increment downvotes and cache vote
         if (operation === 'downvote') {
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
@@ -58,6 +63,7 @@ async function EditAnswerVote(req, res, next) {
             return res.send({ vote: 'downvoted' });
         }
     } else if (cachedVote.status === 'downvoted') {
+        // Decrement downvotes if previously downvoted
         const { success } = await createRequest('patch', URL, {
             operation: 'decrement',
             target: 'downvotes',
@@ -65,6 +71,7 @@ async function EditAnswerVote(req, res, next) {
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
+        // If operation is upvoted, cache and change vote
         if (operation === 'upvote') {
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
@@ -84,6 +91,7 @@ async function EditAnswerVote(req, res, next) {
         }
     } else {
         if (operation === 'upvote') {
+            // Increment upvotes
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
                 target: 'upvotes',
@@ -100,6 +108,7 @@ async function EditAnswerVote(req, res, next) {
 
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
+            // Increment downvotes
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
                 target: 'downvotes',

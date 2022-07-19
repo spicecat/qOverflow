@@ -7,13 +7,16 @@ async function EditQuestionStatusClosed(req, res, next) {
     const user = req.user;
     const { questionID } = req.params;
 
+    // Verify that user has required level
     if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
     }
 
+    // Get cached question and make sure it exists
     const cachedQuestion = await Question.findById(questionID);
     if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
 
+    // Verify that is does not have an incompatible status
     if (cachedQuestion.status === 'closed') {
         return res.status(400).send({
             success: false,
@@ -21,6 +24,7 @@ async function EditQuestionStatusClosed(req, res, next) {
         });
     }
 
+    // Toggle question vote
     if (cachedQuestion.close.includes(user.username)) {
         await Question.findByIdAndUpdate(questionID, {
             close: { $pull: user.username },
@@ -33,6 +37,7 @@ async function EditQuestionStatusClosed(req, res, next) {
         });
     }
 
+    // Patch question status if required
     if (cachedQuestion.close.length === 2) {
         const cachedQuestion = await Question.findByIdAndUpdate(questionID, {
             close: [],
@@ -44,6 +49,7 @@ async function EditQuestionStatusClosed(req, res, next) {
             `/questions/${questionID}`,
             { status: 'closed' }
         );
+        await Question.findByIdAndUpdate(questionID, { status: 'closed' });
 
         return success
             ? res.send({ status: cachedQuestion.status })

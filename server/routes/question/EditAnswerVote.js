@@ -9,8 +9,10 @@ async function EditAnswerVote(req, res, next) {
     const { questionID, answerID } = req.params;
     const { operation } = req.body;
 
+    // Verify that an operation is in response body
     if (!operation) return res.status(400).send(config.errorIncomplete);
 
+    // Verify that user has required permissions
     const userLevel = getUserLevel(user.points);
     if (operation === 'upvote' && userLevel < 2) {
         return res.status(403).send(config.errorForbidden);
@@ -22,6 +24,7 @@ async function EditAnswerVote(req, res, next) {
 
     const URL = `/questions/${questionID}/answers/${answerID}/vote/${user.username}`;
 
+    // Get the cached vote and answer, refresh cache if not present
     const cachedAnswer = await Answer.findById(answerID);
     var cachedVote = await Vote.findOneAndDelete({
         parentID: answerID,
@@ -35,6 +38,7 @@ async function EditAnswerVote(req, res, next) {
     }
 
     if (cachedVote.status === 'upvoted') {
+        // Undo upvote if previously upvoted
         const { success } = await createRequest('patch', URL, {
             operation: 'decrement',
             target: 'upvotes',
@@ -43,6 +47,7 @@ async function EditAnswerVote(req, res, next) {
         if (!success) return res.status(500).send(config.errorGeneric);
 
         if (operation === 'downvote') {
+            // Undo upvote if previously upvoted
             const { success } = await createRequest('patch', URL, {
                 operation: 'increment',
                 target: 'downvotes',

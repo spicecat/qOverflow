@@ -1,4 +1,5 @@
 const Question = require('../../db/models/Question');
+const User = require('../../db/models/User');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
@@ -20,10 +21,13 @@ async function CreateQuestion(req, res, next) {
 
     await Question.create({ ...question, _id: question.question_id });
 
+    // Increment user points by 1
     await createRequest('patch', `/users/${user.username}/points`, {
         operation: 'increment',
         amount: 1,
     });
+
+    await User.findByIdAndUpdate(user.id, { points: { $inc: 1 } });
 
     return res.sendStatus(200);
 }

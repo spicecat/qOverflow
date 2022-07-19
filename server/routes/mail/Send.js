@@ -6,6 +6,7 @@ async function Send(req, res, next) {
     const { username } = req.user;
     const { receiver, subject, text } = req.body;
 
+    // Verify that required form data exists
     if (!receiver | !subject | !text) {
         return res.status(400).send(config.errorIncomplete);
     }
@@ -19,6 +20,7 @@ async function Send(req, res, next) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
+    // Cache newly created mail
     await Mail.create({ ...message, _id: message.mail_id });
 
     return res.sendStatus(200);

@@ -12,8 +12,10 @@ async function basicAuth(req, res, next) {
         return res.status(401).send(config.errorIncomplete);
     }
 
+    // Isolate the username and password
     const [username, password] = atob(b64Encoded).split(':');
 
+    // Find username and password in cache and attempt to log in with cached salt
     const cacheUser = await User.findOne({ username });
     if (cacheUser) {
         const { key } = await deriveKeyFromPassword(password, cacheUser.salt);
@@ -31,6 +33,7 @@ async function basicAuth(req, res, next) {
         }
     }
 
+    // If login failed with cached salt, refresh user and try again
     const { user, success } = await createRequest('get', `/users/${username}`);
     if (!success) return res.status(500).send(config.errorGeneric);
 

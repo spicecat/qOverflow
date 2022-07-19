@@ -9,6 +9,7 @@ async function GetComments(req, res, next) {
 
     var question = await Question.findById(questionID);
 
+    // Refresh comments if expired
     if (question.lastCommentFetch + config.commentExpires < Date.now()) {
         const { success, requests } = await fetchComments(
             `/questions/${questionID}/comments`
@@ -16,7 +17,8 @@ async function GetComments(req, res, next) {
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
-        comments = await requests
+        // Reformat comments and patch to database
+        await requests
             .reduce(async (acc, req) => {
                 const reformat = req.comments.map((comment) => ({
                     ...comment,

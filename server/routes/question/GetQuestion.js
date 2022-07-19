@@ -8,6 +8,7 @@ async function GetQuestion(req, res, next) {
 
     var cachedQuestion = await Question.findById(questionID);
 
+    // Retrieve uncached question and patch to cache
     if (!cachedQuestion) {
         const { success, question } = createRequest(
             'get',

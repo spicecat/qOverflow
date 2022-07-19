@@ -7,10 +7,12 @@ async function EditAnswerAccepted(req, res, next) {
     const user = req.user;
     const { questionID, answerID } = req.params;
 
+    // Find question and verify that it exists
     const cachedQuestion = await Question.findById(questionID);
 
     if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
 
+    // Verify that user owns the question and question does not already have an accepted answer
     if (
         cachedQuestion.creator !== user.username ||
         cachedQuestion.hasAccepted
@@ -18,6 +20,7 @@ async function EditAnswerAccepted(req, res, next) {
         return res.status(403).send(config.errorForbidden);
     }
 
+    // Patch question with BDPA server
     const patchAnswer = await createRequest(
         'patch',
         `/questions/${questionID}/answers/${answerID}`,
@@ -30,6 +33,7 @@ async function EditAnswerAccepted(req, res, next) {
 
     const cachedAnswer = await Answer.findByIdAndDelete(answerID);
 
+    // Increment points of answer creator
     await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
         operation: 'increment',
         amount: 15,

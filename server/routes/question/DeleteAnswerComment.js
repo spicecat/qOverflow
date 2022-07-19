@@ -8,22 +8,25 @@ async function DeleteAnswerComment(req, res, next) {
 
     const comment = await Comment.findById(commentID);
 
+    // Verify that a comment exists
     if (!comment) return res.status(404).send(config.errorNotFound);
 
+    // Verify that the user is the creator
     if (comment.creator !== user.username) {
         return res.status(403).send(config.errorForbidden);
     }
 
+    // Delete question with BDPA server
     const { success } = await createRequest(
         'delete',
         `/questions/${questionID}/answers/${answerID}/comments/${commentID}`
     );
 
+    if (!success) return res.status(500).send(config.errorGeneric);
+
     await Comment.findByIdAndDelete(commentID);
 
-    return success
-        ? res.sendStatus(200)
-        : res.status(500).send(config.errorGeneric);
+    return res.sendStatus(200);
 }
 
 module.exports = DeleteAnswerComment;

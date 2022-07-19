@@ -9,6 +9,7 @@ async function GetAnswers(req, res, next) {
 
     var question = await Question.findById(questionID);
 
+    // Fetch answers if expired
     if (question.lastAnswerFetch + config.answerExpires < Date.now()) {
         const { success, requests } = await fetchAnswers(
             `/questions/${questionID}/answers`
@@ -16,6 +17,7 @@ async function GetAnswers(req, res, next) {
 
         if (!success) return res.status(500).send(config.errorGeneric);
 
+        // Reformat questions and patch to cache
         await requests
             .reduce(async (acc, req) => {
                 const reformat = req.answers.map((answer) => ({

@@ -9,6 +9,7 @@ async function EditAnswer(req, res, next) {
 
     if (!text) return res.status(400).send(config.errorIncomplete);
 
+    // Verify that user owns the question
     const questionPull = await createRequest('get', `/questions/${questionID}`);
 
     if (!questionPull.success) return res.status(500).send(config.errorGeneric);
@@ -16,6 +17,7 @@ async function EditAnswer(req, res, next) {
         return res.status(403).send(config.errorForbidden);
     }
 
+    // Patch question with BDPA server
     const patchQuestion = await createRequest(
         'patch',
         `/questions/${questionID}`,
@@ -26,6 +28,7 @@ async function EditAnswer(req, res, next) {
         return res.status(500).send(config.errorGeneric);
     }
 
+    // Refresh cache
     const question = {
         ...questionPull.question,
         id: questionPull.question.question_id,

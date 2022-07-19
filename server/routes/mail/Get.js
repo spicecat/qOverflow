@@ -6,10 +6,12 @@ const User = require('../../db/models/User');
 async function Get(req, res, next) {
     const user = req.user;
 
+    // Retrieve cached mail
     const cachedMail = await Mail.find({ reciever: user.username }).sort({
         createdAt: 'desc',
     });
 
+    // If there is cached mail and last fetch was recently, return
     if (
         cachedMail.length &&
         user.lastMailFetch + config.mailExpires > Date.now()
@@ -17,6 +19,7 @@ async function Get(req, res, next) {
         return res.send({ messages: cachedMail });
     }
 
+    // Fetch the most recent mail
     const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
     const { success, requests } = await fetchMail(
         `/mail/${user.username}`,
@@ -25,6 +28,7 @@ async function Get(req, res, next) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
+    // Map over data and reformat it, before uploading to database
     await requests
         .reduce(async (acc, req) => {
             const reformat = req.messages.map((message) => ({
@@ -39,8 +43,10 @@ async function Get(req, res, next) {
             });
         });
 
+    // Set last fetch to current time
     await User.findByIdAndUpdate(user.id, { lastMailFetch: Date.now() });
 
+    // Return updated cached Mail
     const updatedCache = await Mail.find({ receiver: user.username }).sort({
         createdAt: 'desc',
     });
