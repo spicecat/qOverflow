@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid } from '@mui/material';
 
-import { ForgotPasswordForm } from '../controllers';
+import { ForgotPasswordForm } from 'controllers/FormControllers';
 
 export default function ForgotPassword() {
     return (

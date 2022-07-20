@@ -1,14 +1,15 @@
-import { List } from '@mui/material';
-import { AnswersList, Question } from '../controllers'
+import { List, ListItem } from '@mui/material';
+import { AnswersList, CommentsList, Question } from 'controllers/QAControllers';
 
 export default function QA() {
-    //This for Q and A
 
     return (
-        <List>
-            Question
+        <List sx={{ pl: 2, pr: 2 }}>
             <Question />
-            {/* <AnswersList /> */}
+            <ListItem sx={{ pl: 8 }}>
+                <CommentsList />
+            </ListItem>
+            <AnswersList />
         </List>
-    )
+    );
 }

@@ -4,7 +4,7 @@ import { Typography, Button } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { ListQuestion, PaginatedList } from '../components';
+import { ListQuestion, PaginatedList } from 'components';
 
 export default function Questions() {
     useEffect(() => {
@@ -34,7 +34,6 @@ export default function Questions() {
                 headers: {
                     'Content-Type' : 'application/json'
                 }
-
 
                 
             })

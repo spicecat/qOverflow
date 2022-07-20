@@ -4,6 +4,43 @@ const passwordStrength = ({ length }) => {
     else return 'strong';
 };
 
+const answerFields = [{
+    id: 'answer',
+    title: 'Answer'
+}]
+
+const askQuestionFields = [
+    {
+        id: 'title',
+        label: 'Title',
+    },
+    {
+        id: 'text',
+        label: 'Text',
+        multiline: true
+    }
+];
+
+const commentFields = [{
+    id: 'comment',
+    label: 'Comment'
+}]
+
+const composeMailFields = [
+    {
+        id: 'receiver',
+        label: 'Recipient',
+    },
+    {
+        id: 'subject',
+        label: 'Subject:',
+    },
+    {
+        id: 'text',
+        label: 'Body',
+    },
+];
+
 const loginFields = [
     {
         id: 'username',
@@ -16,11 +53,16 @@ const loginFields = [
     },
 ];
 
+const recoverFields = [{
+    id: 'username',
+    title: 'Username'
+}];
+
 const registerFields = [
     {
         id: 'username',
         title: 'Username',
-        
+
     },
     {
         id: 'email',
@@ -38,8 +80,6 @@ const registerFields = [
     },
 ];
 
-const recoverFields = [{ id: 'username', title: 'Username' }];
-
 const resetFields = [
     {
         id: 'password',
@@ -49,37 +89,13 @@ const resetFields = [
     },
 ];
 
-const composeMailFields = [
-    {
-        id: 'reciever',
-        label: 'To:',
-    },
-    {
-        id: 'subject',
-        label: 'Subject:',
-    },
-    {
-        id: 'text',
-        label: 'Body',
-    },
-];
-
-const askQuestionFields = [
-    {
-        id: 'title',
-        label: 'Title',
-    },
-    {
-        id: 'text',
-        label: 'Text',
-    },
-];
-
 export {
+    answerFields,
+    askQuestionFields,
+    commentFields,
+    composeMailFields,
     loginFields,
     registerFields,
     recoverFields,
     resetFields,
-    composeMailFields,
-    askQuestionFields,
 };

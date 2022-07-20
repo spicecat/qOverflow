@@ -1,11 +1,11 @@
 import superagent from 'superagent';
 import Throttle from 'superagent-throttle';
-import { API, API_KEY } from '../var';
+import { API, API_KEY } from 'var';
 
 const throttle = new Throttle({
     active: true,
-    rate: 3,
-    ratePer: 1500,
+    rate: 2,
+    ratePer: 1000,
     concurrent: 2
 });
 
@@ -15,6 +15,7 @@ const createEndpoint = (path) => async (op, endpoint, data) =>
         : superagent[op](`${API}${path}${endpoint}`)
             .use(throttle.plugin())
             .set('Authorization', `bearer ${API_KEY}`)
+            .set('Content-Type', 'application/json' )
             .query(data)
             .send(data)
             .then(({ body }) => {

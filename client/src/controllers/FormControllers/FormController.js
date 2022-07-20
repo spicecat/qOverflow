@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { Form } from '../components';
+import { Form } from 'components';
 
 export default function FormController({
     fields,
@@ -32,5 +32,11 @@ export default function FormController({
         })
     );
 
-    return <Form {...{ formik, fields: formikFields, children }} />;
+    return (
+        Form({
+            formik,
+            fields: formikFields,
+            children
+        })
+    );
 }

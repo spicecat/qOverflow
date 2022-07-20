@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import {
     AppBar,
     Button,
@@ -7,21 +6,33 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import Logo from '../assets/bdpa-logo.svg';
-import { SearchBar } from '.';
 import Gravatar from 'react-gravatar';
-
+import { Link } from 'react-router-dom';
+import Logo from 'assets/bdpa-logo.svg';
+import { SearchBar } from 'components';
 export default function Navbar({ logout, userData }) {
-    function ButtonGroup() {
+    function NavbarControls() {
         return userData.username ? (
             <>
-                <Button color='inherit' component={Link} to='/mail'>
+                <Typography variant="button">Level: <b> {userData.level}    &nbsp; </b> Points: <b> {userData.points}</b></Typography>
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='/mail'
+                >
                     Mail
                 </Button>
-                <Button color='inherit' component={Link} to='/dashboard'>
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='/dashboard'
+                >
                     Account
                 </Button>
-                <Button color='inherit' onClick={logout}>
+                <Button
+                    color='inherit'
+                    onClick={logout}
+                >
                     Logout
                 </Button>
                 <IconButton component={Link} to='/'>
@@ -30,16 +41,25 @@ export default function Navbar({ logout, userData }) {
             </>
         ) : (
             <>
-                <Button color='inherit' component={Link} to='/login'>
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='/users/login'
+                    
+                >
                     Login
                 </Button>
-                <Button color='inherit' component={Link} to='/register'>
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='/users/register'
+                    
+                >
                     Register
                 </Button>
             </>
         );
     }
-
     return (
         <AppBar position='static'>
             <Toolbar>
@@ -51,7 +71,7 @@ export default function Navbar({ logout, userData }) {
                 </Typography>
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
-                <ButtonGroup />
+                <NavbarControls />
             </Toolbar>
         </AppBar>
     );
