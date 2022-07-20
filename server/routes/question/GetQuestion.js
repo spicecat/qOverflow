@@ -6,7 +6,7 @@ const Question = require('../../db/models/Question');
 async function GetQuestion(req, res, next) {
     const { questionID } = req.params;
 
-    var cachedQuestion = await Question.findById(questionID);
+    let cachedQuestion = await Question.findById(questionID);
 
     // Retrieve uncached question and patch to cache
     if (!cachedQuestion) {
