@@ -7,7 +7,7 @@ async function Edit(req, res, next) {
     const user = req.user;
     const { email, password } = req.body;
 
-    var userBody = {};
+    let userBody = {};
     if (email) userBody = { ...userBody, email };
     if (password) {
         const { salt, key } = await deriveKeyFromPassword(password);

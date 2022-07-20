@@ -24,7 +24,7 @@ async function EditQuestionVote(req, res, next) {
     const URL = `/questions/${questionID}/vote/${user.username}`;
 
     const cachedQuestion = await Question.findByID(questionID);
-    var cachedVote = await Vote.findOneAndDelete({
+    let cachedVote = await Vote.findOneAndDelete({
         parentID: questionID,
         creator: user.username,
     });

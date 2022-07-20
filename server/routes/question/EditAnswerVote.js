@@ -26,7 +26,7 @@ async function EditAnswerVote(req, res, next) {
 
     // Get the cached vote and answer, refresh cache if not present
     const cachedAnswer = await Answer.findById(answerID);
-    var cachedVote = await Vote.findOneAndDelete({
+    let cachedVote = await Vote.findOneAndDelete({
         parentID: answerID,
         creator: user.username,
     });

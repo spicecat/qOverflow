@@ -38,7 +38,7 @@ async function Get(req, res, next) {
             return [...reformat, ...acc];
         }, [])
         .map(async (message) => {
-            return await Mail.findByIdAndUpdate(message.id, message, {
+            return Mail.findByIdAndUpdate(message.id, message, {
                 upsert: true,
             });
         });

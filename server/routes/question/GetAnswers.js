@@ -7,7 +7,7 @@ const Comment = require('../../db/models/Comment');
 async function GetAnswers(req, res, next) {
     const { questionID } = req.params;
 
-    var question = await Question.findById(questionID);
+    const question = await Question.findById(questionID);
 
     // Fetch answers if expired
     if (question.lastAnswerFetch + config.answerExpires < Date.now()) {
@@ -33,7 +33,7 @@ async function GetAnswers(req, res, next) {
                     });
                 }
 
-                return await Answer.findByIdAndUpdate(answer.id, answer, {
+                return Answer.findByIdAndUpdate(answer.id, answer, {
                     upsert: true,
                 });
             });
