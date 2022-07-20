@@ -32,11 +32,9 @@ export default function FormController({
         })
     );
 
-    return (
-        Form({
-            formik,
-            fields: formikFields,
-            children
-        })
-    );
+    return Form({
+        formik,
+        fields: formikFields,
+        children,
+    });
 }

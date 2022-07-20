@@ -1,8 +1,6 @@
 import { Card, CardContent } from '@mui/material';
 import React from 'react';
 import { Inbox, SendMail } from 'controllers';
-import ReactMarkdown from 'react-markdown';
-import { useForm } from 'contexts';
 import { MdPreview } from 'components';
 
 export default function Mail() {
@@ -10,7 +8,7 @@ export default function Mail() {
         <Card>
             <CardContent>
                 <SendMail />
-                <MdPreview/>
+                <MdPreview />
             </CardContent>
             <CardContent>
                 <Inbox />
