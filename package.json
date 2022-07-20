@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "npm start --workspaces",
+        "start": "npm start -w",
         "start:server": "npm start -w server",
         "start:client": "npm start -w client",
         "start:prod": "npm run start:server",
