@@ -1,29 +1,24 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form } from 'controllers/FormControllers';
-import { deriveKeyFromPassword } from 'services/auth';
 import { resetFields } from 'services/fields';
 import { resetSchema } from 'services/schemas';
-import { updateUser } from 'services/userServices';
+import { resetPassword } from 'services/userServices';
 
 export default function ResetFormController() {
     const navigate = useNavigate();
-    const { username } = useParams();
+    const { id } = useParams();
 
     const changePassword = async ({ password }) => {
-        const body = await deriveKeyFromPassword(password);
+        const req = await resetPassword(id, password);
 
-        const { success } = await updateUser(username, body);
-
-        if (success) {
+        if (!req.error) {
             navigate('/users/login');
         }
-    }
+    };
 
-    return (
-        Form({
-            fields: resetFields,
-            onSubmit: changePassword,
-            validationSchema: resetSchema
-        })
-    );
+    return Form({
+        fields: resetFields,
+        onSubmit: changePassword,
+        validationSchema: resetSchema,
+    });
 }
