@@ -12,11 +12,12 @@ const register = async (data) =>
             return err.response.body;
         });
 
-const login = async (data) => {
-    const encoded = btoa(`${data.username}:${data.password}`);
+const login = async ({ username, password }) => {
+    const encoded = btoa(`${username}:${password}`);
 
     return await callUsersAPI('post', `/users/login`)
         .set('Authorization', `basic ${encoded}`)
+        .send({ remember: false })
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
