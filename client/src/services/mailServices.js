@@ -1,5 +1,5 @@
 import { createEndpoint } from './api';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 const callMailAPI = createEndpoint('/mail');
 

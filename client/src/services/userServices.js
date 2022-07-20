@@ -1,10 +1,10 @@
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 
 const callUsersAPI = createEndpoint('/users');
 
 const register = async (data) =>
-    await callUsersAPI('post', '/users')
+    await callUsersAPI('post', '')
         .send(data)
         .then((res) => res.body)
         .catch((err) => {
@@ -15,7 +15,7 @@ const register = async (data) =>
 const login = async ({ username, password }) => {
     const encoded = btoa(`${username}:${password}`);
 
-    return await callUsersAPI('post', `/users/login`)
+    return await callUsersAPI('post', `/login`)
         .set('Authorization', `basic ${encoded}`)
         .send({ remember: false })
         .then((res) => res.body)

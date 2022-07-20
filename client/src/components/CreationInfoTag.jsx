@@ -4,12 +4,8 @@ import ReactTimeAgo from 'react-time-ago';
 
 export default function CreationInfoTag({
     createdAt,
-    creatorInfo: {
-        email,
-        level,
-        username
-    } = {},
-    text = 'asked'
+    creatorInfo: { email, level, username } = {},
+    text = 'asked',
 }) {
     return (
         <div>
@@ -21,7 +17,8 @@ export default function CreationInfoTag({
                 <b>Level {level}</b>
             </Typography>
             <Typography display='inline' m={1} variant='body2'>
-                {text} <ReactTimeAgo date={createdAt} locale='en-US' />
+                {text}{' '}
+                <ReactTimeAgo date={new Date(createdAt)} locale='en-US' />
             </Typography>
         </div>
     );

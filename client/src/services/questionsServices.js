@@ -1,4 +1,4 @@
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 
 const callQuestionsAPI = createEndpoint('/questions');

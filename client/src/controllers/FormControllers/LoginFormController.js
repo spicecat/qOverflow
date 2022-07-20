@@ -3,11 +3,13 @@ import { Form } from 'controllers/FormControllers';
 import { login } from 'services/userServices';
 import { loginFields } from 'services/fields';
 import { loginSchema } from 'services/schemas';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginFormController() {
     const { setUserData } = useUser();
     const { setError } = useError();
+    const navigate = useNavigate();
 
     const validateLogin = async ({ username, password }) => {
         const req = await login({ username, password });
@@ -16,12 +18,13 @@ export default function LoginFormController() {
         } else {
             setUserData(() => req.user);
             Cookies.set('token', req.token);
+            navigate('/');
         }
     };
 
     return Form({
         fields: loginFields,
-        validate: validateLogin,
+        onSubmit: validateLogin,
         validationSchema: loginSchema,
     });
 }
