@@ -5,7 +5,7 @@ const callMailAPI = createEndpoint('/mail');
 
 const postMail = async () =>
     await callMailAPI('post', ``)
-        .set('Authorization', Cookies.get('token'))
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -14,7 +14,7 @@ const postMail = async () =>
 
 const getMail = async () =>
     await callMailAPI('get')
-        .set('Authorization', Cookies.get('token'))
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);

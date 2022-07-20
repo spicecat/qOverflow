@@ -1,90 +1,87 @@
+import Cookies from 'universal-cookie';
 import { createEndpoint } from './api';
-import { deriveKeyFromPassword } from './auth';
-import levels from './levels.json';
 
 const callUsersAPI = createEndpoint('/users');
 
-const getLevel = (points) => {
-    if (points < levels['Level 2']) {
-        return 1;
-    } else if (points < levels['Level 3']) {
-        return 2;
-    } else if (points < levels['Level 4']) {
-        return 3;
-    } else if (points < levels['Level 5']) {
-        return 4;
-    } else if (points < levels['Level 6']) {
-        return 5;
-    } else if (points < levels['Level 7']) {
-        return 6;
-    } else {
-        return 7;
-    }
+const register = async (data) =>
+    await callUsersAPI('post', '/users')
+        .send(data)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const login = async (data) => {
+    const encoded = btoa(`${data.username}:${data.password}`);
+
+    return await callUsersAPI('post', `/users/login`)
+        .set('Authorization', `basic ${encoded}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 };
 
-const register = async ({ username, email, password }) => {
-    const { salt, key } = await deriveKeyFromPassword(password);
-    return callUsersAPI('post', ``, { username, email, salt, key });
-};
+const getUser = async (username) =>
+    await callUsersAPI('get', `/${username}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const login = async ({ username, password }) => {
-    const { user, ...error } = await getUser(username);
-    if (!user) return error;
+const getUserQuestions = async () =>
+    await callUsersAPI('get', `/questions`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-    const { key } = await deriveKeyFromPassword(password, user.salt);
-    const { success } = await callUsersAPI('post', `/${username}/auth`, { key });
-    return { ...user, success };
-};
+const getUserAnswers = async () =>
+    await callUsersAPI('get', `/answers`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const getUser = (username) =>
-    callUsersAPI(
-        'get',
-        `/${username}`
-    ).then(res => {
-        if (res.user) res.user.level = getLevel(res.user.points);
-        return res;
-    });
+const updateUser = async (data) =>
+    await callUsersAPI('patch', ``)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const getUsers = () =>
-    callUsersAPI(
-        'get',
-        ``
-    ).then(res => {
-        if (res.users)
-            for (const user of res.users)
-                user.level = getLevel(user.points);
-        return res;
-    }
+const requestReset = async (data) =>
+    await callUsersAPI('post', '/reset')
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-    );
-
-const getUserQuestions = (
-    username,
-    data // { after }
-) => callUsersAPI('get', `/${username}/questions`, data);
-
-const getUserAnswers = (
-    username,
-    data // { after }
-) => callUsersAPI('get', `/${username}/answers`, data);
-
-const updateUserPoints = (
-    username,
-    data // { operation, amount }
-) => callUsersAPI('patch', `/${username}/points`, data);
-
-const updateUser = (
-    username,
-    data // { salt, key, email, points }
-) => callUsersAPI('patch', `/${username}`, data);
+const resetPassword = async (id, data) =>
+    await callUsersAPI('post', `/reset/${id}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
 export {
     getUser,
-    getUsers,
     getUserAnswers,
     getUserQuestions,
     login,
     register,
-    updateUserPoints,
     updateUser,
+    requestReset,
+    resetPassword,
 };

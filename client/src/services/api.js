@@ -8,9 +8,7 @@ const throttle = new Throttle({
     concurrent: 2,
 });
 
-const createEndpoint = (path) => (op, endpoint) =>
+export const createEndpoint = (path) => (op, endpoint) =>
     superagent[op](`${process.env.REACT_APP_API_ROOT}${path}${endpoint}`)
         .use(throttle.plugin)
         .set('Content-Type', 'application/json');
-
-export { createEndpoint };
