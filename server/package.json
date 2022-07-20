@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "bull": "^4.8.4",
         "cookie-parser": "~1.4.6",
         "cors": "^2.8.5",
         "debug": "~4.3.4",
@@ -15,6 +14,7 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.4.5",
         "morgan": "~1.10.0",
+        "node-cron": "^3.0.1",
         "superagent": "^8.0.0",
         "superagent-throttle": "^1.0.1"
     },
