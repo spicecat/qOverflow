@@ -2,6 +2,8 @@ openapi: 3.0.0
 servers:
     - description: SwaggerHub API Auto Mocking
       url: https://virtserver.swaggerhub.com/C4theBomb/qOverflow/1.0.0
+    - description: Localhost
+      url: http://localhost:3001
 info:
     version: '1.0.0'
     title: qOverflow API
@@ -9,7 +11,32 @@ info:
         This API will interact with the BDPA API to expand operations and cache data to bypass rate limitations. It also implements enforcement features to prevent unauthorized operations. Authorization is done through the `authorization` header and has two scopes, `bearer` and `basic`.
 
 paths:
-    /users/:
+    /users:
+        post:
+            summary: Register a new user
+            requestBody:
+                required: true
+                content:
+                    'application/json':
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                email:
+                                    type: string
+                                    format: email
+                                password:
+                                    type: string
+            responses:
+                '200':
+                    description: OK
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '500':
+                    $ref: '#/components/responses/ServerError'
+            tags:
+                - users
         patch:
             summary: Modify user information
             requestBody:
@@ -96,32 +123,6 @@ paths:
                                         type: array
                                         items:
                                             $ref: '#/components/schemas/Answer'
-                '500':
-                    $ref: '#/components/responses/ServerError'
-            tags:
-                - users
-    /users/register:
-        post:
-            summary: Register a new user
-            requestBody:
-                required: true
-                content:
-                    'application/json':
-                        schema:
-                            type: object
-                            properties:
-                                username:
-                                    type: string
-                                email:
-                                    type: string
-                                    format: email
-                                password:
-                                    type: string
-            responses:
-                '200':
-                    description: OK
-                '400':
-                    $ref: '#/components/responses/BadRequest'
                 '500':
                     $ref: '#/components/responses/ServerError'
             tags:
@@ -222,7 +223,7 @@ paths:
                     $ref: '#/components/responses/ServerError'
             tags:
                 - users
-    /mail/:
+    /mail:
         get:
             summary: Get all of the logged in user's incoming mail
             security:
@@ -899,6 +900,9 @@ components:
         Answer:
             type: object
             properties:
+                id:
+                    type: string
+                    example: '62d8727d6c584b3b12eb23be'
                 questionID:
                     type: string
                     example: '62d5c7ad1b8e0da8804bde22'
@@ -919,6 +923,9 @@ components:
         Comment:
             type: object
             properties:
+                id:
+                    type: string
+                    example: '62d87292afa7f2e7e81f1470'
                 parentID:
                     type: string
                     example: '62d5c7ad1b8e0da8804bde22'
@@ -937,6 +944,9 @@ components:
         Mail:
             type: object
             properties:
+                id:
+                    type: string
+                    example: '62d872a27584c3df08a2330b'
                 sender:
                     type: string
                     example: 'pinapplezzz'
@@ -955,6 +965,9 @@ components:
         Question:
             type: object
             properties:
+                id:
+                    type: string
+                    example: '62d872b85acd7bccf9087d77'
                 title:
                     type: string
                     maxLength: 150
