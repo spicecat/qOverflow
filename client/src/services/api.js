@@ -6,26 +6,35 @@ const throttle = new Throttle({
     active: true,
     rate: 2,
     ratePer: 1000,
-    concurrent: 2
+    concurrent: 2,
 });
 
-const createEndpoint = (path) => async (op, endpoint, data) =>
-    endpoint.includes('/undefined')
-        ? { success: false, status: 400 }
-        : superagent[op](`${API}${path}${endpoint}`)
-            .use(throttle.plugin())
-            .set('Authorization', `bearer ${API_KEY}`)
-            .set('Content-Type', 'application/json' )
+const createEndpoint = (path) => async (op, endpoint, data, auth) => {
+    var request = superagent[op](`${API}${path}${endpoint}`)
+        .use(throttle.plugin)
+        .set('Content-Type', 'application/json');
+
+    if (auth) {
+        request = request.set('Authorization', `bearer ${API_KEY}`);
+    }
+
+    if (op === 'get' || op === 'delete') {
+        request
             .query(data)
+            .then(({ body }) => {
+                console.log('api', op, path, endpoint, data, body);
+                return body;
+            })
+            .catch((err) => console.log(666, err));
+    } else {
+        request
             .send(data)
             .then(({ body }) => {
                 console.log('api', op, path, endpoint, data, body);
                 return body;
             })
-            // .catch(({ response = {}, status }) => {
-            //     console.log('err', op, path, endpoint, data, response, status)
-            //     return { ...response.body, status };
-            // })
-            .catch(err=>console.log(666,err))
+            .catch((err) => console.log(666, err));
+    }
+};
 
 export { createEndpoint };
