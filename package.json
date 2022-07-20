@@ -4,13 +4,18 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "npm start -w",
+        "start:server": "npm start -w server",
+        "start:client": "npm start -w client",
+        "start:prod": "npm run start:server",
+        "prestart:prod": "npm build -w client",
+        "build": "npm build -w client"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/spicecat/qOverflow.git"
     },
-    "author": "",
+    "author": "C4 Patino, Tejus Krishan, Andy Teh",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/spicecat/qOverflow/issues"
