@@ -11,7 +11,7 @@ async function GetUser(req, res, next) {
         'points',
     ]);
 
-    if (cachedUser) return res.send(cachedUser);
+    if (cachedUser) return res.send({ user: cachedUser });
 
     const { success, user } = await createRequest('get', `/users/${username}`);
 

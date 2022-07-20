@@ -13,8 +13,8 @@ export default function QuestionProvider({ children }) {
 
     useEffect(() => {
         const loadQuestion = async () => {
-            const { success, question } = await getQuestion(question_id);
-            if (success)
+            const { question } = await getQuestion(question_id);
+            if (question)
                 setQuestionData(question);
         }
         loadQuestion();

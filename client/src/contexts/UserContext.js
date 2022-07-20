@@ -12,7 +12,7 @@ export default function UserProvider({ children }) {
 
     const validateLogin = async (values) => {
         const { success, error, ...user } = await login(values);
-        if (success) {
+        if (user) {
             setUserData(user);
             navigate('/');
         } else return { username: 'Username or password incorrect' };
