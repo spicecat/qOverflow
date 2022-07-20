@@ -19,12 +19,13 @@ const createEndpoint = (path) => async (op, endpoint, data) =>
             .query(data)
             .send(data)
             .then(({ body }) => {
-                console.log('api', op, endpoint, data, body);
+                console.log('api', op, path, endpoint, data, body);
                 return body;
             })
-            .catch(({ response = {}, status }) => {
-                console.log('err', op, endpoint, data, response, status)
-                return { ...response.body, status };
-            })
+            // .catch(({ response = {}, status }) => {
+            //     console.log('err', op, path, endpoint, data, response, status)
+            //     return { ...response.body, status };
+            // })
+            .catch(err=>console.log(666,err))
 
 export { createEndpoint };

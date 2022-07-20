@@ -1,13 +1,14 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const cors = require('cors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var userRouter = require('./routes/user');
-var mailRouter = require('./routes/mail');
-var questionRouter = require('./routes/question');
+const userRouter = require('./routes/user');
+const mailRouter = require('./routes/mail');
+const questionRouter = require('./routes/question');
 
-var app = express();
+const app = express();
 
 app.disable('x-powered-by');
 
@@ -15,6 +16,7 @@ app.disable('x-powered-by');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
