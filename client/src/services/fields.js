@@ -95,6 +95,19 @@ const resetFields = [
     },
 ];
 
+const patchFields = [
+    {
+        id: 'email',
+        title: 'Email',
+    },
+    {
+        id: 'password',
+        helperText: (value) => `Password strength: ${passwordStrength(value)}`,
+        label: 'Password',
+        type: 'password',
+    },
+];
+
 export {
     answerFields,
     askQuestionFields,
@@ -104,4 +117,5 @@ export {
     registerFields,
     recoverFields,
     resetFields,
+    patchFields,
 };
