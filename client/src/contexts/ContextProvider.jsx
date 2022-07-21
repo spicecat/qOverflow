@@ -1,10 +1,12 @@
-import { UserProvider, FormProvider, ErrorProvider } from '.';
+import { UserProvider, FormProvider, ErrorProvider, ModeProvider } from '.';
 
 export default function ContextProvider({ children }) {
     return (
         <UserProvider>
             <FormProvider>
-                <ErrorProvider>{children}</ErrorProvider>
+                <ModeProvider>
+                    <ErrorProvider>{children}</ErrorProvider>
+                </ModeProvider>
             </FormProvider>
         </UserProvider>
     );

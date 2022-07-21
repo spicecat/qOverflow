@@ -3,6 +3,7 @@ import { Form } from 'controllers/FormControllers';
 import { login } from 'services/userServices';
 import { loginFields } from 'services/fields';
 import { loginSchema } from 'services/schemas';
+import { getUserLevel } from 'services/getUserLevel';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +17,8 @@ export default function LoginFormController() {
         if (req.error) {
             setError(req.error);
         } else {
-            setUserData(() => req.user);
+            const data = { ...req.user, level: getUserLevel(req.user.points) };
+            setUserData(() => data);
             Cookies.set('token', req.token);
             navigate('/');
         }

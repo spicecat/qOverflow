@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useMode } from 'contexts';
 import { Navbar } from 'controllers';
 
 export default function Layout() {
-    const [mode, setMode] = useState('light');
+    const { mode } = useMode();
+
     const theme = createTheme({
         palette: { mode },
         breakpoints: {

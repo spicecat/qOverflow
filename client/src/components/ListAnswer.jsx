@@ -2,18 +2,16 @@ import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
-export default function ListQuestion({
+export default function ListAnswer({
     data: {
-        answers,
         createdAt,
         creator,
         downvotes,
-        _id,
-        status,
+        accepted,
         text,
-        title,
         upvotes,
         views,
+        question: { questionID, title },
     },
 }) {
     return (
@@ -26,9 +24,6 @@ export default function ListQuestion({
                                 {upvotes - downvotes} votes
                             </Typography>
                             <Typography variant='body1'>
-                                {answers} answers
-                            </Typography>
-                            <Typography variant='body1'>
                                 {views} views
                             </Typography>
                         </Stack>
@@ -38,10 +33,10 @@ export default function ListQuestion({
                         <Typography
                             variant='h6'
                             component={Link}
-                            to={`questions/${_id}`}
+                            to={`questions/${questionID}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
-                            [{status}] {title}
+                            {accepted && ['Accepted']}
                         </Typography>
                         <Typography noWrap variant='body1'>
                             {text}

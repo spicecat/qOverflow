@@ -4,10 +4,12 @@ const passwordStrength = ({ length }) => {
     else return 'strong';
 };
 
-const answerFields = [{
-    id: 'answer',
-    title: 'Answer'
-}]
+const answerFields = [
+    {
+        id: 'answer',
+        title: 'Answer',
+    },
+];
 
 const askQuestionFields = [
     {
@@ -17,14 +19,16 @@ const askQuestionFields = [
     {
         id: 'text',
         label: 'Text',
-        multiline: true
-    }
+        multiline: true,
+    },
 ];
 
-const commentFields = [{
-    id: 'comment',
-    label: 'Comment'
-}]
+const commentFields = [
+    {
+        id: 'comment',
+        label: 'Comment',
+    },
+];
 
 const composeMailFields = [
     {
@@ -38,6 +42,7 @@ const composeMailFields = [
     {
         id: 'text',
         label: 'Body',
+        multiline: true,
     },
 ];
 
@@ -53,16 +58,17 @@ const loginFields = [
     },
 ];
 
-const recoverFields = [{
-    id: 'username',
-    title: 'Username'
-}];
+const recoverFields = [
+    {
+        id: 'username',
+        title: 'Username',
+    },
+];
 
 const registerFields = [
     {
         id: 'username',
         title: 'Username',
-
     },
     {
         id: 'email',
@@ -89,6 +95,19 @@ const resetFields = [
     },
 ];
 
+const patchFields = [
+    {
+        id: 'email',
+        title: 'Email',
+    },
+    {
+        id: 'password',
+        helperText: (value) => `Password strength: ${passwordStrength(value)}`,
+        label: 'Password',
+        type: 'password',
+    },
+];
+
 export {
     answerFields,
     askQuestionFields,
@@ -98,4 +117,5 @@ export {
     registerFields,
     recoverFields,
     resetFields,
+    patchFields,
 };

@@ -1,6 +1,7 @@
 const createRequest = require('../../utils/api');
 const config = require('../../config.json');
 const User = require('../../db/models/User');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function GetUser(req, res) {
     const { username } = req.params;
@@ -23,6 +24,7 @@ async function GetUser(req, res) {
             username: newUser.username,
             email: newUser.email,
             points: newUser.points,
+            level: getUserLevel(newUser.points),
         },
     });
 }

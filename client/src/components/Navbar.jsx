@@ -6,55 +6,41 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/bdpa-logo.svg';
-import { SearchBar } from 'components';
+import { ModeToggle, Profile } from 'components';
+import { SearchBar } from 'controllers';
+import MailIcon from '@mui/icons-material/Mail';
+
 export default function Navbar({ logout, userData }) {
     function NavbarControls() {
         return userData.username ? (
             <>
-                <Typography variant="button">Level: <b> {userData.level}    &nbsp; </b> Points: <b> {userData.points}</b></Typography>
-                <Button
+                <IconButton
                     color='inherit'
                     component={Link}
                     to='/mail'
+                    sx={{ margin: '0 1vh' }}
                 >
-                    Mail
-                </Button>
+                    <MailIcon />
+                </IconButton>
+                <Profile userData={userData} sx={{ margin: '1vh 1vh' }} />
                 <Button
                     color='inherit'
                     component={Link}
-                    to='/dashboard'
-                >
-                    Account
-                </Button>
-                <Button
-                    color='inherit'
+                    to='/login'
                     onClick={logout}
+                    sx={{ margin: '0 1vh' }}
                 >
                     Logout
                 </Button>
-                <IconButton component={Link} to='/'>
-                    <Gravatar size={40} email={userData.email} />
-                </IconButton>
             </>
         ) : (
             <>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/users/login'
-                    
-                >
+                <Button color='inherit' component={Link} to='/users/login'>
                     Login
                 </Button>
-                <Button
-                    color='inherit'
-                    component={Link}
-                    to='/users/register'
-                    
-                >
+                <Button color='inherit' component={Link} to='/users/register'>
                     Register
                 </Button>
             </>
@@ -63,7 +49,11 @@ export default function Navbar({ logout, userData }) {
     return (
         <AppBar position='static'>
             <Toolbar>
-                <IconButton component={Link} to='/'>
+                <IconButton
+                    component={Link}
+                    to='/'
+                    sx={{ margin: '0 1vw 0 0 ' }}
+                >
                     <img src={Logo} alt='bdpa logo' width='40' height='40' />
                 </IconButton>
                 <Typography variant='h6' component='div'>
@@ -71,6 +61,7 @@ export default function Navbar({ logout, userData }) {
                 </Typography>
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
+                <ModeToggle />
                 <NavbarControls />
             </Toolbar>
         </AppBar>
