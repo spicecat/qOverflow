@@ -1,30 +1,14 @@
 import superagent from 'superagent';
 import Throttle from 'superagent-throttle';
-import { API, API_KEY } from 'var';
 
 const throttle = new Throttle({
     active: true,
     rate: 2,
     ratePer: 1000,
-    concurrent: 2
+    concurrent: 2,
 });
 
-const createEndpoint = (path) => async (op, endpoint, data) =>
-    endpoint.includes('/undefined')
-        ? { status: 400 }
-        : superagent[op](`${API}${path}${endpoint}`)
-            .use(throttle.plugin())
-            .set('Authorization', `bearer ${API_KEY}`)
-            .set('Content-Type', 'application/json')
-            .query(data)
-            .send(data)
-            .then(({ body }) => {
-                console.log('api', op, path, endpoint, data, body);
-                return body;
-            })
-            .catch(({ response = {}, status }) => {
-                console.log('err', op, path, endpoint, data, response, status)
-                return { ...response.body, status };
-            });
-
-export { createEndpoint };
+export const createEndpoint = (path) => (op, endpoint) =>
+    superagent[op](`${process.env.REACT_APP_API_ROOT}${path}${endpoint}`)
+        .use(throttle.plugin)
+        .set('Content-Type', 'application/json');

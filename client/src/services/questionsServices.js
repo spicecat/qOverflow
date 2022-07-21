@@ -1,161 +1,217 @@
+import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 
 const callQuestionsAPI = createEndpoint('/questions');
 
-const searchQuestions = (qmatch, sortType) => // { after, match, regexMatch, sort }
-    
-    callQuestionsAPI(
-        'get',
-        `/search${qmatch}`,
-        sortType
-    );
+const searchQuestions = async (sort) =>
+    callQuestionsAPI('get', `/search`)
+        .query(sort)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const postQuestion = (data) => // { creator, status, title, text }
-    callQuestionsAPI(
-        'post',
-        ``,
-        data
-    );
+const postQuestion = async (data) =>
+    callQuestionsAPI('post', ``)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const getQuestion = (question_id) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}`
-    );
+const getQuestion = async (questionID) =>
+    callQuestionsAPI('get', `/${questionID}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const updateQuestion = (question_id, data) =>  // { status, title, text, views, upvotes, downvotes }
+const updateQuestion = async (questionID, data) =>
+    callQuestionsAPI('patch', `/${questionID}`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const getQuestionVote = async (questionID) =>
+    callQuestionsAPI('get', `/${questionID}/vote`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const updateQuestionVote = async (questionID, data) =>
+    callQuestionsAPI('patch', `/${questionID}/vote`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const getQuestionComments = async (questionID) =>
+    callQuestionsAPI('get', `/${questionID}/comments`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const postQuestionComment = async (questionID, data) =>
+    callQuestionsAPI('post', `/${questionID}/comments`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const deleteQuestionComment = async (questionID, commentID) =>
+    callQuestionsAPI('delete', `/${questionID}/comments/${commentID}`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const getCommentVote = async (questionID, commentID) =>
+    callQuestionsAPI('get', `/${questionID}/comments/${commentID}/vote`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const updateCommentVote = async (questionID, commentID, data) =>
+    callQuestionsAPI('patch', `/${questionID}/comments/${commentID}/vote`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const getAnswers = async (questionID) =>
+    callQuestionsAPI('get', `/${questionID}/answers`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const postAnswer = async (questionID, data) =>
+    callQuestionsAPI('post', `/${questionID}/answers`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const updateAnswer = async (questionID, answerID, data) =>
+    callQuestionsAPI('patch', `/${questionID}/answers/${answerID}`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const updateAcceptAnswer = async (questionID, answerID) =>
+    callQuestionsAPI('patch', `/${questionID}/answer/${answerID}/accept`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const getAnswerVote = async (questionID, answerID) =>
+    callQuestionsAPI('get', `/${questionID}/answers/${answerID}/vote`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
+const updateAnswerVote = async (questionID, answerID, data) =>
     callQuestionsAPI(
         'patch',
-        `/${question_id}`,
+        `/${questionID}/answers/${answerID}/vote`,
         data
-    );
+    )
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const getQuestionVote = (question_id, username) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/vote/${username}`
-    );
+const getAnswerComments = async (questionID, answerID) =>
+    callQuestionsAPI('get', `/${questionID}/answers/${answerID}/comments`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const updateQuestionVote = (question_id, username, data) => // { operation, target }
-    callQuestionsAPI(
-        'patch',
-        `/${question_id}/vote/${username}`,
-        data
-    );
-
-const getQuestionComments = (question_id, data) => // { after }
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/comments`,
-        data
-    );
-
-const postQuestionComment = (question_id, data) => // { creator, text }
+const postAnswerComments = async (questionID, answerID, data) =>
     callQuestionsAPI(
         'post',
-        `/${question_id}`,
-        data
-    );
+        `/${questionID}/answers/${answerID}/comments`
+    )
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const deleteQuestionComment = (question_id, comment_id) =>
+const deleteAnswerComment = async (questionID, answerID, commentID) =>
     callQuestionsAPI(
         'delete',
-        `/${question_id}/comments/${comment_id}`
-    );
+        `/${questionID}/answers/${answerID}/comments/${commentID}`
+    )
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const getCommentVote = (question_id, comment_id, username) =>
+const getAnswerCommentVote = async (questionID, answerID, commentID) =>
     callQuestionsAPI(
         'get',
-        `/${question_id}/comments/${comment_id}/vote/${username}`
-    );
+        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
+    )
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
-const updateCommentVote = (
-    question_id,
-    comment_id,
-    username,
-    data
-) => //{ operation, target }
+const updateAnswerCommentVote = async (questionID, answerID, commentID, data) =>
     callQuestionsAPI(
         'patch',
-        `/${question_id}/comments/${comment_id}/vote/${username}`,
-        data
-    );
-
-const getAnswers = (question_id) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/answers`
-    );
-
-const postAnswer = (question_id, data) => // { creator, text }
-    callQuestionsAPI(
-        'post',
-        `/${question_id}/answers`,
-        data
-    );
-
-const updateAnswer = (question_id, answer_id, data) => // { text, upvotes, downvotes, accepted }
-    callQuestionsAPI(
-        'patch',
-        `/${question_id}/answers/${answer_id}`,
-        data
-    );
-
-const getAnswerVote = (question_id, answer_id, username) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/answers/${answer_id}/vote/${username}`
-    );
-
-const updateAnswerVote = (question_id, answer_id, username, data) => // { operation, target }
-    callQuestionsAPI(
-        'patch',
-        `/${question_id}/answers/${answer_id}/vote/${username}`,
-        data
-    );
-
-const getAnswerComments = (question_id, answer_id) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/answers/${answer_id}/comments`
-    );
-
-const postAnswerComments = (question_id, answer_id, data) => // { creator, text }
-    callQuestionsAPI(
-        'post',
-        `/${question_id}/answers/${answer_id}/comments`,
-        data
-    );
-
-const deleteAnswerComment = (question_id, answer_id, comment_id) =>
-    callQuestionsAPI(
-        'delete',
-        `/${question_id}/answers/${answer_id}/comments/${comment_id}`
-    );
-
-const getAnswerCommentVote = (
-    question_id,
-    answer_id,
-    comment_id,
-    username
-) =>
-    callQuestionsAPI(
-        'get',
-        `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote/${username}`
-    );
-
-const updateAnswerCommentVote = (
-    question_id,
-    answer_id,
-    comment_id,
-    username,
-    data
-) => // { operation, target }
-    callQuestionsAPI(
-        'patch',
-        `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote/${username}`,
-        data
-    );
+        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
+    )
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send(data)
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
 
 export {
     getAnswerCommentVote,
@@ -174,6 +230,7 @@ export {
     postQuestionComment,
     searchQuestions,
     updateAnswer,
+    updateAcceptAnswer,
     updateAnswerCommentVote,
     updateAnswerVote,
     updateCommentVote,

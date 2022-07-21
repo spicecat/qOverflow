@@ -2,7 +2,8 @@ import ContextProvider from './ContextProvider';
 import AnswerProvider, { useAnswer } from './AnswerContext';
 import QuestionProvider, { useQuestion } from './QuestionContext';
 import UserProvider, { useUser } from './UserContext';
-import FormProvider, {useForm} from './FormContext';
+import FormProvider, { useForm } from './FormContext';
+import ErrorProvider, { useError } from './ErrorContext';
 
 export {
     AnswerProvider,
@@ -13,5 +14,7 @@ export {
     useQuestion,
     useUser,
     FormProvider,
-    useForm
+    useForm,
+    ErrorProvider,
+    useError,
 };

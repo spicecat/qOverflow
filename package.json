@@ -8,8 +8,8 @@
         "start:server": "npm start -w server",
         "start:client": "npm start -w client",
         "start:prod": "npm run start:server",
-        "prestart:prod": "npm build -w client",
-        "build": "npm build -w client"
+        "prestart:prod": "npm run build -w client",
+        "build": "npm run build -w client"
     },
     "repository": {
         "type": "git",
@@ -24,5 +24,8 @@
         "client",
         "server"
     ],
-    "homepage": "https://github.com/spicecat/qOverflow#readme"
+    "homepage": "https://github.com/spicecat/qOverflow#readme",
+    "dependencies": {
+        "js-cookie": "^3.0.1"
+    }
 }
