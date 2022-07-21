@@ -13,9 +13,9 @@ export default function UserProvider({ children }) {
             const { user } = await remember();
             setUserData(user);
         }
-        if (!userData.username)
+        if (!userData?.username)
             loadUserData();
-    }, [userData.username])
+    }, [userData?.username])
 
     return (
         <UserContext.Provider

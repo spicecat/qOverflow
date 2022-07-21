@@ -1,6 +1,7 @@
+import { Buffer } from 'buffer';
 import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
-import { Buffer } from 'buffer';
+import { getUserLevel } from './getUserLevel';
 
 const callUsersAPI = createEndpoint('/users');
 
@@ -15,10 +16,13 @@ const login = async ({ username, password }) => {
         `basic ${encoded}`
     );
     Cookies.set('token', token);
-    return user;
+    return { ...user, level: getUserLevel(user?.points) };
 };
 
-const remember = async () => callUsersAPI('get', `/remember`);
+const remember = async () => {
+    const { user } = await callUsersAPI('get', `/remember`);
+    return { user: { ...user, level: getUserLevel(user?.points) } };
+};
 
 const logout = async () => callUsersAPI('post', `/login`, { remember: false });
 
