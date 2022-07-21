@@ -3,197 +3,147 @@ import { createEndpoint } from './api';
 const callQuestionsAPI = createEndpoint('/questions');
 
 const searchQuestions = async (sort) =>
-    callQuestionsAPI('get', `/search`)
-        .query(sort)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/search`,
+        sort
+    );
 
 const postQuestion = async (data) =>
-    callQuestionsAPI('post', ``)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'post',
+        ``,
+        data
+    );
 
 const getQuestion = async (questionID) =>
-    callQuestionsAPI('get', `/${questionID}`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}`
+    );
 
 const updateQuestion = async (questionID, data) =>
-    callQuestionsAPI('patch', `/${questionID}`)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'patch',
+        `/${questionID}`,
+        data
+    );
 
 const getQuestionVote = async (questionID) =>
-    callQuestionsAPI('get', `/${questionID}/vote`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/vote`
+    );
 
 const updateQuestionVote = async (questionID, data) =>
-    callQuestionsAPI('patch', `/${questionID}/vote`)
-        .send(data)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'patch',
+        `/${questionID}/vote`,
+        data
+    );
 
 const getQuestionComments = async (questionID) =>
-    callQuestionsAPI('get', `/${questionID}/comments`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/comments`
+    );
 
 const postQuestionComment = async (questionID, data) =>
-    callQuestionsAPI('post', `/${questionID}/comments`)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'post',
+        `/${questionID}/comments`,
+        data
+    );
 
 const deleteQuestionComment = async (questionID, commentID) =>
-    callQuestionsAPI('delete', `/${questionID}/comments/${commentID}`)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'delete',
+        `/${questionID}/comments/${commentID}`
+    );
 
 const getCommentVote = async (questionID, commentID) =>
-    callQuestionsAPI('get', `/${questionID}/comments/${commentID}/vote`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/comments/${commentID}/vote`
+    );
 
 const updateCommentVote = async (questionID, commentID, data) =>
-    callQuestionsAPI('patch', `/${questionID}/comments/${commentID}/vote`)
-        .send(data)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'patch',
+        `/${questionID}/comments/${commentID}/vote`,
+        data
+    );
 
 const getAnswers = async (questionID) =>
-    callQuestionsAPI('get', `/${questionID}/answers`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/answers`
+    );
 
 const postAnswer = async (questionID, data) =>
-    callQuestionsAPI('post', `/${questionID}/answers`)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'post',
+        `/${questionID}/answers`,
+        data
+    );
 
 const updateAnswer = async (questionID, answerID, data) =>
-    callQuestionsAPI('patch', `/${questionID}/answers/${answerID}`)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'patch',
+        `/${questionID}/answers/${answerID}`,
+        data
+    );
 
 const updateAcceptAnswer = async (questionID, answerID) =>
-    callQuestionsAPI('patch', `/${questionID}/answer/${answerID}/accept`)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'patch',
+        `/${questionID}/answer/${answerID}/accept`
+    );
 
 const getAnswerVote = async (questionID, answerID) =>
-    callQuestionsAPI('get', `/${questionID}/answers/${answerID}/vote`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/answers/${answerID}/vote`
+    );
 
 const updateAnswerVote = async (questionID, answerID, data) =>
     callQuestionsAPI(
         'patch',
         `/${questionID}/answers/${answerID}/vote`,
         data
-    )
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    );
 
 const getAnswerComments = async (questionID, answerID) =>
-    callQuestionsAPI('get', `/${questionID}/answers/${answerID}/comments`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callQuestionsAPI(
+        'get',
+        `/${questionID}/answers/${answerID}/comments`
+    );
 
 const postAnswerComments = async (questionID, answerID, data) =>
     callQuestionsAPI(
         'post',
-        `/${questionID}/answers/${answerID}/comments`
-    )
-        .send(data)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+        `/${questionID}/answers/${answerID}/comments`,
+        data
+    );
 
 const deleteAnswerComment = async (questionID, answerID, commentID) =>
     callQuestionsAPI(
         'delete',
         `/${questionID}/answers/${answerID}/comments/${commentID}`
-    )
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    );
 
 const getAnswerCommentVote = async (questionID, answerID, commentID) =>
     callQuestionsAPI(
         'get',
         `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
-    )
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    );
 
 const updateAnswerCommentVote = async (questionID, answerID, commentID, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
-    )
-        .send(data)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`,
+        data
+    );
 
 export {
     getAnswerCommentVote,

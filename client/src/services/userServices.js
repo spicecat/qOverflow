@@ -1,87 +1,69 @@
-import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 
 const callUsersAPI = createEndpoint('/users');
 
 const register = async (data) =>
-    callUsersAPI('post', '')
-        .send(data)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'post',
+        ``,
+        data
+    );
 
 const login = async ({ username, password }) => {
-    const encoded = btoa(`${username}:${password}`);
-
-    return callUsersAPI('post', `/login`)
-        .set('Authorization', `basic ${encoded}`)
-        .send({ remember: false })
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
-};
+    const encoded = Buffer.from(`${username}:${password}`).toString('base64');
+    return callUsersAPI(
+        'post',
+        `/login`,
+        { remember: false },
+        `basic ${encoded}`
+    );
+}
 
 const logout = async () =>
-    await callUsersAPI('post', `/login`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
-        .send({ remember: false })
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'post',
+        `/login`,
+        { remember: false }
+    );
 
 const getUser = async (username) =>
-    callUsersAPI('get', `/${username}`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'get',
+        `/${username}`
+    );
 
 const getUserQuestions = async () =>
-    callUsersAPI('get', `/questions`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'get',
+        `/questions`
+    );
 
 const getUserAnswers = async () =>
-    callUsersAPI('get', `/answers`)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'get',
+        `/answers`
+    );
 
 const updateUser = async (data) =>
-    callUsersAPI('patch', ``)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'patch',
+        ``,
+        data
+    );
 
 const requestReset = async (data) =>
-    callUsersAPI('post', '/reset')
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'post',
+        `/reset`,
+        data
+    );
 
 const resetPassword = async (id, data) =>
-    callUsersAPI('post', `/reset/${id}`)
-        .send(data)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callUsersAPI(
+        'post',
+        `/reset/${id}`,
+        data
+    );
 
 export {
     getUser,

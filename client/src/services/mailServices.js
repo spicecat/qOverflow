@@ -2,20 +2,17 @@ import { createEndpoint } from './api';
 
 const callMailAPI = createEndpoint('/mail');
 
-const postMail = async () =>
-    callMailAPI('post', ``)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+const postMail = async (data) =>
+    callMailAPI(
+        'post',
+        ``,
+        data
+    );
 
 const getMail = async () =>
-    callMailAPI('get', ``)
-        .then((res) => res.body)
-        .catch((err) => {
-            console.log(err.response.body.error);
-            return err.response.body;
-        });
+    callMailAPI(
+        'get',
+        ``
+    );
 
 export { getMail, postMail };
