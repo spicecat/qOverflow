@@ -9,26 +9,20 @@ const throttle = new Throttle({
 });
 
 const createRequest = async (op, endpoint, data) => {
-    const request = superagent[op](`${process.env.API_URL}${endpoint}`)
+    let request = superagent[op](`${process.env.API_URL}${endpoint}`)
         .use(throttle.plugin())
-        .set('Authorization', `bearer ${process.env.API_KEY}`)
-    if (op === 'get' || op === 'delete') {
-        return request
-            .query(data)
-            .then((res) => res.body)
-            .catch((err) => {
-                console.log(err.response.body);
-                return err.response.body;
-            });
-    } else {
-        return request
-            .send(data)
-            .then((res) => res.body)
-            .catch((err) => {
-                console.log(err.response.body);
-                return err.response.body;
-            });
-    }
+        .set('Authorization', `bearer ${process.env.API_KEY}`);
+    if (data)
+        if (op === 'get' || op === 'delete')
+            request = request.query(data);
+        else if (op === 'post' || op === 'patch')
+            request = request.send(data);
+    return request
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response?.body);
+            return err.response?.body;
+        }
 };
 
 module.exports = createRequest;

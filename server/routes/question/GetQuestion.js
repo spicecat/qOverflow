@@ -7,13 +7,9 @@ async function GetQuestion(req, res) {
     const { questionID } = req.params;
 
     let cachedQuestion;
-    try {
-        cachedQuestion = await Question.findById(questionID);
-    } catch {
-        return res.status(400).send(config.errorNotFound)
-    }
+    try { cachedQuestion = await Question.findById(questionID); }
+    catch { return res.status(400).send(config.errorNotFound); }
 
-    console.log(questionID, cachedQuestion, 3113)
     // Retrieve uncached question and patch to cache
     if (!cachedQuestion) {
         const { success, question } = createRequest(
