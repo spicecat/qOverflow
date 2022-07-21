@@ -27,7 +27,7 @@ export default function App() {
 
                         <Route path='dashboard'>
                             <Route index element={<Dashboard />} />
-                            <Route path='update' element={<Update />}></Route>
+                            <Route path='update' element={<Update />} />
                         </Route>
 
                         <Route path='mail' element={<Mail />} />

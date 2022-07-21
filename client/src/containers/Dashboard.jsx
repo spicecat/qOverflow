@@ -14,7 +14,7 @@ import { getGravatarURL } from 'services/getGravatarURL';
 import { getUserQuestions, getUserAnswers } from 'services/userServices';
 import { ListAnswer, ListQuestion, PaginationEngine } from 'components';
 import { useReducer, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -41,6 +41,7 @@ export default function Dashboard() {
     });
 
     const { userData } = useUser();
+    const navigate = useNavigate();
 
     const onChange = (_, value) => {
         setDataset({ type: 'current', value });
@@ -64,7 +65,23 @@ export default function Dashboard() {
         }
     };
 
+    function checkAuth() {
+        if (!userData.username) {
+            return true;
+        }
+    }
+
     useEffect(() => {
+        if (checkAuth()) {
+            navigate('/users/login', {
+                state: {
+                    name: 'dashboard',
+                    msg: 'You need to be authenticated to access this feature.',
+                    prevPath: '/dashboard',
+                },
+            });
+        }
+
         fetchAnswers();
         fetchQuestions();
     }, []);
