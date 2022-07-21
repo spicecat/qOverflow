@@ -43,7 +43,7 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 cron.schedule('*/2 * * * *', getAllUsers);
 cron.schedule('*/30 * * * * *', getAllQuestions);
 
-server.listen(port);
+server.listen(port, console.log(`Listening on port: ${port}`));
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -52,19 +52,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-    const port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
+    return parseInt(val, 10) || val;
 }
 
 /**
