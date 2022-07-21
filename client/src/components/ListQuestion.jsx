@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
 export default function ListQuestion({
-    question: {
+    data: {
         answers,
         createdAt,
         creator,
@@ -14,9 +14,8 @@ export default function ListQuestion({
         title,
         upvotes,
         views,
-    }
+    },
 }) {
-
     return (
         <span>
             <ListItem disablePadding>
@@ -26,8 +25,12 @@ export default function ListQuestion({
                             <Typography variant='body1'>
                                 {upvotes - downvotes} votes
                             </Typography>
-                            <Typography variant='body1'>{answers} answers</Typography>
-                            <Typography variant='body1'>{views} views</Typography>
+                            <Typography variant='body1'>
+                                {answers} answers
+                            </Typography>
+                            <Typography variant='body1'>
+                                {views} views
+                            </Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
@@ -40,7 +43,9 @@ export default function ListQuestion({
                         >
                             [{status}] {title}
                         </Typography>
-                        <Typography noWrap variant='body1'>{text}</Typography>
+                        <Typography noWrap variant='body1'>
+                            {text}
+                        </Typography>
                     </Grid>
                 </Grid>
             </ListItem>

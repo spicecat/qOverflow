@@ -1,6 +1,7 @@
 import { alpha, styled } from '@mui/material/styles';
 import { InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -43,13 +44,19 @@ const Input = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ value, onChange, onSubmit }) {
     return (
-        <Search>
-            <SearchIconWrapper>
-                <SearchIcon />
-            </SearchIconWrapper>
-            <Input placeholder='Search…' />
-        </Search>
+        <form onSubmit={onSubmit}>
+            <Search>
+                <SearchIconWrapper>
+                    <SearchIcon />
+                </SearchIconWrapper>
+                <Input
+                    placeholder='Search…'
+                    value={value}
+                    onChange={onChange}
+                />
+            </Search>
+        </form>
     );
 }

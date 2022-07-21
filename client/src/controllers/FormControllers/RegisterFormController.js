@@ -12,10 +12,10 @@ export default function RegisterFormController() {
 
     const validateRegister = async ({ username, email, password }) => {
         const req = await register({ username, email, password });
-        if (req.error) {
+        if (req?.error) {
             setError(req.error);
         } else {
-            navigate('/login');
+            navigate('/users/login');
         }
     };
 

@@ -25,6 +25,16 @@ const login = async ({ username, password }) => {
         });
 };
 
+const logout = async () =>
+    await callUsersAPI('post', `/login`)
+        .set('Authorization', `bearer ${Cookies.get('token')}`)
+        .send({ remember: false })
+        .then((res) => res.body)
+        .catch((err) => {
+            console.log(err.response.body.error);
+            return err.response.body;
+        });
+
 const getUser = async (username) =>
     callUsersAPI('get', `/${username}`)
         .then((res) => res.body)
@@ -81,6 +91,7 @@ export {
     getUserAnswers,
     getUserQuestions,
     login,
+    logout,
     register,
     updateUser,
     requestReset,
