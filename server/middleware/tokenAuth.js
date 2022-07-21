@@ -5,12 +5,12 @@ const config = require('../config.json');
 
 async function tokenAuth(req, res, next) {
     const authHeader = req.get('Authorization');
-    const token = authHeader.split(' ')[1];
+
+    const token = authHeader?.split(' ')[1];
 
     // Verify that a token is included in the request
-    if (!token) {
+    if (!token)
         return res.status(401).send(config.errorUnauthed);
-    }
 
     const result = await Token.findOne({ token: token });
 

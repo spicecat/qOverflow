@@ -2,7 +2,7 @@ const createRequest = require('../../utils/api');
 const config = require('../../config.json');
 const User = require('../../db/models/User');
 
-async function GetUser(req, res, next) {
+async function GetUser(req, res) {
     const { username } = req.params;
 
     const cachedUser = await User.findOne({ username }).select([

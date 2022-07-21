@@ -26,7 +26,7 @@ app.use('/mail', mailRouter);
 app.use('/questions', questionRouter);
 
 app.use(express.static(path.join(__dirname, 'public/build')));
-app.get('*', (req, res) => {
+app.get('*', (_, res) => {
     res.sendFile(path.join(__dirname, 'public/build/index.html'));
 });
 

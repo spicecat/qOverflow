@@ -8,7 +8,7 @@ export default function ListQuestion({
         createdAt,
         creator,
         downvotes,
-        question_id,
+        _id,
         status,
         text,
         title,
@@ -35,7 +35,7 @@ export default function ListQuestion({
                         <Typography
                             variant='h6'
                             component={Link}
-                            to={`questions/${question_id}`}
+                            to={`questions/${_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             [{status}] {title}
