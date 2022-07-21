@@ -69,7 +69,7 @@ export default function Buffet() {
 
     function getComponents() {
         return questionSet.map((question) => (
-            <ListQuestion question={question} key={question.id} />
+            <ListQuestion question={question} key={question._id} />
         ));
     }
 
