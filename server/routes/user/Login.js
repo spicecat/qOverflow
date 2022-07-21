@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const Token = require('../../db/models/Token');
 
-async function Login(req, res, next) {
+async function Login(req, res) {
     const user = req.user;
     const remember = req.body.remember;
 

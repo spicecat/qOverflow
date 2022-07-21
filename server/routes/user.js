@@ -11,6 +11,7 @@ const Login = require('./user/Login');
 const Logout = require('./user/Logout');
 const Questions = require('./user/Questions');
 const Register = require('./user/Register');
+const Remember = require('./user/Remember');
 const RequestReset = require('./user/RequestReset');
 const ResetPassword = require('./user/ResetPassword');
 
@@ -19,6 +20,7 @@ router.patch('/', tokenAuth, Edit);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
 router.post('/login', basicAuth, Login);
+router.get('/remember', tokenAuth, Remember);
 router.delete('/logout', tokenAuth, Logout);
 router.get('/reset', RequestReset);
 router.post('/reset/:id', ResetPassword);

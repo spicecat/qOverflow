@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 import { Buffer } from 'buffer';
 
@@ -7,13 +8,17 @@ const register = async (data) => callUsersAPI('post', ``, data);
 
 const login = async ({ username, password }) => {
     const encoded = Buffer.from(`${username}:${password}`).toString('base64');
-    return callUsersAPI(
+    const { token, ...user } = await callUsersAPI(
         'post',
         `/login`,
         { remember: false },
         `basic ${encoded}`
     );
+    Cookies.set('token', token);
+    return user;
 };
+
+const remember = async () => callUsersAPI('get', `/remember`);
 
 const logout = async () => callUsersAPI('post', `/login`, { remember: false });
 
@@ -37,6 +42,7 @@ export {
     login,
     logout,
     register,
+    remember,
     updateUser,
     requestReset,
     resetPassword,

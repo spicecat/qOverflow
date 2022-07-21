@@ -6,11 +6,11 @@ import {
     Typography,
     Box,
 } from '@mui/material';
+import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/bdpa-logo.svg';
 import { ModeToggle, Profile } from 'components';
 import { SearchBar } from 'controllers';
-import MailIcon from '@mui/icons-material/Mail';
 
 export default function Navbar({ logout, userData }) {
     function NavbarControls() {

@@ -8,12 +8,11 @@ async function basicAuth(req, res, next) {
     const authHeader = req.get('Authorization');
     const b64Encoded = authHeader.split(' ')[1];
 
-    if (!b64Encoded) {
+    if (!b64Encoded)
         return res.status(401).send(config.errorIncomplete);
-    }
 
     // Isolate the username and password
-    const [username, password] = atob(b64Encoded).split(':');
+    const [username, password] = Buffer.from(b64Encoded, 'base64').toString().split(':');
 
     // Find username and password in cache and attempt to log in with cached salt
     const cacheUser = await User.findOne({ username });
@@ -22,9 +21,7 @@ async function basicAuth(req, res, next) {
         const checkCacheAuth = await createRequest(
             'post',
             `/users/${username}/auth`,
-            {
-                key,
-            }
+            { key }
         );
 
         if (checkCacheAuth.success) {
@@ -40,16 +37,17 @@ async function basicAuth(req, res, next) {
     const dbUser = await User.create({ ...user, id: user.user_id });
 
     const { key } = await deriveKeyFromPassword(password, user.salt);
-    const checkAuth = await createRequest('post', `/users/${username}/auth`, {
-        key,
-    });
+    const checkAuth = await createRequest(
+        'post',
+        `/users/${username}/auth`,
+        { key }
+    );
 
     if (checkAuth.success) {
         req.user = dbUser;
         return next();
-    } else {
+    } else
         return res.status(403).send(config.errorFailed);
-    }
 }
 
 module.exports = basicAuth;
