@@ -10,8 +10,7 @@ export default function ListAnswer({
         accepted,
         text,
         upvotes,
-        views,
-        question: { questionID, title },
+        questionID,
     },
 }) {
     return (
@@ -24,22 +23,23 @@ export default function ListAnswer({
                                 {upvotes - downvotes} votes
                             </Typography>
                             <Typography variant='body1'>
-                                {views} views
+                                {accepted && `Accepted Answer`}
                             </Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
-                        <CreationInfoTag {...{ createdAt, creator }} />
+                        <CreationInfoTag
+                            {...{ createdAt, creator }}
+                            text='answered'
+                        />
                         <Typography
-                            variant='h6'
+                            noWrap
+                            variant='body1'
                             component={Link}
-                            to={`questions/${questionID}`}
+                            to={`/questions/${questionID}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
-                            {accepted && ['Accepted']}
-                        </Typography>
-                        <Typography noWrap variant='body1'>
-                            {text}
+                            {text.split(' ').slice(0, 150).join(' ') + '...'}
                         </Typography>
                     </Grid>
                 </Grid>

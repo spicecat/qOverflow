@@ -8,7 +8,7 @@ export default function ListQuestion({
         createdAt,
         creator,
         downvotes,
-        _id,
+        id,
         status,
         text,
         title,
@@ -38,13 +38,13 @@ export default function ListQuestion({
                         <Typography
                             variant='h6'
                             component={Link}
-                            to={`questions/${_id}`}
+                            to={`/questions/${id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             [{status}] {title}
                         </Typography>
                         <Typography noWrap variant='body1'>
-                            {text}
+                            {text.split(' ').slice(0, 150).join(' ') + '...'}
                         </Typography>
                     </Grid>
                 </Grid>

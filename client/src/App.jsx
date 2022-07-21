@@ -14,6 +14,7 @@ import {
     Register,
     Reset,
     Search,
+    Update,
 } from './containers';
 
 export default function App() {
@@ -23,7 +24,11 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<Layout />}>
                         <Route index element={<Buffet />} />
-                        <Route path='dashboard' element={<Dashboard />} />
+
+                        <Route path='dashboard'>
+                            <Route index element={<Dashboard />} />
+                            <Route path='update' element={<Update />}></Route>
+                        </Route>
 
                         <Route path='mail' element={<Mail />} />
 

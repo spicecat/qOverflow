@@ -1,7 +1,5 @@
 import { Card, CardContent, Grid } from '@mui/material';
-
-import CAPTCHA from 'assets/captcha.jpg';
-import { RegisterForm } from 'controllers/FormControllers';
+import { UpdateForm } from 'controllers/FormControllers';
 
 export default function Register() {
     return (
@@ -16,10 +14,7 @@ export default function Register() {
             <Grid item xs={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
-                        <RegisterForm />
-                        <div>
-                            <img src={CAPTCHA} alt='CAPTCHA' />
-                        </div>
+                        <UpdateForm />
                     </CardContent>
                 </Card>
             </Grid>

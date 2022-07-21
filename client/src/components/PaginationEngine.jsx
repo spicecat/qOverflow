@@ -19,5 +19,5 @@ export default function PaginationEngine({
 
     return data
         .slice(bounds.first, bounds.last)
-        .map((obj) => <Component data={obj} key={obj._id} />);
+        .map((obj) => <Component data={obj} key={obj.id} />);
 }

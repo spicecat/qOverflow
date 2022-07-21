@@ -25,7 +25,7 @@ export default function Layout() {
             <CssBaseline enableColorScheme />
             <main>
                 <Navbar />
-                <Box sx={{ height: '93vh' }}>
+                <Box sx={{ height: '92vh' }}>
                     <Outlet />
                 </Box>
             </main>

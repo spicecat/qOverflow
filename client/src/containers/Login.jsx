@@ -5,8 +5,8 @@ import { LoginForm } from '../controllers/FormControllers';
 export default function Login() {
     let location = useLocation();
 
-    function returnMsg(){
-        if(location.state){
+    function returnMsg() {
+        if (location.state) {
             return location.state.msg;
         }
     }
@@ -17,7 +17,7 @@ export default function Login() {
             spacing={2}
             alignItems='center'
             justifyContent='center'
-            style={{ height: '95vh' }}
+            style={{ height: '92vh' }}
         >
             <Grid item xs={3.5} />
             <Grid item xs={5}>
@@ -30,7 +30,9 @@ export default function Login() {
                         </Typography>
                     </CardContent>
                 </Card>
-                {returnMsg() ? <Alert severity="warning"> {returnMsg()} </Alert> : null }
+                {returnMsg() ? (
+                    <Alert severity='warning'> {returnMsg()} </Alert>
+                ) : null}
             </Grid>
             <Grid item xs={3.5} />
         </Grid>

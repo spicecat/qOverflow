@@ -90,7 +90,7 @@ const resetFields = [
     {
         id: 'password',
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
-        label: 'Password',
+        title: 'Password',
         type: 'password',
     },
 ];
@@ -103,7 +103,7 @@ const patchFields = [
     {
         id: 'password',
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
-        label: 'Password',
+        title: 'Password',
         type: 'password',
     },
 ];

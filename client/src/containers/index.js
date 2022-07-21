@@ -11,6 +11,7 @@ import Questions from './Questions';
 import Register from './Register';
 import Reset from './Reset';
 import Search from './Search';
+import Update from './Update';
 
 export {
     Ask,
@@ -26,4 +27,5 @@ export {
     Register,
     Reset,
     Search,
+    Update,
 };

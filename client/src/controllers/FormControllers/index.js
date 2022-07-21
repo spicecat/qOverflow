@@ -4,6 +4,7 @@ import Form from './FormController';
 import LoginForm from './LoginFormController';
 import RegisterForm from './RegisterFormController';
 import ResetForm from './ResetFormController';
+import UpdateForm from './UpdateFormController';
 
 export {
     AskForm,
@@ -11,5 +12,6 @@ export {
     Form,
     LoginForm,
     RegisterForm,
-    ResetForm
+    ResetForm,
+    UpdateForm,
 };
