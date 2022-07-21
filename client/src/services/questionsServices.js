@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { createEndpoint } from './api';
 
 const callQuestionsAPI = createEndpoint('/questions');
@@ -14,7 +13,6 @@ const searchQuestions = async (sort) =>
 
 const postQuestion = async (data) =>
     callQuestionsAPI('post', ``)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -31,7 +29,6 @@ const getQuestion = async (questionID) =>
 
 const updateQuestion = async (questionID, data) =>
     callQuestionsAPI('patch', `/${questionID}`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -40,7 +37,6 @@ const updateQuestion = async (questionID, data) =>
 
 const getQuestionVote = async (questionID) =>
     callQuestionsAPI('get', `/${questionID}/vote`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -49,7 +45,6 @@ const getQuestionVote = async (questionID) =>
 
 const updateQuestionVote = async (questionID, data) =>
     callQuestionsAPI('patch', `/${questionID}/vote`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .then((res) => res.body)
         .catch((err) => {
@@ -67,7 +62,6 @@ const getQuestionComments = async (questionID) =>
 
 const postQuestionComment = async (questionID, data) =>
     callQuestionsAPI('post', `/${questionID}/comments`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -76,7 +70,6 @@ const postQuestionComment = async (questionID, data) =>
 
 const deleteQuestionComment = async (questionID, commentID) =>
     callQuestionsAPI('delete', `/${questionID}/comments/${commentID}`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .catch((err) => {
             console.log(err.response.body.error);
             return err.response.body;
@@ -84,7 +77,6 @@ const deleteQuestionComment = async (questionID, commentID) =>
 
 const getCommentVote = async (questionID, commentID) =>
     callQuestionsAPI('get', `/${questionID}/comments/${commentID}/vote`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -93,7 +85,6 @@ const getCommentVote = async (questionID, commentID) =>
 
 const updateCommentVote = async (questionID, commentID, data) =>
     callQuestionsAPI('patch', `/${questionID}/comments/${commentID}/vote`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .then((res) => res.body)
         .catch((err) => {
@@ -111,7 +102,6 @@ const getAnswers = async (questionID) =>
 
 const postAnswer = async (questionID, data) =>
     callQuestionsAPI('post', `/${questionID}/answers`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -120,7 +110,6 @@ const postAnswer = async (questionID, data) =>
 
 const updateAnswer = async (questionID, answerID, data) =>
     callQuestionsAPI('patch', `/${questionID}/answers/${answerID}`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -129,7 +118,6 @@ const updateAnswer = async (questionID, answerID, data) =>
 
 const updateAcceptAnswer = async (questionID, answerID) =>
     callQuestionsAPI('patch', `/${questionID}/answer/${answerID}/accept`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .catch((err) => {
             console.log(err.response.body.error);
             return err.response.body;
@@ -137,7 +125,6 @@ const updateAcceptAnswer = async (questionID, answerID) =>
 
 const getAnswerVote = async (questionID, answerID) =>
     callQuestionsAPI('get', `/${questionID}/answers/${answerID}/vote`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -150,7 +137,6 @@ const updateAnswerVote = async (questionID, answerID, data) =>
         `/${questionID}/answers/${answerID}/vote`,
         data
     )
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .catch((err) => {
             console.log(err.response.body.error);
             return err.response.body;
@@ -169,7 +155,6 @@ const postAnswerComments = async (questionID, answerID, data) =>
         'post',
         `/${questionID}/answers/${answerID}/comments`
     )
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .then((res) => res.body)
         .catch((err) => {
@@ -182,7 +167,6 @@ const deleteAnswerComment = async (questionID, answerID, commentID) =>
         'delete',
         `/${questionID}/answers/${answerID}/comments/${commentID}`
     )
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .catch((err) => {
             console.log(err.response.body.error);
             return err.response.body;
@@ -193,7 +177,6 @@ const getAnswerCommentVote = async (questionID, answerID, commentID) =>
         'get',
         `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
     )
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -205,7 +188,6 @@ const updateAnswerCommentVote = async (questionID, answerID, commentID, data) =>
         'patch',
         `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
     )
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .then((res) => res.body)
         .catch((err) => {

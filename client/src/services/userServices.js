@@ -35,7 +35,6 @@ const getUser = async (username) =>
 
 const getUserQuestions = async () =>
     callUsersAPI('get', `/questions`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -44,7 +43,6 @@ const getUserQuestions = async () =>
 
 const getUserAnswers = async () =>
     callUsersAPI('get', `/answers`)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
             console.log(err.response.body.error);
@@ -53,7 +51,6 @@ const getUserAnswers = async () =>
 
 const updateUser = async (data) =>
     callUsersAPI('patch', ``)
-        .set('Authorization', `bearer ${Cookies.get('token')}`)
         .send(data)
         .catch((err) => {
             console.log(err.response.body.error);
