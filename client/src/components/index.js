@@ -7,6 +7,7 @@ import PaginationEngine from './PaginationEngine';
 import PaginatedList from './PaginatedList';
 import SearchBar from './SearchBar';
 import MdPreview from './MdPreview';
+import Profile from './Profile';
 
 export {
     CreationInfoTag,
@@ -17,5 +18,6 @@ export {
     PaginationEngine,
     PaginatedList,
     SearchBar,
-    MdPreview
+    MdPreview,
+    Profile,
 };

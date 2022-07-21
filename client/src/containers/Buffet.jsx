@@ -37,21 +37,27 @@ export default function Buffet() {
     const { setError } = useError();
 
     useEffect(() => {
-        loadQuestions(0);
+        loadQuestions(sort);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            loadQuestions(sort);
+        }, 2000);
+
+        return () => clearInterval(interval);
     }, []);
 
     async function loadQuestions(newSort) {
-        if (newSort >= 0) {
-            const request = await searchQuestions({
-                sort: sortObjArr[newSort].sort,
-                match: sortObjArr[newSort].match,
-            });
+        const request = await searchQuestions({
+            sort: sortObjArr[newSort].sort,
+            match: sortObjArr[newSort].match,
+        });
 
-            if (request.error) {
-                setError(request.error);
-            } else {
-                setQuestionSet(request.questions);
-            }
+        if (request.error) {
+            setError(request.error);
+        } else {
+            setQuestionSet(request.questions);
         }
     }
 
@@ -65,12 +71,6 @@ export default function Buffet() {
 
     function handlePageChange(_, value) {
         setCurrentPage(() => value);
-    }
-
-    function getComponents() {
-        return questionSet.map((question) => (
-            <ListQuestion question={question} key={question.id} />
-        ));
     }
 
     return (
@@ -109,7 +109,8 @@ export default function Buffet() {
             </Box>
             <List sx={{ pl: 2, pr: 2 }}>
                 <PaginationEngine
-                    components={getComponents()}
+                    component={ListQuestion}
+                    data={questionSet}
                     page={currentPage}
                     count={count}
                 />

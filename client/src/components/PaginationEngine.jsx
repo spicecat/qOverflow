@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export default function PaginationEngine({ components, page, count }) {
+export default function PaginationEngine({
+    component: Component,
+    data,
+    page,
+    count,
+}) {
     const [bounds, setBounds] = useState({
         first: 0,
         last: 0,
@@ -12,5 +17,7 @@ export default function PaginationEngine({ components, page, count }) {
 
     useEffect(calculateDataset, [page, count]);
 
-    return components.slice(bounds.first, bounds.last);
+    return data
+        .slice(bounds.first, bounds.last)
+        .map((obj) => <Component data={obj} key={obj.id} />);
 }
