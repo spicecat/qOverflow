@@ -16,7 +16,6 @@
         "js-cookie": "^3.0.1",
         "nvm": "^0.0.4",
         "react": "^18.2.0",
-        "react-gravatar": "^2.6.3",
         "react-helmet": "^6.1.0",
         "react-markdown": "^8.0.3",
         "react-router-dom": "^6.3.0",
