@@ -8,6 +8,7 @@ import PaginatedList from './PaginatedList';
 import SearchBar from './SearchBar';
 import MdPreview from './MdPreview';
 import Profile from './Profile';
+import ModeToggle from './ModeToggle';
 
 export {
     CreationInfoTag,
@@ -20,4 +21,5 @@ export {
     SearchBar,
     MdPreview,
     Profile,
+    ModeToggle,
 };

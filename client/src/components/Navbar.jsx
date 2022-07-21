@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/bdpa-logo.svg';
-import { Profile } from 'components';
+import { ModeToggle, Profile } from 'components';
 import { SearchBar } from 'controllers';
 import MailIcon from '@mui/icons-material/Mail';
 
@@ -61,6 +61,7 @@ export default function Navbar({ logout, userData }) {
                 </Typography>
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
+                <ModeToggle />
                 <NavbarControls />
             </Toolbar>
         </AppBar>

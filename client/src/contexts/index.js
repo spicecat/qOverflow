@@ -4,6 +4,7 @@ import QuestionProvider, { useQuestion } from './QuestionContext';
 import UserProvider, { useUser } from './UserContext';
 import FormProvider, { useForm } from './FormContext';
 import ErrorProvider, { useError } from './ErrorContext';
+import ModeProvider, { useMode } from './ModeContext';
 
 export {
     AnswerProvider,
@@ -17,4 +18,6 @@ export {
     useForm,
     ErrorProvider,
     useError,
+    ModeProvider,
+    useMode,
 };
