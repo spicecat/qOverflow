@@ -15,7 +15,7 @@ export default function VoteControlController({
 
     const loadVote = async () => {
         const { success, vote: newVote } = await getVote(username);
-        console.log(1232,vote);
+
         if (success)
             setVote(newVote || 'none');
         return newVote;

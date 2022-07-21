@@ -9,10 +9,11 @@ const throttle = new Throttle({
 });
 
 const createRequest = async (op, endpoint, data) => {
+    const request = superagent[op](`${process.env.API_URL}${endpoint}`)
+        .use(throttle.plugin())
+        .set('Authorization', `bearer ${process.env.API_KEY}`)
     if (op === 'get' || op === 'delete') {
-        return superagent[op](`${process.env.API_URL}${endpoint}`)
-            .use(throttle.plugin())
-            .set('Authorization', `bearer ${process.env.API_KEY}`)
+        return request
             .query(data)
             .then((res) => res.body)
             .catch((err) => {
@@ -20,9 +21,7 @@ const createRequest = async (op, endpoint, data) => {
                 return err.response.body;
             });
     } else {
-        return superagent[op](`${process.env.API_URL}${endpoint}`)
-            .use(throttle.plugin())
-            .set('Authorization', `bearer ${process.env.API_KEY}`)
+        return request
             .send(data)
             .then((res) => res.body)
             .catch((err) => {

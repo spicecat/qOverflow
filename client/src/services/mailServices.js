@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const callMailAPI = createEndpoint('/mail');
 
 const postMail = async () =>
-    await callMailAPI('post', ``)
+    callMailAPI('post', ``)
         .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {
@@ -13,7 +13,7 @@ const postMail = async () =>
         });
 
 const getMail = async () =>
-    await callMailAPI('get')
+    callMailAPI('get')
         .set('Authorization', `bearer ${Cookies.get('token')}`)
         .then((res) => res.body)
         .catch((err) => {

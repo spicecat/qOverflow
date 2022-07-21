@@ -16,8 +16,8 @@ import { searchQuestions } from 'services/questionsServices';
 import { useError } from 'contexts';
 
 export default function Buffet() {
-    const recent = { match: '', sort: '' };
-    const best = { match: '', sort: 'u' };
+    const recent = {};
+    const best = { sort: 'u' };
     const interesting = {
         match: encodeURIComponent(JSON.stringify({ answers: 0 })),
         sort: 'uvc',
@@ -46,7 +46,7 @@ export default function Buffet() {
                 sort: sortObjArr[newSort].sort,
                 match: sortObjArr[newSort].match,
             });
-            
+
             if (request.error) {
                 setError(request.error);
             } else {
