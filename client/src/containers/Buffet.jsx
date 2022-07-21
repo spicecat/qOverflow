@@ -43,7 +43,7 @@ export default function Buffet() {
     useEffect(() => {
         const interval = setInterval(() => {
             loadQuestions(sort);
-        }, 2000);
+        }, 60000);
 
         return () => clearInterval(interval);
     }, []);

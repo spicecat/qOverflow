@@ -8,10 +8,9 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/bdpa-logo.svg';
-import { SearchBar, Profile } from 'components';
+import { Profile } from 'components';
+import { SearchBar } from 'controllers';
 import MailIcon from '@mui/icons-material/Mail';
-import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
 
 export default function Navbar({ logout, userData }) {
     function NavbarControls() {
@@ -50,7 +49,11 @@ export default function Navbar({ logout, userData }) {
     return (
         <AppBar position='static'>
             <Toolbar>
-                <IconButton component={Link} to='/'>
+                <IconButton
+                    component={Link}
+                    to='/'
+                    sx={{ margin: '0 1vw 0 0 ' }}
+                >
                     <img src={Logo} alt='bdpa logo' width='40' height='40' />
                 </IconButton>
                 <Typography variant='h6' component='div'>
