@@ -4,7 +4,7 @@ import { VoteControl } from 'controllers/QAControllers';
 import { getCommentVote, updateCommentVote } from 'services/questionsServices';
 
 export default function Comment({
-    _id,
+    _id: comment_id,
     creator,
     createdAt,
     downvotes,
@@ -12,11 +12,11 @@ export default function Comment({
     text,
     upvotes
 }) {
-    const getVote = (username) => getCommentVote(question_id, _id, username);
-    const updateVote = (username, data) => updateCommentVote(question_id, _id, username, data);
+    const getVote = (username) => getCommentVote(question_id, comment_id, username);
+    const updateVote = (username, data) => updateCommentVote(question_id, comment_id, username, data);
 
     return (
-        <span key={_id}>
+        <span key={comment_id}>
             <ListItem disablePadding>
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />

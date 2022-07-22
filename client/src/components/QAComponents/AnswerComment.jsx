@@ -7,7 +7,7 @@ import { getAnswerCommentVote, updateAnswerCommentVote } from 'services/question
 
 export default function AnswerComment({
     answer_id,
-    comment_id,
+    _id: comment_id,
     creator,
     createdAt,
     downvotes,
