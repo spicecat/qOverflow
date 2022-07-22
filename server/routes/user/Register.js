@@ -6,7 +6,7 @@ const User = require('../../db/models/User');
 async function Register(req, res) {
     const { username, email, password } = req.body;
 
-    if (!username || !email | !password) {
+    if (!username || !email || !password) {
         return res.status(400).send(config.errorIncomplete);
     }
 

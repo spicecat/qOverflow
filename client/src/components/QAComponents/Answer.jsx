@@ -8,7 +8,7 @@ import { getAnswerVote, updateAnswerVote } from 'services/questionsServices';
 
 export default function Answer({
     accepted,
-    answer_id,
+    _id,
     comments,
     creator,
     createdAt,
@@ -17,11 +17,11 @@ export default function Answer({
     text,
     upvotes
 }) {
-    const getVote = (username) => getAnswerVote(question_id, answer_id, username);
-    const updateVote = (username, data) => updateAnswerVote(question_id, answer_id, username, data);
+    const getVote = (username) => getAnswerVote(question_id, _id, username);
+    const updateVote = (username, data) => updateAnswerVote(question_id, _id, username, data);
 
     return (
-        <span key={answer_id}>
+        <span key={_id}>
             <ListItem disablePadding>
                 <ButtonGroup orientation='vertical'>
                     <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes }} />
@@ -43,7 +43,7 @@ export default function Answer({
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
                 <AnswerProvider>
-                    <AnswerCommentsList {...{ answer_id, comments }} />
+                    <AnswerCommentsList {...{ answer_id: _id, comments }} />
                 </AnswerProvider>
             </ListItem>
         </span>

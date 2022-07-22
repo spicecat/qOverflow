@@ -19,13 +19,13 @@ async function GetAnswerComments(req, res) {
 
         // Refomat requests and patch to database
         await requests
-            .reduce(async (acc, req) => {
-                const reformat = req.comments.map((comment) => ({
+            .map(({ comment_id, ...comment }) => {
+                return {
                     ...comment,
-                    id: comment.comment_id,
-                }));
-                return [...reformat, ...acc];
-            }, [])
+                    id: comment_id,
+                    parentID: answerID
+                }
+            })
             .map(async (comment) => {
                 return Comment.findByIdAndUpdate(comment.id, comment, {
                     upsert: true,
