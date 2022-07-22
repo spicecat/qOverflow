@@ -2,7 +2,7 @@ const Comment = require('../../db/models/Comment');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function DeleteComment(req, res, next) {
+async function DeleteComment(req, res) {
     const user = req.user;
     const { questionID, commentID } = req.params;
 

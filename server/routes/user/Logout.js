@@ -1,6 +1,6 @@
 const Token = require('../../db/models/Token');
 
-async function Logout(req, res, next) {
+async function Logout(req, res) {
     const user = req.user;
 
     await Token.findOne({ user: user.id });

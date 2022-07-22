@@ -3,7 +3,7 @@ const deriveKeyFromPassword = require('../../utils/auth');
 const User = require('../../db/models/User');
 const config = require('../../config.json');
 
-async function Edit(req, res, next) {
+async function Edit(req, res) {
     const user = req.user;
     const { email, password } = req.body;
 

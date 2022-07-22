@@ -1,6 +1,6 @@
 const Question = require('../../db/models/Question');
 
-async function Questions(req, res, next) {
+async function Questions(req, res) {
     const user = req.user;
 
     const cachedQuestions = await Question.find({

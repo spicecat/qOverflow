@@ -3,7 +3,7 @@ const Question = require('../../db/models/Question');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function EditAnswerAccepted(req, res, next) {
+async function EditAnswerAccepted(req, res) {
     const user = req.user;
     const { questionID, answerID } = req.params;
 

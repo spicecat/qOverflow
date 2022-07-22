@@ -3,7 +3,7 @@ const config = require('../../config.json');
 
 const Question = require('../../db/models/Question');
 
-async function Search(req, res, next) {
+async function Search(req, res) {
     const { success, questions } = await createRequest(
         'get',
         `/questions/search`,

@@ -4,7 +4,7 @@ const createRequest = require('../../utils/api');
 const deriveKeyFromPassword = require('../../utils/auth');
 const config = require('../../config.json');
 
-async function RequestReset(req, res, next) {
+async function RequestReset(req, res) {
     const { password } = req.body;
     const { id } = req.params;
 

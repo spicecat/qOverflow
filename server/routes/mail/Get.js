@@ -3,7 +3,7 @@ const fetchMail = require('../../utils/fetchMail');
 const Mail = require('../../db/models/Mail');
 const User = require('../../db/models/User');
 
-async function Get(req, res, next) {
+async function Get(req, res) {
     const user = req.user;
 
     // Retrieve cached mail
@@ -14,7 +14,7 @@ async function Get(req, res, next) {
     // If there is cached mail and last fetch was recently, return
     if (
         cachedMail.length &&
-        user.lastMailFetch + config.mailExpires > Date.now()
+        Number(user.lastMailFetch) + config.mailExpires > Date.now()
     ) {
         return res.send({ messages: cachedMail });
     }

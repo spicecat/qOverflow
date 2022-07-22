@@ -2,7 +2,7 @@ const Mail = require('../../db/models/Mail');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function Send(req, res, next) {
+async function Send(req, res) {
     const { username } = req.user;
     const { receiver, subject, text } = req.body;
 

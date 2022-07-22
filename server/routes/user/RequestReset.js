@@ -1,6 +1,6 @@
 const ResetRequest = require('../../db/models/ResetRequest');
 
-async function RequestReset(req, res, next) {
+async function RequestReset(req, res) {
     const { username } = req.query;
 
     const request = await ResetRequest.create({ user: username });

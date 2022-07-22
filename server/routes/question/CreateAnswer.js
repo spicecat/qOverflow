@@ -5,7 +5,7 @@ const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const createRequest = require('../../utils/api');
 
-async function CreateAnswer(req, res, next) {
+async function CreateAnswer(req, res) {
     const user = req.user;
     const { text } = req.body;
     const { questionID } = req.params;

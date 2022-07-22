@@ -3,7 +3,7 @@ const User = require('../../db/models/User');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function CreateQuestion(req, res, next) {
+async function CreateQuestion(req, res) {
     const user = req.user;
     const { title, text } = req.body;
 

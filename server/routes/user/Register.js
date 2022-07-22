@@ -3,7 +3,7 @@ const deriveKeyFromPassword = require('../../utils/auth');
 const config = require('../../config.json');
 const User = require('../../db/models/User');
 
-async function Register(req, res, next) {
+async function Register(req, res) {
     const { username, email, password } = req.body;
 
     if (!username || !email | !password) {

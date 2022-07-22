@@ -3,7 +3,7 @@ const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 
-async function EditAnswerVote(req, res, next) {
+async function EditAnswerVote(req, res) {
     const user = req.user;
     const { questionID, answerID, commentID } = req.params;
     const { operation } = req.body;

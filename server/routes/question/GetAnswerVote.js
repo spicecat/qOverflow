@@ -2,7 +2,7 @@ const createRequest = require('../../utils/api');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 
-async function GetAnswerVote(req, res, next) {
+async function GetAnswerVote(req, res) {
     const user = req.user;
     const { questionID, answerID } = req.params;
 

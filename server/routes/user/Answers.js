@@ -1,11 +1,11 @@
+const config = require('../../config.json');
 const Answer = require('../../db/models/Answer');
 const fetchAnswers = require('../../utils/fetchAnswers');
-const config = require('../../config.json');
 
-async function Answers(req, res, next) {
+async function Answers(req, res) {
     const user = req.user;
 
-    if (user.lastAnswerFetch + config.answerExpires > Date.now()) {
+    if (Number(user.lastAnswerFetch) + config.answerExpires > Date.now()) {
         const cachedAnswers = await Answer.find({
             creator: user.username,
         }).sort({ createdAt: 'desc' });

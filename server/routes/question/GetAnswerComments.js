@@ -4,13 +4,13 @@ const config = require('../../config.json');
 const Answer = require('../../db/models/Answer');
 const Comment = require('../../db/models/Comment');
 
-async function GetAnswerComments(req, res, next) {
+async function GetAnswerComments(req, res) {
     const { questionID, answerID } = req.params;
 
     const answer = await Answer.findById(answerID);
 
     // Refresh comments if expired
-    if (answer.lastCommentFetch + config.commentExpires < Date.now()) {
+    if (Number(answer.lastCommentFetch) + config.commentExpires < Date.now()) {
         const { success, requests } = await fetchComments(
             `/questions/${questionID}/answers/${answerID}/comments`
         );

@@ -1,16 +1,16 @@
 const config = require('../../config.json');
-
 const Question = require('../../db/models/Question');
 const Answer = require('../../db/models/Answer');
 const Comment = require('../../db/models/Comment');
+const fetchAnswers = require('../../utils/fetchAnswers');
 
-async function GetAnswers(req, res, next) {
+async function GetAnswers(req, res) {
     const { questionID } = req.params;
 
     const question = await Question.findById(questionID);
 
     // Fetch answers if expired
-    if (question.lastAnswerFetch + config.answerExpires < Date.now()) {
+    if (Number(question.lastAnswerFetch) + config.answerExpires < Date.now()) {
         const { success, requests } = await fetchAnswers(
             `/questions/${questionID}/answers`
         );

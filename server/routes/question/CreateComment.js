@@ -4,7 +4,7 @@ const Comment = require('../../db/models/Comment');
 const createRequest = require('../../utils/api');
 const getUserLevel = require('../../utils/getUserLevel');
 
-async function CreateComment(req, res, next) {
+async function CreateComment(req, res) {
     const user = req.user;
     const { questionID } = req.params;
     const { text } = req.body;

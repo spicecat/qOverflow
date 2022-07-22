@@ -3,7 +3,7 @@ const getUserLevel = require('../../utils/getUserLevel');
 const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
-async function EditQuestionStatusProtected(req, res, next) {
+async function EditQuestionStatusProtected(req, res) {
     const user = req.user;
     const { questionID } = req.params;
 
