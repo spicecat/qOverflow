@@ -11,17 +11,26 @@ export default function RegisterFormController() {
     const navigate = useNavigate();
 
     const validateRegister = async ({ username, email, password }) => {
-        const req = await register({ username, email, password });
-        if (req?.error) {
-            setError(req.error);
+        const { error, status } = await register({ username, email, password });
+        if (error) {
+            setError(error);
+            switch (error) {
+                case 'an item with that "username" already exists':
+                    return { username: 'Username already exists' };
+                case 'an item with that "email" already exists':
+                    return { email: 'Email already exists' };
+                default:
+                    return;
+            }
         } else {
-            navigate('/users/login');
+            if (status === 201)
+                navigate('/users/login');
         }
     };
 
     return Form({
         fields: registerFields,
-        onSubmit: validateRegister,
+        validate: validateRegister,
         validationSchema: registerSchema,
     });
 }

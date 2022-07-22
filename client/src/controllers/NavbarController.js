@@ -10,14 +10,14 @@ export default function NavbarController() {
     const navigate = useNavigate();
 
     const logoutUser = async () => {
-        const request = await logout();
-        if (request.error) {
-            setError(() => request.error);
-        } else {
-            Cookies.remove('token');
-            setUserData(() => ({}));
-            navigate('/users/login');
+        const { error } = await logout();
+        console.log(error, 3213)
+        if (error) {
+            setError(error);
         }
+        Cookies.remove('token');
+        setUserData({});
+        navigate('/users/login');
     };
 
     return Navbar({ logout: logoutUser, userData });

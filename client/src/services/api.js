@@ -26,9 +26,9 @@ export const createEndpoint = (path) => (op, endpoint, data, auth) => {
             request = request.send(data);
 
     return request
-        .then((res) => {
-            console.log(op, path, endpoint, res.body);
-            return res.body;
+        .then(({ body, status }) => {
+            console.log(op, path, endpoint, body, status);
+            return { body, status };
         })
         .catch((err) => {
             console.log(op, path, endpoint, err.response?.body, Object.entries(err));

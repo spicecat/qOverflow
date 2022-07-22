@@ -12,18 +12,26 @@ async function Register(req, res) {
 
     const { salt, key } = await deriveKeyFromPassword(password);
 
-    const { success } = await createRequest('post', '/users', {
+    const { success, error } = await createRequest('post', '/users', {
         username,
         email,
         salt,
         key,
     });
 
-    if (!success) return res.status(500).send(config.errorGeneric);
+    if (!success)
+        switch (error) {
+            case 'an item with that "username" already exists':
+                return res.status(409).send({ error });
+            case 'an item with that "email" already exists':
+                return res.status(409).send({ error });
+            default:
+                return res.status(500).send(config.errorGeneric);
+        }
 
     await User.create({ username, email, salt });
 
-    return res.sendStatus(200);
+    return res.sendStatus(201);
 }
 
 module.exports = Register;
