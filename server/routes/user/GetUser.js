@@ -6,13 +6,16 @@ const getUserLevel = require('../../utils/getUserLevel');
 async function GetUser(req, res) {
     const { username } = req.params;
 
-    const cachedUser = await User.findOne({ username }).select([
-        'username',
-        'email',
-        'points',
-    ]);
+    const cachedUser = await User.findOne({ username });
 
-    if (cachedUser) return res.send({ user: cachedUser });
+    if (cachedUser) return res.send({
+        user: {
+            username: cachedUser.username,
+            email: cachedUser.email,
+            points: cachedUser.points,
+            level: getUserLevel(cachedUser.points),
+        }
+    });
 
     const { success, user } = await createRequest('get', `/users/${username}`);
 
@@ -25,7 +28,7 @@ async function GetUser(req, res) {
             email: newUser.email,
             points: newUser.points,
             level: getUserLevel(newUser.points),
-        },
+        }
     });
 }
 
