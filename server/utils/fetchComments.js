@@ -10,7 +10,7 @@ async function fetchComments(
     after = ''
 ) {
     const request = await createRequest('get', url, { after });
-
+    
     if (!request.success) return config.errorGeneric;
     if (!request.comments.length) return acc;
 

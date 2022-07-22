@@ -20,10 +20,13 @@ const createRequest = async (op, endpoint, data) => {
             request = request.send(data);
 
     return request
-        .then((res) => res.body)
+        .then((res) => {
+            console.log(op, endpoint, JSON.stringify(res.body).substr(0, 100));
+            return res.body;
+        })
         .catch((err) => {
-            console.log(err.response?.body);
-            return err.response?.body;
+            console.log(op, endpoint, err.response?.body);
+            return err.response?.body || { error: 'Error' };
         });
 };
 
