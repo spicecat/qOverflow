@@ -11,7 +11,7 @@ export default function UserProvider({ children }) {
     useEffect(() => {
         const loadUserData = async () => {
             const { user } = await remember();
-            setUserData(user);
+            setUserData(user || initialUserData);
         }
         if (!userData?.username)
             loadUserData();

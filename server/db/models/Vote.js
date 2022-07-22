@@ -6,13 +6,14 @@ const Vote = mongoose.Schema(
         creator: { type: String, required: true },
         status: {
             type: String,
-            required: true,
-            enum: ['upvoted', 'downvoted'],
+            enum: ['upvoted', 'downvoted', null],
+            default: null,
+            nullable: true
         },
         docModel: {
             type: String,
             required: true,
-            enum: ['Question', 'Answer', 'Comment'],
+            enum: ['Question', 'Answer', 'Comment']
         },
         expireAt: { type: Date, expire: 1800 },
     },

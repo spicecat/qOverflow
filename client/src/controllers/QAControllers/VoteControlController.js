@@ -9,37 +9,42 @@ export default function VoteControlController({
     updateVote,
     upvotes,
 }) {
-    const { userData: { username } } = useUser();
+    const { userData: { level, username } } = useUser();
     const [vote, setVote] = useState()
     const [original, setOriginal] = useState()
 
     const loadVote = async () => {
-        const { success, vote: newVote } = await getVote(username);
-
-        if (success)
-            setVote(newVote || 'none');
-        return newVote;
+        if (level >= 2) {
+            const { success, vote: newVote } = await getVote(username);
+            if (success)
+                setVote(newVote || 'none');
+            return newVote;
+        }
     }
 
     const handleDownvote = async () => {
-        if (vote === 'downvoted')
-            await updateVote(username, { operation: 'decrement', target: 'downvotes' });
-        else {
-            if (vote === 'upvoted')
-                await updateVote(username, { operation: 'decrement', target: 'upvotes' });
-            await updateVote(username, { operation: 'increment', target: 'downvotes' });
+        if (level >= 2) {
+            if (vote === 'downvoted')
+                await updateVote(username, { operation: 'decrement' });
+            else {
+                if (vote === 'upvoted')
+                    await updateVote(username, { operation: 'decrement' });
+                await updateVote(username, { operation: 'increment' });
+            }
+            await loadVote();
         }
-        await loadVote();
     }
     const handleUpvote = async () => {
-        if (vote === 'upvoted')
-            await updateVote(username, { operation: 'decrement', target: 'upvotes' });
-        else {
-            if (vote === 'downvoted')
-                await updateVote(username, { operation: 'decrement', target: 'downvotes' });
-            await updateVote(username, { operation: 'increment', target: 'upvotes' });
+        if (level >= 2) {
+            if (vote === 'upvoted')
+                await updateVote(username, { operation: 'decrement' });
+            else {
+                if (vote === 'downvoted')
+                    await updateVote(username, { operation: 'decrement' });
+                await updateVote(username, { operation: 'increment' });
+            }
+            await loadVote();
         }
-        await loadVote();
     }
 
     useEffect(() => {

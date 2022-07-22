@@ -17,7 +17,7 @@ async function GetAnswerCommentVote(req, res) {
         creator: user.username,
     });
 
-    if (cachedVote) return res.send({ vote: vote.status });
+    if (cachedVote) return res.send({ vote: cachedVote.status });
 
     // Fetch vote and cache it
     const { success, vote } = await createRequest(
@@ -30,7 +30,7 @@ async function GetAnswerCommentVote(req, res) {
     const newVote = await Vote.create({
         parentID: commentID,
         creator: user.username,
-        status: vote,
+        status: vote??null,
         docModel: 'Comment',
     });
 

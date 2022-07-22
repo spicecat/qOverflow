@@ -7,9 +7,8 @@ async function GetCommentVote(req, res) {
     const { questionID, commentID } = req.params;
 
     // Verify that user has level required to vote
-    if (getUserLevel(user.points) < 2) {
+    if (getUserLevel(user.points) < 2)
         return res.send({ vote: null });
-    }
 
     // Find cached vote and return it
     const cachedVote = await Vote.findOne({
@@ -17,7 +16,7 @@ async function GetCommentVote(req, res) {
         creator: user.username,
     });
 
-    if (cachedVote) return res.send({ vote: vote.status });
+    if (cachedVote) return res.send({ vote: cachedVote.status });
 
     // Retrieve uncached vote and cache it
     const { success, vote } = await createRequest(
@@ -26,11 +25,11 @@ async function GetCommentVote(req, res) {
     );
 
     if (!success) return res.send({ vote: null });
-
+    
     const newVote = await Vote.create({
         parentID: commentID,
         creator: user.username,
-        status: vote,
+        status: vote ?? null,
         docModel: 'Comment',
     });
 
