@@ -11,9 +11,11 @@ export default function LoginFormController() {
     const navigate = useNavigate();
 
     const validateLogin = async ({ username, password }) => {
-        const { error, user } = await login({ username, password });
+        const { error, status, user } = await login({ username, password });
         if (error) {
             setError(error);
+            if (status === 403)
+                return { username: 'Username or password incorrect' };
         } else {
             setUserData(user);
             navigate('/');
@@ -22,7 +24,7 @@ export default function LoginFormController() {
 
     return Form({
         fields: loginFields,
-        onSubmit: validateLogin,
+        validate: validateLogin,
         validationSchema: loginSchema,
     });
 }

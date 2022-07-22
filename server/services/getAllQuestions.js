@@ -17,7 +17,7 @@ async function getAllQuestions(job, done) {
 
     completeQuestions.map(
         async (question) =>
-            await Question.findByIdAndUpdate(question.id, question, {
+            Question.findByIdAndUpdate(question.id, question, {
                 upsert: true,
             })
     );

@@ -28,10 +28,10 @@ export const createEndpoint = (path) => (op, endpoint, data, auth) => {
     return request
         .then(({ body, status }) => {
             console.log(op, path, endpoint, body, status);
-            return { body, status };
+            return { ...body, status };
         })
-        .catch((err) => {
-            console.log(op, path, endpoint, err.response?.body, Object.entries(err));
-            return err.response?.body || { error: 'Error' };
+        .catch(({ response, status }) => {
+            console.log(op, path, endpoint, response?.body, status);
+            return response ? { ...response?.body, status } : { error: 'Error' };
         });
 }

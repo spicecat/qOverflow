@@ -17,7 +17,7 @@ async function getAllUsers(job, done) {
 
     completeUsers.map(
         async (user) =>
-            await User.findOneAndUpdate({ username: user.username }, user, {
+            User.findOneAndUpdate({ username: user.username }, user, {
                 upsert: true,
             })
     );

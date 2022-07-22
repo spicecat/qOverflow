@@ -16,6 +16,7 @@ async function basicAuth(req, res, next) {
 
     // Find username and password in cache and attempt to log in with cached salt
     const cacheUser = await User.findOne({ username });
+
     if (cacheUser) {
         const { key } = await deriveKeyFromPassword(password, cacheUser.salt);
         const checkCacheAuth = await createRequest(
@@ -28,11 +29,14 @@ async function basicAuth(req, res, next) {
             req.user = cacheUser;
             return next();
         }
+        else
+            return res.status(403).send(config.errorFailed);
     }
 
     // If login failed with cached salt, refresh user and try again
     const { user, success } = await createRequest('get', `/users/${username}`);
-    if (!success) return res.status(500).send(config.errorGeneric);
+
+    if (!success) return res.status(403).send(config.errorFailed);
 
     const dbUser = await User.create({ ...user, id: user.user_id });
 
