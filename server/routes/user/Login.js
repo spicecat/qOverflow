@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const Token = require('../../db/models/Token');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function Login(req, res) {
     const user = req.user;
@@ -19,7 +20,15 @@ async function Login(req, res) {
         user: user.username,
     });
 
-    return res.send({ token: token.token, user });
+    return res.send({
+        token: token.token,
+        user: {
+            username: user.username,
+            email: user.email,
+            points: user.points,
+            level: getUserLevel(user.points),
+        }
+    });
 }
 
 module.exports = Login;
