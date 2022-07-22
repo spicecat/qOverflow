@@ -44,43 +44,19 @@ router.get('/:questionID/comments', GetComments);
 router.post('/:questionID/comments', tokenAuth, CreateComment);
 router.delete('/:questionID/comments/:commentID', tokenAuth, DeleteComment);
 router.get('/:questionID/comments/:commentID/vote', tokenAuth, GetCommentVote);
-router.patch(
-    '/:questionID/comments/:commentID/vote',
-    tokenAuth,
-    EditCommentVote
-);
+router.patch('/:questionID/comments/:commentID/vote',tokenAuth,EditCommentVote);
 
 router.get('/:questionID/answers', GetAnswers);
 router.post('/:questionID/answers', tokenAuth, CreateAnswer);
 router.patch('/:questionID/answers/:answerID', tokenAuth, EditAnswer);
-router.patch(
-    '/:questionID/answers/:answerID/accept',
-    tokenAuth,
-    EditAnswerAccepted
-);
-router.get('/:questionID/answers/:answerID/vote', GetAnswerVote);
-router.patch('/:questionID/answers/:answerID/vote', tokenAuth, EditAnswerVote);
+router.patch('/:questionID/answers/:answerID/accept',tokenAuth,EditAnswerAccepted);
+router.get('/:questionID/answers/:answerID/vote',tokenAuth,GetAnswerVote);
+router.patch('/:questionID/answers/:answerID/vote',tokenAuth,EditAnswerVote);
 
 router.get('/:questionID/answers/:answerID/comments', GetAnswerComments);
-router.post(
-    '/:questionID/answers/:answerID/comments',
-    tokenAuth,
-    CreateAnswerComment
-);
-router.delete(
-    '/:questionID/answers/:answerID/comments/:commentID',
-    tokenAuth,
-    DeleteAnswerComment
-);
-router.get(
-    '/:questionID/answers/:answerID/comments/:commentID/vote',
-    tokenAuth,
-    GetAnswerCommentVote
-);
-router.patch(
-    '/:questionID/answers/:answerID/comments/:commentID/vote',
-    tokenAuth,
-    EditAnswerCommentVote
-);
+router.post('/:questionID/answers/:answerID/comments',tokenAuth,CreateAnswerComment);
+router.delete('/:questionID/answers/:answerID/comments/:commentID',tokenAuth,DeleteAnswerComment);
+router.get('/:questionID/answers/:answerID/comments/:commentID/vote',tokenAuth,GetAnswerCommentVote);
+router.patch('/:questionID/answers/:answerID/comments/:commentID/vote',tokenAuth,EditAnswerCommentVote);
 
 module.exports = router;
