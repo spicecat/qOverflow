@@ -19,13 +19,13 @@ async function GetAnswers(req, res) {
 
         // Reformat questions and patch to cache
         await requests
-            .reduce(async (acc, req) => {
-                const reformat = req.answers.map((answer) => ({
+            .map(({ answer_id, ...answer }) => {
+                return {
                     ...answer,
-                    id: answer.answer_id,
-                }));
-                return [...reformat, ...acc];
-            }, [])
+                    id: answer_id,
+                    questionID
+                }
+            })
             .map(async (answer) => {
                 if (answer.accepted) {
                     await Question.findByIdAndUpdate(questionID, {

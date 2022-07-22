@@ -10,13 +10,13 @@ async function fetchComments(
     after = ''
 ) {
     const request = await createRequest('get', url, { after });
-    
+
     if (!request.success) return config.errorGeneric;
     if (!request.comments.length) return acc;
 
     const newAcc = {
         success: true,
-        requests: [...acc.requests, request],
+        requests: [...acc.requests, ...request.comments],
     };
 
     const oldest = request.comments[request.comments.length - 1];
@@ -24,7 +24,7 @@ async function fetchComments(
         return newAcc;
     }
 
-    return fetchComments(recentTimestamp, newAcc, oldest['comment_id']);
+    return fetchComments(url, recentTimestamp, newAcc, oldest['comment_id']);
 }
 
 module.exports = fetchComments;

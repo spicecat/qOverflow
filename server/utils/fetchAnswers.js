@@ -16,7 +16,7 @@ async function fetchAnswers(
 
     const newAcc = {
         success: true,
-        requests: [...acc.requests, request],
+        requests: [...acc.requests, ...request.answers],
     };
 
     const oldest = request.answers[request.answers.length - 1];
@@ -24,7 +24,7 @@ async function fetchAnswers(
         return newAcc;
     }
 
-    return fetchAnswers(recentTimestamp, newAcc, oldest['answer_id']);
+    return fetchAnswers(url, recentTimestamp, newAcc, oldest['answer_id']);
 }
 
 module.exports = fetchAnswers;

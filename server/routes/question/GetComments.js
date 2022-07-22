@@ -14,18 +14,18 @@ async function GetComments(req, res) {
         const { success, requests } = await fetchComments(
             `/questions/${questionID}/comments`
         );
-        console.log(123123, success, requests)
+
         if (!success) return res.status(500).send(config.errorGeneric);
 
         // Reformat comments and patch to database
         await requests
-            .reduce(async (acc, req) => {
-                const reformat = req.comments.map((comment) => ({
+            .map(({ comment_id, ...comment }) => {
+                return {
                     ...comment,
-                    id: comment.comment_id,
-                }));
-                return [...reformat, ...acc];
-            }, [])
+                    id: comment_id,
+                    parentID: questionID
+                }
+            })
             .map(async (comment) => {
                 return Comment.findByIdAndUpdate(comment.id, comment, {
                     upsert: true,
