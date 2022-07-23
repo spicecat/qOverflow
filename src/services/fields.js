@@ -89,6 +89,28 @@ const resetFields = [
         type: 'password',
     },
 ];
+const searchFields = [
+    {
+        id: 'search',
+        label: 'search by title',
+        type: 'search',
+    },
+    {
+        id: 'body',
+        label: 'search by text',
+        type: 'search',
+    },
+    {
+        id: 'date',
+        label: 'date(MM/DD/YYYY)',
+        type: 'search',
+    },
+    {
+        id: 'creator',
+        label : 'creator',
+        type : 'search'
+    }
+];
 
 export {
     answerFields,
@@ -99,4 +121,5 @@ export {
     registerFields,
     recoverFields,
     resetFields,
+    searchFields
 };

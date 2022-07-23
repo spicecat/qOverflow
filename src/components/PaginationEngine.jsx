@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import NoQuestions from './NoQuestions';
 
 export default function PaginationEngine({ components, page, count }) {
     const [bounds, setBounds] = useState({
@@ -11,6 +12,8 @@ export default function PaginationEngine({ components, page, count }) {
     }
 
     useEffect(calculateDataset, [page, count]);
-
+    if(components === 0){
+        return <NoQuestions/>
+    }
     return components.slice(bounds.first, bounds.last);
 }
