@@ -5,7 +5,7 @@ import { patchFields } from 'services/fields';
 import { patchSchema } from 'services/schemas';
 import { useNavigate } from 'react-router-dom';
 
-export default function LoginFormController() {
+export default function UpdateFormController() {
     const { setUserData } = useUser();
     const { setError } = useError();
     const navigate = useNavigate();

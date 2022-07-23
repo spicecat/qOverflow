@@ -3,6 +3,8 @@ const router = express.Router();
 
 const tokenAuth = require('../middleware/tokenAuth');
 
+const tc = require('../utils/trycatch');
+
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
 const CreateComment = require('./question/CreateComment');
@@ -29,34 +31,34 @@ const GetQuestion = require('./question/GetQuestion');
 const GetQuestionVote = require('./question/GetQuestionVote');
 const Search = require('./question/Search');
 
-router.get('/search', Search);
+router.get('/search', ...tc(Search));
 
-router.post('/', tokenAuth, CreateQuestion);
-router.get('/:questionID', GetQuestion);
-router.patch('/:questionID', tokenAuth, EditQuestion);
-router.patch('/:questionID/close', tokenAuth, EditQuestionStatusClosed);
-router.patch('/:questionID/protect', tokenAuth, EditQuestionStatusProtected);
-router.patch('/:questionID/reopen', tokenAuth, EditQuestionStatusReopened);
-router.get('/:questionID/vote', tokenAuth, GetQuestionVote);
-router.patch('/:questionID/vote', tokenAuth, EditQuestionVote);
+router.post('/', ...tc(tokenAuth, CreateQuestion));
+router.get('/:questionID', ...tc(GetQuestion));
+router.patch('/:questionID', ...tc(tokenAuth, EditQuestion));
+router.patch('/:questionID/close', ...tc(tokenAuth, EditQuestionStatusClosed));
+router.patch('/:questionID/protect', ...tc(tokenAuth, EditQuestionStatusProtected));
+router.patch('/:questionID/reopen', ...tc(tokenAuth, EditQuestionStatusReopened));
+router.get('/:questionID/vote', ...tc(tokenAuth, GetQuestionVote));
+router.patch('/:questionID/vote', ...tc(tokenAuth, EditQuestionVote));
 
-router.get('/:questionID/comments', GetComments);
-router.post('/:questionID/comments', tokenAuth, CreateComment);
-router.delete('/:questionID/comments/:commentID', tokenAuth, DeleteComment);
-router.get('/:questionID/comments/:commentID/vote', tokenAuth, GetCommentVote);
-router.patch('/:questionID/comments/:commentID/vote', tokenAuth, EditCommentVote);
+router.get('/:questionID/comments', ...tc(GetComments));
+router.post('/:questionID/comments', ...tc(tokenAuth, CreateComment));
+router.delete('/:questionID/comments/:commentID', ...tc(tokenAuth, DeleteComment));
+router.get('/:questionID/comments/:commentID/vote', ...tc(tokenAuth, GetCommentVote));
+router.patch('/:questionID/comments/:commentID/vote', ...tc(tokenAuth, EditCommentVote));
 
-router.get('/:questionID/answers', GetAnswers);
-router.post('/:questionID/answers', tokenAuth, CreateAnswer);
-router.patch('/:questionID/answers/:answerID', tokenAuth, EditAnswer);
-router.patch('/:questionID/answers/:answerID/accept', tokenAuth, EditAnswerAccepted);
-router.get('/:questionID/answers/:answerID/vote', tokenAuth, GetAnswerVote);
-router.patch('/:questionID/answers/:answerID/vote', tokenAuth, EditAnswerVote);
+router.get('/:questionID/answers', ...tc(GetAnswers));
+router.post('/:questionID/answers', ...tc(tokenAuth, CreateAnswer));
+router.patch('/:questionID/answers/:answerID', ...tc(tokenAuth, EditAnswer));
+router.patch('/:questionID/answers/:answerID/accept', ...tc(tokenAuth, EditAnswerAccepted));
+router.get('/:questionID/answers/:answerID/vote', ...tc(tokenAuth, GetAnswerVote));
+router.patch('/:questionID/answers/:answerID/vote', ...tc(tokenAuth, EditAnswerVote));
 
-router.get('/:questionID/answers/:answerID/comments', GetAnswerComments);
-router.post('/:questionID/answers/:answerID/comments', tokenAuth, CreateAnswerComment);
-router.delete('/:questionID/answers/:answerID/comments/:commentID', tokenAuth, DeleteAnswerComment);
-router.get('/:questionID/answers/:answerID/comments/:commentID/vote', tokenAuth, GetAnswerCommentVote);
-router.patch('/:questionID/answers/:answerID/comments/:commentID/vote', tokenAuth, EditAnswerCommentVote);
+router.get('/:questionID/answers/:answerID/comments', ...tc(GetAnswerComments));
+router.post('/:questionID/answers/:answerID/comments', ...tc(tokenAuth, CreateAnswerComment));
+router.delete('/:questionID/answers/:answerID/comments/:commentID', ...tc(tokenAuth, DeleteAnswerComment));
+router.get('/:questionID/answers/:answerID/comments/:commentID/vote', ...tc(tokenAuth, GetAnswerCommentVote));
+router.patch('/:questionID/answers/:answerID/comments/:commentID/vote', ...tc(tokenAuth, EditAnswerCommentVote));
 
 module.exports = router;
