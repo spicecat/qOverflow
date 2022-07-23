@@ -13,6 +13,7 @@ async function basicAuth(req, res, next) {
 
     // Isolate the username and password
     const [username, password] = Buffer.from(b64Encoded, 'base64').toString().split(':');
+    if (!username || !password) return res.status(403).send(config.errorFailed);
 
     // Find username and password in cache and attempt to log in with cached salt
     const cacheUser = await User.findOne({ username });

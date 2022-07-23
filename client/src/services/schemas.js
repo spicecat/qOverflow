@@ -7,9 +7,10 @@ const answerSchema = Yup.object({
 });
 
 const commentSchema = Yup.object({
-    comment: Yup.string()
+    text: Yup.string()
         .required('Comment is required')
-        .max(150, 'Comment must be at most 150 characters'),
+        .min(1, 'Comment must between 1 and 150 characters')
+        .max(150, 'Comment must between 1 and 150 characters'),
 });
 
 const loginSchema = Yup.object({

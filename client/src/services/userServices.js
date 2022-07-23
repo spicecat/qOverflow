@@ -15,7 +15,7 @@ const login = async ({ username, password }) => {
         `basic ${encoded}`
     );
     Cookies.set('token', token);
-    return { user };
+    return user;
 };
 
 const remember = async () => callUsersAPI('get', `/remember`);

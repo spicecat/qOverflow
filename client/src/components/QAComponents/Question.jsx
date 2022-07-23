@@ -2,7 +2,7 @@ import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/mat
 import ReactMarkdown from 'react-markdown';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, VoteControl } from 'controllers/QAControllers';
-import { getQuestionVote, updateQuestionVote } from 'services/questionsServices';
+import { getQuestionVote, postQuestionComment, updateQuestionVote } from 'services/questionsServices';
 
 const statusColor = (status) => {
     switch (status) {
@@ -28,6 +28,7 @@ export default function Question({
     views
 }) {
     const getVote = () => getQuestionVote(question_id);
+    const postComment = (data) => postQuestionComment(question_id, data);
     const updateVote = (data) => updateQuestionVote(question_id, data);
 
     return (
@@ -58,7 +59,7 @@ export default function Question({
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CommentControl />
+                    <CommentControl {...{ postComment }} />
                 </ListItemText>
             </ListItem>
         </>

@@ -25,7 +25,7 @@ const askQuestionFields = [
 
 const commentFields = [
     {
-        id: 'comment',
+        id: 'text',
         label: 'Comment',
     },
 ];

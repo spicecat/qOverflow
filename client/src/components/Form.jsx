@@ -10,9 +10,8 @@ export default function Form({ formik, fields }) {
     }, []);
 
     function handleChange(event) {
-        if (event.target.id === 'text') {
+        if (event.target.id === 'text')
             setContent(event.target.value);
-        }
     }
 
     return (
