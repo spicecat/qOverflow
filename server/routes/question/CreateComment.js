@@ -12,22 +12,18 @@ async function CreateComment(req, res) {
     const cachedQuestion = await Question.findById(questionID);
 
     // Verify that question is not closed
-    if (!cachedQuestion || cachedQuestion.status === 'closed') {
+    if (!cachedQuestion || cachedQuestion.status === 'closed')
         return res.status(403).send(config.errorForbidden);
-    }
 
     // Verify that user has the permissions to create comments
     if (
         getUserLevel(user.points) < 3 &&
         cachedQuestion?.creator !== user.username
-    ) {
+    )
         return res.status(403).send(config.errorForbidden);
-    }
 
     // Verify that required items are in request body
-    if (!text) {
-        return res.status(400).send(config.errorIncomplete);
-    }
+    if (!text) return res.status(400).send(config.errorIncomplete);
 
     // Post comment with BDPA server
     const { success, comment } = await createRequest(
