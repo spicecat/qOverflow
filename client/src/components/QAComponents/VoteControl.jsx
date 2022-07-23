@@ -15,27 +15,23 @@ export default function VoteControl({
     return (
         <span style={{ marginRight: 8 }}>
             <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>
-                <Tooltip title='upvote' placement='right'>
                     <IconButton
                         disabled={disabled}
                         onClick={handleUpvote}
                     >
                         <ThumbUpOutlinedIcon color={vote === 'upvoted' ? 'warning' : 'standard'} />
                     </IconButton>
-                </Tooltip>
                 <Tooltip title={`${upvotes} / ${downvotes}`} placement='right'>
                     <Typography style={{ margin: 4, textAlign: 'center' }}>
                         {upvotes - downvotes}
                     </Typography>
                 </Tooltip>
-                <Tooltip title='downvote' placement='right'>
                     <IconButton
                         disabled={disabled}
-                        onClick={handleUpvote}
+                        onClick={handleDownvote}
                     >
                         <ThumbDownOutlinedIcon color={vote === 'downvoted' ? 'warning' : 'standard'} />
                     </IconButton>
-                </Tooltip>
             </ButtonGroup>
         </span >
     )

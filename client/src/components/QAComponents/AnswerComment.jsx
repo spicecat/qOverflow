@@ -30,9 +30,8 @@ export default function AnswerComment({
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
                     {text}
-                    <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
-                    {/* <button onClick={()=>console.log(11, answer_id, answerData)}>asdf</button> */}
                 </ListItemText>
+                <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
             </ListItem>
             <Divider />
         </span >

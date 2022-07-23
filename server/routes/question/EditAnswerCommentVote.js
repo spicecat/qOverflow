@@ -3,7 +3,7 @@ const config = require('../../config.json');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 
-async function EditAnswerVote(req, res) {
+async function EditAnswerCommentVote(req, res) {
     const user = req.user;
     const { questionID, answerID, commentID } = req.params;
     const { operation } = req.body;
@@ -21,7 +21,7 @@ async function EditAnswerVote(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    const URL = `/questions/${questionID}/answerID/${answerID}/comments/${commentID}/vote/${user.username}`;
+    const URL = `/questions/${questionID}/answers/${answerID}/comments/${commentID}/vote/${user.username}`;
 
     // Get the cached vote, and refresh cache if not present
     let cachedVote = await Vote.findOneAndDelete({
@@ -130,4 +130,4 @@ async function EditAnswerVote(req, res) {
     return res.send({ vote: null });
 }
 
-module.exports = EditAnswerVote;
+module.exports = EditAnswerCommentVote;
