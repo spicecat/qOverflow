@@ -9,10 +9,10 @@ export default function SendMailController() {
     const { setError } = useError();
 
     const sendMail = async ({ receiver, subject, text }) => {
-        const request = postMail(userData.username, receiver, subject, text);
+        const { error } = postMail(userData.username, receiver, subject, text);
 
-        if (request?.error) {
-            setError(request.error);
+        if (error) {
+            setError(error);
         }
     };
 

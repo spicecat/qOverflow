@@ -11,9 +11,9 @@ export default function LoginFormController() {
     const navigate = useNavigate();
 
     const update = async ({ email, password }) => {
-        const req = await updateUser({ email, password });
-        if (req?.error) {
-            setError(req.error);
+        const { error } = await updateUser({ email, password });
+        if (error) {
+            setError(error);
         } else {
             setUserData((initial) => ({ ...initial, email }));
             navigate('/');

@@ -49,16 +49,15 @@ export default function Buffet() {
     }, []);
 
     async function loadQuestions(newSort) {
-        const request = await searchQuestions({
+        const {error, questions} = await searchQuestions({
             sort: sortObjArr[newSort].sort,
             match: sortObjArr[newSort].match,
         });
-
-        if (request.error) {
-            setError(request.error);
-        } else {
-            setQuestionSet(request.questions);
-        }
+        
+        if (error) {
+            setError(error);
+        } else
+            setQuestionSet(questions);
     }
 
     const handleSortChange = (_, newSort) => {

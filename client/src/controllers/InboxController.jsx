@@ -9,12 +9,12 @@ export default function InboxController() {
     const [mail, setMail] = useState([]);
 
     const fetchMail = async () => {
-        const req = await getMail();
+        const { error, messages } = await getMail();
 
-        if (req.error) {
-            setError(() => req.error);
+        if (error) {
+            setError(error);
         } else {
-            setMail(() => req.messages);
+            setMail(messages);
         }
     };
 

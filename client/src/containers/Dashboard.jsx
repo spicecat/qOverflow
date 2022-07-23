@@ -52,16 +52,16 @@ export default function Dashboard() {
     };
 
     const fetchAnswers = async () => {
-        const request = await getUserAnswers();
-        if (!request.error) {
-            setDataset({ type: 'answers', value: request.answers });
+        const { error, answers } = await getUserAnswers();
+        if (!error) {
+            setDataset({ type: 'answers', value: answers });
         }
     };
 
     const fetchQuestions = async () => {
-        const request = await getUserQuestions();
-        if (!request.error) {
-            setDataset({ type: 'questions', value: request.questions });
+        const { error, questions } = await getUserQuestions();
+        if (!error) {
+            setDataset({ type: 'questions', value: questions });
         }
     };
 

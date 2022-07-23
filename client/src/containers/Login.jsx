@@ -6,9 +6,7 @@ export default function Login() {
     let location = useLocation();
 
     function returnMsg() {
-        if (location.state) {
-            return location.state.msg;
-        }
+        return location.state?.msg;
     }
 
     return (
