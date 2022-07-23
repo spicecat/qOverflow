@@ -12,8 +12,8 @@ export default function Comment({
     text,
     upvotes
 }) {
-    const getVote = (username) => getCommentVote(question_id, comment_id, username);
-    const updateVote = (username, data) => updateCommentVote(question_id, comment_id, username, data);
+    const getVote = () => getCommentVote(question_id, comment_id);
+    const updateVote = (data) => updateCommentVote(question_id, comment_id, data);
 
     return (
         <span key={comment_id}>

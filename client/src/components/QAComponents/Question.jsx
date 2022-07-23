@@ -27,8 +27,8 @@ export default function Question({
     upvotes,
     views
 }) {
-    const getVote = (username) => getQuestionVote(question_id, username);
-    const updateVote = (username, data) => updateQuestionVote(question_id, username, data);
+    const getVote = () => getQuestionVote(question_id);
+    const updateVote = (data) => updateQuestionVote(question_id, data);
 
     return (
         <>

@@ -9,41 +9,36 @@ export default function VoteControlController({
     updateVote,
     upvotes,
 }) {
-    const { userData: { level, username } } = useUser();
+    const { userData: { level } } = useUser();
+    const [disabled, setDisabled] = useState()
     const [vote, setVote] = useState()
     const [original, setOriginal] = useState()
 
     const loadVote = async () => {
         if (level >= 2) {
-            const { success, vote: newVote } = await getVote(username);
-            if (success)
-                setVote(newVote || 'none');
+            const { vote: newVote } = await getVote();
+            setVote(newVote);
             return newVote;
         }
     }
 
     const handleDownvote = async () => {
-        if (level >= 2) {
-            if (vote === 'downvoted')
-                await updateVote(username, { operation: 'decrement' });
-            else {
-                if (vote === 'upvoted')
-                    await updateVote(username, { operation: 'decrement' });
-                await updateVote(username, { operation: 'increment' });
-            }
-            await loadVote();
+        if (level >= 4) {
+            setDisabled(true);
+            const { vote: newVote } = await updateVote({ operation: 'downvote' });
+            if (newVote !== undefined)
+                setVote(newVote);
+            setDisabled(false);
         }
     }
+
     const handleUpvote = async () => {
         if (level >= 2) {
-            if (vote === 'upvoted')
-                await updateVote(username, { operation: 'decrement' });
-            else {
-                if (vote === 'downvoted')
-                    await updateVote(username, { operation: 'decrement' });
-                await updateVote(username, { operation: 'increment' });
-            }
-            await loadVote();
+            setDisabled(true);
+            const { vote: newVote } = await updateVote({ operation: 'upvote' });
+            if (newVote !== undefined)
+                setVote(newVote);
+            setDisabled(false);
         }
     }
 
@@ -55,6 +50,7 @@ export default function VoteControlController({
 
     return downvotes !== undefined && (
         VoteControl({
+            disabled,
             downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,
             handleUpvote,

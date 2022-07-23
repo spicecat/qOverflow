@@ -17,8 +17,8 @@ export default function AnswerComment({
 }) {
     const { answerData, setAnswerData } = useAnswer();
 
-    const getVote = (username) => getAnswerCommentVote(question_id, answer_id, comment_id, username);
-    const updateVote = (username, data) => updateAnswerCommentVote(question_id, answer_id, comment_id, username, data);
+    const getVote = () => getAnswerCommentVote(question_id, answer_id, comment_id);
+    const updateVote = (data) => updateAnswerCommentVote(question_id, answer_id, comment_id, data);
 
     useEffect(() => {
         setAnswerData(answerData + answer_id);
