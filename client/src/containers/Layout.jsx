@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 

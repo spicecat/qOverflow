@@ -56,5 +56,5 @@ export default function App() {
                 </Routes>
             </ContextProvider>
         </BrowserRouter>
-    );
+    )
 }

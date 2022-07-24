@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import NoQuestions from './NoQuestions';
 
 export default function PaginationEngine({
     component: Component,

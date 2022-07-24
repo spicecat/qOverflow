@@ -1,9 +1,11 @@
 import { alpha, styled } from '@mui/material/styles';
-import { InputBase } from '@mui/material';
+import { InputBase, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
+    pointerEvents: 'none',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -19,6 +21,7 @@ const Search = styled('div')(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
+    pointerEvents: 'none',
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -44,19 +47,18 @@ const Input = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchBar({ value, onChange, onSubmit }) {
+export default function SearchBar() {
+    let navigate = useNavigate();
+
+    function navSearch(e) {
+        navigate('/questions/search')
+    }
+
     return (
-        <form onSubmit={onSubmit}>
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <Input
-                    placeholder='Search…'
-                    value={value}
-                    onChange={onChange}
-                />
-            </Search>
-        </form>
+        <Search >
+            <SearchIconWrapper>
+                <Button style={{ pointerEvents: 'auto' }} variant="contained" startIcon={<SearchIcon />} onClick={navSearch}> Search</Button>
+            </SearchIconWrapper>
+        </Search>
     );
 }

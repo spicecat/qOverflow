@@ -19,7 +19,7 @@ export default function Form({ formik, fields }) {
             {fields.map((field) => (
                 <span key={field.id}>
                     <Typography>{field.title}</Typography>
-                    <TextField {...field} fullWidth />
+                    <TextField {...field} fullWidth/>
                 </span>
             ))}
 
@@ -32,6 +32,7 @@ export default function Form({ formik, fields }) {
             >
                 Submit
             </Button>
+            
         </form>
     );
 }

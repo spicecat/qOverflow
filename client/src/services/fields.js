@@ -7,27 +7,28 @@ const passwordStrength = ({ length }) => {
 const answerFields = [
     {
         id: 'answer',
-        title: 'Answer',
-    },
+        title: 'Answer'
+    }
 ];
 
 const askQuestionFields = [
     {
         id: 'title',
-        label: 'Title',
+        label: 'Title'
     },
     {
         id: 'text',
         label: 'Text',
-        multiline: true,
-    },
+        multiline: true
+    }
 ];
 
 const commentFields = [
     {
         id: 'text',
         label: 'Comment',
-    },
+        multiline: true
+    }
 ];
 
 const composeMailFields = [
@@ -43,32 +44,32 @@ const composeMailFields = [
         id: 'text',
         label: 'Body',
         multiline: true,
-    },
+    }
 ];
 
 const loginFields = [
     {
         id: 'username',
-        title: 'Username',
+        title: 'Username'
     },
     {
         id: 'password',
         title: 'Password',
-        type: 'password',
-    },
+        type: 'password'
+    }
 ];
 
 const recoverFields = [
     {
         id: 'username',
-        title: 'Username',
-    },
+        title: 'Username'
+    }
 ];
 
 const registerFields = [
     {
         id: 'username',
-        title: 'Username',
+        title: 'Username'
     },
     {
         id: 'email',
@@ -83,7 +84,7 @@ const registerFields = [
     {
         id: 'captcha',
         title: 'CAPTCHA',
-    },
+    }
 ];
 
 const resetFields = [
@@ -92,7 +93,7 @@ const resetFields = [
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
         title: 'Password',
         type: 'password',
-    },
+    }
 ];
 
 const patchFields = [
@@ -105,7 +106,30 @@ const patchFields = [
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
         title: 'Password',
         type: 'password',
+    }
+]
+
+const searchFields = [
+    {
+        id: 'search',
+        label: 'search by title',
+        type: 'search',
     },
+    {
+        id: 'body',
+        label: 'search by text',
+        type: 'search',
+    },
+    {
+        id: 'date',
+        label: 'date(MM/DD/YYYY)',
+        type: 'search',
+    },
+    {
+        id: 'creator',
+        label: 'creator',
+        type: 'search'
+    }
 ];
 
 export {
@@ -114,8 +138,9 @@ export {
     commentFields,
     composeMailFields,
     loginFields,
+    patchFields,
     registerFields,
     recoverFields,
     resetFields,
-    patchFields,
+    searchFields
 };

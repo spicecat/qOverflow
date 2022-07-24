@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "homepage": "https://github.com/spicecat/qOverflow#readme",
     "scripts": {
         "start": "npm start -w",
         "start:server": "npm start -w server",
@@ -23,6 +24,5 @@
     "workspaces": [
         "client",
         "server"
-    ],
-    "homepage": "https://github.com/spicecat/qOverflow#readme"
+    ]
 }

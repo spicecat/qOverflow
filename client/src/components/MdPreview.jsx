@@ -23,12 +23,12 @@ export default function MdPreview() {
             >
                 Show Markdown Preview
             </Button>
-
-            {preview ? (
-                <Paper sx={{ margin: '1vh 0', padding: '1vh' }}>
+            {preview && (
+                <Paper variant="outlined">
+                    <Typography variant="h5"> Text Preview: </Typography>
                     <ReactMarkdown children={content} />
                 </Paper>
-            ) : null}
+            )}
         </div>
     );
 }
