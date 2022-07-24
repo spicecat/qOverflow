@@ -109,9 +109,9 @@ export default function Buffet() {
             <List sx={{ pl: 2, pr: 2 }}>
                 <PaginationEngine
                     component={ListQuestion}
+                    count={count}
                     data={questionSet}
                     page={currentPage}
-                    count={count}
                 />
             </List>
             <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>

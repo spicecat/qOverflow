@@ -1,9 +1,9 @@
-import SearchFormController from "controllers/FormControllers/SearchFormController";
-import { Card, CardContent, Typography, Box, List, Pagination } from "@mui/material";
-import { ListQuestion, PaginationEngine } from "components";
-import { useEffect, useState } from "react";
-import { useForm } from "contexts";
-import NoQuestions from "components/NoQuestions";
+import {SearchForm} from 'controllers/FormControllers';
+import { Card, CardContent, Typography, Box, List, Pagination } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useForm } from 'contexts';
+import { ListQuestion, PaginationEngine } from 'components';
+
 export default function Search() {
     const {search, setSearch} = useForm()
 
@@ -25,36 +25,23 @@ export default function Search() {
     function handlePageChange(_, value) {
         setCurrentPage(() => value);
     }
-
-    function getComponents() {
-        if(questionSet.length > 0){
-            return questionSet.map((question) => (
-                <ListQuestion
-                    question={question}
-                    key={question.question_id}
-                />
-            ));
-        }else{
-            return 0;
-        }
-        
-    }
     
     return(
         <div>
             <Card>
                 <CardContent>
-                    <Typography variant = "h3" align="center">Search</Typography>
-                    <SearchFormController/>
+                    <Typography variant = 'h3' align='center'>Search</Typography>
+                    <SearchForm />
                 </CardContent>
             </Card>
 
             
             <List sx={{ pl: 2, pr: 2 }}>
                 <PaginationEngine
-                    components={getComponents()}
-                    page={currentPage}
+                    components={ListQuestion}
                     count={count}
+                    data={questionSet}
+                    page={currentPage}
                 />
             </List>
             <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
@@ -68,5 +55,4 @@ export default function Search() {
 
         </div>
     )
-           
-    }          
+}          

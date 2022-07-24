@@ -21,7 +21,7 @@ export default function CreationInfoTag({
                 <b>Level {level}</b>
             </Typography>
             <Typography display='inline' m={1} variant='body2'>
-                {text} <ReactTimeAgo date={createdAt} locale='en-US' />
+                {text} <ReactTimeAgo date={new Date(createdAt)} locale='en-US' />
             </Typography>
         </div>
     );

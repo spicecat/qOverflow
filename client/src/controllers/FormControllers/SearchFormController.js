@@ -1,14 +1,14 @@
-import { Form } from ".";
-import { searchFields } from "services/fields";
-import { searchSchema } from "services/schemas";
-import { useForm } from "contexts";
-import { searchQuestions } from "services/questionsServices";
-import { useEffect } from "react";
+import { Form } from 'controllers/FormControllers';
+import { searchFields } from 'services/fields';
+import { searchSchema } from 'services/schemas';
+import { useForm } from 'contexts';
+import { searchQuestions } from 'services/questionsServices';
+import { useEffect } from 'react';
 
 export default function SearchFormController(){
 
     useEffect(()=>{
-        searchQuestions("", "").then( (res) => {
+        searchQuestions('', '').then( (res) => {
             setSearch(res.questions)
         })
     },[])
@@ -22,7 +22,7 @@ export default function SearchFormController(){
 
         let match = returnRegexQuery(fields);
 
-        searchQuestions(match, "").then( (res) => {
+        searchQuestions(match, '').then( (res) => {
             setSearch(res.questions)
         })
         

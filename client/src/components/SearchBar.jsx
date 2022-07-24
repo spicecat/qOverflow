@@ -1,7 +1,6 @@
-import { alpha, styled } from '@mui/material/styles';
-import { InputBase, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { InputBase, Button } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
@@ -21,14 +20,13 @@ const Search = styled('div')(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-    pointerEvents: 'none',
-    padding: theme.spacing(0, 2),
+    alignItems: 'center',
+    display: 'flex',
     height: '100%',
+    justifyContent: 'center',
+    padding: theme.spacing(0, 2),
     position: 'absolute',
     pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
 }));
 
 const Input = styled(InputBase)(({ theme }) => ({
@@ -57,7 +55,14 @@ export default function SearchBar() {
     return (
         <Search >
             <SearchIconWrapper>
-                <Button style={{ pointerEvents: 'auto' }} variant="contained" startIcon={<SearchIcon />} onClick={navSearch}> Search</Button>
+                <Button
+                    onClick={navSearch}
+                    startIcon={<SearchIcon />}
+                    style={{ pointerEvents: 'auto' }}
+                    variant="contained"
+                >
+                    Search
+                </Button>
             </SearchIconWrapper>
         </Search>
     );

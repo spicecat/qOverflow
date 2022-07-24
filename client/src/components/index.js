@@ -3,6 +3,7 @@ import Form from './Form';
 import ListQuestion from './ListQuestion';
 import MailUnit from './MailUnit';
 import Navbar from './Navbar';
+import NoQuestions from './NoQuestions';
 import PaginationEngine from './PaginationEngine';
 import PaginatedList from './PaginatedList';
 import SearchBar from './SearchBar';
@@ -17,6 +18,7 @@ export {
     ListQuestion,
     MailUnit,
     Navbar,
+    NoQuestions,
     PaginationEngine,
     PaginatedList,
     SearchBar,

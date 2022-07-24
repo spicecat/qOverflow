@@ -4,6 +4,7 @@ import Form from './FormController';
 import LoginForm from './LoginFormController';
 import RegisterForm from './RegisterFormController';
 import ResetForm from './ResetFormController';
+import SearchForm from './SearchFormController';
 import UpdateForm from './UpdateFormController';
 
 export {
@@ -13,5 +14,6 @@ export {
     LoginForm,
     RegisterForm,
     ResetForm,
+    SearchForm,
     UpdateForm,
 };
