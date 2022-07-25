@@ -7,9 +7,11 @@ export function AnswerCommentsList({ answer_id, comments: count }) {
     const { questionData: { question_id } } = useQuestion();
 
     const getData = () =>
-        getAnswerComments(question_id, answer_id)
-            .then(({ comments }) => comments.map(comment => ({ ...comment, answer_id, question_id })))
-            .catch(() => []);
+        (
+            question_id && getAnswerComments(question_id, answer_id)
+                .then(({ comments }) => comments.map(comment => ({ ...comment, answer_id, question_id })))
+                .catch(() => [])
+        ) || [];
 
     return <PaginatedList {...{ count, Component: AnswerComment, getData, noData: false }} />;
 }
@@ -20,9 +22,11 @@ export function AnswersList() {
     const sortByPoints = answers => answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
 
     const getData = () =>
-        getAnswers(question_id)
-            .then(({ answers }) => sortByPoints(answers).map(answer => ({ ...answer, question_id })))
-            .catch(() => []);
+        (
+            question_id && getAnswers(question_id)
+                .then(({ answers }) => sortByPoints(answers).map(answer => ({ ...answer, question_id })))
+                .catch(() => [])
+        ) || [];
 
     return (
         <PaginatedList {...{ count, Component: Answer, getData, noData: false }} />
@@ -33,9 +37,11 @@ export function CommentsList() {
     const { questionData: { comments: count, question_id } } = useQuestion();
 
     const getData = () =>
-        getQuestionComments(question_id)
-            .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
-            .catch(() => []);
+        (
+            question_id && getQuestionComments(question_id)
+                .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
+                .catch(() => [])
+        ) || [];
 
     return (
         <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
