@@ -111,24 +111,21 @@ const patchFields = [
 
 const searchFields = [
     {
-        id: 'search',
-        label: 'search by title',
-        type: 'search',
+        id: 'title',
+        label: 'Title',
     },
     {
-        id: 'body',
-        label: 'search by text',
-        type: 'search',
+        id: 'text',
+        label: 'Text',
     },
-    {
-        id: 'date',
-        label: 'date(MM/DD/YYYY)',
-        type: 'search',
-    },
+    // {
+    //     id: 'createdAt',
+    //     label: 'Date',
+    //     type: 'date',
+    // },
     {
         id: 'creator',
-        label: 'creator',
-        type: 'search'
+        label: 'Creator',
     }
 ];
 

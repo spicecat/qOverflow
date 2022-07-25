@@ -6,7 +6,7 @@ export default function QA() {
     return (
         <List sx={{ pl: 2, pr: 2 }}>
             <Question />
-            <ListItem sx={{ pl: 8 }}>
+            <ListItem sx={{ pl: 4 }}>
                 <CommentsList />
             </ListItem>
             <AnswersList />

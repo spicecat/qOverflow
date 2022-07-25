@@ -4,7 +4,7 @@ const User = require('../../db/models/User');
 const config = require('../../config.json');
 
 async function Edit(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { email, password } = req.body;
 
     let userBody = {};

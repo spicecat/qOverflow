@@ -6,7 +6,7 @@ const getUserLevel = require('../../utils/getUserLevel');
 const createRequest = require('../../utils/api');
 
 async function CreateAnswer(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { text } = req.body;
     const { questionID } = req.params;
 

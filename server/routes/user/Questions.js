@@ -1,10 +1,10 @@
 const Question = require('../../db/models/Question');
 
 async function Questions(req, res) {
-    const user = req.user;
+    const { user: { username } } = req;
 
     const cachedQuestions = await Question.find({
-        creator: user.username,
+        creator: username,
     }).sort({ createdAt: 'desc' });
 
     return res.send({ questions: cachedQuestions });

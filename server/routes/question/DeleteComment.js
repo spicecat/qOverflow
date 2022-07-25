@@ -3,7 +3,7 @@ const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
 async function DeleteComment(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID, commentID } = req.params;
 
     const comment = await Comment.findById(commentID);

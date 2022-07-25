@@ -4,7 +4,7 @@ const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
 async function CreateQuestion(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { title, text } = req.body;
 
     if (!title || !text) {

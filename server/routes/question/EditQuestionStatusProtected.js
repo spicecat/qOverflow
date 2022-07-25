@@ -4,7 +4,7 @@ const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
 async function EditQuestionStatusProtected(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID } = req.params;
 
     // Verify that user has required level

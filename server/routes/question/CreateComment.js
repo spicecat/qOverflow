@@ -5,7 +5,7 @@ const createRequest = require('../../utils/api');
 const getUserLevel = require('../../utils/getUserLevel');
 
 async function CreateComment(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID } = req.params;
     const { text } = req.body;
 

@@ -3,21 +3,19 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
 export default function ListQuestion({
-    data: {
-        answers,
-        createdAt,
-        creator,
-        downvotes,
-        _id,
-        status,
-        text,
-        title,
-        upvotes,
-        views,
-    },
+    _id: question_id,
+    answers,
+    createdAt,
+    creator,
+    downvotes,
+    status,
+    text,
+    title,
+    upvotes,
+    views
 }) {
     return (
-        <span>
+        <span key={question_id}>
             <ListItem disablePadding>
                 <Grid container>
                     <Grid item xs={2}>
@@ -38,14 +36,12 @@ export default function ListQuestion({
                         <Typography
                             variant='h6'
                             component={Link}
-                            to={`/questions/${_id}`}
+                            to={`/questions/${question_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             [{status}] {title}
                         </Typography>
-                        <Typography noWrap variant='body1'>
-                            {text.split(' ').slice(0, 150).join(' ') + '...'}
-                        </Typography>
+                        <Typography noWrap variant='body1'>{text}</Typography>
                     </Grid>
                 </Grid>
             </ListItem>

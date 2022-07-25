@@ -7,7 +7,6 @@ import Login from './Login';
 import Mail from './Mail';
 import NotFound from './NotFound';
 import QA from './QA';
-import Questions from './Questions';
 import Register from './Register';
 import Reset from './Reset';
 import Search from './Search';
@@ -23,7 +22,6 @@ export {
     Mail,
     NotFound,
     QA,
-    Questions,
     Register,
     Reset,
     Search,

@@ -4,7 +4,7 @@ const Mail = require('../../db/models/Mail');
 const User = require('../../db/models/User');
 
 async function Get(req, res) {
-    const user = req.user;
+    const { user } = req;
 
     // Retrieve cached mail
     const cachedMail = await Mail.find({ reciever: user.username }).sort({

@@ -7,7 +7,9 @@ const Comment = require('../../db/models/Comment');
 async function GetComments(req, res) {
     const { questionID } = req.params;
 
-    const question = await Question.findById(questionID);
+    let question;
+    try { question = await Question.findById(questionID); }
+    catch { return res.status(400).send(config.errorNotFound); }
 
     // Refresh comments if expired
     if (Number(question.lastCommentFetch) + config.commentExpires < Date.now()) {

@@ -1,15 +1,15 @@
-import { Typography, IconButton, Avatar } from '@mui/material';
+import { Typography, IconButton } from '@mui/material';
+import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
-import { getGravatarURL } from 'services/getGravatarURL';
 
-export default function Profile({ userData }) {
+export default function Profile({ userData: { email, level, points } }) {
     return (
         <>
             <IconButton component={Link} to='/dashboard'>
-                <Avatar size={40} src={getGravatarURL(userData.email)} />
+                <Gravatar email={email} size={20} style={{ borderRadius: '100%' }} />
             </IconButton>
             <Typography variant='body1'>
-                <b>{userData.level}</b> - {userData.points}
+                <b>{level}</b> - {points}
             </Typography>
         </>
     );

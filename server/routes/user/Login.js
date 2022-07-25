@@ -5,8 +5,8 @@ const Token = require('../../db/models/Token');
 const getUserLevel = require('../../utils/getUserLevel');
 
 async function Login(req, res) {
-    const user = req.user;
-    const remember = req.body.remember;
+    const { user } = req;
+    const { remember } = req.body;
 
     const secretKey = mongoose.Types.ObjectId();
     const accessToken = jwt.sign({ id: user.id }, secretKey.toString());

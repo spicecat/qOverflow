@@ -6,7 +6,7 @@ const Question = require('../../db/models/Question');
 const User = require('../../db/models/User');
 
 async function EditQuestionVote(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID } = req.params;
     const { operation } = req.body;
 

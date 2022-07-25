@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
 export default function ListAnswer({
-    data: {
-        createdAt,
-        creator,
-        downvotes,
-        accepted,
-        text,
-        upvotes,
-        questionID,
-    },
+    _id: answer_id,
+    createdAt,
+    creator,
+    downvotes,
+    accepted,
+    text,
+    upvotes,
+    question_id,
 }) {
     return (
-        <span>
+        <span key={answer_id}>
             <ListItem disablePadding>
                 <Grid container>
                     <Grid item xs={2}>
@@ -36,7 +35,7 @@ export default function ListAnswer({
                             noWrap
                             variant='body1'
                             component={Link}
-                            to={`/questions/${questionID}`}
+                            to={`/questions/${question_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             {text.split(' ').slice(0, 150).join(' ') + '...'}

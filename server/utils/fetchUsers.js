@@ -3,7 +3,11 @@ const config = require('../config.json');
 
 const defaultAcc = { success: true, requests: [] };
 
-async function fetchUsers(recentTimestamp = 0, acc = defaultAcc, after = '') {
+async function fetchUsers(
+    recentTimestamp = 0,
+    acc = defaultAcc,
+    after = ''
+) {
     const request = await createRequest('get', '/users', { after });
 
     if (!request.success) return config.errorGeneric;

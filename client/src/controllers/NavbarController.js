@@ -11,7 +11,6 @@ export default function NavbarController() {
 
     const logoutUser = async () => {
         const { error } = await logout();
-        console.log(error, 3213)
         if (error) {
             setError(error);
         }

@@ -7,7 +7,9 @@ const fetchAnswers = require('../../utils/fetchAnswers');
 async function GetAnswers(req, res) {
     const { questionID } = req.params;
 
-    const question = await Question.findById(questionID);
+    let question;
+    try { question = await Question.findById(questionID); }
+    catch { return res.status(400).send(config.errorNotFound); }
 
     // Fetch answers if expired
     if (Number(question.lastAnswerFetch) + config.answerExpires < Date.now()) {

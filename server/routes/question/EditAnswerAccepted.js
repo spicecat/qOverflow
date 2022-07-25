@@ -4,7 +4,7 @@ const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 
 async function EditAnswerAccepted(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID, answerID } = req.params;
 
     // Find question and verify that it exists

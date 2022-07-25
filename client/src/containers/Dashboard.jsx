@@ -1,78 +1,52 @@
 import {
-    Paper,
-    Avatar,
+    Box,
+    Button,
     Grid,
-    Typography,
+    Paper,
     ToggleButton,
     ToggleButtonGroup,
-    Box,
-    Pagination,
-    Button,
+    Typography,
 } from '@mui/material';
-import { useUser } from 'contexts';
-import { getGravatarURL } from 'services/getGravatarURL';
-import { getUserQuestions, getUserAnswers } from 'services/userServices';
-import { ListAnswer, ListQuestion, PaginationEngine } from 'components';
-import { useReducer, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Gravatar from 'react-gravatar';
 import { Link, useNavigate } from 'react-router-dom';
 
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'current':
-            return { ...state, current: action.value, page: 1 };
-        case 'questions':
-            return { ...state, questions: action.value };
-        case 'answers':
-            return { ...state, answers: action.value };
-        case 'page':
-            return { ...state, page: action.value };
-        default:
-            return state;
-    }
-};
+import { useUser } from 'contexts';
+import { PaginatedList } from 'controllers';
+import { ListAnswer, ListQuestion } from 'components';
+import { getUserQuestions, getUserAnswers } from 'services/userServices';
 
 export default function Dashboard() {
-    const [dataset, setDataset] = useReducer(reducer, {
-        count: 3,
-        page: 1,
-        current: 'questions',
-        answers: [],
-        questions: [],
-    });
+    const [current, setCurrent] = useState('questions');
 
-    const { userData } = useUser();
+    const { userData: {
+        email,
+        level,
+        loading,
+        points,
+        username,
+    } } = useUser();
     const navigate = useNavigate();
 
     const onChange = (_, value) => {
-        setDataset({ type: 'current', value });
+        setCurrent(value);
     };
 
-    const onPageChange = (_, value) => {
-        setDataset({ type: 'page', value });
-    };
-
-    const fetchAnswers = async () => {
+    const getAnswers = async () => {
         const { error, answers } = await getUserAnswers();
-        if (!error) {
-            setDataset({ type: 'answers', value: answers });
-        }
+        if (!error)
+            return answers;
     };
 
-    const fetchQuestions = async () => {
+    const getQuestions = async () => {
         const { error, questions } = await getUserQuestions();
-        if (!error) {
-            setDataset({ type: 'questions', value: questions });
-        }
+        if (!error)
+            return questions;
     };
 
-    function checkAuth() {
-        if (!userData.username) {
-            return true;
-        }
-    }
 
     useEffect(() => {
-        if (checkAuth()) {
+        if (loading === false) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -81,25 +55,19 @@ export default function Dashboard() {
                 },
             });
         }
-
-        fetchAnswers();
-        fetchQuestions();
-    }, []);
+    }, [loading, navigate]);
 
     return (
         <Paper sx={{ margin: '1vh', padding: '5vh' }}>
             <Grid container spacing={2}>
                 <Grid item md={2}>
-                    <Avatar
-                        sx={{ width: 200, height: 200 }}
-                        src={getGravatarURL(userData.email)}
-                    />
+                    {email && <Gravatar email={email} size={200} style={{ borderRadius: '100%' }} />}
                 </Grid>
                 <Grid item md={10}>
-                    <Typography>Username: {userData.username}</Typography>
-                    <Typography>Email: {userData.email}</Typography>
-                    <Typography>Level: {userData.level}</Typography>
-                    <Typography>Points: {userData.points}</Typography>
+                    <Typography>Username: {username}</Typography>
+                    <Typography>Email: {email}</Typography>
+                    <Typography>Level: {level}</Typography>
+                    <Typography>Points: {points}</Typography>
                 </Grid>
                 <Grid item md={12}>
                     <Box
@@ -120,7 +88,7 @@ export default function Dashboard() {
                             Update User Information
                         </Button>
                         <ToggleButtonGroup
-                            value={dataset.current}
+                            value={current}
                             exclusive
                             onChange={onChange}
                             fullWidth
@@ -134,37 +102,10 @@ export default function Dashboard() {
                         </ToggleButtonGroup>
                     </Box>
                 </Grid>
+
                 <Grid item md={12}>
-                    {dataset.current === 'questions' && (
-                        <PaginationEngine
-                            component={ListQuestion}
-                            data={dataset.questions}
-                            page={dataset.page}
-                            count={dataset.count}
-                        />
-                    )}
-                    {dataset.current === 'answers' && (
-                        <PaginationEngine
-                            component={ListAnswer}
-                            data={dataset.answers}
-                            page={dataset.page}
-                            count={dataset.count}
-                        />
-                    )}
-                    <Box
-                        display='flex'
-                        justifyContent='center'
-                        sx={{ padding: '1vh' }}
-                    >
-                        <Pagination
-                            count={Math.ceil(
-                                dataset[dataset.current].length / dataset.count
-                            )}
-                            onChange={onPageChange}
-                            page={dataset.page}
-                            style={{}}
-                        />
-                    </Box>
+                    {current === 'questions' && <PaginatedList {...{ Component: ListQuestion, getData: getQuestions }} />}
+                    {current === 'answers' && <PaginatedList {...{ Component: ListAnswer, getData: getAnswers }} />}
                 </Grid>
             </Grid>
         </Paper>

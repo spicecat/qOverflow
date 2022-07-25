@@ -14,9 +14,9 @@ const commentSchema = Yup.object({
 });
 
 const searchSchema = Yup.object({
-    search: Yup.string().max(150, 'Title must be at most 150 characters, try and use keywords only '),
-    body: Yup.string().max(300, 'Body must be at most 300 characters, try and use keywords only '),
-    date: Yup.string().max(11, 'Date must be at most 11 characters, make sure body is formatted correctly'),
+    title: Yup.string().max(150, 'Title must be at most 150 characters, try and use keywords only '),
+    text: Yup.string().max(300, 'Text must be at most 300 characters, try and use keywords only '),
+    // createdAt: Yup.string().max(11, 'Date must be at most 11 characters, make sure body is formatted correctly'),
     creator: Yup.string().max(16, 'username must be at most 16 characters'),
 });
 

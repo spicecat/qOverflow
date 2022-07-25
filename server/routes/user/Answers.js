@@ -3,13 +3,12 @@ const Answer = require('../../db/models/Answer');
 const fetchAnswers = require('../../utils/fetchAnswers');
 
 async function Answers(req, res) {
-    const user = req.user;
+    const { user: {lastAnswerFetch, username} } = req;
 
-    if (Number(user.lastAnswerFetch) + config.answerExpires > Date.now()) {
+    if (Number(lastAnswerFetch) + config.answerExpires > Date.now()) {
         const cachedAnswers = await Answer.find({
-            creator: user.username,
+            creator: username,
         }).sort({ createdAt: 'desc' });
-
         return res.send(cachedAnswers);
     }
 
@@ -34,7 +33,7 @@ async function Answers(req, res) {
         });
 
     const cachedAnswers = await Answer.find({
-        creator: user.username,
+        creator: username,
     }).sort({ createdAt: 'desc' });
 
     return res.send({ answers: cachedAnswers });

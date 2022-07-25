@@ -10,7 +10,6 @@ import {
     Mail,
     NotFound,
     QA,
-    Questions,
     Register,
     Reset,
     Search,
@@ -33,7 +32,7 @@ export default function App() {
                         <Route path='mail' element={<Mail />} />
 
                         <Route path='questions'>
-                            <Route index element={<Questions />} />
+                            <Route index element={<Buffet />} />
                             <Route path='search' element={<Search />} />
                             <Route path='ask' element={<Ask />} />
                             <Route

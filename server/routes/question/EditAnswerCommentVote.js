@@ -4,7 +4,7 @@ const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 
 async function EditAnswerCommentVote(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID, answerID, commentID } = req.params;
     const { operation } = req.body;
 

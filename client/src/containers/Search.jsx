@@ -1,58 +1,33 @@
-import {SearchForm} from 'controllers/FormControllers';
-import { Card, CardContent, Typography, Box, List, Pagination } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useForm } from 'contexts';
-import { ListQuestion, PaginationEngine } from 'components';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
+
+import { SearchForm } from 'controllers/FormControllers';
+import { PaginatedList } from 'controllers';
+import { ListQuestion } from 'components';
+import { searchQuestions } from 'services/questionsServices';
 
 export default function Search() {
-    const {search, setSearch} = useForm()
+    const [searchParams] = useSearchParams()
 
-    const [questionSet, setQuestionSet] = useState([]);
-
-
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const count = 3;
-
-    useEffect(()=>{
-        handleSubmit(search)
-    }, [search, setSearch])
-
-    function handleSubmit(data){
-        setQuestionSet(data)
+    const getData = async () => {
+        const createdAt = searchParams.get('createdAt');
+        const creator = searchParams.get('creator');
+        const text = searchParams.get('text');
+        const title = searchParams.get('title');
+        console.log(new Date(createdAt))
+        const { questions } = await searchQuestions({ regexMatch: { creator, text, title } })
+        return questions;
     }
 
-    function handlePageChange(_, value) {
-        setCurrentPage(() => value);
-    }
-    
-    return(
+    return (
         <div>
             <Card>
                 <CardContent>
-                    <Typography variant = 'h3' align='center'>Search</Typography>
+                    <Typography variant='h3' align='center'>Search</Typography>
                     <SearchForm />
                 </CardContent>
             </Card>
-
-            
-            <List sx={{ pl: 2, pr: 2 }}>
-                <PaginationEngine
-                    components={ListQuestion}
-                    count={count}
-                    data={questionSet}
-                    page={currentPage}
-                />
-            </List>
-            <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
-                <Pagination
-                    count={Math.ceil(questionSet.length / count)}
-                    onChange={handlePageChange}
-                    page={currentPage}
-                    style={{}}
-                />
-            </Box>
-
+            <PaginatedList {...{ Component: ListQuestion, getData }} />;
         </div>
     )
 }          

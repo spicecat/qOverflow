@@ -1,5 +1,7 @@
 import { List, Pagination } from '@mui/material';
 
+import { NoData } from 'components';
+
 export default function PaginatedList({
     count,
     Component,
@@ -8,7 +10,7 @@ export default function PaginatedList({
     page
 }) {
     return (
-        <List sx={{ width: '100%' }}>
+        <List sx={{ pl: 2, pr: 2, width: '100%' }}>
             {count > 1 && (
                 <Pagination
                     count={count}
@@ -16,7 +18,11 @@ export default function PaginatedList({
                     page={page}
                 />
             )}
-            {data.map(item => Component(item))}
+            {
+                data.length
+                    ? data.map(item => Component(item))
+                    : <NoData />
+            }
         </List>
     );
 }

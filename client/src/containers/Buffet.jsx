@@ -1,76 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Button,
     Box,
-    List,
-    Pagination,
     ToggleButton,
     ToggleButtonGroup,
     Typography,
 } from '@mui/material';
 
-import { ListQuestion, PaginationEngine } from 'components';
-
-import { searchQuestions } from 'services/questionsServices';
 import { useError } from 'contexts';
+import { PaginatedList } from 'controllers';
+import { ListQuestion } from 'components';
+import { searchQuestions } from 'services/questionsServices';
+
+const recent = {};
+const best = { sort: 'u' };
+const interesting = {
+    match: { answers: 0 },
+    sort: 'uvc',
+};
+const hot = {
+    match: { hasAcceptedAnswer: false },
+    sort: 'uvac',
+};
+const sortObjArr = [recent, best, interesting, hot];
 
 export default function Buffet() {
-    const recent = {};
-    const best = { sort: 'u' };
-    const interesting = {
-        match: encodeURIComponent(JSON.stringify({ answers: 0 })),
-        sort: 'uvc',
-    };
-    const hot = {
-        match: encodeURIComponent(JSON.stringify({ hasAcceptedAnswer: false })),
-        sort: 'uvac',
-    };
-
-    const sortObjArr = [recent, best, interesting, hot];
-
-    const [sort, setSort] = useState(0);
-    const [questionSet, setQuestionSet] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const count = 3;
-
     const { setError } = useError();
 
-    useEffect(() => {
-        loadQuestions(sort);
-    }, []);
+    const [sort, setSort] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            loadQuestions(sort);
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    async function loadQuestions(newSort) {
-        const {error, questions} = await searchQuestions({
-            sort: sortObjArr[newSort].sort,
-            match: sortObjArr[newSort].match,
-        });
-        
+    const getData = async () => {
+        const { error, questions } = await searchQuestions(sortObjArr[sort]);
         if (error) {
             setError(error);
         } else
-            setQuestionSet(questions);
+            return questions;
     }
 
     const handleSortChange = (_, newSort) => {
-        if (newSort !== sort) {
+        if (newSort !== sort)
             setSort(newSort);
-
-            loadQuestions(newSort);
-        }
     };
-
-    function handlePageChange(_, value) {
-        setCurrentPage(() => value);
-    }
 
     return (
         <Box>
@@ -106,22 +77,7 @@ export default function Buffet() {
                     <ToggleButton value={3}>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            <List sx={{ pl: 2, pr: 2 }}>
-                <PaginationEngine
-                    component={ListQuestion}
-                    count={count}
-                    data={questionSet}
-                    page={currentPage}
-                />
-            </List>
-            <Box display='flex' justifyContent='center' sx={{ padding: '1vh' }}>
-                <Pagination
-                    count={Math.ceil(questionSet.length / count)}
-                    onChange={handlePageChange}
-                    page={currentPage}
-                    style={{}}
-                />
-            </Box>
+            <PaginatedList {...{ Component: ListQuestion, getData }} />;
         </Box>
     );
 }

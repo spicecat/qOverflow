@@ -1,33 +1,21 @@
+import { useSearchParams } from 'react-router-dom';
+
 import { Form } from 'controllers/FormControllers';
 import { searchFields } from 'services/fields';
 import { searchSchema } from 'services/schemas';
-import { useForm } from 'contexts';
-import { searchQuestions } from 'services/questionsServices';
-import { useEffect } from 'react';
 
-export default function SearchFormController(){
+export default function SearchFormController() {
+    const [, setSearchParams] = useSearchParams();
 
-    useEffect(()=>{
-        searchQuestions('', '').then( (res) => {
-            setSearch(res.questions)
-        })
-    },[])
+    const cleanObject = (data) =>
+        Object.entries(data)
+            .filter(([, v]) => v)
 
-    const {returnRegexQuery, setSearch} = useForm()
- 
-    const search = (fields) =>{
-        //regex match and all of that
-        
-       
-
-        let match = returnRegexQuery(fields);
-
-        searchQuestions(match, '').then( (res) => {
-            setSearch(res.questions)
-        })
-        
+    const search = (fields) => {
+        setSearchParams(cleanObject(fields), { replace: true });
     }
-    return(
+
+    return (
         Form({
             fields: searchFields,
             onSubmit: search,

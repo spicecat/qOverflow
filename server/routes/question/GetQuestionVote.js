@@ -3,7 +3,7 @@ const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
 
 async function GetQuestionVote(req, res) {
-    const user = req.user;
+    const { user } = req;
     const { questionID } = req.params;
 
     // Verify that user has level required to vote
