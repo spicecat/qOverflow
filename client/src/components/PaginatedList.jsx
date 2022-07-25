@@ -7,6 +7,7 @@ export default function PaginatedList({
     Component,
     data,
     handleChangePage,
+    noData = true,
     page
 }) {
     return (
@@ -21,7 +22,7 @@ export default function PaginatedList({
             {
                 data.length
                     ? data.map(item => Component(item))
-                    : <NoData />
+                    : noData && <NoData />
             }
         </List>
     );

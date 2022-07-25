@@ -1,3 +1,4 @@
+const config = require('../../config.json');
 const createRequest = require('../../utils/api');
 const getUserLevel = require('../../utils/getUserLevel');
 const Vote = require('../../db/models/Vote');
@@ -10,11 +11,14 @@ async function GetCommentVote(req, res) {
     if (getUserLevel(user.points) < 2)
         return res.send({ vote: null });
 
-    // Find cached vote and return it
-    const cachedVote = await Vote.findOne({
-        parentID: commentID,
-        creator: user.username,
-    });
+    let cachedVote;
+    try {
+        // Find cached vote and return it
+        const cachedVote = await Vote.findOne({
+            parentID: commentID,
+            creator: user.username,
+        });
+    } catch { return res.status(400).send(config.errorNotFound); }
 
     if (cachedVote) return res.send({ vote: cachedVote.status });
 
@@ -25,7 +29,7 @@ async function GetCommentVote(req, res) {
     );
 
     if (!success) return res.send({ vote: null });
-    
+
     const newVote = await Vote.create({
         parentID: commentID,
         creator: user.username,

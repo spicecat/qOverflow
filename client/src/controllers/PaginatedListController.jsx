@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PaginatedList } from 'components';
 
 const rowsPerPage = 5;
-export default function PaginatedListController({ count, Component, getData }) {
+export default function PaginatedListController({ count, Component, getData, noData }) {
     const [data, setData] = useState();
     const [page, setPage] = useState(1);
 
@@ -28,6 +28,7 @@ export default function PaginatedListController({ count, Component, getData }) {
             data: data.filter(d => d).slice((page - 1) * rowsPerPage, page * rowsPerPage),
             Component,
             handleChangePage,
+            noData,
             page,
             rowsPerPage
         }} />
