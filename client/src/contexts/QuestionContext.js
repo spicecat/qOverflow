@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { getQuestion } from 'services/questionsServices';
 
-const initialQuestionData = {};
+const initialQuestionData = { loading: true };
 
 const QuestionContext = createContext();
 

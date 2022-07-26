@@ -11,9 +11,7 @@ export function AnswerCommentsList({ answer_id, comments: count }) {
             .then(({ comments }) => comments.map(comment => ({ ...comment, answer_id, question_id })))
             .catch(() => []);
 
-    return (
-        question_id && <PaginatedList {...{ count, Component: AnswerComment, getData, noData: false }} />
-    );
+    return <PaginatedList {...{ count, Component: AnswerComment, getData, noData: false }} />;
 }
 
 export function AnswersList() {
@@ -26,9 +24,7 @@ export function AnswersList() {
             .then(({ answers }) => sortByPoints(answers).map(answer => ({ ...answer, question_id })))
             .catch(() => []);
 
-    return (
-        question_id && <PaginatedList {...{ count, Component: Answer, getData, noData: false }} />
-    );
+    return <PaginatedList {...{ count, Component: Answer, getData, noData: false }} />;
 }
 
 export function CommentsList() {
@@ -39,7 +35,5 @@ export function CommentsList() {
             .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
             .catch(() => []);
 
-    return (
-        question_id && <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
-    );
+    return <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />;
 }
