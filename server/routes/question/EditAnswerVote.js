@@ -25,7 +25,10 @@ async function EditAnswerVote(req, res) {
     const URL = `/questions/${questionID}/answers/${answerID}/vote/${user.username}`;
 
     // Get the cached vote and answer, refresh cache if not present
-    const cachedAnswer = await Answer.findById(answerID);
+    let cachedAnswer;
+    try { cachedAnswer = await Question.findById(answerID); }
+    catch { return res.status(400).send(config.errorNotFound); }
+
     let cachedVote = await Vote.findOneAndDelete({
         parentID: answerID,
         creator: user.username,

@@ -14,13 +14,13 @@ const statusColor = (status) => {
 }
 
 export default function Question({
+    _id: question_id,
     answers,
     comments,
     creator,
     createdAt,
     downvotes,
     hasAcceptedAnswer,
-    question_id,
     status,
     title,
     text,
