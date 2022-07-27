@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Comment = mongoose.Schema(
     {
-        parentID: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
+        parent_id: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
         creator: { type: String, required: true },
         text: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },

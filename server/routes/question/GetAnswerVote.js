@@ -1,13 +1,13 @@
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
-const getUserLevel = require('../../utils/getUserLevel');
-const Vote = require('../../db/models/Vote');
+const config = require('server/config.json');
+const createRequest = require('server/utils/api');
+const getUserLevel = require('server/utils/getUserLevel');
+const Vote = require('server/db/models/Vote');
 
 async function GetAnswerVote(req, res) {
     const { user } = req;
-    const { questionID, answerID } = req.params;
+    const { question_id, answer_id } = req.params;
 
-    // Verify that user has required level
+    // Verify user has required level
     if (getUserLevel(user.points) < 2)
         return res.send({ vote: null });
 
@@ -15,7 +15,7 @@ async function GetAnswerVote(req, res) {
     try {
         // Find cached vote and return
         cachedVote = await Vote.findOne({
-            parentID: answerID,
+            parent_id: answer_id,
             creator: user.username,
         });
     } catch { return res.status(400).send(config.errorNotFound); }
@@ -26,13 +26,13 @@ async function GetAnswerVote(req, res) {
     // Retrieve vote and cache it
     const { success, vote } = await createRequest(
         'get',
-        `/questions/${questionID}/answers/${answerID}/vote/${user.username}`
+        `/questions/${question_id}/answers/${answer_id}/vote/${user.username}`
     );
 
     if (!success) return res.send({ vote: null });
 
     const newVote = await Vote.create({
-        parentID: answerID,
+        parent_id: answer_id,
         creator: user.username,
         status: vote ?? null,
         docModel: 'Answer',

@@ -1,18 +1,18 @@
-const createRequest = require('../../utils/api');
-const config = require('../../config.json');
-const getUserLevel = require('../../utils/getUserLevel');
-const Vote = require('../../db/models/Vote');
-const Answer = require('../../db/models/Answer');
+const createRequest = require('server/utils/api');
+const config = require('server/config.json');
+const getUserLevel = require('server/utils/getUserLevel');
+const Vote = require('server/db/models/Vote');
+const Answer = require('server/db/models/Answer');
 
 async function EditAnswerVote(req, res) {
     const { user } = req;
-    const { questionID, answerID } = req.params;
+    const { question_id, answer_id } = req.params;
     const { operation } = req.body;
 
-    // Verify that an operation is in response body
+    // Verify an operation is in response body
     if (!operation) return res.status(400).send(config.errorIncomplete);
 
-    // Verify that user has required permissions
+    // Verify user has required permissions
     const userLevel = getUserLevel(user.points);
     if (operation === 'upvote' && userLevel < 2) {
         return res.status(403).send(config.errorForbidden);
@@ -22,15 +22,15 @@ async function EditAnswerVote(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    const URL = `/questions/${questionID}/answers/${answerID}/vote/${user.username}`;
+    const URL = `/questions/${question_id}/answers/${answer_id}/vote/${user.username}`;
 
-    // Get the cached vote and answer, refresh cache if not present
+    // Get cached vote and answer, refresh cache if not present
     let cachedAnswer;
-    try { cachedAnswer = await Question.findById(answerID); }
+    try { cachedAnswer = await Question.findById(answer_id); }
     catch { return res.status(400).send(config.errorNotFound); }
 
     let cachedVote = await Vote.findOneAndDelete({
-        parentID: answerID,
+        parent_id: answer_id,
         creator: user.username,
     });
 
@@ -59,7 +59,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: answerID,
+                parent_id: answer_id,
                 creator: user.username,
                 status: 'downvoted',
                 docModel: 'Answer',
@@ -108,7 +108,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: answerID,
+                parent_id: answer_id,
                 creator: user.username,
                 status: 'upvoted',
                 docModel: 'Answer',
@@ -140,7 +140,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: answerID,
+                parent_id: answer_id,
                 creator: user.username,
                 status: 'upvoted',
                 docModel: 'Answer',
@@ -165,7 +165,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: answerID,
+                parent_id: answer_id,
                 creator: user.username,
                 status: 'downvoted',
                 docModel: 'Answer',

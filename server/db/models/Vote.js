@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Vote = mongoose.Schema(
     {
-        parentID: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
+        parent_id: { type: mongoose.Schema.Types.ObjectId, refPath: 'docModel' },
         creator: { type: String, required: true },
         status: {
             type: String,

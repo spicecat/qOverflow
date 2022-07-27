@@ -1,25 +1,26 @@
-const Question = require('../../db/models/Answer');
-const getUserLevel = require('../../utils/getUserLevel');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const config = require('server/config.json');
+const Question = require('server/db/models/Question');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const getUserLevel = require('server/utils/getUserLevel');
+const createRequest = require('server/utils/api');
 
 async function EditQuestionStatusProtected(req, res) {
     const { user } = req;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    // Verify that user has required level
+    // Verify user has required level
     if (getUserLevel(user.points) < 6) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    // Verify that question exists
-    const cachedQuestion = await Question.findById(questionID);
-    if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
+    // Verify question exists
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
-    // Verify that question does not have incompatible status
+    // Verify question does not have incompatible status
     if (
-        cachedQuestion.status === 'closed' ||
-        cachedQuestion.status === 'protected'
+        question.status === 'closed' ||
+        question.status === 'protected'
     ) {
         return res.status(400).send({
             success: false,
@@ -28,34 +29,34 @@ async function EditQuestionStatusProtected(req, res) {
     }
 
     // Toggle vote
-    if (cachedQuestion.protect.includes(user.username)) {
-        await Question.findByIdAndUpdate(questionID, {
+    if (question.protect.includes(user.username)) {
+        await Question.findByIdAndUpdate(question_id, {
             protect: { $pull: user.username },
         });
 
         return res.sendStatus(200);
     } else {
-        await Question.findByIdAndUpdate(questionID, {
+        await Question.findByIdAndUpdate(question_id, {
             protect: { $push: user.username },
         });
     }
 
     // Patch question status if required
-    if (cachedQuestion.protect.length === 2) {
-        const cachedQuestion = await Question.findByIdAndUpdate(questionID, {
+    if (question.protect.length === 2) {
+        const question = await Question.findByIdAndUpdate(question_id, {
             protect: [],
             status: 'protected',
         });
 
         const { success } = await createRequest(
             'patch',
-            `/questions/${questionID}`,
+            `/questions/${question_id}`,
             { status: 'protected' }
         );
-        await Question.findByIdAndUpdate(questionID, { status: 'protected' });
+        await Question.findByIdAndUpdate(question_id, { status: 'protected' });
 
         return success
-            ? res.send({ status: cachedQuestion.status })
+            ? res.send({ status: question.status })
             : res.status(500).send(config.errorGeneric);
     }
 

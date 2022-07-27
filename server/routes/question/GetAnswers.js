@@ -1,20 +1,19 @@
-const config = require('../../config.json');
-const Question = require('../../db/models/Question');
-const Answer = require('../../db/models/Answer');
-const Comment = require('../../db/models/Comment');
-const fetchAnswers = require('../../utils/fetchAnswers');
+const config = require('server/config.json');
+const Answer = require('server/db/models/Answer');
+const Question = require('server/db/models/Question');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const fetchAnswers = require('server/utils/fetchAnswers');
 
 async function GetAnswers(req, res) {
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    let question;
-    try { question = await Question.findById(questionID); }
-    catch { return res.status(400).send(config.errorNotFound); }
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
     // Fetch answers if expired
     if (Number(question.lastAnswerFetch) + config.answerExpires < Date.now()) {
         const { success, requests } = await fetchAnswers(
-            `/questions/${questionID}/answers`
+            `/questions/${question_id}/answers`
         );
 
         if (!success) return res.status(500).send(config.errorGeneric);
@@ -25,12 +24,12 @@ async function GetAnswers(req, res) {
                 return {
                     ...answer,
                     id: answer_id,
-                    questionID
+                    question_id
                 }
             })
             .map(async (answer) => {
                 if (answer.accepted) {
-                    await Question.findByIdAndUpdate(questionID, {
+                    await Question.findByIdAndUpdate(question_id, {
                         hasAccepted: true,
                     });
                 }
@@ -41,7 +40,7 @@ async function GetAnswers(req, res) {
             });
     }
 
-    const answers = await Answer.find({ questionID });
+    const answers = await Answer.find({ question_id });
 
     return res.send({ answers });
 }

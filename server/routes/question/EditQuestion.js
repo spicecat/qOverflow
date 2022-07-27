@@ -1,41 +1,32 @@
-const Question = require('../../db/models/Answer');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const config = require('server/config.json');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const createRequest = require('server/utils/api');
 
-async function EditAnswer(req, res) {
+
+async function EditQuestion(req, res) {
     const { user } = req;
     const { text } = req.body;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
     if (!text) return res.status(400).send(config.errorIncomplete);
 
-    // Verify that user owns the question
-    const questionPull = await createRequest('get', `/questions/${questionID}`);
-
-    if (!questionPull.success) return res.status(500).send(config.errorGeneric);
-    if (questionPull.question.creator !== user.username) {
-        return res.status(403).send(config.errorForbidden);
-    }
+    // Verify user owns question
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
+    if (question.creator !== user.username) return res.status(403).send(config.errorForbidden);
 
     // Patch question with BDPA server
-    const patchQuestion = await createRequest(
+    const { success } = await createRequest(
         'patch',
-        `/questions/${questionID}`,
+        `/questions/${question_id}`,
         { text }
     );
 
-    if (!patchQuestion.success) {
-        return res.status(500).send(config.errorGeneric);
-    }
-
-    // Refresh cache
-    const question = {
-        ...questionPull.question,
-        id: questionPull.question.question_id,
-    };
-    await Question.findByIdAndUpdate(question.id, question, { upsert: true });
-
+    if (!success) return res.status(500).send(config.errorGeneric);
+    
+    await refreshQuestion(question_id);
+    
     return res.sendStatus(200);
 }
 
-module.exports = EditAnswer;
+module.exports = EditQuestion;

@@ -1,43 +1,42 @@
-const Answer = require('../../db/models/Answer');
-const Question = require('../../db/models/Question');
-const User = require('../../db/models/User');
-const config = require('../../config.json');
-const getUserLevel = require('../../utils/getUserLevel');
-const createRequest = require('../../utils/api');
+const config = require('server/config.json');
+const Answer = require('server/db/models/Answer');
+const User = require('server/db/models/User');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const getUserLevel = require('server/utils/getUserLevel');
+const createRequest = require('server/utils/api');
 
 async function CreateAnswer(req, res) {
     const { user } = req;
     const { text } = req.body;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    // Verify that the user has the level
+    // Verify user has level
     if (getUserLevel(user.points) < 1) {
         return res.status(403).send(config.errorForbidden);
     }
 
     // Retrieve question from cache and verify compatible status
-    const cachedQuestion = await Question.findById(questionID);
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
-    if (cachedQuestion.status === 'closed') {
+    if (question.status === 'closed')
         return res.status(403).send(config.errorForbidden);
-    }
 
     if (
-        cachedQuestion.status === 'protected' &&
+        question.status === 'protected' &&
         getUserLevel(user.points) < 5
     ) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    // Verify that request includes required information
-    if (!text) {
+    // Verify request includes required information
+    if (!text)
         return res.status(400).send(config.errorIncomplete);
-    }
 
     // Create question with BDPA server
     const { success, answer } = await createRequest(
         'post',
-        `/questions/${questionID}/answers`,
+        `/questions/${question_id}/answers`,
         {
             creator: user.username,
             text,
@@ -46,7 +45,7 @@ async function CreateAnswer(req, res) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Answer.create({ ...answer, _id: answer.answer_id, questionID });
+    await Answer.create({ ...answer, _id: answer.answer_id, question_id });
 
     // Increment user points by 2
     await createRequest('patch', `/users/${user.username}/points`, {

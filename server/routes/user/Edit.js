@@ -1,7 +1,7 @@
-const createRequest = require('../../utils/api');
-const deriveKeyFromPassword = require('../../utils/auth');
-const User = require('../../db/models/User');
-const config = require('../../config.json');
+const createRequest = require('server/utils/api');
+const deriveKeyFromPassword = require('server/utils/auth');
+const User = require('server/db/models/User');
+const config = require('server/config.json');
 
 async function Edit(req, res) {
     const { user } = req;

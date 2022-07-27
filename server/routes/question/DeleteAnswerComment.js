@@ -1,17 +1,17 @@
-const Comment = require('../../db/models/Comment');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const Comment = require('server/db/models/Comment');
+const config = require('server/config.json');
+const createRequest = require('server/utils/api');
 
 async function DeleteAnswerComment(req, res) {
     const { user } = req;
-    const { questionID, answerID, commentID } = req.params;
+    const { question_id, answer_id, comment_id } = req.params;
 
-    const comment = await Comment.findById(commentID);
+    const comment = await Comment.findById(comment_id);
 
-    // Verify that a comment exists
+    // Verify comment exists
     if (!comment) return res.status(404).send(config.errorNotFound);
 
-    // Verify that the user is the creator
+    // Verify user is creator
     if (comment.creator !== user.username) {
         return res.status(403).send(config.errorForbidden);
     }
@@ -19,12 +19,12 @@ async function DeleteAnswerComment(req, res) {
     // Delete question with BDPA server
     const { success } = await createRequest(
         'delete',
-        `/questions/${questionID}/answers/${answerID}/comments/${commentID}`
+        `/questions/${question_id}/answers/${answer_id}/comments/${comment_id}`
     );
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Comment.findByIdAndDelete(commentID);
+    await Comment.findByIdAndDelete(comment_id);
 
     return res.sendStatus(200);
 }

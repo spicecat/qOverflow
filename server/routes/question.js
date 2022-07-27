@@ -3,6 +3,7 @@ const router = express.Router();
 
 const tokenAuth = require('../middleware/tokenAuth');
 
+
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
 const CreateComment = require('./question/CreateComment');
@@ -32,31 +33,31 @@ const Search = require('./question/Search');
 router.get('/search', Search);
 
 router.post('/', tokenAuth, CreateQuestion);
-router.get('/:questionID', GetQuestion);
-router.patch('/:questionID', tokenAuth, EditQuestion);
-router.patch('/:questionID/close', tokenAuth, EditQuestionStatusClosed);
-router.patch('/:questionID/protect', tokenAuth, EditQuestionStatusProtected);
-router.patch('/:questionID/reopen', tokenAuth, EditQuestionStatusReopened);
-router.get('/:questionID/vote', tokenAuth, GetQuestionVote);
-router.patch('/:questionID/vote', tokenAuth, EditQuestionVote);
+router.get('/:question_id', GetQuestion);
+router.patch('/:question_id', tokenAuth, EditQuestion);
+router.patch('/:question_id/close', tokenAuth, EditQuestionStatusClosed);
+router.patch('/:question_id/protect', tokenAuth, EditQuestionStatusProtected);
+router.patch('/:question_id/reopen', tokenAuth, EditQuestionStatusReopened);
+router.get('/:question_id/vote', tokenAuth, GetQuestionVote);
+router.patch('/:question_id/vote', tokenAuth, EditQuestionVote);
 
-router.get('/:questionID/comments', GetComments);
-router.post('/:questionID/comments', tokenAuth, CreateComment);
-router.delete('/:questionID/comments/:commentID', tokenAuth, DeleteComment);
-router.get('/:questionID/comments/:commentID/vote', tokenAuth, GetCommentVote);
-router.patch('/:questionID/comments/:commentID/vote', tokenAuth, EditCommentVote);
+router.get('/:question_id/comments', GetComments);
+router.post('/:question_id/comments', tokenAuth, CreateComment);
+router.delete('/:question_id/comments/:comment_id', tokenAuth, DeleteComment);
+router.get('/:question_id/comments/:comment_id/vote', tokenAuth, GetCommentVote);
+router.patch('/:question_id/comments/:comment_id/vote', tokenAuth, EditCommentVote);
 
-router.get('/:questionID/answers', GetAnswers);
-router.post('/:questionID/answers', tokenAuth, CreateAnswer);
-router.patch('/:questionID/answers/:answerID', tokenAuth, EditAnswer);
-router.patch('/:questionID/answers/:answerID/accept', tokenAuth, EditAnswerAccepted);
-router.get('/:questionID/answers/:answerID/vote', tokenAuth, GetAnswerVote);
-router.patch('/:questionID/answers/:answerID/vote', tokenAuth, EditAnswerVote);
+router.get('/:question_id/answers', GetAnswers);
+router.post('/:question_id/answers', tokenAuth, CreateAnswer);
+router.patch('/:question_id/answers/:answer_id', tokenAuth, EditAnswer);
+router.patch('/:question_id/answers/:answer_id/accept', tokenAuth, EditAnswerAccepted);
+router.get('/:question_id/answers/:answer_id/vote', tokenAuth, GetAnswerVote);
+router.patch('/:question_id/answers/:answer_id/vote', tokenAuth, EditAnswerVote);
 
-router.get('/:questionID/answers/:answerID/comments', GetAnswerComments);
-router.post('/:questionID/answers/:answerID/comments', tokenAuth, CreateAnswerComment);
-router.delete('/:questionID/answers/:answerID/comments/:commentID', tokenAuth, DeleteAnswerComment);
-router.get('/:questionID/answers/:answerID/comments/:commentID/vote', tokenAuth, GetAnswerCommentVote);
-router.patch('/:questionID/answers/:answerID/comments/:commentID/vote', tokenAuth, EditAnswerCommentVote);
+router.get('/:question_id/answers/:answer_id/comments', GetAnswerComments);
+router.post('/:question_id/answers/:answer_id/comments', tokenAuth, CreateAnswerComment);
+router.delete('/:question_id/answers/:answer_id/comments/:comment_id', tokenAuth, DeleteAnswerComment);
+router.get('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, GetAnswerCommentVote);
+router.patch('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, EditAnswerCommentVote);
 
 module.exports = router;

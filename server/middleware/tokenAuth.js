@@ -8,13 +8,13 @@ async function tokenAuth(req, res, next) {
 
     const token = authHeader?.split(' ')[1];
 
-    // Verify that a token is included in the request
+    // Verify token is included in request
     if (!token)
         return res.status(401).send(config.errorUnauthed);
 
     const result = await Token.findOne({ token: token });
 
-    // Verify that the token is not expired and it does exist
+    // Verify token expiration
     const date = new Date();
     if (!result) {
         return res.status(401).send(config.errorUnauthed);

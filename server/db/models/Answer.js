@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Answer = mongoose.Schema(
     {
-        questionID: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
+        question_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
         creator: { type: String, required: true },
         text: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },

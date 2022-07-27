@@ -1,7 +1,7 @@
-const config = require('../../config.json');
-const fetchMail = require('../../utils/fetchMail');
-const Mail = require('../../db/models/Mail');
-const User = require('../../db/models/User');
+const config = require('server/config.json');
+const fetchMail = require('server/utils/fetchMail');
+const Mail = require('server/db/models/Mail');
+const User = require('server/db/models/User');
 
 async function Get(req, res) {
     const { user } = req;
@@ -19,7 +19,7 @@ async function Get(req, res) {
         return res.send({ messages: cachedMail });
     }
 
-    // Fetch the most recent mail
+    // Fetch most recent mail
     const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
     const { success, requests } = await fetchMail(
         `/mail/${user.username}`,

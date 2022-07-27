@@ -11,7 +11,7 @@ async function basicAuth(req, res, next) {
     if (!b64Encoded)
         return res.status(401).send(config.errorIncomplete);
 
-    // Isolate the username and password
+    // Isolate username and password
     const [username, password] = Buffer.from(b64Encoded, 'base64').toString().split(':');
     if (!username || !password) return res.status(403).send(config.errorFailed);
 
