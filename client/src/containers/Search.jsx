@@ -10,12 +10,26 @@ export default function Search() {
     const [searchParams] = useSearchParams()
 
     const getData = async () => {
-        const createdAt = searchParams.get('createdAt');
+        let matchObj = {};
+
+        const newdate = new Date(searchParams.get('createdAt'));
         const creator = searchParams.get('creator');
         const text = searchParams.get('text');
         const title = searchParams.get('title');
-        console.log(new Date(createdAt))
-        const { questions } = await searchQuestions({ regexMatch: { creator, text, title } })
+        
+        const time = {}
+
+        time["$gte"] = parseInt(newdate.getTime());
+        newdate.setDate(newdate.getDate() + 1)
+        time["$lte"] = newdate.getTime()
+
+        const createdAt = time
+
+
+
+        const { questions } = await searchQuestions({ regexMatch: { creator, text, title }, match: {createdAt} } )
+
+
         return questions;
     }
 
