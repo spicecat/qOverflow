@@ -1,7 +1,7 @@
-const Token = require('../db/models/Token');
-const User = require('../db/models/User');
+const Token = require('server/db/models/Token');
+const User = require('server/db/models/User');
 const jwt = require('jsonwebtoken');
-const config = require('../config.json');
+const config = require('server/config.json');
 
 async function tokenAuth(req, res, next) {
     const authHeader = req.get('Authorization');

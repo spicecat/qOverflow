@@ -4,14 +4,13 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('server/app');
 const debug = require('debug')('server:server');
 const http = require('http');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 
-const getAllQuestions = require('../services/getAllQuestions');
-const getAllUsers = require('../services/getAllUsers');
+const {getAllQuestions, getAllUsers } = require('server/services/getData');
 
 require('dotenv').config();
 

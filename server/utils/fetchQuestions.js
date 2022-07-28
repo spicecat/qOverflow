@@ -1,30 +1,19 @@
 const createRequest = require('./api');
-const config = require('../config.json');
 
-const defaultAcc = { success: true, requests: [] };
+const defaultAcc = [];
 
 async function fetchQuestions(
-    url,
-    recentTimestamp = 0,
     acc = defaultAcc,
     after = ''
 ) {
-    const request = await createRequest('get', url, { after });
+    const { success, questions } = await createRequest('get', '/questions/search', { after });
 
-    if (!request.success) return config.errorGeneric;
-    if (!request.questions.length) return acc;
+    if (!success || !questions.length) return acc;
 
-    const newAcc = {
-        success: true,
-        requests: [...acc.requests, request],
-    };
+    const newAcc = [...acc, ...questions];
+    const oldest = users[questions.length - 1];
 
-    const oldest = request.questions[request.questions.length - 1];
-    if (oldest.createdAt < recentTimestamp) {
-        return newAcc;
-    }
-
-    return fetchQuestions(url, recentTimestamp, newAcc, oldest['question_id']);
+    return fetchQuestions(newAcc, oldest.question_id);
 }
 
 module.exports = fetchQuestions;
