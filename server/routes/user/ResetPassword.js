@@ -1,8 +1,8 @@
-const ResetRequest = require('../../db/models/ResetRequest');
-const User = require('../../db/models/User');
-const createRequest = require('../../utils/api');
-const deriveKeyFromPassword = require('../../utils/auth');
-const config = require('../../config.json');
+const ResetRequest = require('server/db/models/ResetRequest');
+const User = require('server/db/models/User');
+const createRequest = require('server/utils/api');
+const deriveKeyFromPassword = require('server/utils/auth');
+const config = require('server/config.json');
 
 async function RequestReset(req, res) {
     const { password } = req.body;

@@ -1,6 +1,6 @@
-const config = require('../../config.json');
-const Answer = require('../../db/models/Answer');
-const fetchAnswers = require('../../utils/fetchAnswers');
+const config = require('server/config.json');
+const Answer = require('server/db/models/Answer');
+const fetchAnswers = require('server/utils/fetchAnswers');
 
 async function Answers(req, res) {
     const { user: {lastAnswerFetch, username} } = req;

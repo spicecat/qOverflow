@@ -1,20 +1,20 @@
-const Token = require('../db/models/Token');
-const User = require('../db/models/User');
+const Token = require('server/db/models/Token');
+const User = require('server/db/models/User');
 const jwt = require('jsonwebtoken');
-const config = require('../config.json');
+const config = require('server/config.json');
 
 async function tokenAuth(req, res, next) {
     const authHeader = req.get('Authorization');
 
     const token = authHeader?.split(' ')[1];
 
-    // Verify that a token is included in the request
+    // Verify token is included in request
     if (!token)
         return res.status(401).send(config.errorUnauthed);
 
     const result = await Token.findOne({ token: token });
 
-    // Verify that the token is not expired and it does exist
+    // Verify token expiration
     const date = new Date();
     if (!result) {
         return res.status(401).send(config.errorUnauthed);

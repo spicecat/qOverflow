@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-const Token = require('../../db/models/Token');
-const getUserLevel = require('../../utils/getUserLevel');
+const Token = require('server/db/models/Token');
+const getUserLevel = require('server/utils/getUserLevel');
 
 async function Login(req, res) {
     const { user } = req;

@@ -1,20 +1,18 @@
-const fetchComments = require('../../utils/fetchComments');
-const config = require('../../config.json');
-
-const Question = require('../../db/models/Question');
-const Comment = require('../../db/models/Comment');
+const config = require('server/config.json');
+const Comment = require('server/db/models/Comment');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const fetchComments = require('server/utils/fetchComments');
 
 async function GetComments(req, res) {
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    let question;
-    try { question = await Question.findById(questionID); }
-    catch { return res.status(400).send(config.errorNotFound); }
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
     // Refresh comments if expired
     if (Number(question.lastCommentFetch) + config.commentExpires < Date.now()) {
         const { success, requests } = await fetchComments(
-            `/questions/${questionID}/comments`
+            `/questions/${question_id}/comments`
         );
 
         if (!success) return res.status(500).send(config.errorGeneric);
@@ -25,7 +23,7 @@ async function GetComments(req, res) {
                 return {
                     ...comment,
                     id: comment_id,
-                    parentID: questionID
+                    parent_id: question_id
                 }
             })
             .map(async (comment) => {
@@ -34,7 +32,7 @@ async function GetComments(req, res) {
                 });
             });
     }
-    const comments = await Comment.find({ parentID: questionID });
+    const comments = await Comment.find({ parent_id: question_id });
 
     return res.send({ comments });
 }

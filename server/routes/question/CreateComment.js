@@ -1,34 +1,34 @@
-const config = require('../../config.json');
-const Question = require('../../db/models/Question');
-const Comment = require('../../db/models/Comment');
-const createRequest = require('../../utils/api');
-const getUserLevel = require('../../utils/getUserLevel');
+const config = require('server/config.json');
+const Comment = require('server/db/models/Comment');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const createRequest = require('server/utils/api');
+const getUserLevel = require('server/utils/getUserLevel');
 
 async function CreateComment(req, res) {
     const { user } = req;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
     const { text } = req.body;
 
-    const cachedQuestion = await Question.findById(questionID);
-
-    // Verify that question is not closed
-    if (!cachedQuestion || cachedQuestion.status === 'closed')
+    // Verify question is not closed
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
+    if (question.status === 'closed')
         return res.status(403).send(config.errorForbidden);
 
-    // Verify that user has the permissions to create comments
+    // Verify user has permissions to create comments
     if (
         getUserLevel(user.points) < 3 &&
-        cachedQuestion?.creator !== user.username
+        question?.creator !== user.username
     )
         return res.status(403).send(config.errorForbidden);
 
-    // Verify that required items are in request body
+    // Verify required items are in request body
     if (!text) return res.status(400).send(config.errorIncomplete);
 
     // Post comment with BDPA server
     const { success, comment } = await createRequest(
         'post',
-        `/questions/${questionID}/comments`,
+        `/questions/${question_id}/comments`,
         {
             creator: user.username,
             text,
@@ -42,7 +42,7 @@ async function CreateComment(req, res) {
         ...comment,
         _id: comment.comment_id,
         docModel: 'Question',
-        parentID: questionID,
+        parent_id: question_id,
     });
 
     return res.sendStatus(200);

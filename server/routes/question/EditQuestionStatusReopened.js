@@ -1,25 +1,26 @@
-const Question = require('../../db/models/Answer');
-const getUserLevel = require('../../utils/getUserLevel');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const config = require('server/config.json');
+const Question = require('server/db/models/Question');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const getUserLevel = require('server/utils/getUserLevel');
+const createRequest = require('server/utils/api');
 
 async function EditQuestionStatusReopened(req, res) {
     const { user } = req;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    // Verify that user has permissions
+    // Verify user has permissions
     if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    // Verify question's existence
-    const cachedQuestion = await Question.findById(questionID);
-    if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
+    // Get question
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
     // Make sure that question has compatible status
     if (
-        cachedQuestion.status === 'protected' ||
-        cachedQuestion.status === 'open'
+        question.status === 'protected' ||
+        question.status === 'open'
     ) {
         return res.status(400).send({
             success: false,
@@ -28,34 +29,34 @@ async function EditQuestionStatusReopened(req, res) {
     }
 
     // Toggle vote
-    if (cachedQuestion.reopen.includes(user.username)) {
-        await Question.findByIdAndUpdate(questionID, {
+    if (question.reopen.includes(user.username)) {
+        await Question.findByIdAndUpdate(question_id, {
             reopen: { $pull: user.username },
         });
 
         return res.sendStatus(200);
     } else {
-        await Question.findByIdAndUpdate(questionID, {
+        await Question.findByIdAndUpdate(question_id, {
             reopen: { $push: user.username },
         });
     }
 
     // Patch question status if required
-    if (cachedQuestion.reopen.length === 2) {
-        const cachedQuestion = await Question.findByIdAndUpdate(questionID, {
+    if (question.reopen.length === 2) {
+        const question = await Question.findByIdAndUpdate(question_id, {
             reopen: [],
             status: 'open',
         });
 
         const { success } = await createRequest(
             'patch',
-            `/questions/${questionID}`,
+            `/questions/${question_id}`,
             { status: 'open' }
         );
-        await Question.findByIdAndUpdate(questionID, { status: 'open' });
+        await Question.findByIdAndUpdate(question_id, { status: 'open' });
 
         return success
-            ? res.send({ status: cachedQuestion.status })
+            ? res.send({ status: question.status })
             : res.status(500).send(config.errorGeneric);
     }
 

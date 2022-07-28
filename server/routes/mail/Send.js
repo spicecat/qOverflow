@@ -1,12 +1,12 @@
-const Mail = require('../../db/models/Mail');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const Mail = require('server/db/models/Mail');
+const config = require('server/config.json');
+const createRequest = require('server/utils/api');
 
 async function Send(req, res) {
     const { username } = req.user;
     const { receiver, subject, text } = req.body;
 
-    // Verify that required form data exists
+    // Verify required form data exists
     if (!receiver | !subject | !text) {
         return res.status(400).send(config.errorIncomplete);
     }

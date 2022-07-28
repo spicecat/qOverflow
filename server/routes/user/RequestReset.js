@@ -1,4 +1,4 @@
-const ResetRequest = require('../../db/models/ResetRequest');
+const ResetRequest = require('server/db/models/ResetRequest');
 
 async function RequestReset(req, res) {
     const { username } = req.query;

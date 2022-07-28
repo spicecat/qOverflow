@@ -16,132 +16,132 @@ const postQuestion = async (data) =>
         data
     );
 
-const getQuestion = async (questionID) =>
+const getQuestion = async (question_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}`
+        `/${question_id}`
     );
 
-const updateQuestion = async (questionID, data) =>
+const updateQuestion = async (question_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}`,
+        `/${question_id}`,
         data
     );
 
-const getQuestionVote = async (questionID) =>
+const getQuestionVote = async (question_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/vote`
+        `/${question_id}/vote`
     );
 
-const updateQuestionVote = async (questionID, data) =>
+const updateQuestionVote = async (question_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/vote`,
+        `/${question_id}/vote`,
         data
     );
 
-const getQuestionComments = async (questionID) =>
+const getQuestionComments = async (question_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/comments`
+        `/${question_id}/comments`
     );
 
-const postQuestionComment = async (questionID, data) =>
+const postQuestionComment = async (question_id, data) =>
     callQuestionsAPI(
         'post',
-        `/${questionID}/comments`,
+        `/${question_id}/comments`,
         data
     );
 
-const deleteQuestionComment = async (questionID, commentID) =>
+const deleteQuestionComment = async (question_id, comment_id) =>
     callQuestionsAPI(
         'delete',
-        `/${questionID}/comments/${commentID}`
+        `/${question_id}/comments/${comment_id}`
     );
 
-const getCommentVote = async (questionID, commentID) =>
+const getCommentVote = async (question_id, comment_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/comments/${commentID}/vote`
+        `/${question_id}/comments/${comment_id}/vote`
     );
 
-const updateCommentVote = async (questionID, commentID, data) =>
+const updateCommentVote = async (question_id, comment_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/comments/${commentID}/vote`,
+        `/${question_id}/comments/${comment_id}/vote`,
         data
     );
 
-const getAnswers = async (questionID) =>
+const getAnswers = async (question_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/answers`
+        `/${question_id}/answers`
     );
 
-const postAnswer = async (questionID, data) =>
+const postAnswer = async (question_id, data) =>
     callQuestionsAPI(
         'post',
-        `/${questionID}/answers`,
+        `/${question_id}/answers`,
         data
     );
 
-const updateAnswer = async (questionID, answerID, data) =>
+const updateAnswer = async (question_id, answer_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/answers/${answerID}`,
+        `/${question_id}/answers/${answer_id}`,
         data
     );
 
-const updateAcceptAnswer = async (questionID, answerID) =>
+const updateAcceptAnswer = async (question_id, answer_id) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/answer/${answerID}/accept`
+        `/${question_id}/answer/${answer_id}/accept`
     );
 
-const getAnswerVote = async (questionID, answerID) =>
+const getAnswerVote = async (question_id, answer_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/answers/${answerID}/vote`
+        `/${question_id}/answers/${answer_id}/vote`
     );
 
-const updateAnswerVote = async (questionID, answerID, data) =>
+const updateAnswerVote = async (question_id, answer_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/answers/${answerID}/vote`,
+        `/${question_id}/answers/${answer_id}/vote`,
         data
     );
 
-const getAnswerComments = async (questionID, answerID) =>
+const getAnswerComments = async (question_id, answer_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/answers/${answerID}/comments`
+        `/${question_id}/answers/${answer_id}/comments`
     );
 
-const postAnswerComments = async (questionID, answerID, data) =>
+const postAnswerComments = async (question_id, answer_id, data) =>
     callQuestionsAPI(
         'post',
-        `/${questionID}/answers/${answerID}/comments`,
+        `/${question_id}/answers/${answer_id}/comments`,
         data
     );
 
-const deleteAnswerComment = async (questionID, answerID, commentID) =>
+const deleteAnswerComment = async (question_id, answer_id, comment_id) =>
     callQuestionsAPI(
         'delete',
-        `/${questionID}/answers/${answerID}/comments/${commentID}`
+        `/${question_id}/answers/${answer_id}/comments/${comment_id}`
     );
 
-const getAnswerCommentVote = async (questionID, answerID, commentID) =>
+const getAnswerCommentVote = async (question_id, answer_id, comment_id) =>
     callQuestionsAPI(
         'get',
-        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`
+        `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote`
     );
 
-const updateAnswerCommentVote = async (questionID, answerID, commentID, data) =>
+const updateAnswerCommentVote = async (question_id, answer_id, comment_id, data) =>
     callQuestionsAPI(
         'patch',
-        `/${questionID}/answers/${answerID}/comments/${commentID}/vote`,
+        `/${question_id}/answers/${answer_id}/comments/${comment_id}/vote`,
         data
     );
 

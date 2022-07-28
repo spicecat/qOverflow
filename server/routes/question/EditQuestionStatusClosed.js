@@ -1,23 +1,24 @@
-const Question = require('../../db/models/Answer');
-const getUserLevel = require('../../utils/getUserLevel');
-const config = require('../../config.json');
-const createRequest = require('../../utils/api');
+const config = require('server/config.json');
+const Question = require('server/db/models/Question');
+const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const createRequest = require('server/utils/api');
+const getUserLevel = require('server/utils/getUserLevel');
 
 async function EditQuestionStatusClosed(req, res) {
     const { user } = req;
-    const { questionID } = req.params;
+    const { question_id } = req.params;
 
-    // Verify that user has required level
+    // Verify user has required level
     if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
     }
 
     // Get cached question and make sure it exists
-    const cachedQuestion = await Question.findById(questionID);
-    if (!cachedQuestion) return res.status(404).send(config.errorNotFound);
+    const question = await getQuestion(question_id);
+    if (!question) return res.status(404).send(config.errorNotFound);
 
-    // Verify that is does not have an incompatible status
-    if (cachedQuestion.status === 'closed') {
+    // Verify is does not have an incompatible status
+    if (question.status === 'closed') {
         return res.status(400).send({
             success: false,
             error: 'This question is already closed.',
@@ -25,34 +26,34 @@ async function EditQuestionStatusClosed(req, res) {
     }
 
     // Toggle question vote
-    if (cachedQuestion.close.includes(user.username)) {
-        await Question.findByIdAndUpdate(questionID, {
+    if (question.close.includes(user.username)) {
+        await Question.findByIdAndUpdate(question_id, {
             close: { $pull: user.username },
         });
 
         return res.sendStatus(200);
     } else {
-        await Question.findByIdAndUpdate(questionID, {
+        await Question.findByIdAndUpdate(question_id, {
             close: { $push: user.username },
         });
     }
 
     // Patch question status if required
-    if (cachedQuestion.close.length === 2) {
-        const cachedQuestion = await Question.findByIdAndUpdate(questionID, {
+    if (question.close.length === 2) {
+        const question = await Question.findByIdAndUpdate(question_id, {
             close: [],
             status: 'closed',
         });
 
         const { success } = await createRequest(
             'patch',
-            `/questions/${questionID}`,
+            `/questions/${question_id}`,
             { status: 'closed' }
         );
-        await Question.findByIdAndUpdate(questionID, { status: 'closed' });
+        await Question.findByIdAndUpdate(question_id, { status: 'closed' });
 
         return success
-            ? res.send({ status: cachedQuestion.status })
+            ? res.send({ status: question.status })
             : res.status(500).send(config.errorGeneric);
     }
 

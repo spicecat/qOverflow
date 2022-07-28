@@ -1,18 +1,18 @@
-const fetchComments = require('../../utils/fetchComments');
-const config = require('../../config.json');
+const fetchComments = require('server/utils/fetchComments');
+const config = require('server/config.json');
 
-const Answer = require('../../db/models/Answer');
-const Comment = require('../../db/models/Comment');
+const Answer = require('server/db/models/Answer');
+const Comment = require('server/db/models/Comment');
 
 async function GetAnswerComments(req, res) {
-    const { questionID, answerID } = req.params;
+    const { question_id, answer_id } = req.params;
 
-    const answer = await Answer.findById(answerID);
+    const answer = await Answer.findById(answer_id);
 
     // Refresh comments if expired
     if (Number(answer.lastCommentFetch) + config.commentExpires < Date.now()) {
         const { success, requests } = await fetchComments(
-            `/questions/${questionID}/answers/${answerID}/comments`
+            `/questions/${question_id}/answers/${answer_id}/comments`
         );
 
         if (!success) return res.status(500).send(config.errorGeneric);
@@ -23,7 +23,7 @@ async function GetAnswerComments(req, res) {
                 return {
                     ...comment,
                     id: comment_id,
-                    parentID: answerID
+                    parent_id: answer_id
                 }
             })
             .map(async (comment) => {
@@ -33,7 +33,7 @@ async function GetAnswerComments(req, res) {
             });
     }
 
-    const comments = await Comment.find({ parentID: answerID });
+    const comments = await Comment.find({ parent_id: answer_id });
 
     return res.send({ comments });
 }

@@ -1,4 +1,4 @@
-const Question = require('../../db/models/Question');
+const Question = require('server/db/models/Question');
 
 async function Questions(req, res) {
     const { user: { username } } = req;

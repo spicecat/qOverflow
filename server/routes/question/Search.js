@@ -1,7 +1,7 @@
-const createRequest = require('../../utils/api');
-const config = require('../../config.json');
+const createRequest = require('server/utils/api');
+const config = require('server/config.json');
 
-const Question = require('../../db/models/Question');
+const Question = require('server/db/models/Question');
 
 async function Search(req, res) {
     const { success, questions } = await createRequest(
@@ -26,7 +26,7 @@ async function Search(req, res) {
             })
     );
 
-    return res.send({ questions: questionSet });
+    return res.send({ questions: questionSet.filter(question => question) });
 }
 
 module.exports = Search;

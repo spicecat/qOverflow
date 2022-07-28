@@ -1,8 +1,8 @@
-const deriveKeyFromPassword = require('../utils/auth');
-const createRequest = require('../utils/api');
-const config = require('../config.json');
+const deriveKeyFromPassword = require('server/utils/auth');
+const createRequest = require('server/utils/api');
+const config = require('server/config.json');
 
-const User = require('../db/models/User');
+const User = require('server/db/models/User');
 
 async function basicAuth(req, res, next) {
     const authHeader = req.get('Authorization');
@@ -11,7 +11,7 @@ async function basicAuth(req, res, next) {
     if (!b64Encoded)
         return res.status(401).send(config.errorIncomplete);
 
-    // Isolate the username and password
+    // Isolate username and password
     const [username, password] = Buffer.from(b64Encoded, 'base64').toString().split(':');
     if (!username || !password) return res.status(403).send(config.errorFailed);
 

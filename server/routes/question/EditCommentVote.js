@@ -1,11 +1,11 @@
-const createRequest = require('../../utils/api');
-const config = require('../../config.json');
-const getUserLevel = require('../../utils/getUserLevel');
-const Vote = require('../../db/models/Vote');
+const createRequest = require('server/utils/api');
+const config = require('server/config.json');
+const getUserLevel = require('server/utils/getUserLevel');
+const Vote = require('server/db/models/Vote');
 
 async function EditAnswerVote(req, res) {
     const { user } = req;
-    const { questionID, commentID } = req.params;
+    const { question_id, comment_id } = req.params;
     const { operation } = req.body;
 
     if (!operation) return res.status(400).send(config.errorIncomplete);
@@ -19,10 +19,10 @@ async function EditAnswerVote(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    const URL = `/questions/${questionID}/comments/${commentID}/vote/${user.username}`;
+    const URL = `/questions/${question_id}/comments/${comment_id}/vote/${user.username}`;
 
     let cachedVote = await Vote.findOneAndDelete({
-        parentID: commentID,
+        parent_id: comment_id,
         creator: user.username,
     });
 
@@ -49,7 +49,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: commentID,
+                parent_id: comment_id,
                 creator: user.username,
                 status: 'downvoted',
                 docModel: 'Comment',
@@ -74,7 +74,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: commentID,
+                parent_id: comment_id,
                 creator: user.username,
                 status: 'upvoted',
                 docModel: 'Comment',
@@ -92,7 +92,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: commentID,
+                parent_id: comment_id,
                 creator: user.username,
                 status: 'upvoted',
                 docModel: 'Comment',
@@ -108,7 +108,7 @@ async function EditAnswerVote(req, res) {
             if (!success) return res.status(500).send(config.errorGeneric);
 
             await Vote.create({
-                parentID: commentID,
+                parent_id: comment_id,
                 creator: user.username,
                 status: 'downvoted',
                 docModel: 'Comment',
