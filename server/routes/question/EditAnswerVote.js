@@ -26,7 +26,7 @@ async function EditAnswerVote(req, res) {
 
     // Get cached vote and answer, refresh cache if not present
     let cachedAnswer;
-    try { cachedAnswer = await Question.findById(answer_id); }
+    try { cachedAnswer = await Answer.findById(answer_id); }
     catch { return res.status(400).send(config.errorNotFound); }
 
     let cachedVote = await Vote.findOneAndDelete({
