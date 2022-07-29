@@ -32,10 +32,10 @@ export default function Search() {
         if (creator) regexMatch.creator = creator;
 
         const text = searchParams.get('text');
-        if (text) regexMatch.text = text.replaceAll(' ', '|');
+        if (text) regexMatch.text = text.replaceAll(' ', '|') + "gmi";
 
         const title = searchParams.get('title');
-        if (title) regexMatch.title = title.replaceAll(' ', '|');;
+        if (title) regexMatch.title = title.replaceAll(' ', '|') + "gi";
 
         const { questions } = await searchQuestions({ regexMatch, match })
 

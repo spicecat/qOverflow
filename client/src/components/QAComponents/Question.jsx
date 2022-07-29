@@ -1,9 +1,9 @@
-import { Box, Chip, Divider, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Chip, Divider, ListItem, ListItemText, Typography, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, VoteControl } from 'controllers/QAControllers';
 import { getQuestionVote, postQuestionComment, updateQuestionVote } from 'services/questionsServices';
-
+import { Link } from 'react-router-dom';
 const statusColor = (status) => {
     switch (status) {
         case 'open': return 'primary';
@@ -39,6 +39,7 @@ export default function Question({
                 <Typography display='inline' m={1}>Answers: {answers} </Typography>
                 <Typography display='inline' m={1}>Comments: {comments} </Typography>
                 <Typography display='inline' m={1}> Status:</Typography>
+                
                 <Chip
                     color={statusColor(status)}
                     label={status}
@@ -50,6 +51,7 @@ export default function Question({
                     label={hasAcceptedAnswer ? 'yes' : 'no'}
                     size='small'
                 />
+                <Button component={Link} to='../ask' style={{'marginLeft': '10px'}}display = 'inline' m = {1} variant = "contained">Ask question</Button>
             </Box>
             <Divider />
             <ListItem disablePadding>
