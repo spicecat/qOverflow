@@ -1,6 +1,6 @@
 const config = require('server/config.json');
 const Question = require('server/db/models/Question');
-const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const { getQuestion, refreshQuestion } = require('server/utils/question');
 const getUserLevel = require('server/utils/getUserLevel');
 const createRequest = require('server/utils/api');
 

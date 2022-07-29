@@ -1,6 +1,6 @@
 const config = require('server/config.json');
 const Comment = require('server/db/models/Comment');
-const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const { getQuestion, refreshQuestion } = require('server/utils/question');
 const fetchComments = require('server/utils/fetchComments');
 
 async function GetComments(req, res) {
