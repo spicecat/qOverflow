@@ -5,29 +5,71 @@ import { SearchForm } from 'controllers/FormControllers';
 import { PaginatedList } from 'controllers';
 import { ListQuestion } from 'components';
 import { searchQuestions } from 'services/questionsServices';
+import { useEffect } from 'react';
 
 export default function Search() {
-    const [searchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    useEffect(()=>{
+        setSearchParams()
+    }, [])
+
 
     const getData = async () => {
-        let matchObj = {};
-
-        const newdate = new Date(searchParams.get('createdAt'));
-        const creator = searchParams.get('creator');
-        const text = searchParams.get('text');
-        const title = searchParams.get('title');
+        let match = {};
+        let regexMatch = {}
+        let time ={};
+        let newdate = searchParams.get('createdAt');
         
-        const time = {}
+        if(newdate){
+            newdate = new Date(newdate)
+            time["$gte"] = parseInt(newdate.getTime());
+            newdate.setDate(newdate.getDate() + 1)
+            time["$lte"] = newdate.getTime()
+            match = JSON.stringify({"createdAt" : time})
+        }
+        
 
-        time["$gte"] = parseInt(newdate.getTime());
-        newdate.setDate(newdate.getDate() + 1)
-        time["$lte"] = newdate.getTime()
+        
 
-        const createdAt = time
+       
+        
+        if(searchParams.get('creator')){regexMatch["creator"] = searchParams.get('creator')};
+        if(searchParams.get('text')){
+            const fields = searchParams.get('text');
 
+            let arr = fields.split(" ")
+            let matchString = "";
 
+            for(var i = 0; i< arr.length; i++){
+                matchString += "(" + arr[i] +  ")" 
+                if(i < arr.length-1){
+                    matchString += " | "
+                }
+            }
+            
+            regexMatch["text"] = matchString + " /gmi";
+        };
+        if(searchParams.get('title')){
+            const fields = searchParams.get('title');
 
-        const { questions } = await searchQuestions({ regexMatch: { creator, text, title }, match: {createdAt} } )
+            let arr = fields.split(" ")
+            let matchString = "";
+
+            for(var i = 0; i< arr.length; i++){
+                matchString += "(" + arr[i] +  ")" 
+                if(i < arr.length-1){
+                    matchString += " | "
+                }
+            }
+            
+            regexMatch["title"] = matchString + " /gi";
+           
+        };
+        
+        
+   
+
+        const { questions } = await searchQuestions({ regexMatch, match})
 
 
         return questions;
