@@ -1,42 +1,17 @@
 const config = require('server/config.json');
 const Answer = require('server/db/models/Answer');
-const fetchAnswers = require('server/utils/fetchAnswers');
+const { getAllAnswers } = require('server/utils/getData');
 
 async function Answers(req, res) {
-    const { user: {lastAnswerFetch, username} } = req;
+    const { user: { lastAnswerFetch, username } } = req;
 
-    if (Number(lastAnswerFetch) + config.answerExpires > Date.now()) {
-        const cachedAnswers = await Answer.find({
-            creator: username,
-        }).sort({ createdAt: 'desc' });
-        return res.send(cachedAnswers);
+    if (Number(lastAnswerFetch) + config.answerExpires < Date.now()) {
+        const answers = await getAllAnswers({ username });
+        return res.send({ answers });
+    } else {
+        const answers = await Answer.find({ creator: username });
+        return res.send({ answers });
     }
-
-    const { success, requests } = await fetchAnswers(
-        `/users/${username}/answers`
-    );
-
-    if (!success) return res.status(500).send(config.errorGeneric);
-
-    await requests
-        .reduce(async (acc, req) => {
-            const reformat = req.messages.map((message) => ({
-                ...message,
-                id: message.mail_id,
-            }));
-            return [...reformat, ...acc];
-        }, [])
-        .map(async (message) => {
-            return Mail.findByIdAndUpdate(message.id, message, {
-                upsert: true,
-            });
-        });
-
-    const cachedAnswers = await Answer.find({
-        creator: username,
-    }).sort({ createdAt: 'desc' });
-
-    return res.send({ answers: cachedAnswers });
 }
 
 module.exports = Answers;

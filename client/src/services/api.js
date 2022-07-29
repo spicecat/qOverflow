@@ -27,11 +27,11 @@ export const createEndpoint = (path) => (op, endpoint, data, auth) => {
 
     return request
         .then(({ body, status }) => {
-            console.log(op, path, endpoint, body, status);
+            console.log(op, path, endpoint, data, body, status);
             return { ...body, status };
         })
         .catch(({ response, status }) => {
-            console.log(op, path, endpoint, response?.body, status);
+            console.log(op, path, endpoint, data, response?.body, status);
             return response ? { ...response?.body, status } : { error: 'Error' };
         });
 }

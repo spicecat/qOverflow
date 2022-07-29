@@ -9,67 +9,35 @@ import { useEffect } from 'react';
 
 export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams()
-    useEffect(()=>{
+    useEffect(() => {
         setSearchParams()
     }, [])
 
 
     const getData = async () => {
         let match = {};
-        let regexMatch = {}
-        let time ={};
+        const regexMatch = {}
+        const time = {};
         let newdate = searchParams.get('createdAt');
-        
-        if(newdate){
+
+        if (newdate) {
             newdate = new Date(newdate)
             time["$gte"] = parseInt(newdate.getTime());
             newdate.setDate(newdate.getDate() + 1)
             time["$lte"] = newdate.getTime()
-            match = JSON.stringify({"createdAt" : time})
+            match = JSON.stringify({ "createdAt": time })
         }
-        
 
-        
+        const creator = searchParams.get('creator');
+        if (creator) regexMatch.creator = creator;
 
-       
-        
-        if(searchParams.get('creator')){regexMatch["creator"] = searchParams.get('creator')};
-        if(searchParams.get('text')){
-            const fields = searchParams.get('text');
+        const text = searchParams.get('text');
+        if (text) regexMatch.text = text.replaceAll(' ', '|');
 
-            let arr = fields.split(" ")
-            let matchString = "";
+        const title = searchParams.get('title');
+        if (title) regexMatch.title = title.replaceAll(' ', '|');;
 
-            for(var i = 0; i< arr.length; i++){
-                matchString += "(" + arr[i] +  ")" 
-                if(i < arr.length-1){
-                    matchString += " | "
-                }
-            }
-            
-            regexMatch["text"] = matchString + " /gmi";
-        };
-        if(searchParams.get('title')){
-            const fields = searchParams.get('title');
-
-            let arr = fields.split(" ")
-            let matchString = "";
-
-            for(var i = 0; i< arr.length; i++){
-                matchString += "(" + arr[i] +  ")" 
-                if(i < arr.length-1){
-                    matchString += " | "
-                }
-            }
-            
-            regexMatch["title"] = matchString + " /gi";
-           
-        };
-        
-        
-   
-
-        const { questions } = await searchQuestions({ regexMatch, match})
+        const { questions } = await searchQuestions({ regexMatch, match })
 
 
         return questions;
