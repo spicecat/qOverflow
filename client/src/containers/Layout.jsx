@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { Outlet } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -22,6 +23,9 @@ export default function Layout() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline enableColorScheme />
+            <Helmet>
+                <title>qOverflow</title>
+            </Helmet>
             <main>
                 <Navbar />
                 <Box sx={{ height: '92vh' }}>

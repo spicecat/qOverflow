@@ -1,12 +1,10 @@
 const createRequest = require('./api');
 
-const defaultAcc = [];
-
 async function fetchData(
     url,
     id,
     dataName,
-    acc = defaultAcc,
+    acc = [],
     after = ''
 ) {
     const { success, [dataName]: data } = await createRequest('get', url, { after });

@@ -1,6 +1,6 @@
 const config = require('server/config.json');
 const Answer = require('server/db/models/Answer');
-const { getQuestion, refreshQuestion } = require('server/services/questionServices');
+const { getQuestion, refreshQuestion } = require('server/utils/question');
 const createRequest = require('server/utils/api');
 
 async function EditAnswerAccepted(req, res) {

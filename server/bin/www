@@ -10,7 +10,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 
-const {getAllQuestions, getAllUsers } = require('server/services/getData');
+const { refreshQuestions, refreshUsers } = require('server/utils/cronRefresh');
 
 require('dotenv').config();
 
@@ -39,8 +39,8 @@ mongoose.connect(process.env.DB_CONN_STRING, {
 mongoose.connection.once('open', () => console.log('MongoDB connected'));
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-cron.schedule('*/2 * * * *', getAllUsers);
-cron.schedule('*/30 * * * * *', getAllQuestions);
+cron.schedule('*/30 * * * * *', refreshQuestions);
+cron.schedule('*/2 * * * *', refreshUsers);
 
 server.listen(port, console.log(`Listening on port: ${port}`));
 server.on('error', onError);
