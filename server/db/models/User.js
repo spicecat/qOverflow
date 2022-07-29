@@ -8,6 +8,7 @@ const User = mongoose.Schema(
         salt: { type: String, required: true },
         lastMailFetch: { type: Date, default: new Date(0) },
         lastAnswerFetch: { type: Date, default: new Date(0) },
+        user_id: { type: String, required: true, unique: true },
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
