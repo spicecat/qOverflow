@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { Card, CardContent, Grid } from '@mui/material';
 
 import CAPTCHA from 'assets/captcha.jpg';
@@ -5,6 +6,10 @@ import { RegisterForm } from 'controllers/FormControllers';
 
 export default function Register() {
     return (
+        <>
+        <Helmet>
+                <title>Register - qOverflow</title>
+            </Helmet>
         <Grid
             container
             spacing={2}
@@ -25,5 +30,6 @@ export default function Register() {
             </Grid>
             <Grid item xs={3.5} />
         </Grid>
+        </>
     );
 }
