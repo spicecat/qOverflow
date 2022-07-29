@@ -4,7 +4,7 @@ import { VoteControl } from 'controllers/QAControllers';
 import { getCommentVote, updateCommentVote } from 'services/questionsServices';
 
 export default function Comment({
-    _id: comment_id,
+    comment_id,
     creator,
     createdAt,
     downvotes,

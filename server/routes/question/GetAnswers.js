@@ -1,7 +1,7 @@
 const config = require('server/config.json');
 const Answer = require('server/db/models/Answer');
-const Question = require('server/db/models/Question');
 const { getAllAnswers } = require('server/utils/getData');
+const { getQuestion } = require('server/utils/question');
 
 async function GetAnswers(req, res) {
     const { question_id } = req.params;
@@ -12,7 +12,7 @@ async function GetAnswers(req, res) {
     if (Number(question.lastAnswerFetch) + config.answerExpires < Date.now()) {
         const answers = await getAllAnswers({ question_id });
         return res.send({ answers });
-    } else{
+    } else {
         const answers = await Answer.find({ question_id });
         return res.send({ answers });
     }

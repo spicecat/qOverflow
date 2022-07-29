@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
 export default function ListAnswer({
-    _id: answer_id,
+    answer_id,
     createdAt,
     creator,
     downvotes,

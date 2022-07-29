@@ -8,7 +8,7 @@ import { getAnswerVote, updateAnswerVote } from 'services/questionsServices';
 
 export default function Answer({
     accepted,
-    _id: answer_id,
+    answer_id,
     comments,
     creator,
     createdAt,

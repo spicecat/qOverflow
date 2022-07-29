@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 
 export default function ListQuestion({
-    _id: question_id,
+    question_id,
     answers,
     createdAt,
     creator,
