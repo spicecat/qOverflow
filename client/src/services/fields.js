@@ -118,11 +118,10 @@ const searchFields = [
         id: 'text',
         label: 'Text',
     },
-    // {
-    //     id: 'createdAt',
-    //     label: 'Date',
-    //     type: 'date',
-    // },
+    {
+         id: 'createdAt',
+        type: 'date',
+    },
     {
         id: 'creator',
         label: 'Creator',

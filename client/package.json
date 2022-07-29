@@ -8,6 +8,7 @@
         "@emotion/styled": "^11.9.3",
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.9.1",
+        "acorn": "^8.8.0",
         "crypto-js": "^4.1.1",
         "dotenv": "^16.0.1",
         "formik": "^2.2.9",
