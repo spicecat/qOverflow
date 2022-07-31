@@ -33,14 +33,14 @@ export default function Dashboard() {
         setCurrent(value);
     };
 
-    const getAnswers = async () => {
-        const { error, answers } = await getUserAnswers();
+    const getAnswers = async ({ answer_id }) => {
+        const { error, answers } = await getUserAnswers({ after: answer_id });
         if (!error)
             return answers;
     };
 
-    const getQuestions = async () => {
-        const { error, questions } = await getUserQuestions();
+    const getQuestions = async ({ question_id }) => {
+        const { error, questions } = await getUserQuestions({ after: question_id });
         if (!error)
             return questions;
     };

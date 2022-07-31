@@ -14,7 +14,7 @@ export default function Search() {
     }, [])
 
 
-    const getData = async () => {
+    const getData = async ({ question_id }) => {
         let match = {};
         const regexMatch = {}
         const time = {};
@@ -37,8 +37,7 @@ export default function Search() {
         const title = searchParams.get('title');
         if (title) regexMatch.title = title.replaceAll(' ', '|') + "gi";
 
-        const { questions } = await searchQuestions({ regexMatch, match })
-
+        const { questions } = await searchQuestions({ after: question_id, regexMatch, match })
 
         return questions;
     }

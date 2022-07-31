@@ -42,10 +42,11 @@ const updateQuestionVote = async (question_id, data) =>
         data
     );
 
-const getQuestionComments = async (question_id) =>
+const getQuestionComments = async (question_id, data) =>
     callQuestionsAPI(
         'get',
-        `/${question_id}/comments`
+        `/${question_id}/comments`,
+        data
     );
 
 const postQuestionComment = async (question_id, data) =>
@@ -74,10 +75,11 @@ const updateCommentVote = async (question_id, comment_id, data) =>
         data
     );
 
-const getAnswers = async (question_id) =>
+const getAnswers = async (question_id, data) =>
     callQuestionsAPI(
         'get',
-        `/${question_id}/answers`
+        `/${question_id}/answers`,
+        data
     );
 
 const postAnswer = async (question_id, data) =>

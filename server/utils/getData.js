@@ -24,8 +24,11 @@ async function getAllAnswers({ question_id, username }) {
         return getAllData(Answer, `/users/${username}/answers`, 'answer_id', 'answers')
 }
 
-async function getAllComments({ question_id }) {
-    return getAllData(Comment, `/questions/${question_id}/comments`, 'comment_id', 'comments')
+async function getAllComments({ answer_id, question_id }) {
+    if (answer_id)
+        return getAllData(Comment, `/questions/${question_id}/answers/${answer_id}/comments`, 'comment_id', 'comments')
+    else
+        return getAllData(Comment, `/questions/${question_id}/comments`, 'comment_id', 'comments')
 }
 
 async function getAllMail({ question_id }) {

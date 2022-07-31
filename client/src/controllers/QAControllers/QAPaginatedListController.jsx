@@ -19,8 +19,8 @@ export function AnswersList() {
 
     const sortByPoints = answers => answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
 
-    const getData = () =>
-        getAnswers(question_id)
+    const getData = ({ answer_id }) =>
+        getAnswers(question_id, { after: answer_id })
             .then(({ answers }) => sortByPoints(answers).map(answer => ({ ...answer, question_id })))
             .catch(() => []);
 
@@ -32,8 +32,8 @@ export function AnswersList() {
 export function CommentsList() {
     const { questionData: { comments: count, question_id } } = useQuestion();
 
-    const getData = () =>
-        getQuestionComments(question_id)
+    const getData = ({comment_id}) =>
+        getQuestionComments(question_id, {after: comment_id})
             .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
             .catch(() => []);
 
