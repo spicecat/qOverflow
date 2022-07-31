@@ -3,17 +3,25 @@ import { PaginatedList } from 'components';
 
 const rowsPerPage = 5;
 export default function PaginatedListController({ count, Component, getData, noData }) {
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
+    const [load, setLoad] = useState(true);
 
     const handleChangePage = (_, newPage) => {
         setPage(newPage);
+        if (load && newPage > ((count ?? data.length) - 100) / rowsPerPage)
+            loadData();
     };
 
+    const loadData = async () => {
+        const newData = await getData(data[data.length - 1] ?? {});
+        if (newData.length)
+            setData(data.concat(newData));
+        else
+            setLoad(false);
+    }
+
     useEffect(() => {
-        const loadData = async () => {
-            setData(await getData())
-        }
         loadData();
     }, [getData]);
 

@@ -1,7 +1,7 @@
 const config = require('server/config.json');
 const Answer = require('server/db/models/Answer');
 const Comment = require('server/db/models/Comment');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
+const { getQuestion } = require('server/utils/question');
 const createRequest = require('server/utils/api');
 const getUserLevel = require('server/utils/getUserLevel');
 

@@ -15,17 +15,8 @@ import { searchQuestions } from 'services/questionsServices';
 
 const recent = {};
 const best = { sort: 'u' };
-
-const interesting = { match: JSON.stringify({ 'answers': 0 }), sort: 'uvc' }
-
-/*const interesting = {
-    match: { answers : 0 },
-    sort: 'uvc',
-};*/
-const hot = {
-    match: JSON.stringify({ hasAcceptedAnswer: false }),
-    sort: 'uvac',
-};
+const interesting = { match: JSON.stringify({ 'answers': 0 }), sort: 'uvc' };
+const hot = { match: JSON.stringify({ hasAcceptedAnswer: false }), sort: 'uvac' };
 const sortObjArr = [recent, best, interesting, hot];
 
 export default function Buffet() {
@@ -33,9 +24,12 @@ export default function Buffet() {
 
     const [sort, setSort] = useState(0);
 
-    const getData = async () => {
-        
-        const { error, questions } = await searchQuestions(sortObjArr[sort]);
+    const getData = async ({ question_id }) => {
+
+        const { error, questions } = await searchQuestions({
+            ...sortObjArr[sort],
+            after: question_id
+        });
         if (error) {
             setError(error);
         } else
