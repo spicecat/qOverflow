@@ -3,7 +3,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 export default function VoteControl({
-    disabled,
+    canVote,
     downvotes,
     handleDownvote,
     handleUpvote,
@@ -13,10 +13,11 @@ export default function VoteControl({
 }) {
 
     return (
+    <Tooltip title = {!canVote ? "This question must be open and you must be level 2 to vote" : null}>
         <span style={{ marginRight: 8 }}>
             <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>
                     <IconButton
-                        disabled={disabled}
+                        disabled={!canVote}
                         onClick={handleUpvote}
                     >
                         <ThumbUpOutlinedIcon color={vote === 'upvoted' ? 'warning' : 'standard'} />
@@ -27,12 +28,13 @@ export default function VoteControl({
                     </Typography>
                 </Tooltip>
                     <IconButton
-                        disabled={disabled}
+                        disabled={!canVote}
                         onClick={handleDownvote}
                     >
                         <ThumbDownOutlinedIcon color={vote === 'downvoted' ? 'warning' : 'standard'} />
                     </IconButton>
             </ButtonGroup>
         </span >
+    </Tooltip>
     )
 }

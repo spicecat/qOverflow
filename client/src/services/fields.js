@@ -6,8 +6,9 @@ const passwordStrength = ({ length }) => {
 
 const answerFields = [
     {
-        id: 'answer',
-        title: 'Answer'
+        id: 'text',
+        label: 'Answer',
+        multiline: true
     }
 ];
 

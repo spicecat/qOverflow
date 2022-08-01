@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 const answerSchema = Yup.object({
-    answer: Yup.string()
+    text: Yup.string()
         .required('Answer is required')
         .max(3000, 'Answer must be at most 3000 characters'),
 });
