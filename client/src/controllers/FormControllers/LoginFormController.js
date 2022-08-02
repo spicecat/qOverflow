@@ -24,7 +24,7 @@ export default function LoginFormController() {
 
     return Form({
         fields: loginFields,
-        onSubmit: validateLogin,
+        validate: validateLogin,
         validationSchema: loginSchema,
     });
 }
