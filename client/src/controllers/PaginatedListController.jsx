@@ -3,6 +3,7 @@ import { PaginatedList } from 'components';
 import { useSearchParams } from 'react-router-dom';
 
 const rowsPerPage = 5;
+
 export default function PaginatedListController({ concat = false, count, Component, getData, noData }) {
     const [searchParams] = useSearchParams();
 
@@ -30,23 +31,28 @@ export default function PaginatedListController({ concat = false, count, Compone
 
     useEffect(() => {
         loadData(true);
-    }, [searchParams])
+    }, [searchParams]);
 
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         loadQuestions(sort);
-    //     }, 60000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            loadData();
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <PaginatedList {...{
-            count: Math.ceil((count ?? data.length) / rowsPerPage),
-            data: data.filter(d => d).slice((page - 1) * rowsPerPage, page * rowsPerPage),
-            Component,
-            handleChangePage,
-            noData,
-            page,
-            rowsPerPage
-        }} />
+        <PaginatedList
+            {...{
+                count: Math.ceil((count ?? data.length) / rowsPerPage),
+                data: data
+                    .filter((d) => d)
+                    .slice((page - 1) * rowsPerPage, page * rowsPerPage),
+                Component,
+                handleChangePage,
+                noData,
+                page,
+                rowsPerPage,
+            }}
+        />
     );
 }
