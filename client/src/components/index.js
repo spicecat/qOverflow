@@ -10,6 +10,7 @@ import PaginatedList from './PaginatedList';
 import SearchBar from './SearchBar';
 import MdPreview from './MdPreview';
 import Profile from './Profile';
+import MobileNavbar from './MobileNavbar';
 
 export {
     CreationInfoTag,
@@ -23,5 +24,6 @@ export {
     PaginatedList,
     SearchBar,
     MdPreview,
-    Profile
+    Profile,
+    MobileNavbar,
 };
