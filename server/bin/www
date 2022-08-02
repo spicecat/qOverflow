@@ -36,8 +36,13 @@ mongoose.connect(process.env.DB_CONN_STRING, {
     useUnifiedTopology: true,
 });
 
-mongoose.connection.once('open', () => console.log('MongoDB connected'));
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connection.once('open', () =>
+    console.log('[INFO]: MongoDB connected')
+);
+mongoose.connection.on(
+    'error',
+    console.error.bind(console, '[ERROR]: MongoDB connection error - ')
+);
 
 cron.schedule('*/30 * * * * *', refreshQuestions);
 cron.schedule('*/2 * * * *', refreshUsers);
@@ -84,6 +89,7 @@ function onError(error) {
 
 function onListening() {
     const addr = server.address();
-    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    const bind =
+        typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }

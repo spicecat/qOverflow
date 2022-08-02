@@ -12,7 +12,7 @@ async function Register(req, res) {
 
     const { salt, key } = await deriveKeyFromPassword(password);
 
-    const { success, error } = await createRequest('post', '/users', {
+    const { success, error, user } = await createRequest('post', '/users', {
         username,
         email,
         salt,
@@ -29,7 +29,7 @@ async function Register(req, res) {
                 return res.status(500).send(config.errorGeneric);
         }
 
-    await User.create({ username, email, salt });
+    await User.create(user);
 
     return res.sendStatus(201);
 }
