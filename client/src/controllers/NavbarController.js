@@ -10,7 +10,6 @@ export default function NavbarController() {
     const { setError } = useError();
     const navigate = useNavigate();
 
-    const xs = useMediaQuery((theme) => theme.breakpoints.only('xs'));
     const sm = useMediaQuery((theme) => theme.breakpoints.only('sm'));
     const md = useMediaQuery((theme) => theme.breakpoints.only('md'));
 
@@ -24,7 +23,7 @@ export default function NavbarController() {
         navigate('/users/login');
     };
 
-    return md
+    return md || sm
         ? Navbar({ logout: logoutUser, userData })
         : MobileNavbar({ logout: logoutUser, userData });
 }

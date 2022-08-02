@@ -30,9 +30,9 @@ async function EditAnswerCommentVote(req, res) {
     });
 
     if (!cachedVote) {
-        const { success, vote } = await createRequest('get', URL);
+        const { error, vote } = await createRequest('get', URL);
 
-        cachedVote = success ? { status: vote } : { status: null };
+        cachedVote = !error ? { status: vote } : { status: null };
     }
 
     if (cachedVote.status === 'upvoted') {

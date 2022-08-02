@@ -20,10 +20,14 @@ async function downvote(res, user) {
         });
     }
     {
-        const { success } = await createRequest('patch', `/users/${user.username}/points`, {
-            operation: 'decrement',
-            amount: 1,
-        });
+        const { success } = await createRequest(
+            'patch',
+            `/users/${user.username}/points`,
+            {
+                operation: 'decrement',
+                amount: 1,
+            }
+        );
         if (!success) return res.status(500).send(config.errorGeneric);
         await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
     }
@@ -44,7 +48,6 @@ async function upvote(res, user) {
 }
 
 async function EditQuestionVote(req, res) {
-
     const { user } = req;
     const { question_id } = req.params;
     const { operation } = req.body;
@@ -70,9 +73,8 @@ async function EditQuestionVote(req, res) {
     });
 
     if (!cachedVote) {
-        const { success, vote } = await createRequest('get', URL);
-        if (!success) return res.status(500).send(config.errorGeneric);
-        cachedVote = vote ?? null;
+        const { error, vote } = await createRequest('get', URL);
+        cachedVote = !error ? { status: vote } : { status: null };
     }
 
     if (cachedVote === 'upvoted') {
@@ -119,26 +121,38 @@ async function EditQuestionVote(req, res) {
         if (operation === 'upvote') {
             await upvote(res, user);
             {
-                const { success } = await createRequest('patch', `/users/${question.creator}/points`, {
-                    operation: 'increment',
-                    amount: 6,
-                });
+                const { success } = await createRequest(
+                    'patch',
+                    `/users/${question.creator}/points`,
+                    {
+                        operation: 'increment',
+                        amount: 6,
+                    }
+                );
                 if (!success) return res.status(500).send(config.errorGeneric);
             }
             return res.send({ vote: 'upvoted' });
         } else {
             {
-                const { success } = await createRequest('patch', `/users/${question.creator}/points`, {
-                    operation: 'increment',
-                    amount: 1,
-                });
+                const { success } = await createRequest(
+                    'patch',
+                    `/users/${question.creator}/points`,
+                    {
+                        operation: 'increment',
+                        amount: 1,
+                    }
+                );
                 if (!success) return res.status(500).send(config.errorGeneric);
             }
             {
-                const { success } = await createRequest('patch', `/users/${user.username}/points`, {
-                    operation: 'increment',
-                    amount: 1,
-                });
+                const { success } = await createRequest(
+                    'patch',
+                    `/users/${user.username}/points`,
+                    {
+                        operation: 'increment',
+                        amount: 1,
+                    }
+                );
                 if (!success) return res.status(500).send(config.errorGeneric);
                 await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
             }
@@ -147,20 +161,28 @@ async function EditQuestionVote(req, res) {
         if (operation === 'upvote') {
             await upvote(res, user);
             {
-                const { success } = await createRequest('patch', `/users/${question.creator}/points`, {
-                    operation: 'increment',
-                    amount: 5,
-                });
+                const { success } = await createRequest(
+                    'patch',
+                    `/users/${question.creator}/points`,
+                    {
+                        operation: 'increment',
+                        amount: 5,
+                    }
+                );
                 if (!success) return res.status(500).send(config.errorGeneric);
             }
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
             await downvote(res, user);
             {
-                const { success } = await createRequest('patch', `/users/${question.creator}/points`, {
-                    operation: 'decrement',
-                    amount: 1,
-                });
+                const { success } = await createRequest(
+                    'patch',
+                    `/users/${question.creator}/points`,
+                    {
+                        operation: 'decrement',
+                        amount: 1,
+                    }
+                );
                 if (!success) return res.status(500).send(config.errorGeneric);
             }
             return res.send({ vote: 'downvoted' });
