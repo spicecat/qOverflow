@@ -30,7 +30,7 @@ export function AnswersList() {
 }
 
 export function CommentsList() {
-    const { questionData: { comments: count, question_id } } = useQuestion();
+    const { questionData: { comments: count, loading, question_id } } = useQuestion();
 
     const getData = ({ comment_id }) =>
         getQuestionComments(question_id, { after: comment_id })
@@ -38,6 +38,6 @@ export function CommentsList() {
             .catch(() => []);
 
     return (
-        <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
+        !loading && <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
     );
 }

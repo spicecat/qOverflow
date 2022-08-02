@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { PaginatedList } from 'components';
+import { useSearchParams } from 'react-router-dom';
 
 const rowsPerPage = 5;
-export default function PaginatedListController({ concat = true, count, Component, getData, noData }) {
+export default function PaginatedListController({ count, Component, getData, noData }) {
+    const [searchParams] = useSearchParams();
+
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(true);
@@ -13,20 +16,21 @@ export default function PaginatedListController({ concat = true, count, Componen
             loadData();
     };
 
-    const loadData = async () => {
-        const newData = await getData(concat ? data[data.length - 1] ?? {} : {});
-        if (newData.length)
-            if (concat)
-                setData(data.concat(newData));
-            else
+    const loadData = async (clear) => {
+        const newData = await getData(clear ? {} : data[data.length - 1] ?? {});
+        if (newData?.length)
+            if (clear)
                 setData(newData);
+            else
+                setData(data.concat(newData));
         else
             setLoad(false);
     }
 
     useEffect(() => {
-        loadData();
-    }, [getData]);
+        loadData(true);
+    }, [searchParams])
+
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
