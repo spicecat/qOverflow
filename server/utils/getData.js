@@ -12,6 +12,7 @@ async function getAllData(Model, url, id, dataName) {
         ...item,
         id: item[id],
     }));
+
     for (const item of data)
         await Model.findByIdAndUpdate(item[id], item, { upsert: true });
     return data;

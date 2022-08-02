@@ -16,11 +16,17 @@ async function getQuestion(question_id) {
             'get',
             `/questions/${question_id}`
         );
+
         if (!success) return;
-        return Question.findByIdAndUpdate(question.question_id, question, {
-            upsert: true,
-            new: true,
-        });
+
+        return Question.findByIdAndUpdate(
+            question.question_id,
+            { ...question, id: question.question_id },
+            {
+                upsert: true,
+                new: true,
+            }
+        );
     } else return cachedQuestion;
 }
 

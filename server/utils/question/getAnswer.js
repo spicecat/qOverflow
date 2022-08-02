@@ -18,10 +18,14 @@ async function getAnswer(question_id, answer_id) {
             `/questions/${question_id}/answers/${answer_id}`
         );
         if (!success) return;
-        return Answer.findByIdAndUpdate(answer.answer_id, answer, {
-            upsert: true,
-            new: true,
-        });
+        return Answer.findByIdAndUpdate(
+            answer.answer_id,
+            { ...answer, id: answer.answer_id },
+            {
+                upsert: true,
+                new: true,
+            }
+        );
     } else return cachedAnswer;
 }
 

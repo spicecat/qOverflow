@@ -24,6 +24,7 @@ async function GetUser(req, res) {
 
     const newUser = await User.findByIdAndUpdate(user.user_id, user, {
         upsert: true,
+        new: true,
     });
 
     return res.send({

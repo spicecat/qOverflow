@@ -7,6 +7,8 @@ import ResetForm from './ResetFormController';
 import SearchForm from './SearchFormController';
 import UpdateForm from './UpdateFormController';
 import AnswerForm from './AnwerFormController';
+import SendMail from './SendMailController';
+
 export {
     AskForm,
     ForgotPasswordForm,
@@ -16,6 +18,6 @@ export {
     ResetForm,
     SearchForm,
     UpdateForm,
-    AnswerForm
-
+    AnswerForm,
+    SendMail,
 };
