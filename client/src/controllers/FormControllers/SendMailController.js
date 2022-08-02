@@ -3,19 +3,33 @@ import { Form } from 'controllers/FormControllers';
 import { composeMailFields } from 'services/fields';
 import { postMail } from 'services/mailServices';
 import { mailSchema } from 'services/schemas';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function SendMailController() {
-    const navigate = useNavigate();
+    const { userData } = useUser();
 
-    const sendMail = async (data) => {
-        const { status } = await postMail(data);
-        if (status === 200)
-            navigate('/');
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (checkAuth()) {
+            navigate('/users/login', {
+                state: {
+                    name: 'ask',
+                    msg: 'you need to be authenticated to access this feature',
+                    prevPath: '/ask',
+                },
+            });
+        }
+    }, []);
+
+    function checkAuth() {
+        if (!userData.username) {
+            return true;
+        }
     }
 
     return Form({
         fields: composeMailFields,
-        onSubmit: sendMail,
-        validationSchema: mailSchema
+        onSubmit: postMail,
+        validationSchema: mailSchema,
     });
 }

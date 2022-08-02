@@ -45,13 +45,11 @@ paths:
                         schema:
                             type: object
                             properties:
-                                username:
-                                    type: string
-                                    minLength: 4
-                                    maxLength: 16
                                 email:
                                     type: string
                                     format: email
+                                password:
+                                    type: string
             security:
                 - BearerAuth: []
             responses:
@@ -153,6 +151,27 @@ paths:
                                         $ref: '#/components/schemas/User'
                                     token:
                                         type: string
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '500':
+                    $ref: '#/components/responses/ServerError'
+            tags:
+                - users
+    /users/remember:
+        get:
+            summary: Retrieve authenticated data of the user
+            security:
+                - BearerAuth: []
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    user:
+                                        $ref: '#/components/schemas/User'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '500':
@@ -344,11 +363,11 @@ paths:
                     $ref: '#/components/responses/ServerError'
             tags:
                 - questions
-    /questions/{question_id}:
+    /questions/{questionID}:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         get:
-            summary: Get a question by its question_id
+            summary: Get a question by its questionID
             responses:
                 '200':
                     description: OK
@@ -364,7 +383,7 @@ paths:
             tags:
                 - questions
         patch:
-            summary: Modify a question by its question_id
+            summary: Modify a question by its questionID
             security:
                 - BearerAuth: []
             requestBody:
@@ -386,9 +405,9 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - questions
-    /questions/{question_id}/close:
+    /questions/{questionID}/close:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         patch:
             summary: Toggle vote to close a question
             security:
@@ -404,9 +423,9 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - questions
-    /questions/{question_id}/protect:
+    /questions/{questionID}/protect:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         patch:
             summary: Toggle vote to protect a question
             security:
@@ -422,9 +441,9 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - questions
-    /questions/{question_id}/reopen:
+    /questions/{questionID}/reopen:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         patch:
             summary: Toggle vote to reopen a question
             security:
@@ -440,9 +459,9 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - questions
-    /questions/{question_id}/vote:
+    /questions/{questionID}/vote:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         get:
             summary: Get a user's vote on a question
             security:
@@ -491,9 +510,9 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - questions
-    /questions/{question_id}/comments:
+    /questions/{questionID}/comments:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         get:
             summary: Get all comments of a question
             responses:
@@ -536,10 +555,10 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - comments
-    /questions/{question_id}/comments/{comment_id}:
+    /questions/{questionID}/comments/{commentID}:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/comment_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/commentID'
         delete:
             summary: Delete a question comment
             security:
@@ -555,10 +574,10 @@ paths:
                     $ref: '#/components/responses/ServerError'
             tags:
                 - comments
-    /questions/{question_id}/comments/{comment_id}/vote:
+    /questions/{questionID}/comments/{commentID}/vote:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/comment_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/commentID'
         get:
             summary: Get a user's vote on a question comment
             security:
@@ -609,9 +628,9 @@ paths:
             tags:
                 - comments
                 - votes
-    /questions/{question_id}/answers:
+    /questions/{questionID}/answers:
         parameters:
-            - $ref: '#/components/parameters/question_id'
+            - $ref: '#/components/parameters/questionID'
         get:
             summary: Get all answers of a question
             responses:
@@ -654,12 +673,12 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - answers
-    /questions/{question_id}/answers/{answer_id}:
+    /questions/{questionID}/answers/{answerID}:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
         patch:
-            summary: Modify an answer by its answer_id
+            summary: Modify an answer by its answerID
             security:
                 - BearerAuth: []
             requestBody:
@@ -688,10 +707,10 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - answers
-    /questions/{question_id}/answers/{answer_id}/accept:
+    /questions/{questionID}/answers/{answerID}/accept:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
         patch:
             summary: Accept an answer as correct
             security:
@@ -707,10 +726,10 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - answers
-    /questions/{question_id}/answers/{answer_id}/vote:
+    /questions/{questionID}/answers/{answerID}/vote:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
         get:
             summary: Get a user's vote on an answer
             security:
@@ -761,10 +780,10 @@ paths:
             tags:
                 - answers
                 - votes
-    /questions/{question_id}/answers/{answer_id}/comments:
+    /questions/{questionID}/answers/{answerID}/comments:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
         get:
             summary: Get all comments of a answer
             responses:
@@ -807,11 +826,11 @@ paths:
                     $ref: '#/components/responses/BadRequest'
             tags:
                 - comments
-    /questions/{question_id}/answers/{answer_id}/comments/{comment_id}:
+    /questions/{questionID}/answers/{answerID}/comments/{commentID}:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
-            - $ref: '#/components/parameters/comment_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
+            - $ref: '#/components/parameters/commentID'
         delete:
             summary: Delete an answer comment
             security:
@@ -827,11 +846,11 @@ paths:
                     $ref: '#/components/responses/ServerError'
             tags:
                 - comments
-    /questions/{question_id}/answers/{answer_id}/comments/{comment_id}/vote:
+    /questions/{questionID}/answers/{answerID}/comments/{commentID}/vote:
         parameters:
-            - $ref: '#/components/parameters/question_id'
-            - $ref: '#/components/parameters/answer_id'
-            - $ref: '#/components/parameters/comment_id'
+            - $ref: '#/components/parameters/questionID'
+            - $ref: '#/components/parameters/answerID'
+            - $ref: '#/components/parameters/commentID'
         get:
             summary: Get a user's vote on an answer comment
             security:
@@ -903,7 +922,7 @@ components:
                 id:
                     type: string
                     example: '62d8727d6c584b3b12eb23be'
-                question_id:
+                questionID:
                     type: string
                     example: '62d5c7ad1b8e0da8804bde22'
                 creator:
@@ -926,7 +945,7 @@ components:
                 id:
                     type: string
                     example: '62d87292afa7f2e7e81f1470'
-                parent_id:
+                parentID:
                     type: string
                     example: '62d5c7ad1b8e0da8804bde22'
                 creator:
@@ -1021,6 +1040,8 @@ components:
                     format: email
                 points:
                     type: integer
+                level:
+                    type: integer
         Vote:
             type: string
             nullable: true
@@ -1077,8 +1098,8 @@ components:
                                 type: string
                                 example: 'That resource was not found. Please check your request and try again.'
     parameters:
-        question_id:
-            name: question_id
+        questionID:
+            name: questionID
             in: path
             required: true
             schema:
@@ -1086,8 +1107,8 @@ components:
                 example: '62d61d428849dda1c15a8b64'
             description: >-
                 This should be the object id of the desired question.
-        answer_id:
-            name: answer_id
+        answerID:
+            name: answerID
             in: path
             required: true
             schema:
@@ -1095,8 +1116,8 @@ components:
                 example: '62d61ffd5f20e06f3cb350c7'
             description: >-
                 This should be the object id of the desired answer.
-        comment_id:
-            name: comment_id
+        commentID:
+            name: commentID
             in: path
             required: true
             schema:

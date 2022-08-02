@@ -12,38 +12,75 @@ async function getAllData(Model, url, id, dataName) {
         ...item,
         id: item[id],
     }));
+
     for (const item of data)
         await Model.findByIdAndUpdate(item[id], item, { upsert: true });
     return data;
 }
 
-async function getAllAnswers({ question_id, username }) {
+async function getAllAnswers(question_id, username) {
     if (question_id)
-        return getAllData(Answer, `/questions/${question_id}/answers`, 'answer_id', 'answers')
+        return getAllData(
+            Answer,
+            `/questions/${question_id}/answers`,
+            'answer_id',
+            'answers'
+        );
     else if (username)
-        return getAllData(Answer, `/users/${username}/answers`, 'answer_id', 'answers')
+        return getAllData(
+            Answer,
+            `/users/${username}/answers`,
+            'answer_id',
+            'answers'
+        );
 }
 
-async function getAllComments({ answer_id, question_id }) {
+async function getAllComments(answer_id, question_id) {
     if (answer_id)
-        return getAllData(Comment, `/questions/${question_id}/answers/${answer_id}/comments`, 'comment_id', 'comments')
+        return getAllData(
+            Comment,
+            `/questions/${question_id}/answers/${answer_id}/comments`,
+            'comment_id',
+            'comments'
+        );
     else
-        return getAllData(Comment, `/questions/${question_id}/comments`, 'comment_id', 'comments')
+        return getAllData(
+            Comment,
+            `/questions/${question_id}/comments`,
+            'comment_id',
+            'comments'
+        );
 }
 
-async function getAllMail({ username }) {
-    return getAllData(Mail, `/mail/${username}`, 'mail_id', 'messages')
+async function getAllMail({ question_id }) {
+    return getAllData(
+        Mail,
+        `/questions/${question_id}/comments`,
+        'mail_id',
+        'mail'
+    );
 }
 
-async function getAllQuestions({ username }) {
+async function getAllQuestions(username) {
     if (username)
-        return getAllData(Question, `/users/${username}/questions`, 'question_id', 'questions')
-    else
-        return getAllData(Question, `/questions/search`, 'question_id', 'questions')
+        return getAllData(
+            Question,
+            `/users/${username}/questions`,
+            'question_id',
+            'questions'
+        );
+    else {
+        return getAllData(
+            Question,
+            `/questions/search`,
+            'question_id',
+            'questions'
+        );
+    }
 }
 
 async function getAllUsers() {
-    return getAllData(User, `/users`, 'user_id', 'users')
+    return getAllData(User, `/users`, 'user_id', 'users');
 }
 
 module.exports = {
@@ -51,5 +88,6 @@ module.exports = {
     getAllComments,
     getAllMail,
     getAllQuestions,
-    getAllUsers
+    getAllUsers,
+    getAllMail,
 };

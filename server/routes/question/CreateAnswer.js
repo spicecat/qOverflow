@@ -22,16 +22,12 @@ async function CreateAnswer(req, res) {
     if (question.status === 'closed')
         return res.status(403).send(config.errorForbidden);
 
-    if (
-        question.status === 'protected' &&
-        getUserLevel(user.points) < 5
-    ) {
+    if (question.status === 'protected' && getUserLevel(user.points) < 5) {
         return res.status(403).send(config.errorForbidden);
     }
 
     // Verify request includes required information
-    if (!text)
-        return res.status(400).send(config.errorIncomplete);
+    if (!text) return res.status(400).send(config.errorIncomplete);
 
     // Create question with BDPA server
     const { success, answer } = await createRequest(

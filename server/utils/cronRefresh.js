@@ -11,5 +11,5 @@ async function refreshUsers(_job, done) {
 
 module.exports = {
     refreshQuestions,
-    refreshUsers
-}
+    refreshUsers,
+};
