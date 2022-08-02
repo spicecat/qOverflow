@@ -26,6 +26,8 @@ export default function PaginatedList({
                         count={count}
                         onChange={handleChangePage}
                         page={page}
+                        siblingCount={1}
+                        size='small'
                     />
                 </Box>
             )}
