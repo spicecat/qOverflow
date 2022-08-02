@@ -20,6 +20,7 @@ async function getAnswer(question_id, answer_id) {
         if (!success) return;
         return Answer.findByIdAndUpdate(answer.answer_id, answer, {
             upsert: true,
+            new: true,
         });
     } else return cachedAnswer;
 }
