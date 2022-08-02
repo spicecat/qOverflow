@@ -2,11 +2,10 @@ import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/mater
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
 import CreationInfoTag from 'components/CreationInfoTag';
-import { useUser } from 'contexts';
-import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
-import { getAnswerVote, updateAcceptAnswer, updateAnswerVote, updateQuestion } from 'services/questionsServices';
 import { useQuestion } from 'contexts';
-import { postQuestionComment, postAnswerComment } from 'services/questionsServices';
+import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
+import { getAnswerVote, postAnswerComment, updateAcceptAnswer, updateAnswerVote } from 'services/questionsServices';
+
 export default function Answer({
     accepted,
     answer_id,
@@ -18,19 +17,17 @@ export default function Answer({
     text,
     upvotes,
 }) {
-    const { userData: { level, username } } = useUser();
-
-    const getVote = () => getAnswerVote(question_id, answer_id);
-    const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    
-    const {permissions} = useQuestion();
+    const { permissions } = useQuestion();
     let canVote = permissions.canVote;
     let canComment = permissions.canComment;
     let canAccept = permissions.canAccept;
+    
+    const getVote = () => getAnswerVote(question_id, answer_id);
+    const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
 
-    function acceptAnswer(){
+    function acceptAnswer() {
         updateAcceptAnswer(question_id, answer_id)
-        
+
     }
     const postComment = (data) => postAnswerComment(question_id, answer_id, data);
 
@@ -52,8 +49,14 @@ export default function Answer({
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CommentControl {...{canComment, postComment}} />
-                    <Tooltip title = {!canAccept && "Only the creator can accept, or an answer is already accepted"}><span><Button  onClick = {acceptAnswer} disabled = {!canAccept} style = {{'marginLeft':'10px'}}variant = "standard">Accept</Button></span></Tooltip>
+                    <CommentControl {...{ canComment, postComment }} />
+                    {canAccept && (
+                        <span>
+                            <Button onClick={acceptAnswer} style={{ 'marginLeft': '10px' }} variant="standard">
+                                Accept
+                            </Button>
+                        </span>
+                    )}
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
