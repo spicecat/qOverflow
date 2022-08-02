@@ -15,11 +15,9 @@ export function AnswerCommentsList({ answer_id, comments: count }) {
 }
 
 export function AnswersList() {
-    const { questionData: { answers: count, question_id } } = useQuestion();
-
+    const { questionData: { answers: count, loading, question_id } } = useQuestion();
+    
     const sortByPoints = answers => answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
-
-    console.log(question_id)
 
     const getData = ({ answer_id }) =>
         getAnswers(question_id, { after: answer_id })
@@ -27,19 +25,19 @@ export function AnswersList() {
             .catch(() => []);
 
     return (
-        question_id && <PaginatedList {...{ count, Component: Answer, getData, noData: false }} />
+        !loading && <PaginatedList {...{ count, Component: Answer, getData, noData: false }} />
     );
 }
 
 export function CommentsList() {
     const { questionData: { comments: count, question_id } } = useQuestion();
 
-    const getData = ({comment_id}) =>
-        getQuestionComments(question_id, {after: comment_id})
+    const getData = ({ comment_id }) =>
+        getQuestionComments(question_id, { after: comment_id })
             .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
             .catch(() => []);
 
     return (
-        question_id && <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
+        <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />
     );
 }
