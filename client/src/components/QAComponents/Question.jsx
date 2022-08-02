@@ -1,4 +1,13 @@
-import { Box, Chip, Divider, ListItem, ListItemText, Typography, Button, Tooltip } from '@mui/material';
+import {
+    Box,
+    Chip,
+    Divider,
+    ListItem,
+    ListItemText,
+    Typography,
+    Button,
+    Tooltip,
+} from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, VoteControl } from 'controllers/QAControllers';
@@ -9,12 +18,16 @@ import { useQuestion, useUser } from 'contexts';
 import CreateAnswer from 'components/CreateAnswer';
 const statusColor = (status) => {
     switch (status) {
-        case 'open': return 'primary';
-        case 'protected': return 'secondary';
-        case 'closed': return 'error';
-        default: return 'default';
+        case 'open':
+            return 'primary';
+        case 'protected':
+            return 'secondary';
+        case 'closed':
+            return 'error';
+        default:
+            return 'default';
     }
-}
+};
 
 export default function Question({
     answers,
@@ -33,6 +46,7 @@ export default function Question({
     close,
     reopen
 }) {
+    
 
     const {userData} =  useUser();
     const [ongoingVote, setOngoingVote] = useState({})
@@ -94,22 +108,21 @@ export default function Question({
     const getVote = () => getQuestionVote(question_id);
     const postComment = (data) => postQuestionComment(question_id, data);
     const updateVote = (data) => updateQuestionVote(question_id, data);
-    
 
     return (
         <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
                 <Typography display='inline' m={1}>Views: {views}</Typography>
-                <Typography display='inline' m={1}>Answers: {answers} </Typography>
-                <Typography display='inline' m={1}>Comments: {comments} </Typography>
-                <Typography display='inline' m={1}> Status:</Typography>
-                
+                <Typography display='inline' m={1}>Answers: {answers}</Typography>
+                <Typography display='inline' m={1}>Comments: {comments}</Typography>
+                <Typography display='inline' m={1}>Status:</Typography>
                 <Chip
                     color={statusColor(status)}
                     label={status}
                     size='small'
                 />
+
                 <Typography display='inline' m={1}>Accepted Answer:</Typography>
                 <Chip
                     color={hasAcceptedAnswer ? 'success' : 'error'}
@@ -133,9 +146,17 @@ export default function Question({
                 {Object.keys(ongoingVote).length > 0 && <Typography>{ongoingVote.users.toString()} - voting to {ongoingVote.type} this question </Typography>}
             </Box>
             <Divider />
-            
+
             <ListItem disablePadding>
-                <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes, canVote }} />
+                <VoteControl
+                    {...{
+                        downvotes,
+                        getVote,
+                        orientation: 'vertical',
+                        updateVote,
+                        upvotes
+                    }}
+                />
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator }} />
                     <ReactMarkdown>
@@ -144,7 +165,7 @@ export default function Question({
                     <CommentControl  {...{ postComment, canComment}} />
                 </ListItemText>
             </ListItem>
-            <CreateAnswer {...{canAnswer, question_id}}/>
+            <CreateAnswer />
         </>
     );
 }

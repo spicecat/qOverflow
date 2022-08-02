@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-import { AnswerProvider } from 'contexts';
-import { CreationInfoTag } from 'controllers';
+
+import { useUser } from 'contexts';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 import { getAnswerVote, updateAcceptAnswer, updateAnswerVote, updateQuestion } from 'services/questionsServices';
 import { useQuestion } from 'contexts';
@@ -16,11 +16,13 @@ export default function Answer({
     downvotes,
     question_id,
     text,
-    upvotes
+    upvotes,
 }) {
+    const { userData: { level, username } } = useUser();
+
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    const postComment = (data) => postQuestionComment(question_id, data);
+    
     const {permissions} = useQuestion();
     let canVote = permissions.canVote;
     let canComment = permissions.canComment;
@@ -30,6 +32,8 @@ export default function Answer({
         updateAcceptAnswer(question_id, answer_id)
         
     }
+    const postComment = (data) => postAnswerComment(question_id, answer_id, data);
+
     return (
         <span key={answer_id}>
             <ListItem disablePadding>
@@ -48,15 +52,13 @@ export default function Answer({
                     <ReactMarkdown>
                         {text}
                     </ReactMarkdown>
-                    <CommentControl {...{canComment}} />
+                    <CommentControl {...{canComment, postComment}} />
                     <Tooltip title = {!canAccept && "Only the creator can accept, or an answer is already accepted"}><span><Button  onClick = {acceptAnswer} disabled = {!canAccept} style = {{'marginLeft':'10px'}}variant = "standard">Accept</Button></span></Tooltip>
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-                {/* <AnswerProvider> */}
                 <AnswerCommentsList {...{ answer_id, comments }} />
-                {/* </AnswerProvider> */}
             </ListItem>
         </span>
-    )
+    );
 }

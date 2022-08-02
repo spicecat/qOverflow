@@ -1,57 +1,23 @@
 const config = require('server/config.json');
-const fetchMail = require('server/utils/fetchMail');
 const Mail = require('server/db/models/Mail');
 const User = require('server/db/models/User');
+const { getAllMail } = require('server/utils/getData');
 
 async function Get(req, res) {
-    const { user } = req;
+    const { lastMailFetch, username } = req.user;
 
-    // Retrieve cached mail
-    const cachedMail = await Mail.find({ reciever: user.username }).sort({
-        createdAt: 'desc',
-    });
-
-    // If there is cached mail and last fetch was recently, return
-    if (
-        cachedMail.length &&
-        Number(user.lastMailFetch) + config.mailExpires > Date.now()
-    ) {
-        return res.send({ messages: cachedMail });
-    }
-
-    // Fetch most recent mail
-    const recentTimestamp = cachedMail[0] ? cachedMail[0].createdAt : 0;
-    const { success, requests } = await fetchMail(
-        `/mail/${user.username}`,
-        recentTimestamp
-    );
-
-    if (!success) return res.status(500).send(config.errorGeneric);
-
-    // Map over data and reformat it, before uploading to database
-    await requests
-        .reduce(async (acc, req) => {
-            const reformat = req.messages.map((message) => ({
-                ...message,
-                _id: message.mail_id,
-            }));
-            return [...reformat, ...acc];
-        }, [])
-        .map(async (message) => {
-            return Mail.findByIdAndUpdate(message.id, message, {
-                upsert: true,
-            });
+    // Fetch mail if expired
+    if (Number(lastMailFetch) + config.mailExpires < Date.now()) {
+        const messages = await getAllMail({ username });
+        return res.send({ messages });
+    } else {
+        const messages = await Mail.find({ receiver: username }).sort({
+            createdAt: 'desc',
         });
 
-    // Set last fetch to current time
-    await User.findByIdAndUpdate(user.id, { lastMailFetch: Date.now() });
-
-    // Return updated cached Mail
-    const updatedCache = await Mail.find({ receiver: user.username }).sort({
-        createdAt: 'desc',
-    });
-
-    return res.send({ messages: updatedCache });
+        console.log(username);
+        return res.send({ messages });
+    }
 }
 
 module.exports = Get;

@@ -19,8 +19,8 @@
         "superagent-throttle": "^1.0.1"
     },
     "scripts": {
-        "start": "pm2 start ./bin/www",
-        "dev": "nodemon ./bin/www"
+        "start": "nodemon ./bin/www",
+        "prod": "pm2 start ./bin/www"
     },
     "devDependencies": {
         "jest": "^28.1.3",

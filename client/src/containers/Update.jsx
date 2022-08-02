@@ -6,10 +6,10 @@ import { useUser } from 'contexts';
 
 export default function Register() {
     const navigate = useNavigate();
-    const { userData } = useUser();
+    const { userData: loading } = useUser();
 
     useEffect(() => {
-        if (checkAuth()) {
+        if (loading === false) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -18,13 +18,7 @@ export default function Register() {
                 },
             });
         }
-    }, []);
-
-    function checkAuth() {
-        if (!userData.username) {
-            return true;
-        }
-    }
+    }, [loading, navigate]);
 
     return (
         <Grid
@@ -34,15 +28,15 @@ export default function Register() {
             justifyContent='center'
             style={{ height: '92vh' }}
         >
-            <Grid item xs={3.5} />
-            <Grid item xs={5}>
+            <Grid item xs />
+            <Grid item xs={11} sm={7} md={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
                         <UpdateForm />
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={3.5} />
+            <Grid item xs />
         </Grid>
     );
 }

@@ -1,15 +1,13 @@
+const config = require('server/config.json');
 const Question = require('server/db/models/Question');
 const User = require('server/db/models/User');
-const config = require('server/config.json');
 const createRequest = require('server/utils/api');
 
 async function CreateQuestion(req, res) {
-    const { user } = req;
+    const user = req.user;
     const { title, text } = req.body;
 
-    if (!title || !text) {
-        return res.status(400).send(config.errorIncomplete);
-    }
+    if (!title || !text) return res.status(400).send(config.errorIncomplete);
 
     const { success, question } = await createRequest('post', `/questions`, {
         creator: user.username,

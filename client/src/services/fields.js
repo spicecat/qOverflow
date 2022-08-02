@@ -8,28 +8,28 @@ const answerFields = [
     {
         id: 'text',
         label: 'Answer',
-        multiline: true
-    }
+        multiline: true,
+    },
 ];
 
 const askQuestionFields = [
     {
         id: 'title',
-        label: 'Title'
+        label: 'Title',
     },
     {
         id: 'text',
         label: 'Text',
-        multiline: true
-    }
+        multiline: true,
+    },
 ];
 
 const commentFields = [
     {
         id: 'text',
         label: 'Comment',
-        multiline: true
-    }
+        multiline: true,
+    },
 ];
 
 const composeMailFields = [
@@ -39,38 +39,38 @@ const composeMailFields = [
     },
     {
         id: 'subject',
-        label: 'Subject:',
+        label: 'Subject',
     },
     {
         id: 'text',
         label: 'Body',
         multiline: true,
-    }
+    },
 ];
 
 const loginFields = [
     {
         id: 'username',
-        title: 'Username'
+        title: 'Username',
     },
     {
         id: 'password',
         title: 'Password',
-        type: 'password'
-    }
+        type: 'password',
+    },
 ];
 
 const recoverFields = [
     {
         id: 'username',
-        title: 'Username'
-    }
+        title: 'Username',
+    },
 ];
 
 const registerFields = [
     {
         id: 'username',
-        title: 'Username'
+        title: 'Username',
     },
     {
         id: 'email',
@@ -85,7 +85,7 @@ const registerFields = [
     {
         id: 'captcha',
         title: 'CAPTCHA',
-    }
+    },
 ];
 
 const resetFields = [
@@ -94,7 +94,7 @@ const resetFields = [
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
         title: 'Password',
         type: 'password',
-    }
+    },
 ];
 
 const patchFields = [
@@ -107,8 +107,8 @@ const patchFields = [
         helperText: (value) => `Password strength: ${passwordStrength(value)}`,
         title: 'Password',
         type: 'password',
-    }
-]
+    },
+];
 
 const searchFields = [
     {
@@ -120,13 +120,13 @@ const searchFields = [
         label: 'Text',
     },
     {
-         id: 'createdAt',
+        id: 'createdAt',
         type: 'date',
     },
     {
         id: 'creator',
         label: 'Creator',
-    }
+    },
 ];
 
 export {
@@ -139,5 +139,5 @@ export {
     registerFields,
     recoverFields,
     resetFields,
-    searchFields
+    searchFields,
 };

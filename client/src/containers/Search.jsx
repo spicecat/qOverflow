@@ -5,14 +5,9 @@ import { SearchForm } from 'controllers/FormControllers';
 import { PaginatedList } from 'controllers';
 import { ListQuestion } from 'components';
 import { searchQuestions } from 'services/questionsServices';
-import { useEffect } from 'react';
 
 export default function Search() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    useEffect(() => {
-        setSearchParams()
-    }, [])
-
+    const [searchParams] = useSearchParams();
 
     const getData = async () => {
         let match = {};
@@ -22,20 +17,20 @@ export default function Search() {
 
         if (newdate) {
             newdate = new Date(newdate)
-            time["$gte"] = parseInt(newdate.getTime());
+            time['$gte'] = parseInt(newdate.getTime());
             newdate.setDate(newdate.getDate() + 1)
-            time["$lte"] = newdate.getTime()
-            match = JSON.stringify({ "createdAt": time })
+            time['$lte'] = newdate.getTime()
+            match = JSON.stringify({ createdAt: time })
         }
 
         const creator = searchParams.get('creator');
         if (creator) regexMatch.creator = creator;
 
         const text = searchParams.get('text');
-        if (text) regexMatch.text = text.replaceAll(' ', '|') + "gmi";
+        if (text) regexMatch.text = text.replaceAll(' ', '|');
 
         const title = searchParams.get('title');
-        if (title) regexMatch.title = title.replaceAll(' ', '|') + "gi";
+        if (title) regexMatch.title = title.replaceAll(' ', '|');
 
         const { questions } = await searchQuestions({ regexMatch, match })
 

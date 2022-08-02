@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { PaginatedList } from 'components';
+import { useSearchParams } from 'react-router-dom';
 
 const rowsPerPage = 5;
 export default function PaginatedListController({ count, Component, getData, noData }) {
+    const [searchParams] = useSearchParams();
+
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(true);
@@ -22,8 +25,9 @@ export default function PaginatedListController({ count, Component, getData, noD
     }
 
     useEffect(() => {
-        loadData();
-    }, [getData]);
+        loadData(true);
+    }, [searchParams])
+
 
     // useEffect(() => {
     //     const interval = setInterval(() => {

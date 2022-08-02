@@ -1,37 +1,32 @@
 import { Card, CardContent } from '@mui/material';
-import { AskForm } from '../controllers/FormControllers';
-import { MdPreview } from 'components';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useUser } from 'contexts';
+import { AskForm } from 'controllers/FormControllers';
+import { MdPreview } from 'components';
 
 export default function Ask() {
     const navigate = useNavigate();
-    const { userData } = useUser();
+    const { userData: loading } = useUser();
 
     useEffect(() => {
-        if (checkAuth()) {
+        if (loading === false) {
             navigate('/users/login', {
                 state: {
-                    name: 'Ask',
+                    name: 'dashboard',
                     msg: 'You need to be authenticated to access this feature.',
-                    prevPath: '/questions/ask',
+                    prevPath: '/dashboard',
                 },
             });
         }
-    }, []);
-
-    function checkAuth() {
-        if (!userData.username) {
-            return true;
-        }
-    }
-
+    }, [loading, navigate]);
+    
     return (
         <div>
             <Card>
                 <CardContent>
-                    <AskForm></AskForm>
+                    <AskForm />
                     <MdPreview />
                 </CardContent>
             </Card>

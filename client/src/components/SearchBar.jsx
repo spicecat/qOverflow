@@ -48,7 +48,7 @@ const Input = styled(InputBase)(({ theme }) => ({
 export default function SearchBar() {
     let navigate = useNavigate();
 
-    function navSearch(e) {
+    function navSearch() {
         navigate('/questions/search')
     }
 
@@ -59,7 +59,7 @@ export default function SearchBar() {
                     onClick={navSearch}
                     startIcon={<SearchIcon />}
                     style={{ pointerEvents: 'auto' }}
-                    variant="contained"
+                    variant='contained'
                 >
                     Search
                 </Button>

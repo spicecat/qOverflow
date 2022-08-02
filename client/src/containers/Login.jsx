@@ -23,14 +23,16 @@ export default function Login() {
                 justifyContent='center'
                 style={{ height: '92vh' }}
             >
-                <Grid item xs={3.5} />
-                <Grid item xs={5}>
+                <Grid item xs />
+                <Grid item xs={11} sm={7} md={5}>
                     <Card sx={{ padding: '1vh' }}>
                         <CardContent>
                             <LoginForm />
                             <Typography variant='body1'>
                                 Forgot your password?{' '}
-                                <Link to='/users/recover'>Recover Password</Link>
+                                <Link to='/users/recover'>
+                                    Recover Password
+                                </Link>
                             </Typography>
                         </CardContent>
                     </Card>
@@ -38,7 +40,7 @@ export default function Login() {
                         <Alert severity='warning'> {returnMsg()} </Alert>
                     )}
                 </Grid>
-                <Grid item xs={3.5} />
+                <Grid item xs />
             </Grid>
         </>
     );

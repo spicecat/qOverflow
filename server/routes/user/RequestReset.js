@@ -5,7 +5,7 @@ async function RequestReset(req, res) {
 
     const request = await ResetRequest.create({ user: username });
     console.log(
-        `Your request to reset your password has been reciever. Visit http://localhost:3000/reset/${request.id} to reset your password.`
+        `Your request to reset your password has been receiver. Visit http://localhost:3000/reset/${request.id} to reset your password.`
     );
 
     return res.sendStatus(200);
