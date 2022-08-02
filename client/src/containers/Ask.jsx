@@ -1,9 +1,10 @@
 import { Card, CardContent } from '@mui/material';
-import { AskForm } from '../controllers/FormControllers';
-import { MdPreview } from 'components';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useUser } from 'contexts';
+import { AskForm } from 'controllers/FormControllers';
+import { MdPreview } from 'components';
 
 export default function Ask() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Ask() {
         <div>
             <Card>
                 <CardContent>
-                    <AskForm></AskForm>
+                    <AskForm />
                     <MdPreview />
                 </CardContent>
             </Card>

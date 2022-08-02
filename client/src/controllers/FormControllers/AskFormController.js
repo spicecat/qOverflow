@@ -9,9 +9,9 @@ export default function AskFormController() {
     const navigate = useNavigate();
 
     const askQuestion = async (fields) => {
-        const { success } = await postQuestion(fields);
+        const { status } = await postQuestion(fields);
 
-        if (success)
+        if (status === 200)
             navigate('/');
     }
 
