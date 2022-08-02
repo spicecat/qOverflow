@@ -7,29 +7,29 @@ import { RegisterForm } from 'controllers/FormControllers';
 export default function Register() {
     return (
         <>
-        <Helmet>
+            <Helmet>
                 <title>Register - qOverflow</title>
             </Helmet>
-        <Grid
-            container
-            spacing={2}
-            alignItems='center'
-            justifyContent='center'
-            style={{ height: '92vh' }}
-        >
-            <Grid item xs={3.5} />
-            <Grid item xs={5}>
-                <Card sx={{ padding: '1vh' }}>
-                    <CardContent>
-                        <RegisterForm />
-                        <div>
-                            <img src={CAPTCHA} alt='CAPTCHA' />
-                        </div>
-                    </CardContent>
-                </Card>
+            <Grid
+                container
+                spacing={2}
+                alignItems='center'
+                justifyContent='center'
+                style={{ height: '92vh' }}
+            >
+                <Grid item xs='auto' />
+                <Grid item xs={11} sm={7} md={5}>
+                    <Card sx={{ padding: '1vh' }}>
+                        <CardContent>
+                            <RegisterForm />
+                            <div>
+                                <img src={CAPTCHA} alt='CAPTCHA' />
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs='auto' />
             </Grid>
-            <Grid item xs={3.5} />
-        </Grid>
         </>
     );
 }
