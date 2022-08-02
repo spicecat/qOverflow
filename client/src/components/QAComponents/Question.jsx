@@ -143,7 +143,7 @@ export default function Question({
                     Ask question
                 </Button>
 
-                <Tooltip title={!close && 'You must be level 7'}>
+                {close ? (
                     <span>
                         <Button
                             disabled={!close}
@@ -156,14 +156,24 @@ export default function Question({
                             Close/Open
                         </Button>
                     </span>
-                </Tooltip>
+                ) : (
+                    <Tooltip title={!close && 'You must be level 7'}>
+                        <span>
+                            <Button
+                                disabled={!close}
+                                style={{ marginLeft: '10px' }}
+                                display='inline'
+                                m={1}
+                                variant='contained'
+                                onClick={changeProtect}
+                            >
+                                Close/Open
+                            </Button>
+                        </span>
+                    </Tooltip>
+                )}
 
-                <Tooltip
-                    title={
-                        !protect &&
-                        'You must be  level 6 and this question must be open'
-                    }
-                >
+                {protect ? (
                     <span>
                         <Button
                             disabled={!protect}
@@ -176,7 +186,27 @@ export default function Question({
                             Protect
                         </Button>
                     </span>
-                </Tooltip>
+                ) : (
+                    <Tooltip
+                        title={
+                            !protect &&
+                            'You must be  level 6 and this question must be open'
+                        }
+                    >
+                        <span>
+                            <Button
+                                disabled={!protect}
+                                style={{ marginLeft: '10px' }}
+                                display='inline'
+                                m={1}
+                                variant='contained'
+                                onClick={changeClose}
+                            >
+                                Protect
+                            </Button>
+                        </span>
+                    </Tooltip>
+                )}
             </Box>
             <Divider />
 

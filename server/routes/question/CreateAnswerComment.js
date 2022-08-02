@@ -6,7 +6,7 @@ const createRequest = require('server/utils/api');
 const getUserLevel = require('server/utils/getUserLevel');
 
 async function CreateAnswerComment(req, res) {
-    const { username } = req.user;
+    const user = req.user;
     const { question_id, answer_id } = req.params;
     const { text } = req.body;
 
@@ -20,20 +20,22 @@ async function CreateAnswerComment(req, res) {
         return res.status(403).send(config.errorForbidden);
 
     // Verify user has permissions to comment
-    if (getUserLevel(user.points) < 3 && cachedAnswer?.creator !== username) {
+    if (
+        getUserLevel(user.points) < 3 &&
+        cachedAnswer?.creator !== user.username
+    ) {
         return res.status(403).send(config.errorForbidden);
     }
 
     // Verify text is included in request body
-    if (!text)
-        return res.status(400).send({ success: false });
+    if (!text) return res.status(400).send({ success: false });
 
     // Post question with BDPA server
     const { success, comment } = await createRequest(
         'post',
         `/questions/${question_id}/answers/${answer_id}/comments`,
         {
-            creator: username,
+            creator: user.username,
             text,
         }
     );

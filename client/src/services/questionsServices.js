@@ -63,7 +63,7 @@ const updateAnswerVote = async (question_id, answer_id, data) =>
 const getAnswerComments = async (question_id, answer_id) =>
     callQuestionsAPI('get', `/${question_id}/answers/${answer_id}/comments`);
 
-const postAnswerComments = async (question_id, answer_id, data) =>
+const postAnswerComment = async (question_id, answer_id, data) =>
     callQuestionsAPI(
         'post',
         `/${question_id}/answers/${answer_id}/comments`,
@@ -109,7 +109,7 @@ export {
     getQuestion,
     getQuestionComments,
     postAnswer,
-    postAnswerComments,
+    postAnswerComment,
     postQuestion,
     postQuestionComment,
     searchQuestions,
