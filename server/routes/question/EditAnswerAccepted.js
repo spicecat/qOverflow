@@ -30,6 +30,10 @@ async function EditAnswerAccepted(req, res) {
     }
 
     const cachedAnswer = await Answer.findByIdAndDelete(answer_id);
+    //update hasAcceptedAnswer
+    await createRequest('patch', `/questions/${question_id}`, {
+        hasAcceptedAnswer: true
+    });
 
     // Increment points of answer creator
     await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {

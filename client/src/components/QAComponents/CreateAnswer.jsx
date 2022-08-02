@@ -11,10 +11,10 @@ export default function CreateAnswer({
 
     return (
         <div>
-            <Tooltip title={canAnswer ? '' : 'You need to be authenticated to answer or level 5 if the question is protected'}>
+            <Tooltip title={!canAnswer ? '' : 'You need to be authenticated to answer or level 5 if the question is protected'}>
                 <span>
                     <Button
-                        disabled={!canAnswer}
+                        disabled={canAnswer}
                         variant='contained'
                         onClick={toggleShow}
                     >

@@ -6,8 +6,8 @@ import { getAnswerComments, getAnswers, getQuestionComments } from 'services/que
 export function AnswerCommentsList({ answer_id, comments: count }) {
     const { questionData: { question_id } } = useQuestion();
 
-    const getData = () =>
-        getAnswerComments(question_id, answer_id)
+    const getData = ({ comment_id }) =>
+        getAnswerComments(question_id, answer_id, { after: comment_id })
             .then(({ comments }) => comments.map(comment => ({ ...comment, answer_id, question_id })))
             .catch(() => []);
 

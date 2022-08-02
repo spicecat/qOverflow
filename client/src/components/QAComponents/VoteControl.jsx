@@ -12,7 +12,7 @@ export default function VoteControl({
     upvotes,
     vote
 }) {
-
+   
     return (
         <span style={{ marginRight: 8 }}>
             <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>

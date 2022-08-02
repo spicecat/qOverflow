@@ -9,7 +9,7 @@ import { searchQuestions } from 'services/questionsServices';
 export default function Search() {
     const [searchParams] = useSearchParams();
 
-    const getData = async ({ question_id }) => {
+    const getData = async () => {
         let match = {};
         const regexMatch = {}
         const time = {};
@@ -32,7 +32,7 @@ export default function Search() {
         const title = searchParams.get('title');
         if (title) regexMatch.title = title.replaceAll(' ', '|');
 
-        const { questions } = await searchQuestions({ after: question_id, regexMatch, match })
+        const { questions } = await searchQuestions({ regexMatch, match })
 
         return questions;
     }
@@ -45,7 +45,7 @@ export default function Search() {
                     <SearchForm />
                 </CardContent>
             </Card>
-            <PaginatedList {...{ Component: ListQuestion, getData }} />;
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />;
         </div>
     )
 }          

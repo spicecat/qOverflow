@@ -31,13 +31,13 @@ async function EditQuestionStatusProtected(req, res) {
     // Toggle vote
     if (question.protect.includes(user.username)) {
         await Question.findByIdAndUpdate(question_id, {
-            protect: { $pull: user.username },
+            $pull: { protect: user.username },
         });
 
         return res.sendStatus(200);
     } else {
         await Question.findByIdAndUpdate(question_id, {
-            protect: { $push: user.username },
+            $push: { protect: user.username },
         });
     }
 

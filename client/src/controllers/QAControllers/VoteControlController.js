@@ -8,6 +8,7 @@ export default function VoteControlController({
     orientation,
     updateVote,
     upvotes,
+    canVote
 }) {
     const { questionData: { status } } = useQuestion();
     const { userData: { level } } = useUser();
@@ -63,7 +64,8 @@ export default function VoteControlController({
             handleUpvote,
             orientation,
             upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
-            vote
+            vote,
+            canVote
         })
     );
 }

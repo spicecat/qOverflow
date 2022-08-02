@@ -49,7 +49,7 @@ async function CreateAnswer(req, res) {
         amount: 2,
     });
 
-    await User.findByIdAndUpdate(user.id, { $inc: { $points: 2 } });
+    await User.findByIdAndUpdate(user.id, { $inc: { points: 2 } });
 
     return res.sendStatus(200);
 }
