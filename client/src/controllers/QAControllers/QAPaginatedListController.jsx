@@ -16,7 +16,7 @@ export function AnswerCommentsList({ answer_id, comments: count }) {
 
 export function AnswersList() {
     const { questionData: { answers: count, loading, question_id } } = useQuestion();
-    
+
     const sortByPoints = answers => answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
 
     const getData = ({ answer_id }) =>
@@ -32,9 +32,11 @@ export function AnswersList() {
 export function CommentsList() {
     const { questionData: { comments: count, loading, question_id } } = useQuestion();
 
+    const sortByCreatedAt = comments => comments.sort((a, b) => a.createdAt - b.createdAt);
+
     const getData = ({ comment_id }) =>
         getQuestionComments(question_id, { after: comment_id })
-            .then(({ comments }) => comments.map(comment => ({ ...comment, question_id })))
+            .then(({ comments }) => sortByCreatedAt(comments).map(comment => ({ ...comment, question_id })))
             .catch(() => []);
 
     return (
