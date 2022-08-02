@@ -45,7 +45,7 @@ export default function Search() {
                     <SearchForm />
                 </CardContent>
             </Card>
-            <PaginatedList {...{ Component: ListQuestion, getData }} />;
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />;
         </div>
     )
 }          

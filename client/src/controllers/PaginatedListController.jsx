@@ -3,12 +3,12 @@ import { PaginatedList } from 'components';
 import { useSearchParams } from 'react-router-dom';
 
 const rowsPerPage = 5;
-export default function PaginatedListController({ count, Component, getData, noData }) {
+export default function PaginatedListController({ concat = false, count, Component, getData, noData }) {
     const [searchParams] = useSearchParams();
 
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [load, setLoad] = useState(true);
+    const [load, setLoad] = useState(concat);
 
     const handleChangePage = (_, newPage) => {
         setPage(newPage);
@@ -18,6 +18,7 @@ export default function PaginatedListController({ count, Component, getData, noD
 
     const loadData = async (clear) => {
         const newData = await getData(clear ? {} : data[data.length - 1] ?? {});
+
         if (newData?.length)
             if (clear)
                 setData(newData);
