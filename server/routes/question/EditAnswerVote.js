@@ -26,8 +26,11 @@ async function EditAnswerVote(req, res) {
 
     // Get cached vote and answer, refresh cache if not present
     let cachedAnswer;
-    try { cachedAnswer = await Answer.findById(answer_id); }
-    catch { return res.status(400).send(config.errorNotFound); }
+    try {
+        cachedAnswer = await Answer.findById(answer_id);
+    } catch {
+        return res.status(400).send(config.errorNotFound);
+    }
 
     let cachedVote = await Vote.findOneAndDelete({
         parent_id: answer_id,
@@ -35,9 +38,9 @@ async function EditAnswerVote(req, res) {
     });
 
     if (!cachedVote) {
-        const { success, vote } = await createRequest('get', URL);
+        const { error, vote } = await createRequest('get', URL);
 
-        cachedVote = success ? { status: vote } : { status: null };
+        cachedVote = !error ? { status: vote } : { status: null };
     }
 
     if (cachedVote.status === 'upvoted') {
