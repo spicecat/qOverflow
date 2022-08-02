@@ -27,7 +27,7 @@ async function CreateQuestion(req, res) {
         amount: 1,
     });
 
-    await User.findByIdAndUpdate(user.id, { points: { $inc: 1 } });
+    await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
 
     return res.sendStatus(200);
 }
