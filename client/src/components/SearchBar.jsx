@@ -48,7 +48,7 @@ const Input = styled(InputBase)(({ theme }) => ({
 export default function SearchBar() {
     let navigate = useNavigate();
 
-    function navSearch(e) {
+    function navSearch() {
         navigate('/questions/search')
     }
 

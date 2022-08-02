@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 import { useQuestion, useUser } from 'contexts';
 import { CreateAnswer } from 'components/QAComponents';
 
-export default function CommentControlController() {
+export default function CreateAnswerController() {
     const { questionData: { status } } = useQuestion();
     const { userData: { level } } = useUser();
 

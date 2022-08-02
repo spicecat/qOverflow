@@ -7,7 +7,6 @@ export default function CreateAnswer({
     canAnswer,
     show,
     toggleShow,
-    question_id
 }) {
 
     return (
@@ -26,7 +25,7 @@ export default function CreateAnswer({
             {show && (
                 <Card>
                     <CardContent>
-                        <AnswerForm {...{ question_id }} />
+                        <AnswerForm />
                         <MdPreview />
                     </CardContent>
                 </Card>
