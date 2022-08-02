@@ -12,9 +12,9 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 
 import { CreationInfoTag } from 'controllers';
-import { CommentControl, VoteControl } from 'controllers/QAControllers';
+import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
 import { useUser } from 'contexts';
-import CreateAnswer from 'components/CreateAnswer';
+
 import {
     getQuestionVote,
     postQuestionComment,
@@ -109,24 +109,17 @@ export default function Question({
         <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
-                <Typography display='inline' m={1}>
-                    Views: {views}
-                </Typography>
-                <Typography display='inline' m={1}>
-                    Answers: {answers}{' '}
-                </Typography>
-                <Typography display='inline' m={1}>
-                    Comments: {comments}{' '}
-                </Typography>
-                <Typography display='inline' m={1}>
-                    {' '}
-                    Status:
-                </Typography>
+                <Typography display='inline' m={1}>Views: {views}</Typography>
+                <Typography display='inline' m={1}>Answers: {answers}</Typography>
+                <Typography display='inline' m={1}>Comments: {comments}</Typography>
+                <Typography display='inline' m={1}>Status:</Typography>
+                <Chip
+                    color={statusColor(status)}
+                    label={status}
+                    size='small'
+                />
 
-                <Chip color={statusColor(status)} label={status} size='small' />
-                <Typography display='inline' m={1}>
-                    Accepted Answer:
-                </Typography>
+                <Typography display='inline' m={1}>Accepted Answer:</Typography>
                 <Chip
                     color={hasAcceptedAnswer ? 'success' : 'error'}
                     label={hasAcceptedAnswer ? 'yes' : 'no'}
@@ -134,46 +127,29 @@ export default function Question({
                 />
                 <Button
                     component={Link}
-                    to='../ask'
-                    style={{ marginLeft: '10px' }}
                     display='inline'
                     m={1}
+                    style={{ marginLeft: '10px' }}
+                    to='../ask'
                     variant='contained'
                 >
                     Ask question
                 </Button>
-
-                {close ? (
+                <Tooltip title={close ? '' : 'You must be level 7'}>
                     <span>
                         <Button
                             disabled={!close}
                             style={{ marginLeft: '10px' }}
                             display='inline'
                             m={1}
-                            variant='contained'
                             onClick={changeProtect}
+                            variant='contained'
                         >
                             Close/Open
                         </Button>
                     </span>
-                ) : (
-                    <Tooltip title={!close && 'You must be level 7'}>
-                        <span>
-                            <Button
-                                disabled={!close}
-                                style={{ marginLeft: '10px' }}
-                                display='inline'
-                                m={1}
-                                variant='contained'
-                                onClick={changeProtect}
-                            >
-                                Close/Open
-                            </Button>
-                        </span>
-                    </Tooltip>
-                )}
-
-                {protect ? (
+                </Tooltip>
+                <Tooltip title={protect ? '' : 'You must be  level 6 and this question must be open'}>
                     <span>
                         <Button
                             disabled={!protect}
@@ -186,27 +162,7 @@ export default function Question({
                             Protect
                         </Button>
                     </span>
-                ) : (
-                    <Tooltip
-                        title={
-                            !protect &&
-                            'You must be  level 6 and this question must be open'
-                        }
-                    >
-                        <span>
-                            <Button
-                                disabled={!protect}
-                                style={{ marginLeft: '10px' }}
-                                display='inline'
-                                m={1}
-                                variant='contained'
-                                onClick={changeClose}
-                            >
-                                Protect
-                            </Button>
-                        </span>
-                    </Tooltip>
-                )}
+                </Tooltip>
             </Box>
             <Divider />
 

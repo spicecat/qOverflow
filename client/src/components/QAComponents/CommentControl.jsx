@@ -14,7 +14,7 @@ export default function CommentControl({
     return (
         <span>
             <ButtonGroup style={{ alignItems: 'center' }}>
-                <Tooltip title={!canComment && "You must be level 3 to comment or level 5 if this question is protected"}>
+                <Tooltip title={canComment ? '' : 'You must be level 3 to comment or level 5 if this question is protected'}>
                     <span>
                         <Button
                             disabled={!canComment}

@@ -13,7 +13,7 @@ export default function VoteControl({
 }) {
 
     return (
-        <Tooltip title={!canVote && "This question must be open and you must be level 2 to vote"}>
+        <Tooltip title={canVote ? '': 'This question must be open and you must be level 2 to vote'}>
             <span style={{ marginRight: 8 }}>
                 <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>
                     <IconButton
