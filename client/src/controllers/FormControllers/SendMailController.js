@@ -4,7 +4,8 @@ import { composeMailFields } from 'services/fields';
 import { postMail } from 'services/mailServices';
 import { mailSchema } from 'services/schemas';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useUser } from 'contexts';
+
 export default function SendMailController() {
     const { userData } = useUser();
 

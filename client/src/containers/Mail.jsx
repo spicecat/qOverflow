@@ -1,7 +1,5 @@
 import { Card, CardContent } from '@mui/material';
 import React, { useEffect } from 'react';
-import { Inbox, SendMail } from 'controllers';
-import { MdPreview } from 'components';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from 'contexts';

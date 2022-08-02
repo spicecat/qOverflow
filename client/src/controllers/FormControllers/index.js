@@ -8,7 +8,7 @@ import ResetForm from './ResetFormController';
 import SendMail from './SendMailController';
 import SearchForm from './SearchFormController';
 import UpdateForm from './UpdateFormController';
-import AnswerForm from './AnwerFormController';
+
 export {
     AnswerForm,
     AskForm,
@@ -20,5 +20,4 @@ export {
     SendMail,
     SearchForm,
     UpdateForm,
-    AnswerForm,
 };
