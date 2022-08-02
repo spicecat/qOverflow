@@ -3,6 +3,7 @@ const config = require('server/config.json');
 const createRequest = require('server/utils/api');
 
 async function Send(req, res) {
+    console.log(123123)
     const { username } = req.user;
     const { receiver, subject, text } = req.body;
 

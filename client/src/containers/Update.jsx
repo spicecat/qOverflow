@@ -6,10 +6,10 @@ import { useUser } from 'contexts';
 
 export default function Register() {
     const navigate = useNavigate();
-    const { userData } = useUser();
+    const { userData: loading } = useUser();
 
     useEffect(() => {
-        if (checkAuth()) {
+        if (loading === false) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -18,13 +18,7 @@ export default function Register() {
                 },
             });
         }
-    }, []);
-
-    function checkAuth() {
-        if (!userData.username) {
-            return true;
-        }
-    }
+    }, [loading, navigate]);
 
     return (
         <Grid

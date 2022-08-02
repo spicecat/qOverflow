@@ -31,8 +31,8 @@ async function getAllComments({ answer_id, question_id }) {
         return getAllData(Comment, `/questions/${question_id}/comments`, 'comment_id', 'comments')
 }
 
-async function getAllMail({ question_id }) {
-    return getAllData(Mail, `/questions/${question_id}/comments`, 'mail_id', 'mail')
+async function getAllMail({ username }) {
+    return getAllData(Mail, `/mail/${username}`, 'mail_id', 'messages')
 }
 
 async function getAllQuestions({ username }) {
@@ -49,6 +49,7 @@ async function getAllUsers() {
 module.exports = {
     getAllAnswers,
     getAllComments,
+    getAllMail,
     getAllQuestions,
     getAllUsers
 };

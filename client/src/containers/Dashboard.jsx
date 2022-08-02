@@ -45,7 +45,6 @@ export default function Dashboard() {
             return questions;
     };
 
-
     useEffect(() => {
         if (loading === false) {
             navigate('/users/login', {
