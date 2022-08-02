@@ -106,9 +106,10 @@ export default function Question({
     }
 
     const getVote = () => getQuestionVote(question_id);
-    const postComment = (data) => postQuestionComment(question_id, data);
     const updateVote = (data) => updateQuestionVote(question_id, data);
-
+    
+    const postComment = (data) => postQuestionComment(question_id, data);
+    
     return (
         <>
             <Box m={2}>
