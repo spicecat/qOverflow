@@ -1,12 +1,13 @@
 import { Box, Chip, Divider, ListItem, ListItemText, Typography, Button, Tooltip } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
+
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, VoteControl } from 'controllers/QAControllers';
-import { getQuestionVote, postQuestionComment, updateQuestion, updateQuestionVote } from 'services/questionsServices';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useUser } from 'contexts';
 import CreateAnswer from 'components/CreateAnswer';
+import { getQuestionVote, postQuestionComment, updateQuestion, updateQuestionVote } from 'services/questionsServices';
+
 const statusColor = (status) => {
     switch (status) {
         case 'open': return 'primary';
