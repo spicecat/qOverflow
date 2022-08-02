@@ -8,7 +8,11 @@ import {
     CommentControl,
     VoteControl,
 } from 'controllers/QAControllers';
-import { getAnswerVote, updateAnswerVote } from 'services/questionsServices';
+import {
+    getAnswerVote,
+    updateAnswerVote,
+    postAnswerComment,
+} from 'services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -21,10 +25,15 @@ export default function Answer({
     text,
     upvotes,
 }) {
-    const { userData: { level, username } } = useUser();
+    const {
+        userData: { level, username },
+    } = useUser();
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
     const canComment = level >= 3 || creator === username;
+
+    const postComment = (data) =>
+        postAnswerComment(question_id, answer_id, data);
 
     return (
         <span key={answer_id}>
@@ -41,10 +50,7 @@ export default function Answer({
                     />
                     {accepted && (
                         <div style={{ textAlign: 'center' }}>
-                            <Tooltip
-                                title='Accepted Answer'
-                                placement='right'
-                            >
+                            <Tooltip title='Accepted Answer' placement='right'>
                                 <CheckIcon color='success' />
                             </Tooltip>
                         </div>
@@ -55,7 +61,7 @@ export default function Answer({
                         {...{ createdAt, creator, text: 'answered' }}
                     />
                     <ReactMarkdown>{text}</ReactMarkdown>
-                    <CommentControl {...{ canComment }} />
+                    <CommentControl {...{ canComment, postComment }} />
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
