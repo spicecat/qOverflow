@@ -4,8 +4,11 @@ const Question = require('server/db/models/Question');
 
 async function getQuestion(question_id) {
     let cachedQuestion;
-    try { cachedQuestion = await Question.findById(question_id); }
-    catch { return; }
+    try {
+        cachedQuestion = await Question.findById(question_id);
+    } catch {
+        return;
+    }
 
     // Retrieve uncached question and patch to cache
     if (!cachedQuestion) {
@@ -14,7 +17,9 @@ async function getQuestion(question_id) {
             `/questions/${question_id}`
         );
         if (!success) return;
-        return Question.create({ ...question, id: question.question_id });
+        return Question.findByIdAndUpdate(question.question_id, question, {
+            upsert: true,
+        });
     } else return cachedQuestion;
 }
 
