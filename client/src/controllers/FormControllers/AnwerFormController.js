@@ -1,8 +1,9 @@
-import { answerFields } from "services/fields";
-import { answerSchema } from "services/schemas";
+import { useUser } from 'contexts';
 import { Form } from 'controllers/FormControllers';
-import { postAnswer } from "services/questionsServices";
-import { useUser } from "contexts";
+import { answerFields } from 'services/fields';
+import { postAnswer } from 'services/questionsServices';
+import { answerSchema } from 'services/schemas';
+
 export default function AnswerForm({question_id}) {
     const {userData} = useUser();
     const data = {creator: userData.username}

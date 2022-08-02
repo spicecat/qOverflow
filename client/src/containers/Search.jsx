@@ -17,10 +17,10 @@ export default function Search() {
 
         if (newdate) {
             newdate = new Date(newdate)
-            time["$gte"] = parseInt(newdate.getTime());
+            time['$gte'] = parseInt(newdate.getTime());
             newdate.setDate(newdate.getDate() + 1)
-            time["$lte"] = newdate.getTime()
-            match = JSON.stringify({ "createdAt": time })
+            time['$lte'] = newdate.getTime()
+            match = JSON.stringify({ createdAt: time })
         }
 
         const creator = searchParams.get('creator');

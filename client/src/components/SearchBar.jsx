@@ -59,7 +59,7 @@ export default function SearchBar() {
                     onClick={navSearch}
                     startIcon={<SearchIcon />}
                     style={{ pointerEvents: 'auto' }}
-                    variant="contained"
+                    variant='contained'
                 >
                     Search
                 </Button>

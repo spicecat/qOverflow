@@ -183,7 +183,7 @@ export default function Question({
                     <CommentControl {...{ postComment, canComment }} />
                 </ListItemText>
             </ListItem>
-            <CreateAnswer {...{ canAnswer, question_id }} />
+            <CreateAnswer />
         </>
     );
 }

@@ -19,10 +19,11 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
-import Logo from 'assets/bdpa-logo.svg';
 import { useState } from 'react';
 import Gravatar from 'react-gravatar';
+import { Link } from 'react-router-dom';
+
+import Logo from 'assets/bdpa-logo.svg';
 import { useMode } from 'contexts';
 
 export default function MobileNavbar({ logout, userData }) {

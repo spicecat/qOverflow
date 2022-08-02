@@ -24,8 +24,8 @@ export default function MdPreview() {
                 Show Markdown Preview
             </Button>
             {preview && (
-                <Paper variant="outlined">
-                    <Typography variant="h5"> Text Preview: </Typography>
+                <Paper variant='outlined'>
+                    <Typography variant='h5'> Text Preview: </Typography>
                     <ReactMarkdown children={content} />
                 </Paper>
             )}
