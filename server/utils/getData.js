@@ -52,13 +52,8 @@ async function getAllComments({ answer_id, question_id }) {
         );
 }
 
-async function getAllMail({ question_id }) {
-    return getAllData(
-        Mail,
-        `/questions/${question_id}/comments`,
-        'mail_id',
-        'mail'
-    );
+async function getAllMail({ username }) {
+    return getAllData(Mail, `/mail/${username}`, 'mail_id', 'messages');
 }
 
 async function getAllQuestions(username) {
