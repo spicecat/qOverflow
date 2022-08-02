@@ -12,9 +12,9 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 
 import { CreationInfoTag } from 'controllers';
-import { CommentControl, VoteControl } from 'controllers/QAControllers';
+import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
 import { useUser } from 'contexts';
-import CreateAnswer from 'components/CreateAnswer';
+
 import {
     getQuestionVote,
     postQuestionComment,
@@ -143,7 +143,7 @@ export default function Question({
                     Ask question
                 </Button>
 
-                <Tooltip title={!close && 'You must be level 7'}>
+                <Tooltip title={close ? '' : 'You must be level 7'}>
                     <span>
                         <Button
                             disabled={!close}
