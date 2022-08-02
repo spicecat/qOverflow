@@ -19,6 +19,8 @@ export function AnswersList() {
 
     const sortByPoints = answers => answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
 
+    console.log(question_id)
+
     const getData = ({ answer_id }) =>
         getAnswers(question_id, { after: answer_id })
             .then(({ answers }) => sortByPoints(answers).map(answer => ({ ...answer, question_id })))
