@@ -10,6 +10,7 @@ export default function PaginatedListController({
     getData,
     noData,
 }) {
+    const [searchParams] = useSearchParams();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(true);
