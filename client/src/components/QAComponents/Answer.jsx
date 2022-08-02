@@ -1,18 +1,11 @@
 import { ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-import { CreationInfoTag } from 'controllers';
+
 import { useUser } from 'contexts';
-import {
-    AnswerCommentsList,
-    CommentControl,
-    VoteControl,
-} from 'controllers/QAControllers';
-import {
-    getAnswerVote,
-    updateAnswerVote,
-    postAnswerComment,
-} from 'services/questionsServices';
+import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
+import { CreationInfoTag } from 'controllers';
+import { getAnswerVote, updateAnswerVote, postAnswerComment } from 'services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -25,15 +18,12 @@ export default function Answer({
     text,
     upvotes,
 }) {
-    const {
-        userData: { level, username },
-    } = useUser();
+    const { userData: { level, username } } = useUser();
+
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    const canComment = level >= 3 || creator === username;
 
-    const postComment = (data) =>
-        postAnswerComment(question_id, answer_id, data);
+    const postComment = (data) => postAnswerComment(question_id, answer_id, data);
 
     return (
         <span key={answer_id}>
@@ -61,7 +51,10 @@ export default function Answer({
                         {...{ createdAt, creator, text: 'answered' }}
                     />
                     <ReactMarkdown>{text}</ReactMarkdown>
-                    <CommentControl {...{ canComment, postComment }} />
+                    <CommentControl {...{
+                        canComment: level >= 3 || creator === username,
+                        postComment
+                    }} />
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useUser } from 'contexts';
+import { useQuestion, useUser } from 'contexts';
 import { VoteControl } from 'components/QAComponents';
 
 export default function VoteControlController({
@@ -9,13 +9,18 @@ export default function VoteControlController({
     updateVote,
     upvotes,
 }) {
+    const { questionData: { status } } = useQuestion();
     const { userData: { level } } = useUser();
+
     const [disabled, setDisabled] = useState()
     const [vote, setVote] = useState()
     const [original, setOriginal] = useState()
 
+    const canDownvote = level >= 4 && status !== 'closed';
+    const canUpvote = level >= 2 && status !== 'closed';
+
     const loadVote = async () => {
-        if (level >= 2) {
+        if (canUpvote) {
             const { vote: newVote } = await getVote();
             setVote(newVote);
             return newVote;
@@ -23,7 +28,7 @@ export default function VoteControlController({
     }
 
     const handleDownvote = async () => {
-        if (level >= 4) {
+        if (canDownvote) {
             setDisabled(true);
             const { vote: newVote } = await updateVote({ operation: 'downvote' });
             if (newVote !== undefined)
@@ -48,8 +53,10 @@ export default function VoteControlController({
         doLoadVote();
     }, []);
 
-    return downvotes !== undefined && (
+    return (
         VoteControl({
+            canDownvote,
+            canUpvote,
             disabled,
             downvotes: downvotes + (vote === 'downvoted') - (original === 'downvoted'),
             handleDownvote,

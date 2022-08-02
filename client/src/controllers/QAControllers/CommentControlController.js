@@ -1,14 +1,10 @@
 import { useState } from 'react';
 
-import { useQuestion, useUser } from 'contexts';
 import { CommentControl } from 'components/QAComponents';
 import { commentFields } from 'services/fields';
 import { commentSchema } from 'services/schemas';
 
-export default function CommentControlController({ postComment, canComment }) {
-    const { questionData: { status } } = useQuestion();
-    const { userData: { level } } = useUser();
-
+export default function CommentControlController({ canComment, postComment }) {
     const [show, setShow] = useState(false);
 
     const toggleShow = () => {
@@ -16,11 +12,11 @@ export default function CommentControlController({ postComment, canComment }) {
     };
 
     return CommentControl({
+        canComment,
         commentFields,
         commentSchema,
         postComment,
         show,
         toggleShow,
-        canComment,
     });
 }

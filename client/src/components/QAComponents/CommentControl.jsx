@@ -3,12 +3,12 @@ import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import { Form } from 'controllers/FormControllers';
 
 export default function CommentControl({
+    canComment,
     commentFields,
     commentSchema,
     postComment,
     show,
-    toggleShow,
-    canComment
+    toggleShow
 }) {
 
     return (

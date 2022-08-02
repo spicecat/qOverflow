@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
 import { useUser } from 'contexts';
-
 import {
     getQuestionVote,
     postQuestionComment,
@@ -49,48 +48,10 @@ export default function Question({
     upvotes,
     views,
 }) {
-    const { userData } = useUser();
-    let level = 0;
-    let protection = false;
+    const { userData: { level, username } } = useUser();
 
-    let protect = false;
-    let close = false;
-    let canComment = false;
-    let canAnswer = true;
-    let canVote = true;
-
-    if (userData.username) {
-        level = userData.level;
-        if (status === 'protected' || status === 'closed') {
-            protection = true;
-        }
-
-        if (level >= 7) {
-            close = true;
-        }
-        if (level >= 6 && !protection) {
-            protect = true;
-        }
-        if (
-            (level >= 3 && !protection) ||
-            (status === 'protected' && level >= 5) ||
-            creator === userData.username
-        ) {
-            canComment = true;
-        }
-        if (
-            (status === 'protected' && level < 5) ||
-            status === 'closed' ||
-            level < 2
-        ) {
-            canAnswer = false;
-        }
-        if (status === 'closed' || level < 2) {
-            canVote = false;
-        }
-    } else {
-        canAnswer = false;
-    }
+    const protect = level >= 6 && status === 'open';
+    const close = level >= 7;
 
     function changeProtect() {
         editQuestionStatus(question_id, 'protect');
@@ -173,14 +134,19 @@ export default function Question({
                         getVote,
                         orientation: 'vertical',
                         updateVote,
-                        upvotes,
-                        canVote,
+                        upvotes
                     }}
                 />
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator }} />
                     <ReactMarkdown>{text}</ReactMarkdown>
-                    <CommentControl {...{ postComment, canComment }} />
+                    <CommentControl {...{
+                        canComment:
+                            (level >= 3 && status === 'open')
+                            || (level >= 5 && status === 'protected')
+                            || creator === username,
+                        postComment
+                    }} />
                 </ListItemText>
             </ListItem>
             <CreateAnswer />
