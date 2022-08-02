@@ -11,7 +11,7 @@ export default function ForgotPassword() {
             justifyContent='center'
             style={{ height: '95vh' }}
         >
-            <Grid item xs='auto' />
+            <Grid item xs />
             <Grid item xs={11} sm={7} md={5}>
                 <Card sx={{ padding: '1vh' }}>
                     <CardContent>
@@ -19,7 +19,7 @@ export default function ForgotPassword() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs='auto' />
+            <Grid item xs />
         </Grid>
     );
 }

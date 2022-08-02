@@ -23,7 +23,7 @@ export default function Login() {
                 justifyContent='center'
                 style={{ height: '92vh' }}
             >
-                <Grid item xs='auto' />
+                <Grid item xs />
                 <Grid item xs={11} sm={7} md={5}>
                     <Card sx={{ padding: '1vh' }}>
                         <CardContent>
@@ -40,7 +40,7 @@ export default function Login() {
                         <Alert severity='warning'> {returnMsg()} </Alert>
                     )}
                 </Grid>
-                <Grid item xs='auto' />
+                <Grid item xs />
             </Grid>
         </>
     );
