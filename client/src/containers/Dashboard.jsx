@@ -63,17 +63,18 @@ export default function Dashboard() {
                     sx={{
                         margin: { xs: '0.3vh', sm: '1vh', md: '1vh' },
                         padding: { xs: '1vh', sm: '3vh', md: '5vh' },
+                        height: '100%',
                     }}
                 >
                     <Grid
                         container
                         spacing={2}
                         sx={{
-                            display: { xs: 'flex', md: 'block' },
+                            display: { xs: 'flex', sm: 'block', md: 'block' },
                             justifyContent: 'center',
                         }}
                     >
-                        <Grid item md={2}>
+                        <Grid item sm={4} md={2}>
                             {email && (
                                 <Gravatar
                                     email={email}
@@ -82,7 +83,7 @@ export default function Dashboard() {
                                 />
                             )}
                         </Grid>
-                        <Grid item md={10}>
+                        <Grid item sm={8} md={10}>
                             <Typography>Username: {username}</Typography>
                             <Typography>Email: {email}</Typography>
                             <Typography>Level: {level}</Typography>

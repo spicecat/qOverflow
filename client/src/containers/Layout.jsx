@@ -28,7 +28,7 @@ export default function Layout() {
             </Helmet>
             <main>
                 <Navbar />
-                <Box sx={{ height: '92vh' }}>
+                <Box sx={{ height: { xs: '', sm: '92vh', md: '92vh' } }}>
                     <Outlet />
                 </Box>
             </main>
