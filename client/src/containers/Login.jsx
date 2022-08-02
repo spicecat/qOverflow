@@ -34,9 +34,9 @@ export default function Login() {
                             </Typography>
                         </CardContent>
                     </Card>
-                    {returnMsg() ? (
+                    {returnMsg() && (
                         <Alert severity='warning'> {returnMsg()} </Alert>
-                    ) : null}
+                    )}
                 </Grid>
                 <Grid item xs={3.5} />
             </Grid>

@@ -30,7 +30,7 @@ export default function PaginatedListController({ count, Component, getData, noD
     //         loadQuestions(sort);
     //     }, 60000);
 
-    return data && (
+    return (
         <PaginatedList {...{
             count: Math.ceil((count ?? data.length) / rowsPerPage),
             data: data.filter(d => d).slice((page - 1) * rowsPerPage, page * rowsPerPage),

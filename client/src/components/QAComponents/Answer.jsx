@@ -42,9 +42,9 @@ export default function Answer({
                 </ListItemText>
             </ListItem>
             <ListItem sx={{ pl: 8 }}>
-                <AnswerProvider>
-                    <AnswerCommentsList {...{ answer_id, comments }} />
-                </AnswerProvider>
+                {/* <AnswerProvider> */}
+                <AnswerCommentsList {...{ answer_id, comments }} />
+                {/* </AnswerProvider> */}
             </ListItem>
         </span>
     )

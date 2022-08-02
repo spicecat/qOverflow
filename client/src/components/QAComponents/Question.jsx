@@ -88,13 +88,13 @@ export default function Question({
                 />
                 <Button component={Link} to='../ask' style={{'marginLeft': '10px'}}display = 'inline' m = {1} variant = "contained">Ask question</Button>
 
-                <Tooltip title = {!close ? "You must be level 7" : null}>
+                <Tooltip title = {!close && "You must be level 7"}>
                     <span>
                     <Button disabled = {!close} style={{'marginLeft': '10px'}}display = 'inline' m = {1} variant = "contained" onClick = {changeProtect}>Close/Open</Button>
                     </span>
                 </Tooltip>
 
-                <Tooltip title = {!protect ? "You must be  level 6 and this question must be open" : null}>
+                <Tooltip title = {!protect && "You must be  level 6 and this question must be open" }>
                     <span>
                     <Button disabled = {!protect} style={{'marginLeft': '10px'}}display = 'inline' m = {1} variant = "contained" onClick = {changeClose}>Protect</Button>
                     </span>
