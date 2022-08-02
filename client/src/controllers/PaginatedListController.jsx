@@ -13,6 +13,7 @@ export default function PaginatedListController({
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(true);
+    const searchParams = useSearchParams();
 
     const handleChangePage = (_, newPage) => {
         setPage(newPage);
