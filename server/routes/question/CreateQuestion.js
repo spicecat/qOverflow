@@ -4,15 +4,13 @@ const User = require('server/db/models/User');
 const createRequest = require('server/utils/api');
 
 async function CreateQuestion(req, res) {
-    const {
-        user: { username, user_id },
-    } = req;
+    const user = req.user;
     const { title, text } = req.body;
 
     if (!title || !text) return res.status(400).send(config.errorIncomplete);
 
     const { success, question } = await createRequest('post', `/questions`, {
-        creator: username,
+        creator: user.username,
         title,
         text,
     });
@@ -22,12 +20,12 @@ async function CreateQuestion(req, res) {
     await Question.create({ ...question, _id: question.question_id });
 
     // Increment user points by 1
-    await createRequest('patch', `/users/${username}/points`, {
+    await createRequest('patch', `/users/${user.username}/points`, {
         operation: 'increment',
         amount: 1,
     });
 
-    await User.findByIdAndUpdate(user.id, { points: { $inc: 1 } });
+    await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
 
     return res.sendStatus(200);
 }

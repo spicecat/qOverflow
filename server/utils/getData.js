@@ -18,7 +18,7 @@ async function getAllData(Model, url, id, dataName) {
     return data;
 }
 
-async function getAllAnswers(question_id, username) {
+async function getAllAnswers({ question_id, username }) {
     if (question_id)
         return getAllData(
             Answer,
@@ -35,7 +35,7 @@ async function getAllAnswers(question_id, username) {
         );
 }
 
-async function getAllComments(answer_id, question_id) {
+async function getAllComments({ answer_id, question_id }) {
     if (answer_id)
         return getAllData(
             Comment,
