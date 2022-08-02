@@ -9,7 +9,8 @@
         "start:server": "npm start -w server",
         "start:client": "npm start -w client",
         "start:prod": "npm run start:server",
-        "prestart:prod": "npm run build -w client",
+        "prestart:prod": "npm run build",
+        "dev": "npm run dev -w server",
         "build": "npm run build -w client"
     },
     "repository": {
