@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PaginatedList } from 'components';
 
 const rowsPerPage = 5;
-export default function PaginatedListController({ count, Component, getData, noData }) {
+export default function PaginatedListController({ concat = true, count, Component, getData, noData }) {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(true);
@@ -14,9 +14,12 @@ export default function PaginatedListController({ count, Component, getData, noD
     };
 
     const loadData = async () => {
-        const newData = await getData(data[data.length - 1] ?? {});
+        const newData = await getData(concat ? data[data.length - 1] ?? {} : {});
         if (newData.length)
-            setData(data.concat(newData));
+            if (concat)
+                setData(data.concat(newData));
+            else
+                setData(newData);
         else
             setLoad(false);
     }

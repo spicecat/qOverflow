@@ -5,14 +5,9 @@ import { SearchForm } from 'controllers/FormControllers';
 import { PaginatedList } from 'controllers';
 import { ListQuestion } from 'components';
 import { searchQuestions } from 'services/questionsServices';
-import { useEffect } from 'react';
 
 export default function Search() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    useEffect(() => {
-        setSearchParams()
-    }, [])
-
+    const [searchParams] = useSearchParams();
 
     const getData = async ({ question_id }) => {
         let match = {};
@@ -32,10 +27,10 @@ export default function Search() {
         if (creator) regexMatch.creator = creator;
 
         const text = searchParams.get('text');
-        if (text) regexMatch.text = text.replaceAll(' ', '|') + "gmi";
+        if (text) regexMatch.text = text.replaceAll(' ', '|');// + "gmi";
 
         const title = searchParams.get('title');
-        if (title) regexMatch.title = title.replaceAll(' ', '|') + "gi";
+        if (title) regexMatch.title = title.replaceAll(' ', '|');// + "gi";
 
         const { questions } = await searchQuestions({ after: question_id, regexMatch, match })
 
@@ -50,7 +45,7 @@ export default function Search() {
                     <SearchForm />
                 </CardContent>
             </Card>
-            <PaginatedList {...{ Component: ListQuestion, getData }} />;
+            <PaginatedList {...{ concat: false, Component: ListQuestion, getData }} />;
         </div>
     )
 }          
