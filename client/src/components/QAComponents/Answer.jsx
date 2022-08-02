@@ -1,12 +1,12 @@
 import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-
+import CreationInfoTag from 'components/CreationInfoTag';
 import { useUser } from 'contexts';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 import { getAnswerVote, updateAcceptAnswer, updateAnswerVote, updateQuestion } from 'services/questionsServices';
 import { useQuestion } from 'contexts';
-import { postQuestionComment } from 'services/questionsServices';
+import { postQuestionComment, postAnswerComment } from 'services/questionsServices';
 export default function Answer({
     accepted,
     answer_id,

@@ -9,7 +9,7 @@ export default function CommentControl({
     postComment,
     show,
     toggleShow,
-    canComment
+    
     
 }) {
     

@@ -15,7 +15,7 @@ import { getQuestionVote, postQuestionComment,openQuestion,protectQuestion , upd
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useQuestion, useUser } from 'contexts';
-import CreateAnswer from 'components/CreateAnswer';
+import CreateAnswer from './CreateAnswer';
 const statusColor = (status) => {
     switch (status) {
         case 'open':
