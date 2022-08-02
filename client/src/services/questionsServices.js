@@ -28,6 +28,25 @@ const updateQuestion = async (question_id, data) =>
         `/${question_id}`,
         data
     );
+const closeQuestion = async (question_id, data) =>
+callQuestionsAPI(
+    'patch',
+    `/${question_id}/close`,
+    data
+);
+const openQuestion = async (question_id, data) =>
+callQuestionsAPI(
+    'patch',
+    `/${question_id}/reopen`,
+    data
+);
+const protectQuestion = async (question_id, data) =>
+    callQuestionsAPI(
+        'patch',
+        `/${question_id}/protect`,
+        data
+    );
+
 
 const getQuestionVote = async (question_id) =>
     callQuestionsAPI(
@@ -99,7 +118,7 @@ const updateAnswer = async (question_id, answer_id, data) =>
 const updateAcceptAnswer = async (question_id, answer_id) =>
     callQuestionsAPI(
         'patch',
-        `/${question_id}/answer/${answer_id}/accept`
+        `/${question_id}/answers/${answer_id}/accept`
     );
 
 const getAnswerVote = async (question_id, answer_id) =>
@@ -170,4 +189,7 @@ export {
     updateCommentVote,
     updateQuestion,
     updateQuestionVote,
+    closeQuestion,
+    openQuestion,
+    protectQuestion
 };

@@ -30,7 +30,7 @@ export default function AskFormController() {
         });
 
         if (success) {
-            navigate('/');
+            navigate('../');
         }
     }
 

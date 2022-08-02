@@ -16,7 +16,7 @@ export default function PaginatedListController({ count, Component, getData, noD
     const loadData = async () => {
         const newData = await getData(data[data.length - 1] ?? {});
         if (newData.length)
-            setData(data.concat(newData));
+            setData(newData);
         else
             setLoad(false);
     }

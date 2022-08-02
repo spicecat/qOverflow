@@ -10,6 +10,8 @@ const QuestionContext = createContext();
 export default function QuestionProvider({ children }) {
     const { question_id } = useParams();
     const [questionData, setQuestionData] = useState(initialQuestionData);
+    const [permissions, setPermissions] = useState({})
+
 
     useEffect(() => {
         const loadQuestion = async () => {
@@ -21,7 +23,7 @@ export default function QuestionProvider({ children }) {
     }, [question_id]);
 
     return (
-        <QuestionContext.Provider value={{ questionData }}>
+        <QuestionContext.Provider value={{ questionData, permissions, setPermissions }}>
             <Helmet>
                 <title>{questionData.title}</title>
             </Helmet>

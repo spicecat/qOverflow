@@ -8,6 +8,7 @@ export default function VoteControlController({
     orientation,
     updateVote,
     upvotes,
+    canVote
 }) {
     const { userData: { level } } = useUser();
     const [disabled, setDisabled] = useState()
@@ -56,7 +57,8 @@ export default function VoteControlController({
             handleUpvote,
             orientation,
             upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
-            vote
+            vote,
+            canVote
         })
     );
 }

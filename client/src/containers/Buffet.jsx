@@ -24,11 +24,11 @@ export default function Buffet() {
 
     const [sort, setSort] = useState(0);
 
-    const getData = async ({ question_id }) => {
+    const getData = async () => {
 
         const { error, questions } = await searchQuestions({
-            ...sortObjArr[sort],
-            after: question_id
+            ...sortObjArr[sort]
+            
         });
         if (error) {
             setError(error);

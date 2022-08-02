@@ -28,13 +28,13 @@ async function EditQuestionStatusClosed(req, res) {
     // Toggle question vote
     if (question.close.includes(user.username)) {
         await Question.findByIdAndUpdate(question_id, {
-            close: { $pull: user.username },
+            $pull: { close: user.username },
         });
 
         return res.sendStatus(200);
     } else {
         await Question.findByIdAndUpdate(question_id, {
-            close: { $push: user.username },
+            $push: { close: user.username },
         });
     }
 

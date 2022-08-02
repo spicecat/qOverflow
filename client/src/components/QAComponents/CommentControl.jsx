@@ -9,8 +9,9 @@ export default function CommentControl({
     show,
     toggleShow,
     canComment
+    
 }) {
-
+    
     return (
         <span>
             <ButtonGroup style={{ alignItems: 'center' }}>

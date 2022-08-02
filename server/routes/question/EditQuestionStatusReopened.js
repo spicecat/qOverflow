@@ -31,13 +31,13 @@ async function EditQuestionStatusReopened(req, res) {
     // Toggle vote
     if (question.reopen.includes(user.username)) {
         await Question.findByIdAndUpdate(question_id, {
-            reopen: { $pull: user.username },
+            $pull: { reopen: user.username },
         });
 
         return res.sendStatus(200);
     } else {
         await Question.findByIdAndUpdate(question_id, {
-            reopen: { $push: user.username },
+            $push: { reopen: user.username },
         });
     }
 
