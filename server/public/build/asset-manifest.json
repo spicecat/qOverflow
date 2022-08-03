@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/static/js/main.7610eaba.js",
+    "static/media/bdpa-logo.svg": "/static/media/bdpa-logo.c32c2f3a895925461fe81028fecc5c45.svg",
+    "index.html": "/index.html",
+    "main.7610eaba.js.map": "/static/js/main.7610eaba.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.7610eaba.js"
+  ]
+}
