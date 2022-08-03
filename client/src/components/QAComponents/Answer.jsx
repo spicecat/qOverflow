@@ -1,8 +1,9 @@
 import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
-import CreationInfoTag from 'components/CreationInfoTag';
+
 import { useQuestion } from 'contexts';
+import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 import { getAnswerVote, postAnswerComment, updateAcceptAnswer, updateAnswerVote } from 'services/questionsServices';
 
@@ -17,11 +18,8 @@ export default function Answer({
     text,
     upvotes,
 }) {
-    const { permissions } = useQuestion();
-    let canVote = permissions.canVote;
-    let canComment = permissions.canComment;
-    let canAccept = permissions.canAccept;
-    
+    const { permissions: { canVote, canComment, canAccept } } = useQuestion();
+
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
 
@@ -35,7 +33,14 @@ export default function Answer({
         <span key={answer_id}>
             <ListItem disablePadding>
                 <ButtonGroup orientation='vertical'>
-                    <VoteControl {...{ downvotes, getVote, orientation: 'vertical', updateVote, upvotes, canVote }} />
+                    <VoteControl {...{
+                        canVote,
+                        downvotes,
+                        getVote,
+                        orientation: 'vertical',
+                        updateVote,
+                        upvotes
+                    }} />
                     {accepted && (
                         <div style={{ textAlign: 'center' }}>
                             <Tooltip title='Accepted Answer' placement='right'>
