@@ -3,7 +3,7 @@ import { remember } from 'services/userServices';
 
 const initialUserData = { loading: true };
 
-const UserContext = createContext({});
+const UserContext = createContext();
 
 export default function UserProvider({ children }) {
     const [userData, setUserData] = useState(initialUserData);

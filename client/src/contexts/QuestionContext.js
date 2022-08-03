@@ -5,7 +5,7 @@ import { getQuestion } from 'services/questionsServices';
 
 const initialQuestionData = { loading: true };
 
-const QuestionContext = createContext({});
+const QuestionContext = createContext();
 
 export default function QuestionProvider({ children }) {
     const { question_id } = useParams();
