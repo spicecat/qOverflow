@@ -3,7 +3,7 @@ servers:
     - description: SwaggerHub API Auto Mocking
       url: https://virtserver.swaggerhub.com/C4theBomb/qOverflow/1.0.0
     - description: Localhost
-      url: http://localhost:3001
+      url: http://localhost:3001/api
 info:
     version: '1.0.0'
     title: qOverflow API
