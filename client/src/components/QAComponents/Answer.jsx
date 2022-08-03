@@ -5,7 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import { useQuestion } from 'contexts';
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
-import { getAnswerVote, postAnswerComment, updateAcceptAnswer, updateAnswerVote } from 'services/questionsServices';
+import {
+    getAnswerVote,
+    postAnswerComment,
+    updateAcceptAnswer,
+    updateAnswerVote,
+} from 'services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -18,29 +23,29 @@ export default function Answer({
     text,
     upvotes,
 }) {
-    const { permissions: { canVote, canComment, canAccept } } = useQuestion();
+    const {
+        permissions: { canVote, canComment, canAccept },
+    } = useQuestion();
 
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-
-    function acceptAnswer() {
-        updateAcceptAnswer(question_id, answer_id)
-
-    }
     const postComment = (data) => postAnswerComment(question_id, answer_id, data);
+    const acceptAnswer = () => updateAcceptAnswer(question_id, answer_id);
 
     return (
         <span key={answer_id}>
             <ListItem disablePadding>
                 <ButtonGroup orientation='vertical'>
-                    <VoteControl {...{
-                        canVote,
-                        downvotes,
-                        getVote,
-                        orientation: 'vertical',
-                        updateVote,
-                        upvotes
-                    }} />
+                    <VoteControl
+                        {...{
+                            canVote,
+                            downvotes,
+                            getVote,
+                            orientation: 'vertical',
+                            updateVote,
+                            upvotes,
+                        }}
+                    />
                     {accepted && (
                         <div style={{ textAlign: 'center' }}>
                             <Tooltip title='Accepted Answer' placement='right'>
@@ -51,13 +56,15 @@ export default function Answer({
                 </ButtonGroup>
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
-                    <ReactMarkdown>
-                        {text}
-                    </ReactMarkdown>
+                    <ReactMarkdown>{text}</ReactMarkdown>
                     <CommentControl {...{ canComment, postComment }} />
                     {canAccept && (
                         <span>
-                            <Button onClick={acceptAnswer} style={{ 'marginLeft': '10px' }} variant="standard">
+                            <Button
+                                onClick={acceptAnswer}
+                                style={{ marginLeft: '10px' }}
+                                variant='standard'
+                            >
                                 Accept
                             </Button>
                         </span>
