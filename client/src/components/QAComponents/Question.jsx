@@ -58,8 +58,6 @@ export default function Question({
         if (reopen.length) setOngoingVote({ users: reopen, type: 'open' })
     }
 
-
-
     let level = 0;
     const protection = status === 'protected' || status === 'closed';
 
@@ -129,13 +127,14 @@ export default function Question({
                 />
                 <Button component={Link} to='../ask' style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained">Ask question</Button>
 
-                <Tooltip title={!canClose && "You must be level 7"}>
+                <Tooltip title={canClose ? '' : 'You must be level 7'}>
                     <span>
                         <Button disabled={!canClose} style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained" onClick={changeClose}>Close/Open</Button>
                     </span>
                 </Tooltip>
 
-                <Tooltip title={!canProtect && "You must be  level 6 and this question must be open"}>
+                <Tooltip title={canProtect ? '' : 'You must be  level 6 and this question must be open'}>
+
                     <span>
                         <Button disabled={!canProtect} style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained" onClick={changeProtect}>Protect</Button>
                     </span>
