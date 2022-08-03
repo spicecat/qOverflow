@@ -22,7 +22,7 @@ router.get('/answers', tokenAuth, Answers);
 router.post('/login', basicAuth, Login);
 router.get('/remember', tokenAuth, Remember);
 router.delete('/logout', tokenAuth, Logout);
-router.get('/reset', RequestReset);
+router.post('/reset', RequestReset);
 router.post('/reset/:id', ResetPassword);
 router.get('/:username', GetUser);
 

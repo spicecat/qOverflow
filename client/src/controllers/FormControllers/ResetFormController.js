@@ -9,7 +9,7 @@ export default function ResetFormController() {
     const { id } = useParams();
 
     const changePassword = async ({ password }) => {
-        const { error } = await resetPassword(id, password);
+        const { error } = await resetPassword(id, { password });
 
         if (!error) {
             navigate('/users/login');
