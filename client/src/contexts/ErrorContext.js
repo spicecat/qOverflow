@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react';
 
 const initialErrorData = '';
 
-const ErrorContext = createContext();
+const ErrorContext = createContext({});
 
 export default function ErrorProvider({ children }) {
     const [error, setError] = useState(initialErrorData);

@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react';
 
 const initialAnswerData = {};
 
-const AnswerContext = createContext();
+const AnswerContext = createContext({});
 
 export default function AnswerProvider({ children }) {
     const [answerData, setAnswerData] = useState(initialAnswerData);

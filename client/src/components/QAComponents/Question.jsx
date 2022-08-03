@@ -128,15 +128,33 @@ export default function Question({
                 <Button component={Link} to='../ask' style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained">Ask question</Button>
 
                 <Tooltip title={canClose ? '' : 'You must be level 7'}>
-                    <span>
-                        <Button disabled={!canClose} style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained" onClick={changeClose}>Close/Open</Button>
+                <span>
+                        <Button
+                            disabled={!close}
+                            style={{ marginLeft: '10px' }}
+                            display='inline'
+                            m={1}
+                            onClick={changeProtect}
+                            variant='contained'
+                        >
+                            Close/Open
+                        </Button>
                     </span>
                 </Tooltip>
 
                 <Tooltip title={canProtect ? '' : 'You must be  level 6 and this question must be open'}>
 
                     <span>
-                        <Button disabled={!canProtect} style={{ 'marginLeft': '10px' }} display='inline' m={1} variant="contained" onClick={changeProtect}>Protect</Button>
+                    <Button
+                            disabled={!protect}
+                            style={{ marginLeft: '10px' }}
+                            display='inline'
+                            m={1}
+                            variant='contained'
+                            onClick={changeClose}
+                        >
+                            Protect
+                        </Button>
                     </span>
                 </Tooltip>
 
@@ -156,9 +174,7 @@ export default function Question({
                 />
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator }} />
-                    <ReactMarkdown>
-                        {text}
-                    </ReactMarkdown>
+                    <ReactMarkdown>{text}</ReactMarkdown>
                     <CommentControl  {...{ postComment, canComment }} />
                 </ListItemText>
             </ListItem>

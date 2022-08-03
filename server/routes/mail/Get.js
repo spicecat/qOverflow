@@ -15,7 +15,6 @@ async function Get(req, res) {
             createdAt: 'desc',
         });
 
-        console.log(username);
         return res.send({ messages });
     }
 }
