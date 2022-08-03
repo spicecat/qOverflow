@@ -1,19 +1,16 @@
 import { Form } from 'controllers/FormControllers';
+import { requestReset } from 'services/userServices';
 import { recoverFields } from 'services/fields';
 import { recoverSchema } from 'services/schemas';
 
 export default function ForgotPasswordFormController() {
-    const recover = ({ username }) => {
-        console.log(
-            `Visit http://localhost:3000/users/recover/${username} to reset your password`
-        );
-    }
+    const recover = async ({ username }) => {
+        await requestReset({ username });
+    };
 
-    return (
-        Form({
-            fields: recoverFields,
-            onSubmit: recover,
-            validationSchema: recoverSchema
-        })
-    );
+    return Form({
+        fields: recoverFields,
+        onSubmit: recover,
+        validationSchema: recoverSchema,
+    });
 }

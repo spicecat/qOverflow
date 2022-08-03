@@ -10,7 +10,6 @@ export default function SearchBarController() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(search);
     };
 
     return <SearchBar value={search} onChange={onChange} onSubmit={onSubmit} />;

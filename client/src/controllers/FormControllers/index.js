@@ -1,4 +1,4 @@
-import AnswerForm from './AnwerFormController';
+import AnswerForm from './AnswerFormController';
 import AskForm from './AskFormController';
 import ForgotPasswordForm from './ForgotPasswordFormController';
 import Form from './FormController';

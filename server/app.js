@@ -20,13 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/users', userRouter);
-app.use('/mail', mailRouter);
-app.use('/questions', questionRouter);
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.use('/api/users', userRouter);
+app.use('/api/mail', mailRouter);
+app.use('/api/questions', questionRouter);
 
 app.use(express.static(path.join(__dirname, 'public/build')));
-app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, 'public/build/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/build/index.html'));
 });
 
 module.exports = app;

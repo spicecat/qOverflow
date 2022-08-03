@@ -3,7 +3,6 @@ import Form from './Form';
 import ListAnswer from './ListAnswer';
 import ListQuestion from './ListQuestion';
 import MailUnit from './MailUnit';
-import ModeToggle from './ModeToggle';
 import Navbar from './Navbar';
 import NoData from './NoData';
 import PaginatedList from './PaginatedList';
@@ -18,7 +17,6 @@ export {
     ListAnswer,
     ListQuestion,
     MailUnit,
-    ModeToggle,
     Navbar,
     NoData,
     PaginatedList,

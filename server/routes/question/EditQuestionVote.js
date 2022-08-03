@@ -1,51 +1,11 @@
 const config = require('server/config.json');
 const User = require('server/db/models/User');
 const Vote = require('server/db/models/Vote');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
+const Question = require('server/db/models/Question');
 const createRequest = require('server/utils/api');
 const getUserLevel = require('server/utils/getUserLevel');
 
-async function downvote(res, user) {
-    {
-        const { success } = await createRequest('patch', URL, {
-            operation: 'increment',
-            target: 'downvotes',
-        });
-        if (!success) return res.status(500).send(config.errorGeneric);
-        await Vote.create({
-            parent_id: question_id,
-            creator: user.username,
-            status: 'downvoted',
-            docModel: 'Question',
-        });
-    }
-    {
-        const { success } = await createRequest(
-            'patch',
-            `/users/${user.username}/points`,
-            {
-                operation: 'decrement',
-                amount: 1,
-            }
-        );
-        if (!success) return res.status(500).send(config.errorGeneric);
-        await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
-    }
-}
-
-async function upvote(res, user) {
-    const { success } = await createRequest('patch', URL, {
-        operation: 'increment',
-        target: 'upvotes',
-    });
-    if (!success) return res.status(500).send(config.errorGeneric);
-    await Vote.create({
-        parent_id: question_id,
-        creator: user.username,
-        status: 'upvoted',
-        docModel: 'Question',
-    });
-}
+async function upvote(res, user) {}
 
 async function EditQuestionVote(req, res) {
     const { user } = req;
@@ -54,19 +14,24 @@ async function EditQuestionVote(req, res) {
 
     if (!operation) return res.status(400).send(config.errorIncomplete);
 
+    // Filter out requests that do not have the permissions
     const userLevel = getUserLevel(user.points);
 
-    if (operation === 'upvote' && userLevel < 2)
+    if (operation === 'upvote' && userLevel < 2) {
         return res.status(403).send(config.errorForbidden);
+    }
 
-    if (operation === 'downvote' && userLevel < 4)
+    if (operation === 'downvote' && userLevel < 4) {
         return res.status(403).send(config.errorForbidden);
+    }
 
     const URL = `/questions/${question_id}/vote/${user.username}`;
 
-    const question = await getQuestion(question_id);
+    // Verify that the question exists
+    const question = await Question.findById(question_id);
     if (!question) return res.status(404).send(config.errorNotFound);
 
+    // Find the cached vote and record the status
     let cachedVote = await Vote.findOneAndDelete({
         parent_id: question_id,
         creator: user.username,
@@ -77,28 +42,54 @@ async function EditQuestionVote(req, res) {
         cachedVote = !error ? { status: vote } : { status: null };
     }
 
-    if (cachedVote === 'upvoted') {
-        {
-            const { success } = await createRequest('patch', URL, {
-                operation: 'decrement',
-                target: 'upvotes',
-            });
-            if (!success) return res.status(500).send(config.errorGeneric);
-        }
+    if (cachedVote.status === 'upvoted') {
+        // Undo the previous upvote status
+        const { success } = await createRequest('patch', URL, {
+            operation: 'decrement',
+            target: 'upvotes',
+        });
+
+        if (!success) return res.status(500).send();
+
         if (operation === 'downvote') {
-            await downvote(res, user);
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${question.creator}/points`,
-                    {
-                        operation: 'decrement',
-                        amount: 6,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
+            // Change the vote status to downvoted
+            const { success } = await createRequest('patch', URL, {
+                operation: 'increment',
+                target: 'downvotes',
+            });
+
+            if (!success) {
+                return res.status(500).send(config.errorGeneric);
             }
+
+            // Cache the new vote
+            await Vote.create({
+                parent_id: question_id,
+                creator: user.username,
+                status: 'downvoted',
+                docModel: 'Question',
+            });
+
+            // Decrement the question creator's points
+            await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'decrement',
+                amount: 6,
+            });
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: -6 } }
+            );
+
+            // Decrement the user's points
+            await createRequest('patch', `/users/${user.username}/points`, {
+                operation: 'decrement',
+                amount: 1,
+            });
+            await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
+
+            return res.send({ vote: 'downvoted' });
         } else {
+            // Decrement the question creator's points
             const { success } = await createRequest(
                 'patch',
                 `/users/${question.creator}/points`,
@@ -107,84 +98,138 @@ async function EditQuestionVote(req, res) {
                     amount: 5,
                 }
             );
+
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: -5 } }
+            );
+
             if (!success) return res.status(500).send(config.errorGeneric);
-            return res.send({ vote: 'upvoted' });
+
+            return res.send({ vote: null });
         }
-    } else if (cachedVote === 'downvoted') {
-        {
-            const { success } = await createRequest('patch', URL, {
-                operation: 'decrement',
-                target: 'downvotes',
-            });
-            if (!success) return res.status(500).send(config.errorGeneric);
-        }
+    } else if (cachedVote.status === 'downvoted') {
+        // Undo the previous vote status
+        const { success } = await createRequest('patch', URL, {
+            operation: 'decrement',
+            target: 'downvotes',
+        });
+
+        if (!success) return res.status(500).send(config.errorGeneric);
+
         if (operation === 'upvote') {
-            await upvote(res, user);
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${question.creator}/points`,
-                    {
-                        operation: 'increment',
-                        amount: 6,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
-            }
+            // Increment upvotes
+            const { success } = await createRequest('patch', URL, {
+                operation: 'increment',
+                target: 'upvotes',
+            });
+
+            if (!success) return res.status(500).send(config.errorGeneric);
+
+            // Cache the new vote
+            await Vote.create({
+                parent_id: question_id,
+                creator: user.username,
+                status: 'upvoted',
+                docModel: 'Question',
+            });
+
+            // Increment question creator's points
+            await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'increment',
+                amount: 6,
+            });
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: 6 } }
+            );
+
             return res.send({ vote: 'upvoted' });
         } else {
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${question.creator}/points`,
-                    {
-                        operation: 'increment',
-                        amount: 1,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
-            }
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${user.username}/points`,
-                    {
-                        operation: 'increment',
-                        amount: 1,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
-                await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
-            }
+            // Increment the question creator's points
+            await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'increment',
+                amount: 1,
+            });
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: 1 } }
+            );
+
+            // Increment the user's points
+            await createRequest('patch', `/users/${user.username}/points`, {
+                operation: 'increment',
+                amount: 1,
+            });
+            await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
+
+            return res.send({ vote: null });
         }
     } else {
         if (operation === 'upvote') {
-            await upvote(res, user);
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${question.creator}/points`,
-                    {
-                        operation: 'increment',
-                        amount: 5,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
-            }
+            // Increment upvotes
+            const { success } = await createRequest('patch', URL, {
+                operation: 'increment',
+                target: 'upvotes',
+            });
+
+            if (!success) return res.status(500).send(config.errorGeneric);
+
+            // Cache the new vote
+            await Vote.create({
+                parent_id: question_id,
+                creator: user.username,
+                status: 'upvoted',
+                docModel: 'Question',
+            });
+
+            // Increment question creator's points
+            await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'increment',
+                amount: 5,
+            });
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: 5 } }
+            );
+
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
-            await downvote(res, user);
-            {
-                const { success } = await createRequest(
-                    'patch',
-                    `/users/${question.creator}/points`,
-                    {
-                        operation: 'decrement',
-                        amount: 1,
-                    }
-                );
-                if (!success) return res.status(500).send(config.errorGeneric);
+            // Change the vote status to downvoted
+            const { success } = await createRequest('patch', URL, {
+                operation: 'increment',
+                target: 'downvotes',
+            });
+
+            if (!success) {
+                return res.status(500).send(config.errorGeneric);
             }
+
+            // Cache the new vote
+            await Vote.create({
+                parent_id: question_id,
+                creator: user.username,
+                status: 'downvoted',
+                docModel: 'Question',
+            });
+
+            // Decrement the question creator's points
+            await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'decrement',
+                amount: 1,
+            });
+            await User.findOneAndUpdate(
+                { username: question.creator },
+                { $inc: { points: -1 } }
+            );
+
+            // Decrement the user's points
+            await createRequest('patch', `/users/${user.username}/points`, {
+                operation: 'decrement',
+                amount: 1,
+            });
+            await User.findByIdAndUpdate(user.id, { $inc: { points: -1 } });
+
             return res.send({ vote: 'downvoted' });
         }
     }

@@ -8,7 +8,7 @@ const Question = mongoose.Schema(
         createdAt: { type: Date, required: true, default: Date.now },
         creator: { type: String, required: true },
         downvotes: { type: Number, required: true, default: 0 },
-        hasAccepted: { type: Boolean, required: true, default: false },
+        hasAcceptedAnswer: { type: Boolean, required: true, default: false },
         lastAnswerFetch: { type: Date, default: new Date(0) },
         lastCommentFetch: { type: Date, default: new Date(0) },
         protect: [String],

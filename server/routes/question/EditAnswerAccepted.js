@@ -1,5 +1,7 @@
 const config = require('server/config.json');
 const Answer = require('server/db/models/Answer');
+const Question = require('server/db/models/Question');
+const User = require('server/db/models/User');
 const { getQuestion, refreshQuestion } = require('server/utils/question');
 const createRequest = require('server/utils/api');
 
@@ -12,10 +14,7 @@ async function EditAnswerAccepted(req, res) {
     if (!question) return res.status(404).send(config.errorNotFound);
 
     // Verify user owns question and question does not already have an accepted answer
-    if (
-        question.creator !== user.username ||
-        question.hasAccepted
-    )
+    if (question.creator !== user.username || question.hasAccepted)
         return res.status(403).send(config.errorForbidden);
 
     // Patch question with BDPA server
@@ -30,16 +29,22 @@ async function EditAnswerAccepted(req, res) {
     }
 
     const cachedAnswer = await Answer.findByIdAndDelete(answer_id);
-    //update hasAcceptedAnswer
+
+    // Update hasAcceptedAnswer
     await createRequest('patch', `/questions/${question_id}`, {
-        hasAcceptedAnswer: true
+        hasAcceptedAnswer: true,
     });
+    await Question.findByIdAndUpdate(question_id, { hasAcceptedAnswer: true });
 
     // Increment points of answer creator
     await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
         operation: 'increment',
         amount: 15,
     });
+    await User.findByOneAndUpdate(
+        { username: cachedAnswer.creator },
+        { $inc: { points: 15 } }
+    );
 
     return res.sendStatus(200);
 }

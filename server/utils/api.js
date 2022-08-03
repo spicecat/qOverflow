@@ -33,11 +33,9 @@ const createRequest = async (op, endpoint, data) => {
 
     return request
         .then((res) => {
-            console.log(op, endpoint, JSON.stringify(res.body).substr(0, 100));
             return res.body;
         })
         .catch((err) => {
-            console.log(op, endpoint, err.response?.body);
             return err.response?.body || { error: 'Error' };
         });
 };

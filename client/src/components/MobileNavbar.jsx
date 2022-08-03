@@ -19,23 +19,19 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
 import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 
 import Logo from 'assets/bdpa-logo.svg';
-import { useMode } from 'contexts';
 
-export default function MobileNavbar({ logout, userData }) {
-    const [open, setOpen] = useState(false);
-    const { mode, setMode } = useMode();
-
-    const handleClick = () => setOpen((initial) => !initial);
-
-    const onClick = () => {
-        setMode(() => (mode === 'light' ? 'dark' : 'light'));
-    };
-
+export default function MobileNavbar({
+    logout,
+    userData,
+    open,
+    setOpen,
+    mode,
+    setMode,
+}) {
     function NavbarControls() {
         return userData.username ? (
             <>
@@ -121,11 +117,11 @@ export default function MobileNavbar({ logout, userData }) {
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
 
-                <Button color='inherit' onClick={handleClick}>
+                <Button color='inherit' onClick={setOpen}>
                     Menu
                 </Button>
             </Toolbar>
-            <Drawer anchor='right' open={open} onClose={handleClick}>
+            <Drawer anchor='right' open={open} onClose={setOpen}>
                 <List>
                     <ListItem>
                         <ListItemButton component={Link} to='/questions/search'>
@@ -137,7 +133,7 @@ export default function MobileNavbar({ logout, userData }) {
                     </ListItem>
                     <NavbarControls />
                     <ListItem>
-                        <ListItemButton onClick={onClick}>
+                        <ListItemButton onClick={setMode}>
                             <ListItemIcon>
                                 {mode === 'light' ? (
                                     <DarkModeIcon />

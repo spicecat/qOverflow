@@ -9,10 +9,12 @@ import {
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/bdpa-logo.svg';
-import { ModeToggle, Profile } from 'components';
+import { Profile } from 'components';
 import { SearchBar } from 'controllers';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function Navbar({ logout, userData }) {
+export default function Navbar({ logout, userData, mode, setMode }) {
     function NavbarControls() {
         return userData.username ? (
             <>
@@ -61,7 +63,23 @@ export default function Navbar({ logout, userData }) {
                 </Typography>
                 <SearchBar />
                 <Box sx={{ flexGrow: 1 }} />
-                <ModeToggle />
+                {mode === 'dark' ? (
+                    <IconButton
+                        color='inherit'
+                        onClick={setMode}
+                        sx={{ margin: '0 1vh' }}
+                    >
+                        <LightModeIcon />
+                    </IconButton>
+                ) : (
+                    <IconButton
+                        color='inherit'
+                        onClick={setMode}
+                        sx={{ margin: '0 1vh' }}
+                    >
+                        <DarkModeIcon />
+                    </IconButton>
+                )}
                 <NavbarControls />
             </Toolbar>
         </AppBar>
