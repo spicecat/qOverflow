@@ -34,7 +34,7 @@ export default function PaginatedListController({
 
     useEffect(() => {
         loadData(true);
-    }, [searchParams]);
+    }, [searchParams, getData]);
 
     useEffect(() => {
         const interval = setInterval(() => {
