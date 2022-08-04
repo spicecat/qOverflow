@@ -24,11 +24,11 @@ export default function Buffet() {
 
     const [sort, setSort] = useState(0);
 
-    const getData = async () => {
+    const getData = async ({ question_id }) => {
 
         const { error, questions } = await searchQuestions({
-            ...sortObjArr[sort]
-            
+            ...sortObjArr[sort],
+            after: question_id
         });
         if (error) {
             setError(error);
@@ -75,7 +75,7 @@ export default function Buffet() {
                     <ToggleButton value={3}>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            <PaginatedList {...{ Component: ListQuestion, getData }} />;
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />;
         </Box>
     );
 }
