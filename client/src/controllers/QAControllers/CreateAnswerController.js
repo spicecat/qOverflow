@@ -14,7 +14,7 @@ export default function CreateAnswerController() {
     };
 
     return CreateAnswer({
-        canAnswer: level >= 2 && status === 'open',
+        canAnswer: (level >= 2 && status === 'open') || (status === 'protected' && level >= 5),
         show,
         toggleShow,
     });

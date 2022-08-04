@@ -79,6 +79,7 @@ export default function Question({
     } else {
         canAnswer = false;
     }
+
     useEffect(() => {
         setPermissions({ canVote: canVote, canComment: canComment, canAccept: canAccept })
         setVote();
