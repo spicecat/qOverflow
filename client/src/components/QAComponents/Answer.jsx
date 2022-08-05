@@ -38,7 +38,7 @@ export default function Answer({
                 <ButtonGroup orientation='vertical'>
                     <VoteControl
                         {...{
-                            canVote,
+                            creator,
                             downvotes,
                             getVote,
                             orientation: 'vertical',

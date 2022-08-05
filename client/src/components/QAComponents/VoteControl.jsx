@@ -16,7 +16,7 @@ export default function VoteControl({
     return (
         <span style={{ marginRight: 8 }}>
             <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>
-                <Tooltip title={canUpvote ? '' : 'Question must be open and must be level 2 to upvote'}>
+                <Tooltip title={canUpvote ? '' : 'Question must be open, not created by you, and you must be level 2 to upvote'}>
                     <span>
                         <IconButton
                             disabled={!canUpvote}
@@ -31,7 +31,7 @@ export default function VoteControl({
                         {upvotes - downvotes}
                     </Typography>
                 </Tooltip>
-                <Tooltip title={canDownvote ? '' : 'Question must be open and must be level 4 to downvote'}>
+                <Tooltip title={canDownvote ? '' : 'Question must be open, not created by you, and you must be level 4 to downvote'}>
                     <span>
                         <IconButton
                             disabled={!canDownvote}

@@ -8,10 +8,10 @@ import { MdPreview } from 'components';
 
 export default function Ask() {
     const navigate = useNavigate();
-    const { userData: loading } = useUser();
+    const { userData } = useUser();
 
     useEffect(() => {
-        if (loading === false) {
+        if (!userData.username) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -20,7 +20,7 @@ export default function Ask() {
                 },
             });
         }
-    }, [loading, navigate]);
+    }, [navigate]);
     
     return (
         <div>

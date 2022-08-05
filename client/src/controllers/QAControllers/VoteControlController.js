@@ -8,17 +8,17 @@ export default function VoteControlController({
     orientation,
     updateVote,
     upvotes,
-    canVote
+    creator
 }) {
     const { questionData: { status } } = useQuestion();
-    const { userData: { level } } = useUser();
+    const { userData: { level, username } } = useUser();
 
     const [disabled, setDisabled] = useState()
     const [vote, setVote] = useState()
     const [original, setOriginal] = useState()
-
-    const canDownvote = level >= 4 && status !== 'closed';
-    const canUpvote = level >= 2 && status !== 'closed';
+    let isOwnQ = (username === creator)
+    const canDownvote = level >= 4 && status !== 'closed' && !isOwnQ;
+    const canUpvote = level >= 2 && status !== 'closed' && !isOwnQ;
 
     const loadVote = async () => {
         if (canUpvote) {
@@ -65,7 +65,7 @@ export default function VoteControlController({
             orientation,
             upvotes: upvotes + (vote === 'upvoted') - (original === 'upvoted'),
             vote,
-            canVote
+            
         })
     );
 }

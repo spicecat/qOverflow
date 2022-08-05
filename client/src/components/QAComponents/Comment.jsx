@@ -25,7 +25,7 @@ export default function Comment({
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
                     {text}
                 </ListItemText>
-                <VoteControl {...{ downvotes, getVote, updateVote, upvotes, canVote}} />
+                <VoteControl {...{ downvotes, getVote, updateVote, upvotes, creator}} />
             </ListItem>
             <Divider />
         </span>

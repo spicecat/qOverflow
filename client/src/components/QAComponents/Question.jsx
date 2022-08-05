@@ -49,7 +49,7 @@ export default function Question({
 
 
     const { userData } = useUser();
-    const [ongoingVote, setOngoingVote] = useState({})
+    const [ongoingVote, setOngoingVote] = useState({users: [], type: 'none'})
     const { setPermissions } = useQuestion();
 
     function setVote() {
@@ -71,15 +71,18 @@ export default function Question({
     if (userData.username) {
         level = userData.level;
         if (userData.username === creator && !hasAcceptedAnswer) { canAccept = true }
+
         if (level >= 7 && ongoingVote.type !== "protect") { canClose = true }
         if (level >= 6 && !protection && ongoingVote.type !== "close") { canProtect = true }
+
         if ((level >= 3 && !protection) || (status === 'protected' && level >= 5) || (userData.username === creator)) { canComment = true }
         if ((status === 'protected' && level < 5) || status === 'closed') { canAnswer = false }
-        if (status === 'closed' || level < 2) { canVote = false }
+        if (userData.username === creator) { canVote = false }
     } else {
         canAnswer = false;
+        canVote = false;
     }
-
+    
     useEffect(() => {
         setPermissions({ canVote: canVote, canComment: canComment, canAccept: canAccept })
         setVote();
@@ -89,16 +92,28 @@ export default function Question({
         updateQuestion(question_id, { views: "increment" })
     }, [])
 
+  
+
     function changeProtect() {
         protectQuestion(question_id, userData)
+        protect.includes(userData.username) ? protect.splice(protect.indexOf(userData.username), 1) : protect.push(userData.username)
+        ongoingVoteSet(protect, 'protect')
     }
     function changeClose() {
         if (status === 'open') {
             closeQuestion(question_id, userData)
+            close.includes(userData.username) ? close.splice(close.indexOf(userData.username), 1) : close.push(userData.username)
+            ongoingVoteSet(close, 'close')
         } else {
             openQuestion(question_id, userData)
+            reopen.includes(userData.username) ? reopen.splice(reopen.indexOf(userData.username), 1) : reopen.push(userData.username)
+            ongoingVoteSet(reopen, 'reopen')
         }
 
+    }
+
+    function ongoingVoteSet(users, type){
+        users.length === 0 ? setOngoingVote({users: [], type: 'none'}) : setOngoingVote({users: users, type: type})
     }
 
     const getVote = () => getQuestionVote(question_id);
@@ -131,11 +146,11 @@ export default function Question({
                 <Tooltip title={canClose ? '' : 'You must be level 7'}>
                 <span>
                         <Button
-                            disabled={!close}
+                            disabled={!canClose}
                             style={{ marginLeft: '10px' }}
                             display='inline'
                             m={1}
-                            onClick={changeProtect}
+                            onClick={changeClose}
                             variant='contained'
                         >
                             Close/Open
@@ -147,19 +162,19 @@ export default function Question({
 
                     <span>
                     <Button
-                            disabled={!protect}
+                            disabled={!canProtect}
                             style={{ marginLeft: '10px' }}
                             display='inline'
                             m={1}
                             variant='contained'
-                            onClick={changeClose}
+                            onClick={changeProtect}
                         >
                             Protect
                         </Button>
                     </span>
                 </Tooltip>
 
-                {Object.keys(ongoingVote).length > 0 && <Typography>{ongoingVote.users.toString()} - voting to {ongoingVote.type} this question </Typography>}
+                {ongoingVote.users.length > 0 && <Typography>{ongoingVote.users.toString()} - voting to {ongoingVote.type} this question </Typography>}
             </Box>
             <Divider />
 
@@ -170,7 +185,8 @@ export default function Question({
                         getVote,
                         orientation: 'vertical',
                         updateVote,
-                        upvotes
+                        upvotes,
+                        creator
                     }}
                 />
                 <ListItemText>
