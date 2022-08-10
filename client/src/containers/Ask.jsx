@@ -2,16 +2,15 @@ import { Card, CardContent } from '@mui/material';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useUser } from 'contexts';
 import { AskForm } from 'controllers/FormControllers';
 import { MdPreview } from 'components';
+import Cookies from 'js-cookie';
 
 export default function Ask() {
     const navigate = useNavigate();
-    const { userData } = useUser();
 
     useEffect(() => {
-        if (!userData.username) {
+        if (!Cookies.get('token')) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -21,7 +20,7 @@ export default function Ask() {
             });
         }
     }, [navigate]);
-    
+
     return (
         <div>
             <Card>

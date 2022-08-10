@@ -1,18 +1,16 @@
 import { Card, CardContent } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useUser } from 'contexts';
 import { Inbox } from 'controllers';
 import { SendMail } from 'controllers/FormControllers';
 import { MdPreview } from 'components';
+import Cookies from 'js-cookie';
 
 export default function Mail() {
     const navigate = useNavigate();
-    const { userData} = useUser();
 
     useEffect(() => {
-        if (!userData.username) {
+        if (!Cookies.get('token')) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',

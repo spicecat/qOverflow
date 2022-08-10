@@ -3,13 +3,13 @@ import { UpdateForm } from 'controllers/FormControllers';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useUser } from 'contexts';
+import Cookies from 'js-cookie';
 
 export default function Register() {
     const navigate = useNavigate();
-    const { userData: loading } = useUser();
 
     useEffect(() => {
-        if (loading === false) {
+        if (Cookies.get('token')) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
@@ -18,7 +18,7 @@ export default function Register() {
                 },
             });
         }
-    }, [loading, navigate]);
+    }, [navigate]);
 
     return (
         <Grid

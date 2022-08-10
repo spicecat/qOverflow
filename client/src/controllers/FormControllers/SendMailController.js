@@ -4,14 +4,12 @@ import { composeMailFields } from 'services/fields';
 import { postMail } from 'services/mailServices';
 import { mailSchema } from 'services/schemas';
 import { useEffect } from 'react';
-import { useUser } from 'contexts';
+import Cookies from 'js-cookie';
 
-export default function SendMailController() {
-    const { userData } = useUser();
-
+export default function SendMailController({ sendMail }) {
     const navigate = useNavigate();
     useEffect(() => {
-        if (checkAuth()) {
+        if (!Cookies.get('token')) {
             navigate('/users/login', {
                 state: {
                     name: 'ask',
@@ -22,15 +20,9 @@ export default function SendMailController() {
         }
     }, []);
 
-    function checkAuth() {
-        if (!userData.username) {
-            return true;
-        }
-    }
-
     return Form({
         fields: composeMailFields,
-        onSubmit: postMail,
+        onSubmit: sendMail,
         validationSchema: mailSchema,
     });
 }
