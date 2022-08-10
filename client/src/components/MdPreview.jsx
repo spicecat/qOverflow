@@ -1,21 +1,12 @@
-import { useForm } from 'contexts';
-import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Paper, Typography, Button } from '@mui/material';
 
-export default function MdPreview() {
-    const [preview, setPreview] = useState(false);
-    const { content } = useForm();
-
-    function handleClick() {
-        setPreview(!preview);
-    }
-
+export default function MdPreview({ show, toggleShow, content }) {
     return (
         <div>
             <Button
                 fullWidth
-                onClick={handleClick}
+                onClick={toggleShow}
                 type='submit'
                 variant='contained'
                 color='primary'
@@ -23,7 +14,7 @@ export default function MdPreview() {
             >
                 Show Markdown Preview
             </Button>
-            {preview && (
+            {show && (
                 <Paper variant='outlined'>
                     <Typography variant='h5'> Text Preview: </Typography>
                     <ReactMarkdown children={content} />

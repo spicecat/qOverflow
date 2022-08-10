@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, Tooltip } from '@mui/material';
 
 import { AnswerForm } from 'controllers/FormControllers';
-import MdPreview from 'components/MdPreview';
+import { MdPreview } from 'controllers';
 
 export default function CreateAnswer({ canAnswer, show, toggleShow }) {
     return (

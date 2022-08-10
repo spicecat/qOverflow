@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AskForm } from 'controllers/FormControllers';
-import { MdPreview } from 'components';
+import { MdPreview } from 'controllers';
 import Cookies from 'js-cookie';
 
 export default function Ask() {

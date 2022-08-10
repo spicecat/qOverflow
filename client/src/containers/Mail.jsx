@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Inbox } from 'controllers';
 import { SendMail } from 'controllers/FormControllers';
-import { MdPreview } from 'components';
+import { MdPreview } from 'controllers';
 import Cookies from 'js-cookie';
 
 export default function Mail() {
