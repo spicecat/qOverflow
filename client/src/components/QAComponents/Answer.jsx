@@ -29,7 +29,9 @@ export default function Answer({
 
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    const postComment = (data) => postAnswerComment(question_id, answer_id, data);
+    const postComment = async (data) => {
+        await postAnswerComment(question_id, answer_id, data);
+    };
     const acceptAnswer = () => updateAcceptAnswer(question_id, answer_id);
 
     return (

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Tooltip, Typography } from '@mui/material'
+import { Button, ButtonGroup, Tooltip, Typography } from '@mui/material';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import { Form } from 'controllers/FormControllers';
 
@@ -9,14 +9,17 @@ export default function CommentControl({
     postComment,
     show,
     toggleShow,
-    
-    
 }) {
-    
     return (
         <span>
             <ButtonGroup style={{ alignItems: 'center' }}>
-                <Tooltip title={canComment ? '' : 'You must be level 3 to comment or level 5 if this question is protected'}>
+                <Tooltip
+                    title={
+                        canComment
+                            ? ''
+                            : 'You must be level 3 to comment or level 5 if this question is protected'
+                    }
+                >
                     <span>
                         <Button
                             disabled={!canComment}
@@ -33,13 +36,7 @@ export default function CommentControl({
                     </span>
                 </Tooltip>
             </ButtonGroup>
-            {show && (
-                <Form
-                    fields={commentFields}
-                    onSubmit={postComment}
-                    schema={commentSchema}
-                />
-            )}
+            {show && <Form fields={commentFields} onSubmit={postComment} schema={commentSchema} />}
         </span>
-    )
+    );
 }

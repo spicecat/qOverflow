@@ -14,11 +14,7 @@ export default function CreateAnswer({ canAnswer, show, toggleShow }) {
                 }
             >
                 <span>
-                    <Button
-                        disabled={!canAnswer}
-                        variant='contained'
-                        onClick={toggleShow}
-                    >
+                    <Button disabled={!canAnswer} variant='contained' onClick={toggleShow}>
                         Add Answer
                     </Button>
                 </span>
@@ -26,7 +22,7 @@ export default function CreateAnswer({ canAnswer, show, toggleShow }) {
             {show && (
                 <Card>
                     <CardContent>
-                        <AnswerForm />
+                        <AnswerForm {...{ toggleShow }} />
                         <MdPreview />
                     </CardContent>
                 </Card>
