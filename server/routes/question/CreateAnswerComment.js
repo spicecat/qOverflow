@@ -16,14 +16,10 @@ async function CreateAnswerComment(req, res) {
     // Verify question is not closed
     const question = await getQuestion(question_id);
     if (!question) return res.status(404).send(config.errorNotFound);
-    if (question.status === 'closed')
-        return res.status(403).send(config.errorForbidden);
+    if (question.status === 'closed') return res.status(403).send(config.errorForbidden);
 
     // Verify user has permissions to comment
-    if (
-        getUserLevel(user.points) < 3 &&
-        cachedAnswer?.creator !== user.username
-    ) {
+    if (getUserLevel(user.points) < 3 && cachedAnswer?.creator !== user.username) {
         return res.status(403).send(config.errorForbidden);
     }
 
@@ -43,14 +39,14 @@ async function CreateAnswerComment(req, res) {
     if (!success) return res.status(500).send(config.errorGeneric);
 
     // Cache question
-    await Comment.create({
+    const newComment = await Comment.create({
         ...comment,
         _id: comment.comment_id,
         docModel: 'Answer',
         parent_id: answer_id,
     });
 
-    return res.sendStatus(200);
+    return res.send({ comment: newComment });
 }
 
 module.exports = CreateAnswerComment;

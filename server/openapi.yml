@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
     - description: SwaggerHub API Auto Mocking
       url: https://virtserver.swaggerhub.com/C4theBomb/qOverflow/1.0.0
-    - description: Localhost
-      url: http://localhost:3001/api
+    - description: Localhost Server
+      url: http://localhost:3000/api
 info:
     version: '1.0.0'
     title: qOverflow API
@@ -309,6 +309,13 @@ paths:
             responses:
                 '200':
                     description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    question:
+                                        $ref: '#/components/schemas/Question'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '500':
@@ -547,6 +554,13 @@ paths:
             responses:
                 '200':
                     description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    comment:
+                                        $ref: '#/components/schemas/Comment'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '403':
@@ -665,6 +679,13 @@ paths:
             responses:
                 '200':
                     description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    answer:
+                                        $ref: '#/components/schemas/Answer'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '403':
@@ -818,6 +839,13 @@ paths:
             responses:
                 '200':
                     description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    comment:
+                                        $ref: '#/components/schemas/Comment'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '403':

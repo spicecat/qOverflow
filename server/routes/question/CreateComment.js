@@ -12,28 +12,20 @@ async function CreateComment(req, res) {
     // Verify question is not closed
     const question = await getQuestion(question_id);
     if (!question) return res.status(404).send(config.errorNotFound);
-    if (question.status === 'closed')
-        return res.status(403).send(config.errorForbidden);
+    if (question.status === 'closed') return res.status(403).send(config.errorForbidden);
 
     // Verify user has permissions to create comments
-    if (
-        getUserLevel(user.points) < 3 &&
-        question?.creator !== user.username
-    )
+    if (getUserLevel(user.points) < 3 && question?.creator !== user.username)
         return res.status(403).send(config.errorForbidden);
 
     // Verify required items are in request body
     if (!text) return res.status(400).send(config.errorIncomplete);
 
     // Post comment with BDPA server
-    const { success, comment } = await createRequest(
-        'post',
-        `/questions/${question_id}/comments`,
-        {
-            creator: user.username,
-            text,
-        }
-    );
+    const { success, comment } = await createRequest('post', `/questions/${question_id}/comments`, {
+        creator: user.username,
+        text,
+    });
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
@@ -45,7 +37,7 @@ async function CreateComment(req, res) {
         parent_id: question_id,
     });
 
-    return res.sendStatus(200);
+    return res.send({ comment: newComment });
 }
 
 module.exports = CreateComment;

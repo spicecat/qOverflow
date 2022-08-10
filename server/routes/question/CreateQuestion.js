@@ -17,7 +17,7 @@ async function CreateQuestion(req, res) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    await Question.create({ ...question, _id: question.question_id });
+    const newQuestion = await Question.create({ ...question, _id: question.question_id });
 
     // Increment user points by 1
     await createRequest('patch', `/users/${user.username}/points`, {
@@ -27,7 +27,7 @@ async function CreateQuestion(req, res) {
 
     await User.findByIdAndUpdate(user.id, { $inc: { points: 1 } });
 
-    return res.sendStatus(200);
+    return res.send({ question: newQuestion });
 }
 
 module.exports = CreateQuestion;
