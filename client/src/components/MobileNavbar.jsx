@@ -24,23 +24,12 @@ import { Link } from 'react-router-dom';
 
 import Logo from 'assets/bdpa-logo.svg';
 
-export default function MobileNavbar({
-    logout,
-    userData,
-    open,
-    setOpen,
-    mode,
-    setMode,
-}) {
-    function NavbarControls() {
+export default function MobileNavbar({ logout, userData, open, setOpen, mode, setMode }) {
+    function ControlButtons() {
         return userData.username ? (
             <>
                 <ListItem>
-                    <ListItemButton
-                        color='inherit'
-                        component={Link}
-                        to='/dashboard'
-                    >
+                    <ListItemButton color='inherit' component={Link} to='/dashboard'>
                         <ListItemIcon>
                             <Gravatar
                                 email={userData.email}
@@ -76,11 +65,7 @@ export default function MobileNavbar({
         ) : (
             <>
                 <ListItem>
-                    <ListItemButton
-                        color='inherit'
-                        component={Link}
-                        to='/users/login'
-                    >
+                    <ListItemButton color='inherit' component={Link} to='/users/login'>
                         <ListItemIcon>
                             <LoginIcon />
                         </ListItemIcon>
@@ -88,11 +73,7 @@ export default function MobileNavbar({
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
-                    <ListItemButton
-                        color='inherit'
-                        component={Link}
-                        to='/users/register'
-                    >
+                    <ListItemButton color='inherit' component={Link} to='/users/register'>
                         <ListItemIcon>
                             <AppRegistrationIcon />
                         </ListItemIcon>
@@ -102,14 +83,11 @@ export default function MobileNavbar({
             </>
         );
     }
+
     return (
         <AppBar position='static'>
             <Toolbar>
-                <IconButton
-                    component={Link}
-                    to='/'
-                    sx={{ margin: '0 1vw 0 0 ' }}
-                >
+                <IconButton component={Link} to='/' sx={{ margin: '0 1vw 0 0 ' }}>
                     <img src={Logo} alt='bdpa logo' width='40' height='40' />
                 </IconButton>
                 <Typography variant='h6' component='div'>
@@ -131,19 +109,14 @@ export default function MobileNavbar({
                             <ListItemText>Search</ListItemText>
                         </ListItemButton>
                     </ListItem>
-                    <NavbarControls />
+                    <ControlButtons />
                     <ListItem>
                         <ListItemButton onClick={setMode}>
                             <ListItemIcon>
-                                {mode === 'light' ? (
-                                    <DarkModeIcon />
-                                ) : (
-                                    <LightModeIcon />
-                                )}
+                                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
                             </ListItemIcon>
                             <ListItemText>
-                                Switch to {mode === 'light' ? 'dark' : 'light'}{' '}
-                                mode
+                                Switch to {mode === 'light' ? 'dark' : 'light'} mode
                             </ListItemText>
                         </ListItemButton>
                     </ListItem>
