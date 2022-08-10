@@ -12,12 +12,9 @@ export default function Comment({
     question_id,
     text,
     upvotes,
-    
 }) {
     const getVote = () => getCommentVote(question_id, comment_id);
     const updateVote = (data) => updateCommentVote(question_id, comment_id, data);
-    const {permissions} = useQuestion();
-    let canVote = permissions.canVote;
     return (
         <span key={comment_id}>
             <ListItem disablePadding>
@@ -25,7 +22,7 @@ export default function Comment({
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
                     {text}
                 </ListItemText>
-                <VoteControl {...{ downvotes, getVote, updateVote, upvotes, creator}} />
+                <VoteControl {...{ downvotes, getVote, updateVote, upvotes, creator }} />
             </ListItem>
             <Divider />
         </span>

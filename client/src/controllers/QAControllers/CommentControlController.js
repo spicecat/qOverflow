@@ -7,6 +7,7 @@ import { commentSchema } from 'services/schemas';
 
 export default function CommentControlController({ postComment, canComment }) {
     const [show, setShow] = useState(false);
+    const navigate = useNavigate();
 
     const toggleShow = () => {
         setShow(!show);
@@ -16,6 +17,7 @@ export default function CommentControlController({ postComment, canComment }) {
         await postComment(data);
 
         toggleShow();
+        navigate('');
     };
 
     return CommentControl({

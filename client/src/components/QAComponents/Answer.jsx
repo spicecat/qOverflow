@@ -2,7 +2,6 @@ import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/mater
 import CheckIcon from '@mui/icons-material/Check';
 import ReactMarkdown from 'react-markdown';
 
-import { useQuestion } from 'contexts';
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 import {
@@ -22,11 +21,9 @@ export default function Answer({
     question_id,
     text,
     upvotes,
+    canComment,
+    canAccept,
 }) {
-    const {
-        permissions: { canVote, canComment, canAccept },
-    } = useQuestion();
-
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
     const postComment = async (data) => {
