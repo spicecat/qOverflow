@@ -1,21 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-    Button,
-    Box,
-    ToggleButton,
-    ToggleButtonGroup,
-    Typography,
-} from '@mui/material';
+import { Button, Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 
 import { useError } from 'contexts';
 import { PaginatedList } from 'controllers';
-import { ListQuestion } from 'components';
+import { ListQuestion, BlankProgress } from 'components';
 import { searchQuestions } from 'services/questionsServices';
 
 const recent = {};
 const best = { sort: 'u' };
-const interesting = { match: JSON.stringify({ 'answers': 0 }), sort: 'uvc' };
+const interesting = { match: JSON.stringify({ answers: 0 }), sort: 'uvc' };
 const hot = { match: JSON.stringify({ hasAcceptedAnswer: false }), sort: 'uvac' };
 const sortObjArr = [recent, best, interesting, hot];
 
@@ -23,32 +17,34 @@ export default function Buffet() {
     const { setError } = useError();
 
     const [sort, setSort] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     const getData = async ({ question_id }) => {
-
         const { error, questions } = await searchQuestions({
             ...sortObjArr[sort],
-            after: question_id
+            after: question_id,
         });
+
         if (error) {
             setError(error);
-        } else
+        } else {
+            setLoading(() => false);
             return questions;
-    }
+        }
+    };
 
     const handleSortChange = (_, newSort) => {
-        if (newSort !== sort)
-            setSort(newSort);
+        if (newSort !== sort) setSort(newSort);
     };
 
     return (
-        <Box>
+        <Box height='100%'>
             <Box
                 style={{
                     width: '100%',
-                    height: '60%',
                     border: '3px lightGray solid',
                     textAlign: 'center',
+                    padding: '1vh',
                 }}
             >
                 <Typography variant='h3'>Top Questions</Typography>
@@ -75,7 +71,8 @@ export default function Buffet() {
                     <ToggleButton value={3}>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />;
+            {loading && <BlankProgress />}
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData, noData: false }} />
         </Box>
     );
 }

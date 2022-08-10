@@ -10,6 +10,7 @@ import SearchBar from './SearchBar';
 import MdPreview from './MdPreview';
 import Profile from './Profile';
 import MobileNavbar from './MobileNavbar';
+import BlankProgress from './BlankProgress';
 
 export {
     CreationInfoTag,
@@ -24,4 +25,5 @@ export {
     MdPreview,
     Profile,
     MobileNavbar,
+    BlankProgress,
 };
