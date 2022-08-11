@@ -22,6 +22,8 @@ export default function SearchBarController() {
                 replace: true,
             });
         }
+
+        setSearch(() => '');
     };
 
     return <SearchBar value={search} onChange={onChange} onSubmit={onSubmit} />;

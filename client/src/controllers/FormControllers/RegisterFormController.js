@@ -2,18 +2,14 @@ import { Form } from 'controllers/FormControllers';
 import { registerFields } from 'services/fields';
 import { registerSchema } from 'services/schemas';
 import { register } from 'services/userServices';
-import { useError } from 'contexts';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegisterFormController() {
-    const { setError } = useError();
-
     const navigate = useNavigate();
 
     const validateRegister = async ({ username, email, password }) => {
         const { error, status } = await register({ username, email, password });
         if (error) {
-            setError(error);
             switch (error) {
                 case 'an item with that "username" already exists':
                     return { username: 'Username already exists' };
@@ -23,8 +19,7 @@ export default function RegisterFormController() {
                     return;
             }
         } else {
-            if (status === 201)
-                navigate('/users/login');
+            if (status === 201) navigate('/users/login');
         }
     };
 

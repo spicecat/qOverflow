@@ -1,4 +1,4 @@
-import { useUser, useError, useMode } from 'contexts';
+import { useUser, useMode } from 'contexts';
 import { Navbar, MobileNavbar } from 'components';
 import { logout } from 'services/userServices';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ export default function NavbarController() {
     const navigate = useNavigate();
     const { userData, setUserData } = useUser();
     const { mode, setMode } = useMode();
-    const { setError } = useError();
 
     const [open, setOpen] = useState(false);
 
@@ -24,10 +23,7 @@ export default function NavbarController() {
     const md = useMediaQuery((theme) => theme.breakpoints.only('md'));
 
     const logoutUser = async () => {
-        const { error } = await logout();
-        if (error) {
-            setError(error);
-        }
+        await logout();
         Cookies.remove('token');
         setUserData({});
         navigate('/users/login');

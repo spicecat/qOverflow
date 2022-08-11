@@ -1,4 +1,4 @@
-import { useUser, useError } from 'contexts';
+import { useUser } from 'contexts';
 import { Form } from 'controllers/FormControllers';
 import { updateUser } from 'services/userServices';
 import { patchFields } from 'services/fields';
@@ -7,14 +7,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UpdateFormController() {
     const { setUserData } = useUser();
-    const { setError } = useError();
     const navigate = useNavigate();
 
     const update = async ({ email, password }) => {
         const { error } = await updateUser({ email, password });
-        if (error) {
-            setError(error);
-        } else {
+        if (!error) {
             setUserData((initial) => ({ ...initial, email }));
             navigate('/');
         }
