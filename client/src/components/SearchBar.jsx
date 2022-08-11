@@ -1,10 +1,9 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { InputBase, Button } from '@mui/material';
+import { InputBase } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
-    pointerEvents: 'none',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -15,18 +14,18 @@ const Search = styled('div')(({ theme }) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: '25vw',
+        width: 'auto',
     },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-    alignItems: 'center',
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'center',
     padding: theme.spacing(0, 2),
+    height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 }));
 
 const Input = styled(InputBase)(({ theme }) => ({
@@ -37,33 +36,24 @@ const Input = styled(InputBase)(({ theme }) => ({
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('sm')]: {
+            width: '30vw',
             '&:focus': {
-                width: '20ch',
+                width: '31vw',
             },
         },
     },
 }));
 
-export default function SearchBar() {
-    let navigate = useNavigate();
-
-    function navSearch() {
-        navigate('/questions/search')
-    }
-
+export default function SearchBar({ value, onChange, onSubmit }) {
     return (
-        <Search >
-            <SearchIconWrapper>
-                <Button
-                    onClick={navSearch}
-                    startIcon={<SearchIcon />}
-                    style={{ pointerEvents: 'auto' }}
-                    variant='contained'
-                >
-                    Search
-                </Button>
-            </SearchIconWrapper>
+        <Search>
+            <form {...{ onSubmit }}>
+                <SearchIconWrapper>
+                    <SearchIcon />
+                </SearchIconWrapper>
+                <Input {...{ value, onChange, placeholder: 'Search' }} />
+            </form>
         </Search>
     );
 }
