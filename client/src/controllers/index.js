@@ -4,5 +4,6 @@ import Navbar from './NavbarController';
 import PaginatedList from './PaginatedListController';
 import SearchBar from './SearchBarController';
 import MdPreview from './MdPreviewController';
+import SearchResults from './SearchResultsController';
 
-export { CreationInfoTag, PaginatedList, Inbox, Navbar, SearchBar, MdPreview };
+export { CreationInfoTag, PaginatedList, Inbox, Navbar, SearchBar, MdPreview, SearchResults };
