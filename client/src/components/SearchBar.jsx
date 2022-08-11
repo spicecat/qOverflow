@@ -1,7 +1,6 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',

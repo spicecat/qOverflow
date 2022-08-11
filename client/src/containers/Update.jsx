@@ -2,7 +2,6 @@ import { Card, CardContent, Grid } from '@mui/material';
 import { UpdateForm } from 'controllers/FormControllers';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useUser } from 'contexts';
 import Cookies from 'js-cookie';
 
 export default function Register() {
