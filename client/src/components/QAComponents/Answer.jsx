@@ -1,6 +1,5 @@
 import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import ReactMarkdown from 'react-markdown';
 
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';

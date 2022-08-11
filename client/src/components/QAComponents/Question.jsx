@@ -8,7 +8,6 @@ import {
     Button,
     Tooltip,
 } from '@mui/material';
-import ReactMarkdown from 'react-markdown';
 import { Markdown } from 'components';
 import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
