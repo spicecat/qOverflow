@@ -4,12 +4,6 @@ import ReactMarkdown from 'react-markdown';
 
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
-import {
-    getAnswerVote,
-    postAnswerComment,
-    updateAcceptAnswer,
-    updateAnswerVote,
-} from 'services/questionsServices';
 
 export default function Answer({
     accepted,
@@ -18,19 +12,15 @@ export default function Answer({
     creator,
     createdAt,
     downvotes,
-    question_id,
     text,
     upvotes,
     canComment,
     canAccept,
+    getVote,
+    updateVote,
+    postComment,
+    acceptAnswer,
 }) {
-    const getVote = () => getAnswerVote(question_id, answer_id);
-    const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    const postComment = async (data) => {
-        await postAnswerComment(question_id, answer_id, data);
-    };
-    const acceptAnswer = () => updateAcceptAnswer(question_id, answer_id);
-
     return (
         <span key={answer_id}>
             <ListItem disablePadding>

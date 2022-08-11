@@ -3,13 +3,15 @@ import CommentControl from './CommentControlController';
 import CreateAnswer from './CreateAnswerController';
 import Question from './QuestionController';
 import VoteControl from './VoteControlController';
+import Answer from './AnswerController';
 
 export {
     AnswersList,
+    Answer,
     AnswerCommentsList,
     CommentControl,
     CommentsList,
     CreateAnswer,
     Question,
-    VoteControl
+    VoteControl,
 };
