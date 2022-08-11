@@ -284,6 +284,13 @@ paths:
             responses:
                 '200':
                     description: OK
+                    content:
+                        'application/json':
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        $ref: '#/components/schemas/Mail'
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '500':

@@ -21,9 +21,9 @@ async function Send(req, res) {
     if (!success) return res.status(500).send(config.errorGeneric);
 
     // Cache newly created mail
-    await Mail.create({ ...message, _id: message.mail_id });
+    const newMessage = await Mail.create({ ...message, _id: message.mail_id });
 
-    return res.sendStatus(200);
+    return res.send({ message: newMessage });
 }
 
 module.exports = Send;
