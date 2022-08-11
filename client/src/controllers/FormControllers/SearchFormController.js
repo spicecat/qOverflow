@@ -7,20 +7,12 @@ import { searchSchema } from 'services/schemas';
 export default function SearchFormController() {
     const [, setSearchParams] = useSearchParams();
 
-    const cleanObject = (data) =>
-        Object.entries(data)
-            .filter(([, v]) => v)
+    const cleanObject = (data) => Object.entries(data).filter(([, v]) => v);
+    const search = (fields) => setSearchParams(cleanObject(fields), { replace: true });
 
-    const search = (fields) => {
-        setSearchParams(cleanObject(fields), { replace: true });
-    }
-
-    return (
-        Form({
-            fields: searchFields,
-            onSubmit: search,
-            validationSchema: searchSchema,
-        })
-    )
-
+    return Form({
+        fields: searchFields,
+        onSubmit: search,
+        validationSchema: searchSchema,
+    });
 }

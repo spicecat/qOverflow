@@ -15,7 +15,7 @@ export function AnswerCommentsList({ answer_id, comments: count }) {
             )
             .catch(() => []);
 
-    return <PaginatedList {...{ count, Component: AnswerComment, getData, noData: false }} />;
+    return <PaginatedList {...{ count, Component: AnswerComment, getData }} />;
 }
 
 export function AnswersList() {
@@ -36,9 +36,7 @@ export function AnswersList() {
 
     const NewAnswer = (props) => <Answer {...{ ...props, canComment, canAccept }} />;
 
-    return (
-        !loading && <PaginatedList {...{ count, Component: NewAnswer, getData, noData: false }} />
-    );
+    return !loading && <PaginatedList {...{ count, Component: NewAnswer, getData }} />;
 }
 
 export function CommentsList() {
@@ -55,5 +53,5 @@ export function CommentsList() {
             )
             .catch(() => []);
 
-    return !loading && <PaginatedList {...{ count, Component: Comment, getData, noData: false }} />;
+    return !loading && <PaginatedList {...{ count, Component: Comment, getData }} />;
 }
