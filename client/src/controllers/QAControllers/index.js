@@ -4,6 +4,8 @@ import CreateAnswer from './CreateAnswerController';
 import Question from './QuestionController';
 import VoteControl from './VoteControlController';
 import Answer from './AnswerController';
+import AnswerComment from './AnswerCommentController';
+import Comment from './CommentController';
 
 export {
     AnswersList,
@@ -14,4 +16,6 @@ export {
     CreateAnswer,
     Question,
     VoteControl,
+    AnswerComment,
+    Comment,
 };

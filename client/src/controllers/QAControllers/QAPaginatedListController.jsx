@@ -1,7 +1,6 @@
 import { useQuestion } from 'contexts';
 import { PaginatedList } from 'controllers';
-import { AnswerComment, Comment } from 'components/QAComponents';
-import { Answer } from 'controllers/QAControllers';
+import { Answer, Comment, AnswerComment } from 'controllers/QAControllers';
 import { getAnswerComments, getAnswers, getQuestionComments } from 'services/questionsServices';
 
 export function AnswerCommentsList({ answer_id, comments: count }) {

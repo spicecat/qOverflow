@@ -1,20 +1,17 @@
 import { Divider, ListItem, ListItemText } from '@mui/material';
 import { CreationInfoTag } from 'controllers';
 import { VoteControl } from 'controllers/QAControllers';
-import { getCommentVote, updateCommentVote } from 'services/questionsServices';
-import { useQuestion } from 'contexts';
 
 export default function Comment({
     comment_id,
     creator,
     createdAt,
     downvotes,
-    question_id,
     text,
     upvotes,
+    getVote,
+    updateVote,
 }) {
-    const getVote = () => getCommentVote(question_id, comment_id);
-    const updateVote = (data) => updateCommentVote(question_id, comment_id, data);
     return (
         <span key={comment_id}>
             <ListItem disablePadding>
