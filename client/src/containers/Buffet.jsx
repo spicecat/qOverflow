@@ -25,8 +25,6 @@ export default function Buffet() {
             after: question_id,
         });
 
-        console.log('searching');
-
         if (error) {
             setError(error);
         } else {
