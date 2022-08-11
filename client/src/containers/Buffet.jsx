@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button, Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 
-import { useError } from 'contexts';
 import { PaginatedList } from 'controllers';
 import { ListQuestion, LoadingBar } from 'components';
 import { searchQuestions } from 'services/questionsServices';
@@ -14,27 +13,23 @@ const hot = { match: JSON.stringify({ hasAcceptedAnswer: false }), sort: 'uvac' 
 const sortObjArr = [recent, best, interesting, hot];
 
 export default function Buffet() {
-    const { setError } = useError();
-
     const [sort, setSort] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [, setSearchParams] = useSearchParams();
 
     const getData = async ({ question_id }) => {
-        const { error, questions } = await searchQuestions({
+        const { questions } = await searchQuestions({
             ...sortObjArr[sort],
             after: question_id,
         });
 
-        if (error) {
-            setError(error);
-        } else {
-            setLoading(() => false);
-            return questions;
-        }
+        setLoading(() => false);
+        return questions;
     };
 
     const handleSortChange = (_, newSort) => {
-        if (newSort !== sort) setSort(newSort);
+        setSearchParams(sortObjArr[newSort]);
+        setSort(newSort);
     };
 
     return (

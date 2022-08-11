@@ -27,7 +27,7 @@ export default function PaginatedListController({ concat = false, count, Compone
 
     useEffect(() => {
         loadData(true);
-    }, [searchParams, getData]);
+    }, [searchParams]);
 
     useEffect(() => {
         const interval = setInterval(() => {
