@@ -10,15 +10,14 @@ const QuestionContext = createContext();
 export default function QuestionProvider({ children }) {
     const { question_id } = useParams();
     const [questionData, setQuestionData] = useState(initialQuestionData);
-    const [permissions, setPermissions] = useState({})
-
+    const [permissions, setPermissions] = useState({});
 
     useEffect(() => {
         const loadQuestion = async () => {
             const { question } = await getQuestion(question_id);
-            if (question)
-                setQuestionData(question);
-        }
+            if (question) setQuestionData(question);
+        };
+
         loadQuestion();
     }, [question_id]);
 

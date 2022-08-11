@@ -11,7 +11,6 @@ export default function AnswerComment({
     upvotes,
     getVote,
     updateVote,
-    canVote,
 }) {
     return (
         <span key={comment_id}>
@@ -20,7 +19,7 @@ export default function AnswerComment({
                     <CreationInfoTag {...{ createdAt, creator, text: 'commented' }} />
                     {text}
                 </ListItemText>
-                <VoteControl {...{ downvotes, getVote, updateVote, upvotes, canVote }} />
+                <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
             </ListItem>
             <Divider />
         </span>

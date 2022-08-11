@@ -8,21 +8,10 @@ import {
     Button,
     Tooltip,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link, useNavigate } from 'react-router-dom';
-import { useQuestion, useUser } from 'contexts';
+import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
-import {
-    getQuestionVote,
-    postQuestionComment,
-    openQuestion,
-    protectQuestion,
-    updateQuestion,
-    closeQuestion,
-    updateQuestionVote,
-} from 'services/questionsServices';
 
 const statusColor = (status) => {
     switch (status) {
@@ -39,121 +28,26 @@ const statusColor = (status) => {
 
 export default function Question({
     answers,
-    close,
     comments,
     creator,
     createdAt,
     downvotes,
     hasAcceptedAnswer,
-    protect,
-    reopen,
     status,
     title,
     text,
-    question_id,
     upvotes,
     views,
+    ongoingVote,
+    canClose,
+    canProtect,
+    canComment,
+    changeClose,
+    changeProtect,
+    getVote,
+    updateVote,
+    postComment,
 }) {
-    const { userData } = useUser();
-    const navigate = useNavigate();
-    const [ongoingVote, setOngoingVote] = useState({ users: [], type: 'none' });
-    const { setPermissions } = useQuestion();
-
-    function setVote() {
-        if (protect.length) setOngoingVote({ users: protect, type: 'protect' });
-        if (close.length) setOngoingVote({ users: close, type: 'close' });
-        if (reopen.length) setOngoingVote({ users: reopen, type: 'open' });
-    }
-
-    let level = 0;
-    const protection = status === 'protected' || status === 'closed';
-
-    let canProtect = false;
-    let canClose = false;
-    let canComment = false;
-    let canAnswer = true;
-    let canVote = true;
-    let canAccept = false;
-
-    if (userData.username) {
-        level = userData.level;
-        if (userData.username === creator && !hasAcceptedAnswer) {
-            canAccept = true;
-        }
-
-        if (level >= 7 && ongoingVote.type !== 'protect') {
-            canClose = true;
-        }
-        if (level >= 6 && !protection && ongoingVote.type !== 'close') {
-            canProtect = true;
-        }
-
-        if (
-            (level >= 3 && !protection) ||
-            (status === 'protected' && level >= 5) ||
-            userData.username === creator
-        ) {
-            canComment = true;
-        }
-        if ((status === 'protected' && level < 5) || status === 'closed') {
-            canAnswer = false;
-        }
-        if (userData.username === creator) {
-            canVote = false;
-        }
-    } else {
-        canAnswer = false;
-        canVote = false;
-    }
-
-    useEffect(() => {
-        setPermissions({ canVote: canVote, canComment: canComment, canAccept: canAccept });
-        setVote();
-    }, [canVote, canComment, canAccept]);
-
-    useEffect(() => {
-        updateQuestion(question_id, { views: 'increment' });
-    }, []);
-
-    function changeProtect() {
-        protectQuestion(question_id, userData);
-        protect.includes(userData.username)
-            ? protect.splice(protect.indexOf(userData.username), 1)
-            : protect.push(userData.username);
-        ongoingVoteSet(protect, 'protect');
-    }
-
-    function changeClose() {
-        if (status === 'open') {
-            closeQuestion(question_id, userData);
-            close.includes(userData.username)
-                ? close.splice(close.indexOf(userData.username), 1)
-                : close.push(userData.username);
-            ongoingVoteSet(close, 'close');
-        } else {
-            openQuestion(question_id, userData);
-            reopen.includes(userData.username)
-                ? reopen.splice(reopen.indexOf(userData.username), 1)
-                : reopen.push(userData.username);
-            ongoingVoteSet(reopen, 'reopen');
-        }
-    }
-
-    function ongoingVoteSet(users, type) {
-        users.length === 0
-            ? setOngoingVote({ users: [], type: 'none' })
-            : setOngoingVote({ users: users, type: type });
-    }
-
-    const getVote = () => getQuestionVote(question_id);
-    const updateVote = (data) => updateQuestionVote(question_id, data);
-    const postComment = async (data) => {
-        const { comment } = await postQuestionComment(question_id, data);
-
-        navigate('');
-        return comment;
-    };
-
     return (
         <>
             <Box m={2}>
