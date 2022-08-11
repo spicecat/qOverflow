@@ -9,6 +9,7 @@ import {
     Tooltip,
 } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
+import { Markdown } from 'components';
 import { Link } from 'react-router-dom';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
@@ -138,7 +139,7 @@ export default function Question({
                 />
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator }} />
-                    <ReactMarkdown>{text}</ReactMarkdown>
+                    <Markdown content={text} />
                     <CommentControl {...{ postComment, canComment }} />
                 </ListItemText>
             </ListItem>

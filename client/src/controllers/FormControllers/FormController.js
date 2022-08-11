@@ -17,7 +17,9 @@ export default function FormController({
         setContent('');
     }, [setContent]);
 
-    const handleChange = (e) => setContent(e.target.value);
+    const handleChange = (e) => {
+        if (e.target.id === 'text') setContent(e.target.value);
+    };
 
     const formik = useFormik({
         initialValues: fields.reduce((acc, { id }) => ({ ...acc, [id]: '' }), {}),

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
+import { Markdown } from 'components';
 
 export default function Answer({
     accepted,
@@ -45,7 +46,7 @@ export default function Answer({
                 </ButtonGroup>
                 <ListItemText>
                     <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
-                    <ReactMarkdown>{text}</ReactMarkdown>
+                    <Markdown content={text} />
                     <CommentControl {...{ canComment, postComment }} />
                     {canAccept && (
                         <span>

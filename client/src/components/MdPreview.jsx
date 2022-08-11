@@ -1,5 +1,5 @@
-import ReactMarkdown from 'react-markdown';
 import { Paper, Typography, Button } from '@mui/material';
+import { Markdown } from 'components';
 
 export default function MdPreview({ show, toggleShow, content }) {
     return (
@@ -17,7 +17,7 @@ export default function MdPreview({ show, toggleShow, content }) {
             {show && (
                 <Paper variant='outlined'>
                     <Typography variant='h5'> Text Preview: </Typography>
-                    <ReactMarkdown children={content} />
+                    <Markdown {...{ content }} />
                 </Paper>
             )}
         </div>

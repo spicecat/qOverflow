@@ -1,13 +1,8 @@
-import {
-    Accordion,
-    AccordionSummary,
-    Typography,
-    AccordionDetails,
-    Box,
-} from '@mui/material';
+import { Accordion, AccordionSummary, Typography, AccordionDetails, Box } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ReactMarkdown from 'react-markdown';
 import ReactTimeAgo from 'react-time-ago';
+import { Markdown } from 'components';
 
 export default function MailUnit({ sender, createdAt, subject, text }) {
     return (
@@ -24,6 +19,7 @@ export default function MailUnit({ sender, createdAt, subject, text }) {
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
+                <Markdown content={text} />
                 <ReactMarkdown>{text}</ReactMarkdown>
             </AccordionDetails>
         </Accordion>

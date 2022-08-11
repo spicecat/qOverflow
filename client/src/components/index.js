@@ -11,6 +11,7 @@ import MdPreview from './MdPreview';
 import Profile from './Profile';
 import MobileNavbar from './MobileNavbar';
 import LoadingBar from './LoadingBar';
+import Markdown from './Markdown';
 
 export {
     CreationInfoTag,
@@ -26,4 +27,5 @@ export {
     Profile,
     MobileNavbar,
     LoadingBar,
+    Markdown,
 };
