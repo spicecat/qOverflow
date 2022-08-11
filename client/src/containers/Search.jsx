@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { SearchForm } from 'controllers/FormControllers';
 import { PaginatedList } from 'controllers';
-import { ListQuestion, BlankProgress } from 'components';
+import { ListQuestion, LoadingBar } from 'components';
 import { searchQuestions } from 'services/questionsServices';
 import { useState } from 'react';
 
@@ -34,9 +34,10 @@ export default function Search() {
         const title = searchParams.get('title');
         if (title) regexMatch.title = title.replaceAll(' ', '|');
 
+        setLoading(() => true);
         const { questions } = await searchQuestions({ after: question_id, regexMatch, match });
-
         setLoading(() => false);
+
         return questions;
     };
 
@@ -50,8 +51,8 @@ export default function Search() {
                     <SearchForm />
                 </CardContent>
             </Card>
-            {loading && <BlankProgress />}
-            <PaginatedList {...{ concat: true, Component: ListQuestion, getData, noData: false }} />
+            {loading && <LoadingBar />}
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />
         </div>
     );
 }

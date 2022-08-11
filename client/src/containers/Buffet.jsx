@@ -4,7 +4,7 @@ import { Button, Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/m
 
 import { useError } from 'contexts';
 import { PaginatedList } from 'controllers';
-import { ListQuestion, BlankProgress } from 'components';
+import { ListQuestion, LoadingBar } from 'components';
 import { searchQuestions } from 'services/questionsServices';
 
 const recent = {};
@@ -24,6 +24,8 @@ export default function Buffet() {
             ...sortObjArr[sort],
             after: question_id,
         });
+
+        console.log('searching');
 
         if (error) {
             setError(error);
@@ -71,8 +73,8 @@ export default function Buffet() {
                     <ToggleButton value={3}>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            {loading && <BlankProgress />}
-            <PaginatedList {...{ concat: true, Component: ListQuestion, getData, noData: false }} />
+            {loading && <LoadingBar />}
+            <PaginatedList {...{ concat: true, Component: ListQuestion, getData }} />
         </Box>
     );
 }
