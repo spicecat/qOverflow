@@ -41,10 +41,7 @@ async function EditAnswerAccepted(req, res) {
         operation: 'increment',
         amount: 15,
     });
-    await User.findByOneAndUpdate(
-        { username: cachedAnswer.creator },
-        { $inc: { points: 15 } }
-    );
+    await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15 } });
 
     return res.sendStatus(200);
 }
