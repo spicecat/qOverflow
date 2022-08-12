@@ -1,5 +1,5 @@
-import { getCommentVote, updateCommentVote } from 'services/questionsServices';
 import { Comment } from 'components/QAComponents';
+import { getCommentVote, updateCommentVote } from 'services/questionsServices';
 
 export default function CommentController({ comment_id, question_id, ...props }) {
     const getVote = () => getCommentVote(question_id, comment_id);

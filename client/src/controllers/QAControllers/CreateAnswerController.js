@@ -1,11 +1,15 @@
 import { useState } from 'react';
 
-import { useQuestion, useUser } from 'contexts';
 import { CreateAnswer } from 'components/QAComponents';
+import { useQuestion, useUser } from 'contexts';
 
 export default function CreateAnswerController() {
-    const { questionData: { status } } = useQuestion();
-    const { userData: { level } } = useUser();
+    const {
+        questionData: { status },
+    } = useQuestion();
+    const {
+        userData: { level },
+    } = useUser();
 
     const [show, setShow] = useState(false);
 

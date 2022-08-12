@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useUser } from 'contexts';
 import { Form } from 'controllers/FormControllers';
-import { updateUser } from 'services/userServices';
 import { patchFields } from 'services/fields';
 import { patchSchema } from 'services/schemas';
-import { useNavigate } from 'react-router-dom';
+import { updateUser } from 'services/userServices';
 
 export default function UpdateFormController() {
     const { setUserData } = useUser();

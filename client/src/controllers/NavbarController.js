@@ -1,10 +1,11 @@
-import { useUser, useMode } from 'contexts';
-import { Navbar, MobileNavbar } from 'components';
-import { logout } from 'services/userServices';
-import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { MobileNavbar, Navbar } from 'components';
+import { useMode, useUser } from 'contexts';
+import { logout } from 'services/userServices';
 
 export default function NavbarController() {
     const navigate = useNavigate();

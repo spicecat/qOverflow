@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { PaginatedList } from 'components';
 import { useSearchParams } from 'react-router-dom';
+
+import { PaginatedList } from 'components';
 
 const rowsPerPage = 5;
 

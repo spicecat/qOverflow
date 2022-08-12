@@ -9,18 +9,16 @@ export default function AskFormController() {
     const navigate = useNavigate();
 
     const askQuestion = async (fields) => {
-        const {status} = await postQuestion(fields);
-        
+        const { status } = await postQuestion(fields);
+
         if (status === 200) {
             navigate('../');
         }
-    }
+    };
 
-    return (
-        Form({
-            fields: askQuestionFields,
-            onSubmit: askQuestion,
-            validationSchema: questionSchema
-        })
-    );
+    return Form({
+        fields: askQuestionFields,
+        onSubmit: askQuestion,
+        validationSchema: questionSchema,
+    });
 }

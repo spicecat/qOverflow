@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { createSearchParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
 import { SearchBar } from 'components';
 
 export default function SearchBarController() {

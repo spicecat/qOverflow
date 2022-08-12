@@ -1,8 +1,9 @@
-import { useSearchParams } from 'react-router-dom';
-import { PaginatedList } from 'controllers';
-import { ListQuestion, LoadingBar } from 'components';
-import { searchQuestions } from 'services/questionsServices';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import { ListQuestion, LoadingBar } from 'components';
+import { PaginatedList } from 'controllers';
+import { searchQuestions } from 'services/questionsServices';
 
 export default function SearchResultsController() {
     const [searchParams] = useSearchParams();

@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+
+import { Question } from 'components/QAComponents';
 import { useQuestion, useUser } from 'contexts';
+import { useNavigate, useParams } from 'react-router-dom';
+import getPermissions from 'services/getPermissions';
 import {
+    closeQuestion,
     getQuestionVote,
-    postQuestionComment,
     openQuestion,
+    postQuestionComment,
     protectQuestion,
     updateQuestion,
-    closeQuestion,
     updateQuestionVote,
 } from 'services/questionsServices';
-import getPermissions from 'services/getPermissions';
-import { Question } from 'components/QAComponents';
 
 export default function QuestionController() {
     const navigate = useNavigate();

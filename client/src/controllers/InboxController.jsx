@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { getMail } from 'services/mailServices';
+import { useEffect, useState } from 'react';
+
 import { MailUnit } from 'components';
+import { getMail } from 'services/mailServices';
 
 export default function InboxController() {
     const [mail, setMail] = useState([]);

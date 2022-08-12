@@ -1,8 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Form } from 'controllers/FormControllers';
 import { registerFields } from 'services/fields';
 import { registerSchema } from 'services/schemas';
 import { register } from 'services/userServices';
-import { useNavigate } from 'react-router-dom';
 
 export default function RegisterFormController() {
     const navigate = useNavigate();
