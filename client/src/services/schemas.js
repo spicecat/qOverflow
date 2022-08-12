@@ -18,10 +18,7 @@ const searchSchema = Yup.object({
         150,
         'Title must be at most 150 characters, try and use keywords only '
     ),
-    text: Yup.string().max(
-        300,
-        'Text must be at most 300 characters, try and use keywords only '
-    ),
+    text: Yup.string().max(300, 'Text must be at most 300 characters, try and use keywords only '),
     // createdAt: Yup.string().max(11, 'Date must be at most 11 characters, make sure body is formatted correctly'),
     creator: Yup.string().max(16, 'username must be at most 16 characters'),
 });
@@ -58,9 +55,7 @@ const registerSchema = Yup.object({
     password: Yup.string()
         .min(11, 'Password must be at least 11 characters')
         .required('Password is required'),
-    captcha: Yup.string()
-        .required('CAPTCHA is required')
-        .oneOf(['4'], 'Invalid CAPTCHA'),
+    captcha: Yup.string().required('CAPTCHA is required').oneOf(['4'], 'Invalid CAPTCHA'),
 });
 
 const resetSchema = Yup.object({
@@ -96,8 +91,7 @@ const patchSchema = Yup.object().shape(
             .notRequired()
             .when('password', {
                 is: (value) => value?.length,
-                then: (rule) =>
-                    rule.min(11, 'Password must be at least 11 characters'),
+                then: (rule) => rule.min(11, 'Password must be at least 11 characters'),
             }),
     },
     [

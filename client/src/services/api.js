@@ -10,18 +10,13 @@ const throttle = new Throttle({
 });
 
 export const createEndpoint = (path) => (op, endpoint, data, auth) => {
-    let request = superagent[op](
-        `${process.env.REACT_APP_API_ROOT}${path}${endpoint}`
-    )
+    let request = superagent[op](`${process.env.REACT_APP_API_ROOT}${path}${endpoint}`)
         .use(throttle.plugin)
         .set('Content-Type', 'application/json');
 
     if (auth) request = request.set('Authorization', auth);
     else if (Cookies.get('token'))
-        request = request.set(
-            'Authorization',
-            `bearer ${Cookies.get('token')}`
-        );
+        request = request.set('Authorization', `bearer ${Cookies.get('token')}`);
 
     if (data)
         if (op === 'get' || op === 'delete') request = request.query(data);
@@ -32,8 +27,6 @@ export const createEndpoint = (path) => (op, endpoint, data, auth) => {
             return { ...body, status };
         })
         .catch(({ response, status }) => {
-            return response
-                ? { ...response?.body, status }
-                : { error: 'Error' };
+            return response ? { ...response?.body, status } : { error: 'Error' };
         });
 };
