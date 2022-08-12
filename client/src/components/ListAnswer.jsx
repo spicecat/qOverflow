@@ -26,13 +26,16 @@ export default function ListAnswer({
                     <Grid item xs={10}>
                         <CreationInfoTag {...{ createdAt, creator }} text='answered' />
                         <Typography
-                            noWrap
                             variant='body1'
                             component={Link}
                             to={`/questions/${question_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
-                            {text.replace(/<[^>]*>?/gm, '')}
+                            {text
+                                .replace(/<[^>]*>?/gm, '')
+                                .split(' ')
+                                .slice(0, 30)
+                                .join(' ') + '...'}
                         </Typography>
                     </Grid>
                 </Grid>
