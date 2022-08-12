@@ -32,7 +32,7 @@ export default function ListAnswer({
                             to={`/questions/${question_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
-                            {text.split(' ').slice(0, 150).join(' ') + '...'}
+                            {text.replace(/<[^>]*>?/gm, '')}
                         </Typography>
                     </Grid>
                 </Grid>

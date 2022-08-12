@@ -37,7 +37,7 @@ export default function ListQuestion({
                             [{status}] {title}
                         </Typography>
                         <Typography noWrap variant='body1'>
-                            {text}
+                            {text.replace(/<[^>]*>?/gm, '')}
                         </Typography>
                     </Grid>
                 </Grid>
