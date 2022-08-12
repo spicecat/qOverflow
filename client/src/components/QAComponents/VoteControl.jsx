@@ -1,6 +1,6 @@
 import { ButtonGroup, IconButton, Tooltip, Typography } from '@mui/material';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 
 export default function VoteControl({
     canDownvote,
@@ -10,19 +10,23 @@ export default function VoteControl({
     handleUpvote,
     orientation = 'horizontal',
     upvotes,
-    vote
+    vote,
 }) {
-   
     return (
         <span style={{ marginRight: 8 }}>
             <ButtonGroup {...{ orientation, style: { alignItems: 'center' } }}>
-                <Tooltip title={canUpvote ? '' : 'Question must be open, not created by you, and you must be level 2 to upvote'}>
+                <Tooltip
+                    title={
+                        canUpvote
+                            ? ''
+                            : 'Question must be open, not created by you, and you must be level 2 to upvote'
+                    }
+                >
                     <span>
-                        <IconButton
-                            disabled={!canUpvote}
-                            onClick={handleUpvote}
-                        >
-                            <ThumbUpOutlinedIcon color={vote === 'upvoted' ? 'warning' : 'standard'} />
+                        <IconButton disabled={!canUpvote} onClick={handleUpvote}>
+                            <ThumbUpOutlinedIcon
+                                color={vote === 'upvoted' ? 'warning' : 'standard'}
+                            />
                         </IconButton>
                     </span>
                 </Tooltip>
@@ -31,17 +35,22 @@ export default function VoteControl({
                         {upvotes - downvotes}
                     </Typography>
                 </Tooltip>
-                <Tooltip title={canDownvote ? '' : 'Question must be open, not created by you, and you must be level 4 to downvote'}>
+                <Tooltip
+                    title={
+                        canDownvote
+                            ? ''
+                            : 'Question must be open, not created by you, and you must be level 4 to downvote'
+                    }
+                >
                     <span>
-                        <IconButton
-                            disabled={!canDownvote}
-                            onClick={handleDownvote}
-                        >
-                            <ThumbDownOutlinedIcon color={vote === 'downvoted' ? 'warning' : 'standard'} />
+                        <IconButton disabled={!canDownvote} onClick={handleDownvote}>
+                            <ThumbDownOutlinedIcon
+                                color={vote === 'downvoted' ? 'warning' : 'standard'}
+                            />
                         </IconButton>
                     </span>
                 </Tooltip>
             </ButtonGroup>
-        </span >
-    )
+        </span>
+    );
 }

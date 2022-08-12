@@ -6,12 +6,4 @@ import CreateAnswer from './CreateAnswer';
 import Question from './Question';
 import VoteControl from './VoteControl';
 
-export {
-    Answer,
-    AnswerComment,
-    Comment,
-    CommentControl,
-    CreateAnswer,
-    Question,
-    VoteControl
-};
+export { Answer, AnswerComment, Comment, CommentControl, CreateAnswer, Question, VoteControl };

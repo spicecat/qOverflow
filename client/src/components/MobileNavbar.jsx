@@ -1,24 +1,24 @@
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MailIcon from '@mui/icons-material/Mail';
+import SearchIcon from '@mui/icons-material/Search';
 import {
     AppBar,
-    Button,
-    IconButton,
-    Toolbar,
-    Typography,
     Box,
+    Button,
     Drawer,
+    IconButton,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    Toolbar,
+    Typography,
 } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import SearchIcon from '@mui/icons-material/Search';
 import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 

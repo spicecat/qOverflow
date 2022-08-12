@@ -1,6 +1,7 @@
-import { Accordion, AccordionSummary, Typography, AccordionDetails, Box } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ReactTimeAgo from 'react-time-ago';
+
 import { Markdown } from 'components';
 
 export default function MailUnit({ sender, createdAt, subject, text }) {

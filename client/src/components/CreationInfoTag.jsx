@@ -4,12 +4,8 @@ import ReactTimeAgo from 'react-time-ago';
 
 export default function CreationInfoTag({
     createdAt,
-    creatorInfo: {
-        email,
-        level,
-        username
-    } = {},
-    text = 'asked'
+    creatorInfo: { email, level, username } = {},
+    text = 'asked',
 }) {
     return (
         <div>

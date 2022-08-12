@@ -1,15 +1,16 @@
 import {
     Box,
+    Button,
     Chip,
     Divider,
     ListItem,
     ListItemText,
-    Typography,
-    Button,
     Tooltip,
+    Typography,
 } from '@mui/material';
-import { Markdown } from 'components';
 import { Link } from 'react-router-dom';
+
+import { Markdown } from 'components';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
 

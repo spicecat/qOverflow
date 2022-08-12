@@ -1,4 +1,4 @@
-import { List, Pagination, Box } from '@mui/material';
+import { Box, List, Pagination } from '@mui/material';
 
 export default function PaginatedList({ count, Component, data, handleChangePage, page }) {
     return (

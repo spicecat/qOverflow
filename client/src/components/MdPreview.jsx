@@ -1,4 +1,5 @@
-import { Paper, Typography, Button } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
+
 import { Markdown } from 'components';
 
 export default function MdPreview({ show, toggleShow, content }) {

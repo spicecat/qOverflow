@@ -1,5 +1,6 @@
 import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+
 import { CreationInfoTag } from 'controllers';
 
 export default function ListQuestion({
@@ -12,7 +13,7 @@ export default function ListQuestion({
     text,
     title,
     upvotes,
-    views
+    views,
 }) {
     return (
         <span key={question_id}>
@@ -20,15 +21,9 @@ export default function ListQuestion({
                 <Grid container>
                     <Grid item xs={2}>
                         <Stack justifyContent='center' sx={{ height: '100%' }}>
-                            <Typography variant='body1'>
-                                {upvotes - downvotes} votes
-                            </Typography>
-                            <Typography variant='body1'>
-                                {answers} answers
-                            </Typography>
-                            <Typography variant='body1'>
-                                {views} views
-                            </Typography>
+                            <Typography variant='body1'>{upvotes - downvotes} votes</Typography>
+                            <Typography variant='body1'>{answers} answers</Typography>
+                            <Typography variant='body1'>{views} views</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
@@ -41,7 +36,9 @@ export default function ListQuestion({
                         >
                             [{status}] {title}
                         </Typography>
-                        <Typography noWrap variant='body1'>{text}</Typography>
+                        <Typography noWrap variant='body1'>
+                            {text}
+                        </Typography>
                     </Grid>
                 </Grid>
             </ListItem>

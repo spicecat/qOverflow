@@ -1,5 +1,6 @@
 import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+
 import { CreationInfoTag } from 'controllers';
 
 export default function ListAnswer({
@@ -18,19 +19,12 @@ export default function ListAnswer({
                 <Grid container>
                     <Grid item xs={2}>
                         <Stack justifyContent='center' sx={{ height: '100%' }}>
-                            <Typography variant='body1'>
-                                {upvotes - downvotes} votes
-                            </Typography>
-                            <Typography variant='body1'>
-                                {accepted && `Accepted Answer`}
-                            </Typography>
+                            <Typography variant='body1'>{upvotes - downvotes} votes</Typography>
+                            <Typography variant='body1'>{accepted && `Accepted Answer`}</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
-                        <CreationInfoTag
-                            {...{ createdAt, creator }}
-                            text='answered'
-                        />
+                        <CreationInfoTag {...{ createdAt, creator }} text='answered' />
                         <Typography
                             noWrap
                             variant='body1'

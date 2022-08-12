@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 
 export default function Form({ formik, fields, handleChange }) {

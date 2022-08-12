@@ -1,4 +1,4 @@
-import { Typography, IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 

@@ -1,9 +1,9 @@
-import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
+import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
 
+import { Markdown } from 'components';
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
-import { Markdown } from 'components';
 
 export default function Answer({
     accepted,
