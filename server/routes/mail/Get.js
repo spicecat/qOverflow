@@ -1,6 +1,5 @@
 const config = require('server/config.json');
 const Mail = require('server/db/models/Mail');
-const User = require('server/db/models/User');
 const { getAllMail } = require('server/utils/getData');
 
 async function Get(req, res) {
