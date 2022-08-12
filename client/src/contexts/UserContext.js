@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import { remember } from 'services/userServices';
 
 const initialUserData = { loading: true };
@@ -12,10 +13,9 @@ export default function UserProvider({ children }) {
         const loadUserData = async () => {
             const { user } = await remember();
             setUserData(user || { loading: false });
-        }
-        if (userData.loading)
-            loadUserData();
-    }, [userData.loading])
+        };
+        if (userData.loading) loadUserData();
+    }, [userData.loading]);
 
     return (
         <UserContext.Provider

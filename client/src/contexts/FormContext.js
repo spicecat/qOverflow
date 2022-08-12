@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-const FormContext = createContext()
+const FormContext = createContext();
 
 export default function FormProvider({ children }) {
     const [content, setContent] = useState('');
@@ -9,11 +9,12 @@ export default function FormProvider({ children }) {
         <FormContext.Provider
             value={{
                 content,
-                setContent
-            }}>
+                setContent,
+            }}
+        >
             {children}
         </FormContext.Provider>
-    )
+    );
 }
 
-export const useForm = () => useContext(FormContext)
+export const useForm = () => useContext(FormContext);
