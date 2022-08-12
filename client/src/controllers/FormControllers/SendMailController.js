@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { Form } from 'controllers/FormControllers';
 import { composeMailFields } from 'services/fields';
 import { mailSchema } from 'services/schemas';
+import { postMail } from 'services/mailServices';
 
-export default function SendMailController({ sendMail }) {
+export default function SendMailController() {
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!Cookies.get('token')) {
             navigate('/users/login', {
@@ -19,6 +21,11 @@ export default function SendMailController({ sendMail }) {
             });
         }
     }, []);
+
+    const sendMail = async (fields) => {
+        const { error } = await postMail(fields);
+        if (!error) navigate('');
+    };
 
     return Form({
         fields: composeMailFields,

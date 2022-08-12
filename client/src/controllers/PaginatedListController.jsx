@@ -3,9 +3,13 @@ import { useSearchParams } from 'react-router-dom';
 
 import { PaginatedList } from 'components';
 
-const rowsPerPage = 5;
-
-export default function PaginatedListController({ concat = false, count, Component, getData }) {
+export default function PaginatedListController({
+    concat = false,
+    count,
+    Component,
+    getData,
+    rowsPerPage = 5,
+}) {
     const [searchParams] = useSearchParams();
 
     const [data, setData] = useState([]);
