@@ -1,10 +1,10 @@
 import { Card, CardContent } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Inbox } from 'controllers';
-import { SendMail } from 'controllers/FormControllers';
-import { MdPreview } from 'controllers';
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Inbox, MdPreview } from 'controllers';
+import { SendMail } from 'controllers/FormControllers';
 
 export default function Mail() {
     const navigate = useNavigate();

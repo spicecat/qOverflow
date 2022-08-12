@@ -1,7 +1,7 @@
-import { Helmet } from 'react-helmet';
-import { Outlet } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Helmet } from 'react-helmet';
+import { Outlet } from 'react-router-dom';
 
 import { useMode } from 'contexts';
 import { Navbar } from 'controllers';

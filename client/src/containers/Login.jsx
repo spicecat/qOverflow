@@ -1,6 +1,6 @@
+import { Alert, Card, CardContent, Grid, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation } from 'react-router-dom';
-import { Card, CardContent, Grid, Typography, Alert } from '@mui/material';
 
 import { LoginForm } from '../controllers/FormControllers';
 
@@ -30,15 +30,11 @@ export default function Login() {
                             <LoginForm />
                             <Typography variant='body1'>
                                 Forgot your password?{' '}
-                                <Link to='/users/recover'>
-                                    Recover Password
-                                </Link>
+                                <Link to='/users/recover'>Recover Password</Link>
                             </Typography>
                         </CardContent>
                     </Card>
-                    {returnMsg() && (
-                        <Alert severity='warning'> {returnMsg()} </Alert>
-                    )}
+                    {returnMsg() && <Alert severity='warning'> {returnMsg()} </Alert>}
                 </Grid>
                 <Grid item xs />
             </Grid>

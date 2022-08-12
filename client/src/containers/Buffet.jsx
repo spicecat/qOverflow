@@ -1,9 +1,9 @@
+import { Box, Button, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Button, Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 
-import { PaginatedList } from 'controllers';
 import { ListQuestion, LoadingBar } from 'components';
+import { PaginatedList } from 'controllers';
 import { searchQuestions } from 'services/questionsServices';
 
 const recent = {};

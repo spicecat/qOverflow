@@ -1,5 +1,5 @@
-import { Helmet } from 'react-helmet';
 import { Card, CardContent, Grid } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
 import CAPTCHA from 'assets/captcha.jpg';
 import { RegisterForm } from 'controllers/FormControllers';

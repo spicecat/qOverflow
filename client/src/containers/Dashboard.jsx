@@ -7,16 +7,16 @@ import {
     ToggleButtonGroup,
     Typography,
 } from '@mui/material';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Gravatar from 'react-gravatar';
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { ListAnswer, ListQuestion, LoadingBar } from 'components';
 import { useUser } from 'contexts';
 import { PaginatedList } from 'controllers';
-import { ListAnswer, ListQuestion, LoadingBar } from 'components';
-import { getUserQuestions, getUserAnswers } from 'services/userServices';
-import Cookies from 'js-cookie';
+import { getUserAnswers, getUserQuestions } from 'services/userServices';
 
 export default function Dashboard() {
     const navigate = useNavigate();
