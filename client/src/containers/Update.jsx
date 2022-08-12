@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { UpdateForm } from 'controllers/FormControllers';
 
-export default function Register() {
+export default function Update() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (Cookies.get('token')) {
+        if (!Cookies.get('token')) {
             navigate('/users/login', {
                 state: {
                     name: 'dashboard',
