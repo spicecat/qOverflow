@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Form } from 'controllers/FormControllers';
 import { composeMailFields } from 'services/fields';
-import { mailSchema } from 'services/schemas';
 import { postMail } from 'services/mailServices';
+import { mailSchema } from 'services/schemas';
 
 export default function SendMailController() {
     const navigate = useNavigate();
