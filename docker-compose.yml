@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+    client:
+        restart: unless-stopped
+        build:
+            context: ./client
+        ports:
+            - 3000:3000
+        volumes:
+            - ./client:/app
+            - client-node:/app/node_modules
+        networks:
+            - qOverflow
+        env_file: ./client/.env
+        environment:
+            WATCHPACK_POLLING: true
+        depends_on:
+            - server
+    server:
+        restart: unless-stopped
+        build:
+            context: ./server
+        ports:
+            - 3001:3001
+        volumes:
+            - ./server:/app
+            - server-node:/app/node_modules
+        networks:
+            - qOverflow
+        env_file: ./server/.env
+        environment:
+            DB_CONN_STRING: 'mongodb://mongodb:27017'
+            CHOKIDAR_USEPOLLING: true
+        depends_on:
+            - mongodb
+    mongodb:
+        restart: unless-stopped
+        image: mongo:5
+        ports:
+            - 27017:27017
+        volumes:
+            - data:/data/db
+            - db-config:/data/configdb
+        networks:
+            - qOverflow
+        logging:
+            driver: none
+
+volumes:
+    data:
+    db-config:
+    client-node:
+    server-node:
+networks:
+    qOverflow: {}
