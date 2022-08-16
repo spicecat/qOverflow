@@ -1,6 +1,6 @@
-const Comment = require('server/db/models/Comment');
-const config = require('server/config.json');
-const createRequest = require('server/utils/api');
+const Comment = require('../../db/models/Comment');
+const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function DeleteComment(req, res) {
     const { user } = req;
@@ -15,7 +15,7 @@ async function DeleteComment(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    // Delete comment with BDPA server
+    // Delete comment with BDPA ../..
     const { success } = await createRequest(
         'delete',
         `/questions/${question_id}/comments/${comment_id}`

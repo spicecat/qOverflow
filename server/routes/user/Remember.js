@@ -1,4 +1,4 @@
-const getUserLevel = require('server/utils/getUserLevel');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function Remember(req, res) {
     const { user } = req;
@@ -9,7 +9,7 @@ async function Remember(req, res) {
             email: user.email,
             points: user.points,
             level: getUserLevel(user.points),
-        }
+        },
     });
 }
 

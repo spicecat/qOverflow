@@ -1,7 +1,7 @@
-const createRequest = require('server/utils/api');
-const deriveKeyFromPassword = require('server/utils/auth');
-const User = require('server/db/models/User');
-const config = require('server/config.json');
+const createRequest = require('../../utils/api');
+const deriveKeyFromPassword = require('../../utils/auth');
+const User = require('../../db/models/User');
+const config = require('../../config.json');
 
 async function Edit(req, res) {
     const { user } = req;
@@ -14,17 +14,11 @@ async function Edit(req, res) {
         userBody = { ...userBody, salt, key };
     }
 
-    const { success } = await createRequest(
-        'patch',
-        `/users/${user.username}`,
-        userBody
-    );
+    const { success } = await createRequest('patch', `/users/${user.username}`, userBody);
 
     await User.findOneAndDelete({ username: user.username });
 
-    return success
-        ? res.sendStatus(200)
-        : res.status(500).send(config.errorGeneric);
+    return success ? res.sendStatus(200) : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = Edit;

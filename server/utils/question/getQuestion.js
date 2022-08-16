@@ -1,6 +1,6 @@
-const createRequest = require('server/utils/api');
+const createRequest = require('../api');
 
-const Question = require('server/db/models/Question');
+const Question = require('../../db/models/Question');
 
 async function getQuestion(question_id) {
     let cachedQuestion;
@@ -12,10 +12,7 @@ async function getQuestion(question_id) {
 
     // Retrieve uncached question and patch to cache
     if (!cachedQuestion) {
-        const { success, question } = await createRequest(
-            'get',
-            `/questions/${question_id}`
-        );
+        const { success, question } = await createRequest('get', `/questions/${question_id}`);
 
         if (!success) return;
 

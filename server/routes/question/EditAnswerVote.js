@@ -1,8 +1,8 @@
-const createRequest = require('server/utils/api');
-const config = require('server/config.json');
-const getUserLevel = require('server/utils/getUserLevel');
-const Vote = require('server/db/models/Vote');
-const Answer = require('server/db/models/Answer');
+const createRequest = require('../../utils/api');
+const config = require('../../config.json');
+const getUserLevel = require('../../utils/getUserLevel');
+const Vote = require('../../db/models/Vote');
+const Answer = require('../../db/models/Answer');
 
 async function EditAnswerVote(req, res) {
     const { user } = req;
@@ -73,14 +73,10 @@ async function EditAnswerVote(req, res) {
                 amount: 1,
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'decrement',
-                    amount: 15,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'decrement',
+                amount: 15,
+            });
 
             return res.send({ vote: 'downvoted' });
         }
@@ -117,14 +113,10 @@ async function EditAnswerVote(req, res) {
                 docModel: 'Answer',
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'increment',
-                    amount: 15,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'increment',
+                amount: 15,
+            });
 
             return res.send({ vote: 'upvoted' });
         }
@@ -149,14 +141,10 @@ async function EditAnswerVote(req, res) {
                 docModel: 'Answer',
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'increment',
-                    amount: 10,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'increment',
+                amount: 10,
+            });
 
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
@@ -179,14 +167,10 @@ async function EditAnswerVote(req, res) {
                 amount: 1,
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'decrement',
-                    amount: 5,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'decrement',
+                amount: 5,
+            });
 
             return res.send({ vote: 'downvoted' });
         }

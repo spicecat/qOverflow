@@ -1,7 +1,7 @@
-const createRequest = require('server/utils/api');
-const config = require('server/config.json');
-const User = require('server/db/models/User');
-const getUserLevel = require('server/utils/getUserLevel');
+const createRequest = require('../../utils/api');
+const config = require('../../config.json');
+const User = require('../../db/models/User');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function GetUser(req, res) {
     const { username } = req.params;

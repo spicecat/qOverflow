@@ -1,9 +1,9 @@
-const config = require('server/config.json');
-const Answer = require('server/db/models/Answer');
-const Question = require('server/db/models/Question');
-const User = require('server/db/models/User');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const Answer = require('../../db/models/Answer');
+const Question = require('../../db/models/Question');
+const User = require('../../db/models/User');
+const { getQuestion, refreshQuestion } = require('../../utils/question');
+const createRequest = require('../../utils/api');
 
 async function EditAnswerAccepted(req, res) {
     const { user } = req;
@@ -17,7 +17,7 @@ async function EditAnswerAccepted(req, res) {
     if (question.creator !== user.username || question.hasAccepted)
         return res.status(403).send(config.errorForbidden);
 
-    // Patch question with BDPA server
+    // Patch question with BDPA ../..
     const patchAnswer = await createRequest(
         'patch',
         `/questions/${question_id}/answers/${answer_id}`,

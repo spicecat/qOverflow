@@ -1,9 +1,9 @@
-const config = require('server/config.json');
-const Answer = require('server/db/models/Answer');
-const User = require('server/db/models/User');
-const { getQuestion } = require('server/utils/question');
-const getUserLevel = require('server/utils/getUserLevel');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const Answer = require('../../db/models/Answer');
+const User = require('../../db/models/User');
+const { getQuestion } = require('../../utils/question');
+const getUserLevel = require('../../utils/getUserLevel');
+const createRequest = require('../../utils/api');
 
 async function CreateAnswer(req, res) {
     const { user } = req;
@@ -28,7 +28,7 @@ async function CreateAnswer(req, res) {
     // Verify request includes required information
     if (!text) return res.status(400).send(config.errorIncomplete);
 
-    // Create question with BDPA server
+    // Create question with BDPA ../..
     const { success, answer } = await createRequest('post', `/questions/${question_id}/answers`, {
         creator: user.username,
         text,

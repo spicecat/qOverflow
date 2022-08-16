@@ -1,7 +1,7 @@
-const createRequest = require('server/utils/api');
-const deriveKeyFromPassword = require('server/utils/auth');
-const config = require('server/config.json');
-const User = require('server/db/models/User');
+const createRequest = require('../../utils/api');
+const deriveKeyFromPassword = require('../../utils/auth');
+const config = require('../../config.json');
+const User = require('../../db/models/User');
 
 async function Register(req, res) {
     const { username, email, password } = req.body;

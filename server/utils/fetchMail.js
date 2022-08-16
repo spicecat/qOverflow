@@ -1,5 +1,5 @@
 const createRequest = require('./api');
-const config = require('server/config.json');
+const config = require('../config.json');
 
 const defaultAcc = { success: true, requests: [] };
 

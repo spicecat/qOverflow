@@ -1,9 +1,9 @@
-const config = require('server/config.json');
-const Answer = require('server/db/models/Answer');
-const Comment = require('server/db/models/Comment');
-const { getQuestion } = require('server/utils/question');
-const createRequest = require('server/utils/api');
-const getUserLevel = require('server/utils/getUserLevel');
+const config = require('../../config.json');
+const Answer = require('../../db/models/Answer');
+const Comment = require('../../db/models/Comment');
+const { getQuestion } = require('../../utils/question');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function CreateAnswerComment(req, res) {
     const user = req.user;
@@ -26,7 +26,7 @@ async function CreateAnswerComment(req, res) {
     // Verify text is included in request body
     if (!text) return res.status(400).send({ success: false });
 
-    // Post question with BDPA server
+    // Post question with BDPA ../..
     const { success, comment } = await createRequest(
         'post',
         `/questions/${question_id}/answers/${answer_id}/comments`,

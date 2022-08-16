@@ -1,9 +1,9 @@
-const config = require('server/config.json');
-const User = require('server/db/models/User');
-const Vote = require('server/db/models/Vote');
-const Question = require('server/db/models/Question');
-const createRequest = require('server/utils/api');
-const getUserLevel = require('server/utils/getUserLevel');
+const config = require('../../config.json');
+const User = require('../../db/models/User');
+const Vote = require('../../db/models/Vote');
+const Question = require('../../db/models/Question');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function upvote(res, user) {}
 
@@ -75,10 +75,7 @@ async function EditQuestionVote(req, res) {
                 operation: 'decrement',
                 amount: 6,
             });
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: -6 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: -6 } });
 
             // Decrement the user's points
             await createRequest('patch', `/users/${user.username}/points`, {
@@ -90,19 +87,12 @@ async function EditQuestionVote(req, res) {
             return res.send({ vote: 'downvoted' });
         } else {
             // Decrement the question creator's points
-            const { success } = await createRequest(
-                'patch',
-                `/users/${question.creator}/points`,
-                {
-                    operation: 'decrement',
-                    amount: 5,
-                }
-            );
+            const { success } = await createRequest('patch', `/users/${question.creator}/points`, {
+                operation: 'decrement',
+                amount: 5,
+            });
 
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: -5 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: -5 } });
 
             if (!success) return res.status(500).send(config.errorGeneric);
 
@@ -139,10 +129,7 @@ async function EditQuestionVote(req, res) {
                 operation: 'increment',
                 amount: 6,
             });
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: 6 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: 6 } });
 
             return res.send({ vote: 'upvoted' });
         } else {
@@ -151,10 +138,7 @@ async function EditQuestionVote(req, res) {
                 operation: 'increment',
                 amount: 1,
             });
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: 1 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: 1 } });
 
             // Increment the user's points
             await createRequest('patch', `/users/${user.username}/points`, {
@@ -188,10 +172,7 @@ async function EditQuestionVote(req, res) {
                 operation: 'increment',
                 amount: 5,
             });
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: 5 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: 5 } });
 
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
@@ -218,10 +199,7 @@ async function EditQuestionVote(req, res) {
                 operation: 'decrement',
                 amount: 1,
             });
-            await User.findOneAndUpdate(
-                { username: question.creator },
-                { $inc: { points: -1 } }
-            );
+            await User.findOneAndUpdate({ username: question.creator }, { $inc: { points: -1 } });
 
             // Decrement the user's points
             await createRequest('patch', `/users/${user.username}/points`, {

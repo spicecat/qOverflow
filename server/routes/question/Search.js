@@ -1,14 +1,10 @@
-const createRequest = require('server/utils/api');
-const config = require('server/config.json');
+const createRequest = require('../../utils/api');
+const config = require('../../config.json');
 
-const Question = require('server/db/models/Question');
+const Question = require('../../db/models/Question');
 
 async function Search(req, res) {
-    const { success, questions } = await createRequest(
-        'get',
-        `/questions/search`,
-        req.query
-    );
+    const { success, questions } = await createRequest('get', `/questions/search`, req.query);
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
@@ -26,7 +22,7 @@ async function Search(req, res) {
             })
     );
 
-    return res.send({ questions: questionSet.filter(question => question) });
+    return res.send({ questions: questionSet.filter((question) => question) });
 }
 
 module.exports = Search;

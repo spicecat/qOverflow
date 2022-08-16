@@ -4,13 +4,13 @@
  * Module dependencies.
  */
 
-const app = require('server/app');
+const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 
-const { refreshQuestions, refreshUsers } = require('server/utils/cronRefresh');
+const { refreshQuestions, refreshUsers } = require('../utils/cronRefresh');
 
 require('dotenv').config();
 

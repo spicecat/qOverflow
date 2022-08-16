@@ -1,6 +1,6 @@
-const createRequest = require('server/utils/api');
+const createRequest = require('../api');
 
-const Answer = require('server/db/models/Answer');
+const Answer = require('../../db/models/Answer');
 
 async function getAnswer(question_id, answer_id) {
     let cachedAnswer;

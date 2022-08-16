@@ -1,7 +1,7 @@
-const config = require('server/config.json');
-const createRequest = require('server/utils/api');
-const getUserLevel = require('server/utils/getUserLevel');
-const Vote = require('server/db/models/Vote');
+const config = require('../../config.json');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
+const Vote = require('../../db/models/Vote');
 
 async function GetAnswerCommentVote(req, res) {
     const { user } = req;
@@ -19,8 +19,9 @@ async function GetAnswerCommentVote(req, res) {
             parent_id: comment_id,
             creator: user.username,
         });
-    } catch { return res.status(400).send(config.errorNotFound); }
-
+    } catch {
+        return res.status(400).send(config.errorNotFound);
+    }
 
     if (cachedVote) return res.send({ vote: cachedVote.status });
 

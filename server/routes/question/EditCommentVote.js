@@ -1,7 +1,7 @@
-const createRequest = require('server/utils/api');
-const config = require('server/config.json');
-const getUserLevel = require('server/utils/getUserLevel');
-const Vote = require('server/db/models/Vote');
+const createRequest = require('../../utils/api');
+const config = require('../../config.json');
+const getUserLevel = require('../../utils/getUserLevel');
+const Vote = require('../../db/models/Vote');
 
 async function EditAnswerVote(req, res) {
     const { user } = req;

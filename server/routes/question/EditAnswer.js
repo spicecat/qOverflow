@@ -1,6 +1,6 @@
-const Answer = require('server/db/models/Answer');
-const config = require('server/config.json');
-const createRequest = require('server/utils/api');
+const Answer = require('../../db/models/Answer');
+const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function EditAnswer(req, res) {
     const { user } = req;
@@ -10,10 +10,7 @@ async function EditAnswer(req, res) {
     if (!text) return res.status(400).send(config.errorIncomplete);
 
     // Retrieve latest question data
-    const answerPull = await createRequest(
-        'get',
-        `/questions/${question_id}/answers/${answer_id}`
-    );
+    const answerPull = await createRequest('get', `/questions/${question_id}/answers/${answer_id}`);
 
     if (!answerPull.success) return res.status(500).send(config.errorGeneric);
 
@@ -22,7 +19,7 @@ async function EditAnswer(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    // Patch answer with BDPA server
+    // Patch answer with BDPA ../..
     const patchAnswer = await createRequest(
         'patch',
         `/questions/${question_id}/answers/${answer_id}`,

@@ -1,6 +1,6 @@
-const config = require('server/config.json');
-const Mail = require('server/db/models/Mail');
-const { getAllMail } = require('server/utils/getData');
+const config = require('../../config.json');
+const Mail = require('../../db/models/Mail');
+const { getAllMail } = require('../../utils/getData');
 
 async function Get(req, res) {
     const { lastMailFetch, username } = req.user;

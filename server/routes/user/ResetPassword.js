@@ -1,8 +1,8 @@
-const ResetRequest = require('server/db/models/ResetRequest');
-const User = require('server/db/models/User');
-const createRequest = require('server/utils/api');
-const deriveKeyFromPassword = require('server/utils/auth');
-const config = require('server/config.json');
+const ResetRequest = require('../../db/models/ResetRequest');
+const User = require('../../db/models/User');
+const createRequest = require('../../utils/api');
+const deriveKeyFromPassword = require('../../utils/auth');
+const config = require('../../config.json');
 
 async function RequestReset(req, res) {
     const { password } = req.body;
@@ -23,9 +23,7 @@ async function RequestReset(req, res) {
 
     await User.findOneAndDelete({ username: request.user });
 
-    return success
-        ? res.sendStatus(200)
-        : res.status(500).send(config.errorGeneric);
+    return success ? res.sendStatus(200) : res.status(500).send(config.errorGeneric);
 }
 
 module.exports = RequestReset;

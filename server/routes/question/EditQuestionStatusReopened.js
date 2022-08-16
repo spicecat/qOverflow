@@ -1,8 +1,8 @@
-const config = require('server/config.json');
-const Question = require('server/db/models/Question');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
-const getUserLevel = require('server/utils/getUserLevel');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const Question = require('../../db/models/Question');
+const { getQuestion, refreshQuestion } = require('../../utils/question');
+const getUserLevel = require('../../utils/getUserLevel');
+const createRequest = require('../../utils/api');
 
 async function EditQuestionStatusReopened(req, res) {
     const { user } = req;
@@ -18,10 +18,7 @@ async function EditQuestionStatusReopened(req, res) {
     if (!question) return res.status(404).send(config.errorNotFound);
 
     // Make sure that question has compatible status
-    if (
-        question.status === 'protected' ||
-        question.status === 'open'
-    ) {
+    if (question.status === 'protected' || question.status === 'open') {
         return res.status(400).send({
             success: false,
             error: 'This question is already open.',
@@ -48,11 +45,9 @@ async function EditQuestionStatusReopened(req, res) {
             status: 'open',
         });
 
-        const { success } = await createRequest(
-            'patch',
-            `/questions/${question_id}`,
-            { status: 'open' }
-        );
+        const { success } = await createRequest('patch', `/questions/${question_id}`, {
+            status: 'open',
+        });
         await Question.findByIdAndUpdate(question_id, { status: 'open' });
 
         return success

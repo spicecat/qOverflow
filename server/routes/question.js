@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const tokenAuth = require('server/middleware/tokenAuth');
-
+const tokenAuth = require('../middleware/tokenAuth');
 
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
@@ -56,8 +55,20 @@ router.patch('/:question_id/answers/:answer_id/vote', tokenAuth, EditAnswerVote)
 
 router.get('/:question_id/answers/:answer_id/comments', GetAnswerComments);
 router.post('/:question_id/answers/:answer_id/comments', tokenAuth, CreateAnswerComment);
-router.delete('/:question_id/answers/:answer_id/comments/:comment_id', tokenAuth, DeleteAnswerComment);
-router.get('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, GetAnswerCommentVote);
-router.patch('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, EditAnswerCommentVote);
+router.delete(
+    '/:question_id/answers/:answer_id/comments/:comment_id',
+    tokenAuth,
+    DeleteAnswerComment
+);
+router.get(
+    '/:question_id/answers/:answer_id/comments/:comment_id/vote',
+    tokenAuth,
+    GetAnswerCommentVote
+);
+router.patch(
+    '/:question_id/answers/:answer_id/comments/:comment_id/vote',
+    tokenAuth,
+    EditAnswerCommentVote
+);
 
 module.exports = router;

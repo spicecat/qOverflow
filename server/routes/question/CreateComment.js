@@ -1,8 +1,8 @@
-const config = require('server/config.json');
-const Comment = require('server/db/models/Comment');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
-const createRequest = require('server/utils/api');
-const getUserLevel = require('server/utils/getUserLevel');
+const config = require('../../config.json');
+const Comment = require('../../db/models/Comment');
+const { getQuestion, refreshQuestion } = require('../../utils/question');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function CreateComment(req, res) {
     const { user } = req;
@@ -21,7 +21,7 @@ async function CreateComment(req, res) {
     // Verify required items are in request body
     if (!text) return res.status(400).send(config.errorIncomplete);
 
-    // Post comment with BDPA server
+    // Post comment with BDPA ../..
     const { success, comment } = await createRequest('post', `/questions/${question_id}/comments`, {
         creator: user.username,
         text,

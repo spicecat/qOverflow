@@ -1,7 +1,7 @@
-const deriveKeyFromPassword = require('server/utils/auth');
-const createRequest = require('server/utils/api');
-const config = require('server/config.json');
-const User = require('server/db/models/User');
+const deriveKeyFromPassword = require('../utils/auth');
+const createRequest = require('../utils/api');
+const config = require('../config.json');
+const User = require('../db/models/User');
 
 async function basicAuth(req, res, next) {
     const authHeader = req.get('Authorization');

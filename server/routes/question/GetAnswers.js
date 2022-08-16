@@ -1,7 +1,7 @@
-const config = require('server/config.json');
-const Answer = require('server/db/models/Answer');
-const { getAllAnswers } = require('server/utils/getData');
-const { getQuestion } = require('server/utils/question');
+const config = require('../../config.json');
+const Answer = require('../../db/models/Answer');
+const { getAllAnswers } = require('../../utils/getData');
+const { getQuestion } = require('../../utils/question');
 
 async function GetAnswers(req, res) {
     const { question_id } = req.params;
