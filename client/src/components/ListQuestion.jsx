@@ -2,7 +2,8 @@ import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { CreationInfoTag } from 'controllers';
-
+import ListQuestionInfo from './ListQuestionInfo';
+import { useMediaQuery } from '@mui/material';
 export default function ListQuestion({
     question_id,
     answers,
@@ -15,18 +16,19 @@ export default function ListQuestion({
     upvotes,
     views,
 }) {
+    const sm = useMediaQuery((theme) => theme.breakpoints.only('sm'));
+    const md = useMediaQuery((theme) => theme.breakpoints.only('md'));
     return (
         <span key={question_id}>
             <ListItem disablePadding>
                 <Grid container>
                     <Grid item xs={2}>
                         <Stack justifyContent='center' sx={{ height: '100%' }}>
-                            <Typography variant='body1'>{upvotes - downvotes} votes</Typography>
-                            <Typography variant='body1'>{answers} answers</Typography>
-                            <Typography variant='body1'>{views} views</Typography>
+                            {sm || md ? <ListQuestionInfo {...{upvotes, downvotes, answers, views, inline: false}}/> : null}
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
+                        {sm || md ? null: <ListQuestionInfo {...{upvotes, downvotes, answers, views, inline: true}}/>}
                         <CreationInfoTag {...{ createdAt, creator }} />
                         <Typography
                             variant='h6'
