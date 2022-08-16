@@ -1,17 +1,19 @@
 {
     "name": "qoverflow",
     "version": "1.0.0",
-    "description": "",
+    "description": "qOverflow client and server",
     "main": "index.js",
-    "homepage": "https://github.com/spicecat/qOverflow#readme",
+    "homepage": "https://github.com/spicecat/qOverflow",
     "scripts": {
-        "start": "npm start -w",
+        "start": "npm start -w client & npm start -w server",
         "start:server": "npm start -w server",
         "start:client": "npm start -w client",
         "start:prod": "npm run prod -w server",
         "prestart:prod": "npm ci && npm run build",
-        "dev": "npm start -workspaces",
-        "build": "npm run build -w client"
+        "dev": "npm run dev -w client & npm run dev -w server",
+        "build": "npm run build -w client",
+        "predeploy": "npm run predeploy -w client",
+        "deploy": "npm run deploy -w client"
     },
     "repository": {
         "type": "git",
