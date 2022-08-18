@@ -15,8 +15,9 @@ async function EditAnswerAccepted(req, res) {
     if (!question) return res.status(404).send(config.errorNotFound);
     const {hasBounty} = question;
     // Verify user owns question and question does not already have an accepted answer
-    if (question.creator !== user.username || question.hasAccepted)
+    if (question.creator !== user.username || question.hasAccepted) {
         return res.status(403).send(config.errorForbidden);
+    }
 
     // Patch question with BDPA server
     const patchAnswer = await createRequest(

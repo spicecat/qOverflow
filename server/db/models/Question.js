@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const calculateQuestionBadges = require('../../utils/badges/questionBadges');
+const User = require('./User');
 
 const Question = mongoose.Schema(
     {
@@ -22,9 +24,16 @@ const Question = mongoose.Schema(
         title: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },
         views: { type: Number, required: true, default: 0 },
-        hasBounty: {type: Number, required: false}
+        hasBounty: { type: Number, required: false },
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
+
+Question.post('findOneAndUpdate', (doc) => {
+    if(doc){
+        const badges = calculateQuestionBadges(doc.upvotes - doc.downvotes);
+        User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    }
+});
 
 module.exports = mongoose.model('Question', Question);

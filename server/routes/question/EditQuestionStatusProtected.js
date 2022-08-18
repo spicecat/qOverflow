@@ -18,10 +18,7 @@ async function EditQuestionStatusProtected(req, res) {
     if (!question) return res.status(404).send(config.errorNotFound);
 
     // Verify question does not have incompatible status
-    if (
-        question.status === 'closed' ||
-        question.status === 'protected'
-    ) {
+    if (question.status === 'closed' || question.status === 'protected') {
         return res.status(400).send({
             success: false,
             error: 'This question is already closed or protected.',
@@ -48,11 +45,11 @@ async function EditQuestionStatusProtected(req, res) {
             status: 'protected',
         });
 
-        const { success } = await createRequest(
-            'patch',
-            `/questions/${question_id}`,
-            { status: 'protected' }
-        );
+        await User.findOneAndUpdate({ username: creator }, { $push: { badges: 'Protected' } });
+
+        const { success } = await createRequest('patch', `/questions/${question_id}`, {
+            status: 'protected',
+        });
         await Question.findByIdAndUpdate(question_id, { status: 'protected' });
 
         return success

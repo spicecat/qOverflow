@@ -9,6 +9,6 @@ const ReadMail = require('./mail/Read');
 
 router.get('/', tokenAuth, GetMail);
 router.post('/', tokenAuth, SendMail);
-router.patch('/', tokenAuth, ReadMail);
+router.patch('/:mail_id', tokenAuth, ReadMail);
 
 module.exports = router;
