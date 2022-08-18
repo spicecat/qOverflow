@@ -5,8 +5,6 @@ const Question = require('server/db/models/Question');
 async function Search(req, res) {
     const { creator, title, text, tags, createdAt } = req.query;
 
-    console.log(req.query);
-
     let searchQuery = {};
     if (creator) {
         searchQuery['creator'] = {
