@@ -30,9 +30,10 @@ const Question = mongoose.Schema(
 );
 
 Question.post('findOneAndUpdate', (doc) => {
-    const badges = calculateQuestionBadges(doc.upvotes - doc.downvotes);
-
-    User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    if(doc){
+        const badges = calculateQuestionBadges(doc.upvotes - doc.downvotes);
+        User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    }
 });
 
 module.exports = mongoose.model('Question', Question);
