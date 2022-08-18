@@ -53,7 +53,15 @@ const updateUser = async (data) => callUsersAPI('patch', ``, data);
 
 const register = async (data) => callUsersAPI('post', ``, data);
 
-const remember = async () => callUsersAPI('get', `/remember`);
+const remember = async () => {
+    if (Cookies.get('token')) {
+        const { user, error } = await callUsersAPI('get', `/remember`);
+        if (user)
+            return { user };
+        Cookies.remove('token');
+        return { error }
+    }
+}
 
 const requestReset = async (data) => callUsersAPI('post', `/reset`, data);
 
