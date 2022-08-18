@@ -63,7 +63,6 @@ export default function Dashboard() {
 
     const deleteCurrentUser = () => {
         if(confirmDelete){
-            
             deleteUser();
             navigate('/users/login')
             setConfirmDelete(false);
@@ -85,7 +84,6 @@ export default function Dashboard() {
                 sx={{
                     margin: { xs: '0.3vh', sm: '1vh', md: '1vh' },
                     padding: { xs: '1vh', sm: '3vh', md: '5vh' },
-                    height: '100%',
                 }}
             >
                 <Grid
