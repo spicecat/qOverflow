@@ -12,7 +12,7 @@ async function Send(req, res) {
         return res.status(400).send(config.errorIncomplete);
     }
 
-    const cachedReciever = await User.findOne({ username: reciever });
+    const cachedReciever = await User.findOne({ username: receiver });
 
     if (!cachedReciever) {
         return res.status(404).send(config.errorNotFound);
