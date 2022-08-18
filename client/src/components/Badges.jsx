@@ -1,6 +1,5 @@
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Grid, Tooltip, Typography } from '@mui/material';
-import { Stack } from '@material-ui/core';
 
 function Badge({
     title = 'Good Question',
@@ -32,20 +31,16 @@ export default function Badges({ badges: { obtained, unobtained } }) {
     return (
         <>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Stack direction="row" spacing={2}>
                     <Grid item xs={2} sm={4} md={4}>
                         <Typography variant='h5'>Obtained Badges</Typography>
                     </Grid>
                     {badgesGrid(obtained)}
-                </Stack>
             </Grid>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Stack direction="row" spacing={2}>
                     <Grid item xs={2} sm={4} md={4}>
                         <Typography variant='h5'>Unobtained Badges</Typography>
                     </Grid>
                     {badgesGrid(unobtained)}
-                </Stack>
             </Grid>
         </>
     );
