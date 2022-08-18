@@ -55,8 +55,8 @@ async function GetUser(req, res) {
             email: newUser.email,
             points: newUser.points,
             level: getUserLevel(newUser.points),
+            badgeCount,
         },
-        badgeCount,
     });
 }
 
