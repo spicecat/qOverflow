@@ -18,7 +18,7 @@ export default function CommentControl({
                     title={
                         canComment
                             ? ''
-                            : 'You must be level 3 to comment or level 6 if this question is protected'
+                            : 'You must be level 3 to comment or level 5 if this question is protected'
                     }
                 >
                     <span>

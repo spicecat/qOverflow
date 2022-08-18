@@ -39,7 +39,7 @@ export default function VoteControl({
                     title={
                         canDownvote
                             ? ''
-                            : 'Question must be open, not created by you, and you must be level 5 to downvote'
+                            : 'Question must be open, not created by you, and you must be level 4 to downvote'
                     }
                 >
                     <span>

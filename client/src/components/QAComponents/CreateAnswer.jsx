@@ -10,7 +10,7 @@ export default function CreateAnswer({ canAnswer, show, toggleShow }) {
                 title={
                     canAnswer
                         ? ''
-                        : 'You need to be authenticated to answer or level 6 if the question is protected'
+                        : 'You need to be authenticated to answer or level 5 if the question is protected'
                 }
             >
                 <span>

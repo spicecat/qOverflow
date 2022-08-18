@@ -39,7 +39,6 @@ async function Search(req, res) {
                 ['view', 'desc'],
                 ['comments', 'desc'],
             ];
-            searchQuery['answers'] = 0;
             break;
         case 'uvac':
             sortQuery = [

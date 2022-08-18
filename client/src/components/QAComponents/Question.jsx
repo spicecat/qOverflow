@@ -106,7 +106,7 @@ export default function Question({
                     Ask question
                 </Button>
 
-                <Tooltip title={canClose ? '' : 'You must be level 9'}>
+                <Tooltip title={canClose ? '' : 'You must be level 7'}>
                     <span>
                         <Button
                             disabled={!canClose}
@@ -122,7 +122,7 @@ export default function Question({
                 </Tooltip>
 
                 <Tooltip
-                    title={canProtect ? '' : 'You must be  level 8 and this question must be open'}
+                    title={canProtect ? '' : 'You must be  level 6 and this question must be open'}
                 >
                     <span>
                         <Button

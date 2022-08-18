@@ -18,18 +18,18 @@ function getPermissions(questionData, userData, ongoingVote) {
             permissions.canAccept = true;
         }
 
-        if (level >= 9 && ongoingVote.type !== 'protect') {
+        if (level >= 7 && ongoingVote.type !== 'protect') {
             permissions.canClose = true;
         }
 
-        if (level >= 8 && ongoingVote.type !== 'close' && !protection) {
+        if (level >= 6 && ongoingVote.type !== 'close' && !protection) {
             permissions.canProtect = true;
         }
 
         if (
             status !== 'closed' &&
             ((level >= 3 && status !== 'protected') ||
-                (level >= 6 && status === 'protected') ||
+                (level >= 5 && status === 'protected') ||
                 username === creator)
         ) {
             permissions.canComment = true;
@@ -38,7 +38,7 @@ function getPermissions(questionData, userData, ongoingVote) {
         if (
             status !== 'closed' &&
             ((level >= 1 && status !== 'protected') ||
-                (level >= 6 && status === 'protected') ||
+                (level >= 5 && status === 'protected') ||
                 username === creator)
         ) {
             permissions.canAnswer = true;
