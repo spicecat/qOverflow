@@ -4,7 +4,7 @@ import Throttle from 'superagent-throttle';
 
 const throttle = new Throttle({
     active: true,
-    rate: 2,
+    rate: 10,
     ratePer: 1000,
     concurrent: 2,
 });

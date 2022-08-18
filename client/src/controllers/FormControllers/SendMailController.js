@@ -24,12 +24,9 @@ export default function SendMailController() {
 
     const sendMail = async (fields) => {
         const { error, status } = await postMail(fields);
-        console.log(error, status, 12313);
         if (error) {
-            if (status === 500)
-                return { receiver: 'Error' };
-            else if (status === 404)
-                return { receiver: 'User not found' };
+            if (status === 500) return { receiver: 'Error' };
+            else if (status === 404) return { receiver: 'User not found' };
         } else {
             window.location.reload(false);
         }
