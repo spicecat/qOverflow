@@ -3,7 +3,7 @@ const config = require('server/config.json');
 const Question = require('server/db/models/Question');
 
 async function Search(req, res) {
-    const { creator, title, text, tags, createdAt } = req.query;
+    const { creator, title, text, tags, createdAt, sort } = req.query;
 
     let searchQuery = {};
     if (creator) {
@@ -28,7 +28,30 @@ async function Search(req, res) {
         searchQuery['createdAt'] = createdAt;
     }
 
-    const questions = await Question.find(searchQuery).sort({ createdAt: 'asc' });
+    let sortQuery = [[createdAt, 'desc']];
+    switch (sort) {
+        case 'u':
+            sortQuery = [['upvotes', 'desc']];
+            break;
+        case 'uvc':
+            sortQuery = [
+                ['upvotes', 'desc'],
+                ['view', 'desc'],
+                ['comments', 'desc'],
+            ];
+            break;
+        case 'uvac':
+            sortQuery = [
+                ['upvotes', 'desc'],
+                ['view', 'desc'],
+                ['answers', 'desc'],
+                ['comments', 'desc'],
+            ];
+            searchQuery['hasAcceptedAnswer'] = false;
+            break;
+    }
+
+    const questions = await Question.find(searchQuery).sort(sortQuery);
 
     return res.send({ questions });
 }
