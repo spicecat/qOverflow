@@ -22,7 +22,7 @@ export default function VoteControlController({
     const [vote, setVote] = useState();
     const [original, setOriginal] = useState();
     let isOwnQ = username === creator;
-    const canDownvote = level >= 4 && status !== 'closed' && !isOwnQ;
+    const canDownvote = level >= 5 && status !== 'closed' && !isOwnQ;
     const canUpvote = level >= 2 && status !== 'closed' && !isOwnQ;
 
     const loadVote = async () => {
