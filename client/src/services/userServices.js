@@ -23,52 +23,7 @@ const getUser = async (username) => callUsersAPI('get', `/${username}`);
 
 const getUserAnswers = async () => callUsersAPI('get', `/answers`);
 
-const getUserBadges = async () => (
-    {
-        "badges": {
-          "obtained": [
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Gold"
-            },
-          ],
-          "unobtained": [
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-            {
-              "title": "Socratic",
-              "text": "Have at least 1000 points",
-              "rank": "Bronze"
-            },
-          ]
-        }
-      }
-)
-// callUsersAPI('get', `/badges`);
+const getUserBadges = async () => callUsersAPI('get', `/badges`);
 
 const getUserQuestions = async () => callUsersAPI('get', `/questions`);
 
