@@ -8,6 +8,8 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material';
+import ShareIcon from '@mui/icons-material/Share';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 
 import { Markdown } from 'components';
@@ -39,6 +41,7 @@ export default function Question({
     text,
     upvotes,
     views,
+    question_id,
     ongoingVote,
     canClose,
     canProtect,
@@ -117,6 +120,18 @@ export default function Question({
                         </Button>
                     </span>
                 </Tooltip>
+
+                <CopyToClipboard text={window.location.href}>
+                    <Button
+                        style={{ marginLeft: '10px' }}
+                        display='inline'
+                        m={1}
+                        startIcon={<ShareIcon />}
+                        variant='contained'
+                    >
+                        Share
+                    </Button>
+                </CopyToClipboard>
 
                 {ongoingVote.users.length > 0 && (
                     <Typography>
