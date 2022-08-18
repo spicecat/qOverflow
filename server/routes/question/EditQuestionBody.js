@@ -7,7 +7,7 @@ const getUserLevel = require('server/utils/getUserLevel');
 async function EditQuestionStatusClosed(req, res) {
     const { user } = req;
     const { question_id } = req.params;
-    const { text } = req.body;
+    const { etext, etitle } = req.body;
 
     // Verify user has required level
     if (getUserLevel(user.points) < 7) {
@@ -20,12 +20,12 @@ async function EditQuestionStatusClosed(req, res) {
 
     // Toggle question vote
     if (question.edit.length === 0) {
-        if (!text) {
+        if (!etext || !etitle) {
             return res.status(400).send(config.errorIncomplete);
         }
 
         await Question.findByIdAndUpdate(question_id, {
-            editText: text,
+            editText: etext,
             $push: { edit: user.username },
         });
 
@@ -48,11 +48,13 @@ async function EditQuestionStatusClosed(req, res) {
     if (question.edit.length === 2) {
         const question = await Question.findByIdAndUpdate(question_id, {
             edit: [],
-            text,
+            etext,
+            etitle
         });
 
         const { success } = await createRequest('patch', `/questions/${question_id}`, {
-            text,
+            etext,
+            etitle
         });
 
         return success

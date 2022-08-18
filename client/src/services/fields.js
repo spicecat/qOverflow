@@ -131,6 +131,22 @@ const searchFields = [
     { id: 'tags', label: 'Tags (separated by spaces)' },
 ];
 
+const generateEditFields =
+    
+   [
+        {
+            id: 'etitle',
+            label: 'Title',
+            
+        },
+        {
+            id: 'etext',
+            label: 'Text',
+            multiline: true,
+            
+        },
+    ]
+
 export {
     answerFields,
     askQuestionFields,
@@ -142,4 +158,5 @@ export {
     recoverFields,
     resetFields,
     searchFields,
+    generateEditFields
 };

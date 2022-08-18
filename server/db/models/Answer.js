@@ -18,9 +18,10 @@ const Answer = mongoose.Schema(
 );
 
 Answer.post('findOneAndUpdate', (doc) => {
-    const badges = calculateAnswerBadges(doc.points);
-
-    User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    if (doc) {
+        const badges = calculateAnswerBadges(doc.upvotes - doc.downvotes);
+        User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    }
 });
 
 module.exports = mongoose.model('Answer', Answer);

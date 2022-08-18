@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-
+import { useQuestion } from 'contexts';
 import { Form } from 'components';
 import { useForm } from 'contexts';
 
@@ -10,11 +10,15 @@ export default function FormController({
     validate,
     validationSchema,
     children,
+    initialValues
 }) {
-    const { setContent } = useForm();
 
+    
+    const { setContent } = useForm();
+    
     useEffect(() => {
         setContent('');
+       
     }, [setContent]);
 
     const handleChange = (e) => {
@@ -22,7 +26,7 @@ export default function FormController({
     };
 
     const formik = useFormik({
-        initialValues: fields.reduce((acc, { id }) => ({ ...acc, [id]: '' }), {}),
+        initialValues: fields.reduce((acc, { id }) => ({ ...acc, [id]: initialValues[id] || '' }), {}),
         onSubmit,
         validate,
         validateOnChange: false,

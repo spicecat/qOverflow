@@ -11,9 +11,6 @@ export default function UserProvider({ children }) {
     const [userData, setUserData] = useState(initialUserData)
     const navigate = useNavigate();
 
-
-
-
     useEffect(() => {
         const loadUserData = async () => {
             const { user, error } = await remember();

@@ -16,7 +16,7 @@ const Question = mongoose.Schema(
         reopen: [String],
         close: [String],
         edit: [String],
-        editText: { type: String },
+        editText: [String],
         tags: [String],
         question_id: { type: String, required: true },
         status: { type: String, required: true, default: 'open' },
@@ -24,15 +24,16 @@ const Question = mongoose.Schema(
         title: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },
         views: { type: Number, required: true, default: 0 },
-        hasBounty: {type: Number, required: false}
+        hasBounty: { type: Number, required: false },
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
 
 Question.post('findOneAndUpdate', (doc) => {
-    const badges = calculateQuestionBadges(doc.points);
-
-    User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    if(doc){
+        const badges = calculateQuestionBadges(doc.upvotes - doc.downvotes);
+        User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+    }
 });
 
 module.exports = mongoose.model('Question', Question);

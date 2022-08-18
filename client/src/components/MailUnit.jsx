@@ -3,11 +3,23 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '
 import ReactTimeAgo from 'react-time-ago';
 
 import { Markdown } from 'components';
+import { readMail } from 'services/mailServices';
 
-export default function MailUnit({ sender, createdAt, subject, text }) {
+export default function MailUnit({
+    mail_id,
+    sender,
+    createdAt,
+    subject,
+    text,
+    read,
+}) {
     return (
         <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                onClick={() => {readMail(mail_id)}}
+                sx={read && {backgroundColor: 'lightGray'}}
+            >
                 <Box style={{ width: '100%' }} display={'flex'}>
                     <Typography>From {sender}</Typography>
                     <span style={{ width: '1vw' }} />
@@ -16,6 +28,8 @@ export default function MailUnit({ sender, createdAt, subject, text }) {
                     <Typography>
                         <b>{subject}</b>
                     </Typography>
+                    <span style={{ width: '2vw' }} />
+                    <Typography>Read: {String(read)}</Typography>
                 </Box>
             </AccordionSummary>
             <AccordionDetails>

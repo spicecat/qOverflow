@@ -21,7 +21,7 @@ router.post('/', Register);
 router.patch('/', tokenAuth, Edit);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
-router.get('/badge', tokenAuth, GetBadges);
+router.get('/badges', tokenAuth, GetBadges);
 router.post('/login', basicAuth, Login);
 router.get('/remember', tokenAuth, Remember);
 router.delete('/logout', tokenAuth, Logout);

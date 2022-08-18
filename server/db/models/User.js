@@ -17,10 +17,8 @@ const User = mongoose.Schema(
 
 User.post('findOneAndUpdate', async (doc) => {
     const badges = calculateUserBadges(doc.points);
-
     doc.badges = [...new Set([...doc.badges, ...badges])];
-
-    doc.save();
+    await doc.save();
 });
 
 module.exports = mongoose.model('User', User);

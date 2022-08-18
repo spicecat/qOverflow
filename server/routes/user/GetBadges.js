@@ -8,9 +8,9 @@ async function GetBadges(req, res) {
     const response = badges.reduce(
         (acc, badge) => {
             if (user.badges.includes(badge.title)) {
-                acc.obtained.append(badge);
+                acc.obtained.push(badge);
             } else {
-                acc.unobtained.append(badge);
+                acc.unobtained.push(badge);
             }
 
             return acc;
@@ -18,7 +18,7 @@ async function GetBadges(req, res) {
         { obtained: [], unobtained: [] }
     );
 
-    return res.send(response);
+    return res.send({ badges: response });
 }
 
 module.exports = GetBadges;
