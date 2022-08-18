@@ -79,7 +79,7 @@ export default function QuestionController() {
     }
     function handleBounty(amount) {
         if (show) {
-            const data = { user: userData.username, hasAcceptedAnswer: questionData.hasAcceptedAnswer, amount: amount, isOpen: (questionData.status !== 'closed'), hasBounty: questionData.hasBounty }
+            const data = {amount: amount}
             addBounty(question_id, data)
             questionData.hasBounty = amount;
             userData.points -= amount;
