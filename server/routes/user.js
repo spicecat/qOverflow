@@ -5,6 +5,7 @@ const basicAuth = require('server/middleware/basicAuth');
 const tokenAuth = require('server/middleware/tokenAuth');
 
 const Answers = require('./user/Answers');
+const Delete = require('./user/Delete');
 const Edit = require('./user/Edit');
 const GetUser = require('./user/GetUser');
 const Login = require('./user/Login');
@@ -22,6 +23,7 @@ router.get('/answers', tokenAuth, Answers);
 router.post('/login', basicAuth, Login);
 router.get('/remember', tokenAuth, Remember);
 router.delete('/logout', tokenAuth, Logout);
+router.delete('/delete', tokenAuth, Delete);
 router.post('/reset', RequestReset);
 router.post('/reset/:id', ResetPassword);
 router.get('/:username', GetUser);
