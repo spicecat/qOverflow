@@ -9,7 +9,7 @@ async function EditQuestionStatusProtected(req, res) {
     const { question_id } = req.params;
 
     // Verify user has required level
-    if (getUserLevel(user.points) < 6) {
+    if (getUserLevel(user.points) < 8) {
         return res.status(403).send(config.errorForbidden);
     }
 

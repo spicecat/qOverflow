@@ -17,7 +17,7 @@ async function EditAnswerCommentVote(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    if (operation === 'downvote' && userLevel < 4) {
+    if (operation === 'downvote' && userLevel < 5) {
         return res.status(403).send(config.errorForbidden);
     }
 
