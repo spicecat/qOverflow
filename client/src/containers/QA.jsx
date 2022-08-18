@@ -1,5 +1,5 @@
 import { List, ListItem } from '@mui/material';
-import { AnswersList, CommentsList, Question } from 'controllers/QAControllers';
+import { AnswersList, CommentsList, CreateAnswer, Question } from 'controllers/QAControllers';
 
 export default function QA() {
     return (
@@ -8,6 +8,7 @@ export default function QA() {
             <ListItem sx={{ pl: 4 }}>
                 <CommentsList />
             </ListItem>
+            <CreateAnswer />
             <AnswersList />
         </List>
     );

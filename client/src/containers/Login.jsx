@@ -2,7 +2,7 @@ import { Alert, Card, CardContent, Grid, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation } from 'react-router-dom';
 
-import { LoginForm } from '../controllers/FormControllers';
+import { LoginForm } from 'controllers/FormControllers';
 
 export default function Login() {
     let location = useLocation();

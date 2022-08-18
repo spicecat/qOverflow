@@ -12,7 +12,7 @@ export default function AskFormController() {
         const { status } = await postQuestion(fields);
 
         if (status === 200) {
-            navigate('../');
+            navigate('/');
         }
     };
 

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { Markdown } from 'components';
 import { CreationInfoTag } from 'controllers';
-import { CommentControl, CreateAnswer, VoteControl } from 'controllers/QAControllers';
+import { CommentControl, VoteControl } from 'controllers/QAControllers';
 
 const statusColor = (status) => {
     switch (status) {
@@ -143,7 +143,6 @@ export default function Question({
                     <CommentControl {...{ postComment, canComment }} />
                 </ListItemText>
             </ListItem>
-            <CreateAnswer />
         </>
     );
 }
