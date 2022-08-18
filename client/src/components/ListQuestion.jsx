@@ -1,9 +1,8 @@
-import { Divider, Grid, ListItem, Stack, Typography } from '@mui/material';
+import { Divider, Grid, ListItem, Stack, Typography, useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { CreationInfoTag } from 'controllers';
 import ListQuestionInfo from './ListQuestionInfo';
-import { useMediaQuery } from '@mui/material';
 export default function ListQuestion({
     question_id,
     answers,

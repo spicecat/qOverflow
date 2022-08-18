@@ -5,14 +5,13 @@ import { editQuestion } from 'services/questionsServices';
 import { editSchema } from 'services/schemas';
 import { useQuestion } from 'contexts';
 
-export default function EditFormController() {
+export default function EditQuestionFormController() {
     const {questionData} = useQuestion();
     const {title, text} = questionData;
     
 
     
     const editTheQuestion = async (fields) => {
-        console.log("hello")
         const { status } = await editQuestion(questionData.question_id, fields);
         window.location.reload(false);
     };
