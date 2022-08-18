@@ -9,11 +9,11 @@ async function Remember(req, res) {
     const badgeCount = badges.reduce(
         (acc, badge) => {
             if (badge.rank === 'Gold') {
-                acc.gold = acc.gold++;
+                acc.gold = acc.gold + 1;
             } else if (badge.rank === 'Silver') {
-                acc.silver = acc.silver++;
+                acc.silver = acc.silver + 1;
             } else if (badge.rank === 'Bronze') {
-                acc.bronze = acc.bronze++;
+                acc.bronze = acc.bronze + 1;
             }
 
             return acc;

@@ -9,7 +9,6 @@ export default function BadgesController() {
     useEffect(() => {
         const loadBadges = async () => {
             const { badges: newBadges } = await getUserBadges();
-            console.log(123123, newBadges)
             setBadges(newBadges);
         };
         loadBadges();
