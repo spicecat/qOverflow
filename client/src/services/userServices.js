@@ -25,6 +25,8 @@ const getUserQuestions = async () => callUsersAPI('get', `/questions`);
 
 const getUserAnswers = async () => callUsersAPI('get', `/answers`);
 
+const deleteUser = async () => callUsersAPI('delete',`/delete`)
+
 const incrementLoginAttempts = () => {
     const { loginAttempts } = getLoginAttempts();
     Cookies.set('loginAttempts', loginAttempts + 1);
@@ -80,4 +82,5 @@ export {
     updateUser,
     requestReset,
     resetPassword,
+    deleteUser
 };

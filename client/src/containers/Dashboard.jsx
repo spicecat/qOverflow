@@ -1,4 +1,5 @@
 import {
+    Alert,
     Box,
     Button,
     Grid,
@@ -16,13 +17,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ListAnswer, ListQuestion, LoadingBar } from 'components';
 import { useUser } from 'contexts';
 import { PaginatedList } from 'controllers';
-import { getUserAnswers, getUserQuestions } from 'services/userServices';
+import { deleteUser, getUserAnswers, getUserQuestions } from 'services/userServices';
 
 export default function Dashboard() {
     const navigate = useNavigate();
 
     const [current, setCurrent] = useState('questions');
     const [loading, setLoading] = useState(true);
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    
+
     const {
         userData: { email, level, points, username },
     } = useUser();
@@ -57,6 +61,21 @@ export default function Dashboard() {
         if (!error) return questions;
     };
 
+    const deleteCurrentUser = () => {
+        if(confirmDelete){
+            
+            deleteUser();
+            navigate('/users/login')
+            setConfirmDelete(false);
+        }else{
+            setConfirmDelete(true);
+            setTimeout(cancelDelete, 30000)
+        }
+    }
+    function cancelDelete(){
+        setConfirmDelete(false)
+    }
+
     return (
         <>
             <Helmet>
@@ -83,6 +102,7 @@ export default function Dashboard() {
                         )}
                     </Grid>
                     <Grid item sm={8} md={10}>
+                        {confirmDelete && <Alert variant = "warning">Click delete button again to confirm delete, cancelling in 30 seconds</Alert>}
                         <Typography>Username: {username}</Typography>
                         <Typography>Email: {email}</Typography>
                         <Typography>Level: {level}</Typography>
@@ -106,6 +126,17 @@ export default function Dashboard() {
                             >
                                 Update User Information
                             </Button>
+
+                            <Button
+                                color='warning'
+                                onClick = {deleteCurrentUser}
+                                sx={{ margin: '0 1vh' }}
+                                variant='outlined'
+                                fullWidth
+                            >
+                                Delete User
+                            </Button>
+
                             <ToggleButtonGroup
                                 value={current}
                                 exclusive
