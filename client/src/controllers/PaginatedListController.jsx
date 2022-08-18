@@ -35,7 +35,6 @@ export default function PaginatedListController({
                         if (hasAnswerAnchor) {
                             const anchorAnswer = document.getElementById('answersList');
                             anchorAnswer.scrollIntoView({ behavior: 'smooth' });
-                            console.log(123, scroll, anchorAnswer)
                         }
                     }, 2000)
                 }

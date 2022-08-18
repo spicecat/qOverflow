@@ -17,8 +17,8 @@ export default function MailUnit({
         <Accordion>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                onClick={() => {readMail(mail_id)}}
-                sx={read && {backgroundColor: 'lightGray'}}
+                onClick={() => { readMail(mail_id) }}
+                sx={read && { backgroundColor: 'lightGray' }}
             >
                 <Box style={{ width: '100%' }} display={'flex'}>
                     <Typography>From {sender}</Typography>
@@ -28,8 +28,6 @@ export default function MailUnit({
                     <Typography>
                         <b>{subject}</b>
                     </Typography>
-                    <span style={{ width: '2vw' }} />
-                    <Typography>Read: {String(read)}</Typography>
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
