@@ -8,7 +8,7 @@ async function EditQuestionStatusClosed(req, res) {
     const { user } = req;
     const { question_id } = req.params;
     const { etext, etitle } = req.body;
-
+    let eObj = [etext, etitle]
     // Verify user has required level
     if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
@@ -25,7 +25,7 @@ async function EditQuestionStatusClosed(req, res) {
         }
 
         await Question.findByIdAndUpdate(question_id, {
-            editText: etext,
+            editText: eObj,
             $push: { edit: user.username },
         });
 
@@ -48,13 +48,14 @@ async function EditQuestionStatusClosed(req, res) {
     if (question.edit.length === 2) {
         const question = await Question.findByIdAndUpdate(question_id, {
             edit: [],
-            etext,
-            etitle
+            eObj,
+            
         });
 
         const { success } = await createRequest('patch', `/questions/${question_id}`, {
             etext,
-            etitle
+            eObj
+            
         });
 
         return success

@@ -14,15 +14,16 @@ export default function Suggest(){
     useEffect(()=>{
         setCanSuggest(userData.level >= 7)
         
-        if(ongoingEdit.users.length > 0)setCanSuggest((userData.username !== ongoingEdit.users[0]))
+        
         if(!questionData.loading) setOngoingEdit({users : questionData.edit, new : questionData.editText})
     },[userData, questionData, setCanSuggest])
    
     async function toggleShow(){
-        if(questionData.edit.length === 0){
+        if(questionData.edit.length === 0 || userData.username !== ongoingEdit.users[0]){
             setShow(!show)
         }else{
             const { status } = await editQuestion(questionData.question_id);
+            window.location.reload(false);
         }
         
     }
@@ -30,7 +31,7 @@ export default function Suggest(){
     
 
     return (
-        <div>
+        <div style = {{display : 'inline', marginLeft : '10px'}}>
             <Tooltip
                 title= {
                     canSuggest
@@ -53,10 +54,10 @@ export default function Suggest(){
             {ongoingEdit.users.length > 0 &&
                 <Card>
                     <CardContent>
-                        <Markdown {...{content: ongoingEdit.new[0]}}/>
-                        <Markdown {...{content: ongoingEdit.new[1]}}/>
+                        New Title: <Markdown {...{content: ongoingEdit.new[1]}}/>
+                        New Text: <Markdown {...{content: ongoingEdit.new[0]}}/>
                     </CardContent>
-                    <Typography> {ongoingEdit.users} have voted to edit the question </Typography>
+                    <Typography> {ongoingEdit.users} has voted to edit the question </Typography>
                 </Card>
                 
             }
