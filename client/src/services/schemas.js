@@ -71,6 +71,12 @@ const questionSchema = Yup.object({
     text: Yup.string()
         .max(3000, 'Body cannot be longer than 3000 characters')
         .required('A body is required'),
+    etitle: Yup.string()
+        .max(150, 'Title cannot be longer then 150 characters.')
+        .required('A title is required.'),
+    etext: Yup.string()
+        .max(3000, 'Body cannot be longer than 3000 characters')
+        .required('A body is required'),
 });
 
 const patchSchema = Yup.object().shape(

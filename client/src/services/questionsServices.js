@@ -14,6 +14,11 @@ const addBounty = async (question_id,data) => callQuestionsAPI(
     data
 
 )
+const editQuestion = async (question_id,data) => callQuestionsAPI(
+    'patch',
+    `/${question_id}/edit`,
+    data
+)
 
 const updateQuestion = async (question_id, data) =>
     callQuestionsAPI('patch', `/${question_id}`, data);
@@ -110,5 +115,6 @@ export {
     closeQuestion,
     openQuestion,
     protectQuestion,
-    addBounty
+    addBounty,
+    editQuestion
 };

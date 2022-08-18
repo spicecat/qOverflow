@@ -14,7 +14,7 @@ const Question = mongoose.Schema(
         reopen: [String],
         close: [String],
         edit: [String],
-        editText: { type: String },
+        editText: [String],
         tags: [String],
         question_id: { type: String, required: true },
         status: { type: String, required: true, default: 'open' },
