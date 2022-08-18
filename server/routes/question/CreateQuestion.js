@@ -9,7 +9,7 @@ async function CreateQuestion(req, res) {
 
     if (!title || !text) return res.status(400).send(config.errorIncomplete);
 
-    if (tags && tags.length > 5) {
+    if (tags && tags.split(' ').length > 5) {
         return res.status(400).send(config.errorIncomplete);
     }
 
