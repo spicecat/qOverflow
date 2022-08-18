@@ -1,0 +1,64 @@
+{
+    "badges": [
+        {
+            "title": "Great Question",
+            "text": "Have a question with net total points of >100",
+            "rank": "Gold"
+        },
+        {
+            "title": "Good Question",
+            "text": "Have a question with net total points of >25",
+            "rank": "Silver"
+        },
+        {
+            "title": "Nice Question",
+            "text": "Have a question with net total points of >10",
+            "rank": "Bronze"
+        },
+        {
+            "title": "Great Answer",
+            "text": "Have a answer with net total points of >100",
+            "rank": "Gold"
+        },
+        {
+            "title": "Good Answer",
+            "text": "Have a answer with net total points of >25",
+            "rank": "Silver"
+        },
+        {
+            "title": "Nice Answer",
+            "text": "Have a answer with net total points of >10",
+            "rank": "Bronze"
+        },
+        {
+            "title": "Socratic",
+            "text": "Have at least 10000 points",
+            "rank": "Gold"
+        },
+        {
+            "title": "Inquisitive",
+            "text": "Have at least 3000 points",
+            "rank": "Silver"
+        },
+        {
+            "title": "Curious",
+            "text": "Have at least 100 points",
+            "rank": "Bronze"
+        },
+        {
+            "title": "Zombie",
+            "text": "Have a question that is reopened",
+            "rank": "Gold"
+        },
+        {
+            "title": "Protected",
+            "text": "Have a question that is protected",
+            "rank": "Silver"
+        },
+        {
+            "title": "Scholar",
+            "text": "Accept an answer",
+            "rank": "Bronze"
+        }
+    ]
+}

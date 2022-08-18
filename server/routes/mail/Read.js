@@ -2,9 +2,9 @@ const Mail = require('server/db/models/Mail');
 const config = require('server/config.json');
 
 async function Read(req, res) {
-    const { id } = req.body;
+    const { mail_id } = req.params;
 
-    const cachedMail = await Mail.findByIdAndUpdate(id, { read: true });
+    const cachedMail = await Mail.findByIdAndUpdate(mail_id, { read: true });
 
     return cachedMail ? res.sendStatus(200) : res.status(404).send(config.errorNotFound);
 }

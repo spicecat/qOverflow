@@ -5,6 +5,7 @@ const basicAuth = require('server/middleware/basicAuth');
 const tokenAuth = require('server/middleware/tokenAuth');
 
 const Answers = require('./user/Answers');
+const GetBadges = require('./user/GetBadges');
 const Delete = require('./user/Delete');
 const Edit = require('./user/Edit');
 const GetUser = require('./user/GetUser');
@@ -20,6 +21,7 @@ router.post('/', Register);
 router.patch('/', tokenAuth, Edit);
 router.get('/questions', tokenAuth, Questions);
 router.get('/answers', tokenAuth, Answers);
+router.get('/badge', tokenAuth, GetBadges);
 router.post('/login', basicAuth, Login);
 router.get('/remember', tokenAuth, Remember);
 router.delete('/logout', tokenAuth, Logout);

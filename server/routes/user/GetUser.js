@@ -2,6 +2,7 @@ const createRequest = require('server/utils/api');
 const config = require('server/config.json');
 const User = require('server/db/models/User');
 const getUserLevel = require('server/utils/getUserLevel');
+const Badge = require('server/db/models/Badge');
 
 async function GetUser(req, res) {
     const { username } = req.params;
@@ -27,6 +28,27 @@ async function GetUser(req, res) {
         new: true,
     });
 
+    const badges = await Badge.find({ title: { $in: user.badges } });
+
+    const badgeCount = badges.reduce(
+        (acc, badge) => {
+            if (badge.rank === 'Gold') {
+                acc.gold = acc.gold++;
+            } else if (badge.rank === 'Silver') {
+                acc.silver = acc.silver++;
+            } else if (badge.rank === 'Bronze') {
+                acc.bronze = acc.bronze++;
+            }
+
+            return acc;
+        },
+        {
+            gold: 0,
+            silver: 0,
+            bronze: 0,
+        }
+    );
+
     return res.send({
         user: {
             username: newUser.username,
@@ -34,6 +56,7 @@ async function GetUser(req, res) {
             points: newUser.points,
             level: getUserLevel(newUser.points),
         },
+        badgeCount,
     });
 }
 

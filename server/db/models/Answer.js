@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const calculateAnswerBadges = require('../../utils/badges/answerBadges');
+const User = require('./User');
 
 const Answer = mongoose.Schema(
     {
@@ -14,5 +16,11 @@ const Answer = mongoose.Schema(
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
+
+Answer.post('findOneAndUpdate', (doc) => {
+    const badges = calculateAnswerBadges(doc.points);
+
+    User.findOneAndUpdate({ username: doc.creator }, { $addToSet: { tags: { $each: badges } } });
+});
 
 module.exports = mongoose.model('Answer', Answer);
