@@ -9,7 +9,7 @@ async function CreateQuestion(req, res) {
 
     if (!title || !text) return res.status(400).send(config.errorIncomplete);
 
-    if (tags && tags.length > 5) {
+    if (tags && tags.split(' ').length > 5) {
         return res.status(400).send(config.errorIncomplete);
     }
 
@@ -21,7 +21,11 @@ async function CreateQuestion(req, res) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    const newQuestion = await Question.create({ ...question, tags, _id: question.question_id });
+    const newQuestion = await Question.create({
+        ...question,
+        tags: tags.split(' '),
+        _id: question.question_id,
+    });
 
     // Increment user points by 1
     await createRequest('patch', `/users/${user.username}/points`, {

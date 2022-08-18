@@ -18,7 +18,6 @@ const User = mongoose.Schema(
 User.post('findOneAndUpdate', async (doc) => {
     const badges = calculateUserBadges(doc.points);
     doc.badges = [...new Set([...doc.badges, ...badges])];
-    console.log(doc.badges);
     await doc.save();
 });
 

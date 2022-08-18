@@ -9,31 +9,26 @@ export default function SearchResultsController() {
     const [searchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
 
-    const getData = async ({ question_id }) => {
-        let match = {};
-        const regexMatch = {};
-        const time = {};
-        let newdate = searchParams.get('createdAt');
+    const getData = async () => {
+        const creator = searchParams.get('creator');
+        const title = searchParams.get('title');
+        const text = searchParams.get('text');
+        let tags = searchParams.get('tags');
+        let time = searchParams.get('createdAt');
+        let createdAt = {};
 
-        if (newdate) {
-            newdate = new Date(newdate);
-            time['$gte'] = parseInt(newdate.getTime());
-            newdate.setDate(newdate.getDate() + 1);
-            time['$lte'] = newdate.getTime();
-            match = JSON.stringify({ createdAt: time });
+        if (time) {
+            time = new Date(time);
+            createdAt['$gte'] = parseInt(time.getTime());
+            time.setDate(time.getDate() + 1);
+            createdAt['$lte'] = time.getTime();
+        }
+        if (tags) {
+            tags = tags.split(' ');
         }
 
-        const creator = searchParams.get('creator');
-        if (creator) regexMatch.creator = creator;
-
-        const text = searchParams.get('text');
-        if (text) regexMatch.text = text.replaceAll(' ', '|');
-
-        const title = searchParams.get('title');
-        if (title) regexMatch.title = title.replaceAll(' ', '|');
-
         setLoading(() => true);
-        const { questions } = await searchQuestions({ after: question_id, regexMatch, match });
+        const { questions } = await searchQuestions({ creator, title, text, tags, createdAt });
         setLoading(() => false);
 
         return questions;
