@@ -1,8 +1,9 @@
-import { Divider, Grid, ListItem, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Divider, Grid, ListItem, Stack, Typography, Chip } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { CreationInfoTag } from 'controllers';
 import ListQuestionInfo from './ListQuestionInfo';
+import { useMediaQuery } from '@mui/material';
 export default function ListQuestion({
     question_id,
     answers,
@@ -24,13 +25,38 @@ export default function ListQuestion({
         <span key={question_id}>
             <ListItem disablePadding>
                 <Grid container>
-                    <Grid item xs={2}>
-                        <Stack justifyContent='center' sx={{ height: '100%' }}>
-                            {sm || md ? <ListQuestionInfo {...{ answers, downvotes, inline: false, hasAcceptedAnswer, tags, upvotes, views }} /> : null}
-                        </Stack>
-                    </Grid>
+                    {(sm || md) && (
+                        <Grid item xs={2}>
+                            <Stack justifyContent='center' sx={{ height: '100%' }}>
+                                <ListQuestionInfo
+                                    {...{
+                                        answers,
+                                        downvotes,
+                                        inline: false,
+                                        hasAcceptedAnswer,
+                                        tags,
+                                        upvotes,
+                                        views,
+                                    }}
+                                />
+                            </Stack>
+                        </Grid>
+                    )}
+
                     <Grid item xs={10}>
-                        {sm || md ? null : <ListQuestionInfo {...{ answers, downvotes, inline: true, hasAcceptedAnswer, tags, upvotes, views }} />}
+                        {sm || md ? null : (
+                            <ListQuestionInfo
+                                {...{
+                                    answers,
+                                    downvotes,
+                                    inline: true,
+                                    hasAcceptedAnswer,
+                                    tags,
+                                    upvotes,
+                                    views,
+                                }}
+                            />
+                        )}
                         <CreationInfoTag {...{ createdAt, creator }} />
                         <Typography
                             variant='h6'
@@ -38,11 +64,29 @@ export default function ListQuestion({
                             to={`/questions/${question_id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
-                            [{status}] {title}
+                            [{status}] {title}{' '}
+                            <Chip
+                                color={hasAcceptedAnswer ? 'success' : 'error'}
+                                label={hasAcceptedAnswer ? 'Accepted' : 'Unaccepted'}
+                                size='small'
+                            />
                         </Typography>
                         <Typography noWrap variant='body1'>
                             {text.replace(/<[^>]*>?/gm, '')}
                         </Typography>
+                        {tags.length > 0 && (
+                            <Typography display='inline'>
+                                Tags:{' '}
+                                {tags.map((tag, index) => (
+                                    <Chip
+                                        label={tag}
+                                        size='small'
+                                        key={index}
+                                        sx={{ margin: '0 0.1vw' }}
+                                    />
+                                ))}
+                            </Typography>
+                        )}
                     </Grid>
                 </Grid>
             </ListItem>
