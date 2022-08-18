@@ -10,15 +10,15 @@ export default function FormController({
     validate,
     validationSchema,
     children,
-    initialValues
+    initialValues = {}
 }) {
 
-    
+
     const { setContent } = useForm();
-    
+
     useEffect(() => {
         setContent('');
-       
+
     }, [setContent]);
 
     const handleChange = (e) => {
