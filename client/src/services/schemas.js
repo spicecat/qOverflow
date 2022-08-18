@@ -119,4 +119,5 @@ export {
     registerSchema,
     resetSchema,
     searchSchema,
+    editSchema
 };

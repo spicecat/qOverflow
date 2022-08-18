@@ -2,7 +2,7 @@
 import { Form } from 'controllers/FormControllers';
 import { generateEditFields } from 'services/fields';
 import { editQuestion } from 'services/questionsServices';
-import { questionSchema } from 'services/schemas';
+import { editSchema } from 'services/schemas';
 import { useQuestion } from 'contexts';
 
 export default function EditFormController() {
@@ -22,7 +22,7 @@ export default function EditFormController() {
     return !questionData.loading && Form({
         fields: field,
         onSubmit: editTheQuestion,
-        validationSchema: questionSchema,
+        validationSchema: editSchema,
         initialValues: {etext : text, etitle : title}
     });
 }
