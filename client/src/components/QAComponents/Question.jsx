@@ -41,7 +41,6 @@ export default function Question({
     text,
     upvotes,
     views,
-    question_id,
     ongoingVote,
     canClose,
     canProtect,
@@ -121,18 +120,6 @@ export default function Question({
                     </span>
                 </Tooltip>
 
-                <CopyToClipboard text={window.location.href}>
-                    <Button
-                        style={{ marginLeft: '10px' }}
-                        display='inline'
-                        m={1}
-                        startIcon={<ShareIcon />}
-                        variant='contained'
-                    >
-                        Share
-                    </Button>
-                </CopyToClipboard>
-
                 {ongoingVote.users.length > 0 && (
                     <Typography>
                         {ongoingVote.users.toString()} - voting to {ongoingVote.type} this question{' '}
@@ -156,6 +143,18 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                     <Markdown content={text} />
                     <CommentControl {...{ postComment, canComment }} />
+                    <CopyToClipboard text={window.location.href}>
+                        <Button
+                            color='inherit'
+                            size='small'
+                            m={1}
+                            startIcon={<ShareIcon />}
+                            style={{ textTransform: 'none' }}
+                            variant='text'
+                        >
+                            Share
+                        </Button>
+                    </CopyToClipboard>
                 </ListItemText>
             </ListItem>
         </>

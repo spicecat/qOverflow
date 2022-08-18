@@ -27,11 +27,12 @@ export default function CommentControl({
                             color='inherit'
                             disableRipple
                             onClick={toggleShow}
+                            m={1}
                             size='small'
                             startIcon={<AddCommentOutlinedIcon />}
                             style={{ textTransform: 'none' }}
                             variant='text'
-                        >
+                            >
                             <Typography>Comment</Typography>
                         </Button>
                     </span>
