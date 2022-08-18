@@ -9,7 +9,7 @@ async function EditQuestionStatusReopened(req, res) {
     const { question_id } = req.params;
 
     // Verify user has permissions
-    if (getUserLevel(user.points) < 7) {
+    if (getUserLevel(user.points) < 9) {
         return res.status(403).send(config.errorForbidden);
     }
 

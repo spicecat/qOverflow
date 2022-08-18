@@ -18,7 +18,7 @@ async function EditAnswerVote(req, res) {
         return res.status(403).send(config.errorForbidden);
     }
 
-    if (operation === 'downvote' && userLevel < 4) {
+    if (operation === 'downvote' && userLevel < 5) {
         return res.status(403).send(config.errorForbidden);
     }
 
@@ -73,14 +73,10 @@ async function EditAnswerVote(req, res) {
                 amount: 1,
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'decrement',
-                    amount: 15,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'decrement',
+                amount: 15,
+            });
 
             return res.send({ vote: 'downvoted' });
         }
@@ -117,14 +113,10 @@ async function EditAnswerVote(req, res) {
                 docModel: 'Answer',
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'increment',
-                    amount: 15,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'increment',
+                amount: 15,
+            });
 
             return res.send({ vote: 'upvoted' });
         }
@@ -149,14 +141,10 @@ async function EditAnswerVote(req, res) {
                 docModel: 'Answer',
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'increment',
-                    amount: 10,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'increment',
+                amount: 10,
+            });
 
             return res.send({ vote: 'upvoted' });
         } else if (operation === 'downvote') {
@@ -179,14 +167,10 @@ async function EditAnswerVote(req, res) {
                 amount: 1,
             });
 
-            await createRequest(
-                'patch',
-                `/users/${cachedAnswer.creator}/points`,
-                {
-                    operation: 'decrement',
-                    amount: 5,
-                }
-            );
+            await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+                operation: 'decrement',
+                amount: 5,
+            });
 
             return res.send({ vote: 'downvoted' });
         }

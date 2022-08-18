@@ -21,7 +21,7 @@ async function CreateAnswer(req, res) {
 
     if (question.status === 'closed') return res.status(403).send(config.errorForbidden);
 
-    if (question.status === 'protected' && getUserLevel(user.points) < 5) {
+    if (question.status === 'protected' && getUserLevel(user.points) < 6) {
         return res.status(403).send(config.errorForbidden);
     }
 
