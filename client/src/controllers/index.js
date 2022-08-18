@@ -1,3 +1,4 @@
+import Badges from './BadgesController';
 import CreationInfoTag from './CreationInfoTagController';
 import Inbox from './InboxController';
 import MdPreview from './MdPreviewController';
@@ -6,4 +7,4 @@ import PaginatedList from './PaginatedListController';
 import SearchBar from './SearchBarController';
 import SearchResults from './SearchResultsController';
 
-export { CreationInfoTag, Inbox, MdPreview, Navbar, PaginatedList, SearchBar, SearchResults };
+export { Badges, CreationInfoTag, Inbox, MdPreview, Navbar, PaginatedList, SearchBar, SearchResults };

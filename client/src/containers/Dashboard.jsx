@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { ListAnswer, ListQuestion, LoadingBar } from 'components';
 import { useUser } from 'contexts';
-import { PaginatedList } from 'controllers';
+import { Badges, PaginatedList } from 'controllers';
 import { deleteUser, getUserAnswers, getUserQuestions } from 'services/userServices';
 
 export default function Dashboard() {
@@ -25,7 +25,7 @@ export default function Dashboard() {
     const [current, setCurrent] = useState('questions');
     const [loading, setLoading] = useState(true);
     const [confirmDelete, setConfirmDelete] = useState(false)
-    
+
 
     const {
         userData: { email, level, points, username },
@@ -62,16 +62,16 @@ export default function Dashboard() {
     };
 
     const deleteCurrentUser = () => {
-        if(confirmDelete){
+        if (confirmDelete) {
             deleteUser();
             navigate('/users/login')
             setConfirmDelete(false);
-        }else{
+        } else {
             setConfirmDelete(true);
             setTimeout(cancelDelete, 30000)
         }
     }
-    function cancelDelete(){
+    function cancelDelete() {
         setConfirmDelete(false)
     }
 
@@ -89,18 +89,21 @@ export default function Dashboard() {
                 <Grid
                     container
                     spacing={2}
-                    sx={{
-                        display: { xs: 'flex', sm: 'block', md: 'block' },
-                        justifyContent: 'center',
-                    }}
+                // sx={{
+                //     display: { xs: 'flex', sm: 'block', md: 'block' },
+                //     justifyContent: 'center',
+                // }}
                 >
-                    <Grid item sm={4} md={2}>
+                    <Grid item sm={4} md={3}>
                         {email && (
                             <Gravatar email={email} size={200} style={{ borderRadius: '100%' }} />
                         )}
                     </Grid>
+                    <Grid item sm={12} md={8}>
+                        <Badges />
+                    </Grid>
                     <Grid item sm={8} md={10}>
-                        {confirmDelete && <Alert variant = "warning">Click delete button again to confirm delete, cancelling in 30 seconds</Alert>}
+                        {confirmDelete && <Alert variant="warning">Click delete button again to confirm delete, cancelling in 30 seconds</Alert>}
                         <Typography>Username: {username}</Typography>
                         <Typography>Email: {email}</Typography>
                         <Typography>Level: {level}</Typography>
@@ -127,7 +130,7 @@ export default function Dashboard() {
 
                             <Button
                                 color='warning'
-                                onClick = {deleteCurrentUser}
+                                onClick={deleteCurrentUser}
                                 sx={{ margin: '0 1vh' }}
                                 variant='outlined'
                                 fullWidth

@@ -1,3 +1,4 @@
+import Badges from './Badges';
 import CreationInfoTag from './CreationInfoTag';
 import Form from './Form';
 import ListAnswer from './ListAnswer';
@@ -14,6 +15,7 @@ import Profile from './Profile';
 import SearchBar from './SearchBar';
 
 export {
+    Badges,
     CreationInfoTag,
     Form,
     ListAnswer,
