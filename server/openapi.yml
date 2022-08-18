@@ -194,6 +194,22 @@ paths:
                     $ref: '#/components/responses/ServerError'
             tags:
                 - users
+    /users/delete:
+        delete:
+            summary: Permanently delete a user's account
+            security:
+                - BearerAuth: []
+            responses:
+                '200':
+                    description: OK
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '500':
+                    $ref: '#/components/responses/ServerError'
+            tags:
+                - users
     /users/reset:
         post:
             summary: Get a link for the user to reset their password
