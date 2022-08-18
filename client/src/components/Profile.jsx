@@ -3,7 +3,6 @@ import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 
 export default function Profile({ userData: { badgeCount, email, level, points } }) {
-    console.log(badgeCount, email, 123123)
     return (
         <>
             <IconButton component={Link} to='/dashboard'>
