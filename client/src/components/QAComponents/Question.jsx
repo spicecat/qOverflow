@@ -98,7 +98,7 @@ export default function Question({
                 <Button
                     component={Link}
                     to='../ask'
-                    style={{ marginLeft: '10px' }}
+                    style={{ margin: '5px' }}
                     display='inline'
                     m={1}
                     variant='contained'
@@ -110,9 +110,8 @@ export default function Question({
                     <span>
                         <Button
                             disabled={!canClose}
-                            style={{ marginLeft: '10px' }}
+                            style={{ margin: '5px' }}
                             display='inline'
-                            m={1}
                             onClick={changeClose}
                             variant='contained'
                         >
@@ -127,7 +126,7 @@ export default function Question({
                     <span>
                         <Button
                             disabled={!canProtect}
-                            style={{ marginLeft: '10px' }}
+                            style={{ margin: '5px' }}
                             display='inline'
                             m={1}
                             variant='contained'
@@ -145,7 +144,7 @@ export default function Question({
 
                         <Button
                             disabled={!canBounty}
-                            style={{ marginLeft: '10px' }}
+                            style={{ margin: '5px' }}
                             display='inline'
                             m={1}
                             variant='contained'
