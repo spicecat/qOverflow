@@ -3,27 +3,36 @@ const config = require('server/config.json');
 const Question = require('server/db/models/Question');
 
 async function Search(req, res) {
-    const { match, regexMatch, sort } = req.query;
+    const { creator, title, text, tags, createdAt } = req.query;
 
-    const questions = await Question.find({});
+    console.log(req.query);
 
-    if (!success) return res.status(500).send(config.errorGeneric);
+    let searchQuery = {};
+    if (creator) {
+        searchQuery['creator'] = {
+            $regex: creator,
+        };
+    }
+    if (title) {
+        searchQuery['title'] = {
+            $regex: title,
+        };
+    }
+    if (text) {
+        searchQuery['text'] = {
+            $regex: text,
+        };
+    }
+    if (tags) {
+        searchQuery['tags'] = { $all: tags };
+    }
+    if (createdAt) {
+        searchQuery['createdAt'] = createdAt;
+    }
 
-    // Patch search results to database
-    const questionSet = await Promise.all(
-        questions
-            .map((question) => ({
-                id: question.question_id,
-                ...question,
-            }))
-            .map(async (question) => {
-                return Question.findByIdAndUpdate(question.id, question, {
-                    upsert: true,
-                });
-            })
-    );
+    const questions = await Question.find(searchQuery).sort({ createdAt: 'asc' });
 
-    return res.send({ questions: questionSet.filter((question) => question) });
+    return res.send({ questions });
 }
 
 module.exports = Search;
