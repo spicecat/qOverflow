@@ -107,6 +107,14 @@ const patchSchema = Yup.object().shape(
         ['password', 'password'],
     ]
 );
+const editSchema = Yup.object({
+    etitle: Yup.string()
+        .max(150, 'Title cannot be longer then 150 characters.')
+        .required('A title is required.'),
+    etext: Yup.string()
+        .max(3000, 'Body cannot be longer than 3000 characters')
+        .required('A body is required')
+});
 
 export {
     answerSchema,
