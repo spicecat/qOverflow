@@ -3,10 +3,7 @@ const router = express.Router();
 
 const tokenAuth = require('server/middleware/tokenAuth');
 
-<<<<<<< HEAD
-=======
 const HandleBounty = require('./question/HandleBounty');
->>>>>>> bounties
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
 const CreateComment = require('./question/CreateComment');
