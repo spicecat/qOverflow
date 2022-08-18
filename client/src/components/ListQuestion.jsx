@@ -20,7 +20,7 @@ export default function ListQuestion({
 }) {
     const sm = useMediaQuery((theme) => theme.breakpoints.only('sm'));
     const md = useMediaQuery((theme) => theme.breakpoints.only('md'));
-    console.log(123123, tags)
+
     return (
         <span key={question_id}>
             <ListItem disablePadding>
@@ -31,7 +31,7 @@ export default function ListQuestion({
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
-                        {sm || md ? null : <ListQuestionInfo {...{ upvotes, downvotes, answers, views, inline: true }} />}
+                        {sm || md ? null : <ListQuestionInfo {...{ hasAcceptedAnswer, upvotes, downvotes, answers, views, inline: true }} />}
                         <CreationInfoTag {...{ createdAt, creator }} />
                         <Typography
                             variant='h6'
@@ -44,8 +44,6 @@ export default function ListQuestion({
                         <Typography noWrap variant='body1'>
                             {text.replace(/<[^>]*>?/gm, '')}
                         </Typography>
-                        <Typography>Accepted: {String(hasAcceptedAnswer)} </Typography>
-
                     </Grid>
                 </Grid>
             </ListItem>
