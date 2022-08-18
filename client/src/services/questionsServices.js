@@ -2,7 +2,10 @@ import { createEndpoint } from './api';
 
 const callQuestionsAPI = createEndpoint('/questions');
 
-const searchQuestions = async (sort) => callQuestionsAPI('get', `/search`, sort);
+const searchQuestions = async (sort) => {
+    console.log(sort);
+    return callQuestionsAPI('get', `/search`, sort);
+};
 
 const postQuestion = async (data) => callQuestionsAPI('post', ``, data);
 

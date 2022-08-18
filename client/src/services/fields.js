@@ -22,6 +22,7 @@ const askQuestionFields = [
         label: 'Text',
         multiline: true,
     },
+    { id: 'tags', label: 'Tags' },
 ];
 
 const commentFields = [
@@ -127,6 +128,7 @@ const searchFields = [
         id: 'creator',
         label: 'Creator',
     },
+    { id: 'tags', label: 'Tags (separated by spaces)' },
 ];
 
 const generateEditFields =

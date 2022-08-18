@@ -15,12 +15,12 @@ export default function SearchBarController() {
         e.preventDefault();
 
         if (location.pathname === '/questions/search') {
-            setSearchParams({ title: search, text: search, creator: search }, { replace: true });
+            setSearchParams({ title: search }, { replace: true });
         } else {
             navigate({
                 pathname: '/questions/search',
                 search: `?${createSearchParams({
-                    title: search, text: search, creator: search
+                    title: search,
                 })}`,
                 replace: true,
             });

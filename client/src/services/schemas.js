@@ -21,6 +21,10 @@ const searchSchema = Yup.object({
     text: Yup.string().max(300, 'Text must be at most 300 characters, try and use keywords only '),
     // createdAt: Yup.string().max(11, 'Date must be at most 11 characters, make sure body is formatted correctly'),
     creator: Yup.string().max(16, 'username must be at most 16 characters'),
+    tags: Yup.string().matches(
+        /^(?:\b\w+\b[\s\r\n]*){0,5}$/,
+        'Tags should be separated by spaces and are limited to 5'
+    ),
 });
 
 const loginSchema = Yup.object({
@@ -71,12 +75,10 @@ const questionSchema = Yup.object({
     text: Yup.string()
         .max(3000, 'Body cannot be longer than 3000 characters')
         .required('A body is required'),
-    etitle: Yup.string()
-        .max(150, 'Title cannot be longer then 150 characters.')
-        .required('A title is required.'),
-    etext: Yup.string()
-        .max(3000, 'Body cannot be longer than 3000 characters')
-        .required('A body is required'),
+    tags: Yup.string().matches(
+        /^(?:\b\w+\b[\s\r\n]*){0,5}$/,
+        'Tags should be separated by spaces and are limited to 5'
+    ),
 });
 
 const patchSchema = Yup.object().shape(
