@@ -3,7 +3,6 @@ const router = express.Router();
 
 const tokenAuth = require('server/middleware/tokenAuth');
 
-
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
 const CreateComment = require('./question/CreateComment');
@@ -16,6 +15,7 @@ const EditAnswerCommentVote = require('./question/EditAnswerCommentVote');
 const EditAnswerVote = require('./question/EditAnswerVote');
 const EditCommentVote = require('./question/EditCommentVote');
 const EditQuestion = require('./question/EditQuestion');
+const EditQuestionBody = require('./question/EditQuestionBody');
 const EditQuestionStatusClosed = require('./question/EditQuestionStatusClosed');
 const EditQuestionStatusProtected = require('./question/EditQuestionStatusProtected');
 const EditQuestionStatusReopened = require('./question/EditQuestionStatusReopened');
@@ -35,6 +35,7 @@ router.get('/search', Search);
 router.post('/', tokenAuth, CreateQuestion);
 router.get('/:question_id', GetQuestion);
 router.patch('/:question_id', tokenAuth, EditQuestion);
+router.patch('/:question_id/edit', tokenAuth, EditQuestionBody);
 router.patch('/:question_id/close', tokenAuth, EditQuestionStatusClosed);
 router.patch('/:question_id/protect', tokenAuth, EditQuestionStatusProtected);
 router.patch('/:question_id/reopen', tokenAuth, EditQuestionStatusReopened);
@@ -56,8 +57,20 @@ router.patch('/:question_id/answers/:answer_id/vote', tokenAuth, EditAnswerVote)
 
 router.get('/:question_id/answers/:answer_id/comments', GetAnswerComments);
 router.post('/:question_id/answers/:answer_id/comments', tokenAuth, CreateAnswerComment);
-router.delete('/:question_id/answers/:answer_id/comments/:comment_id', tokenAuth, DeleteAnswerComment);
-router.get('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, GetAnswerCommentVote);
-router.patch('/:question_id/answers/:answer_id/comments/:comment_id/vote', tokenAuth, EditAnswerCommentVote);
+router.delete(
+    '/:question_id/answers/:answer_id/comments/:comment_id',
+    tokenAuth,
+    DeleteAnswerComment
+);
+router.get(
+    '/:question_id/answers/:answer_id/comments/:comment_id/vote',
+    tokenAuth,
+    GetAnswerCommentVote
+);
+router.patch(
+    '/:question_id/answers/:answer_id/comments/:comment_id/vote',
+    tokenAuth,
+    EditAnswerCommentVote
+);
 
 module.exports = router;
