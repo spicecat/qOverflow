@@ -24,7 +24,7 @@ export default function SendMailController() {
 
     const sendMail = async (fields) => {
         const { error } = await postMail(fields);
-        if (!error) navigate('');
+        if (!error) window.location.reload(false);
     };
 
     return Form({
