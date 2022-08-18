@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const calculateUserBadges = require('server/utils/badges/userBadges');
 
 const User = mongoose.Schema(
     {
@@ -9,8 +10,21 @@ const User = mongoose.Schema(
         lastMailFetch: { type: Date, default: new Date(0) },
         lastAnswerFetch: { type: Date, default: new Date(0) },
         user_id: { type: String, required: true, unique: true },
+        badges: [String],
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
+
+User.post('findOneAndUpdate', async (doc) => {
+    const badges = calculateUserBadges(doc.points);
+
+    console.log(`first: ${doc.badges}`);
+
+    doc.badges = [...new Set([...doc.badges, ...badges])];
+
+    console.log(doc.badges);
+
+    doc.save();
+});
 
 module.exports = mongoose.model('User', User);
