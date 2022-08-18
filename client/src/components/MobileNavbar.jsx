@@ -41,6 +41,7 @@ export default function MobileNavbar({ logout, userData, open, setOpen, mode, se
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
+                    <ListItemButton disabled />
                     <ListItemText>
                         <Typography display='inline'><b>{userData?.level}</b></Typography>
                         <Typography display='inline' m={1}>{userData?.points}</Typography>
