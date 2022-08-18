@@ -39,6 +39,7 @@ export default function Question({
     downvotes,
     hasAcceptedAnswer,
     status,
+    tags,
     title,
     text,
     upvotes,
@@ -62,11 +63,11 @@ export default function Question({
     const [value, setValue] = useState(75);
     canBounty = canBounty && !hasBounty
 
-    function handleBountyFix(){
+    function handleBountyFix() {
         handleBounty(value)
     }
     return (
-        
+
         <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
@@ -92,6 +93,8 @@ export default function Question({
                     label={hasAcceptedAnswer ? 'yes' : 'no'}
                     size='small'
                 />
+                <Typography display='inline' m={1}>Tags: {tags.join(', ')}</Typography>
+                <br />
                 <Button
                     component={Link}
                     to='../ask'
@@ -139,7 +142,7 @@ export default function Question({
                     title={canBounty ? '' : 'You must be level 4 and this question must be open or protected'}
                 >
                     <span>
-                    
+
                         <Button
                             disabled={!canBounty}
                             style={{ marginLeft: '10px' }}
@@ -149,26 +152,26 @@ export default function Question({
                             onClick={handleBountyFix}
                         >
                             Add Bounty
-                       
+
                         </Button>
-                    { show && 
-                        <TextField value = {value} size = "small" type = "number" inputProps={{min,max}} disabled = {!canBounty} label="bounty" onChange={(e) => {
-                        if (e.target.value === "") {
-                        setValue(75);
-                        return;
+                        {show &&
+                            <TextField value={value} size="small" type="number" inputProps={{ min, max }} disabled={!canBounty} label="bounty" onChange={(e) => {
+                                if (e.target.value === "") {
+                                    setValue(75);
+                                    return;
+                                }
+                                const value = e.target.value;
+                                if (value > max) {
+                                    setValue(max);
+                                } else if (value < min) {
+                                    setValue(min);
+                                } else {
+                                    setValue(value);
+                                }
+
+
+                            }} />
                         }
-                        const value = e.target.value;
-                        if (value > max) {
-                        setValue(max);
-                        } else if (value < min) {
-                        setValue(min);
-                        } else {
-                        setValue(value);
-                        }
-                        
-                        
-                    }}/>
-                    }
                     </span>
                 </Tooltip>
 
@@ -177,7 +180,7 @@ export default function Question({
                         {ongoingVote.users.toString()} - voting to {ongoingVote.type} this question{' '}
                     </Typography>
                 )}
-                 {hasBounty && (
+                {hasBounty && (
                     <Typography>
                         there is a {hasBounty} point bounty on this question
                     </Typography>
