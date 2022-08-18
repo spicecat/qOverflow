@@ -6,30 +6,23 @@ import { ListQuestion, LoadingBar } from 'components';
 import { PaginatedList } from 'controllers';
 import { searchQuestions } from 'services/questionsServices';
 
-const recent = {};
-const best = { sort: 'u' };
-const interesting = { match: JSON.stringify({ answers: 0 }), sort: 'uvc' };
-const hot = { match: JSON.stringify({ hasAcceptedAnswer: false }), sort: 'uvac' };
-const sortObjArr = [recent, best, interesting, hot];
-
 export default function Buffet() {
-    const [sort, setSort] = useState(0);
+    const [sort, setSort] = useState('');
     const [loading, setLoading] = useState(true);
     const [, setSearchParams] = useSearchParams();
 
     const getData = async ({ question_id }) => {
         const { questions } = await searchQuestions({
-            ...sortObjArr[sort],
-            after: question_id,
+            sort,
         });
 
         setLoading(() => false);
         return questions;
     };
 
-    const handleSortChange = (_, newSort) => {
-        setSearchParams(sortObjArr[newSort]);
-        setSort(newSort);
+    const handleSortChange = (_, value) => {
+        setSearchParams({ sort: value });
+        setSort(value);
     };
 
     return (
@@ -60,10 +53,10 @@ export default function Buffet() {
                     onChange={handleSortChange}
                     style={{ display: 'block', marginTop: '1%' }}
                 >
-                    <ToggleButton value={0}>Recent</ToggleButton>
-                    <ToggleButton value={1}>Best</ToggleButton>
-                    <ToggleButton value={2}>Interesting</ToggleButton>
-                    <ToggleButton value={3}>Hot</ToggleButton>
+                    <ToggleButton value=''>Recent</ToggleButton>
+                    <ToggleButton value='u'>Best</ToggleButton>
+                    <ToggleButton value='uvc'>Interesting</ToggleButton>
+                    <ToggleButton value='uvac'>Hot</ToggleButton>
                 </ToggleButtonGroup>
             </Box>
             {loading && <LoadingBar />}
