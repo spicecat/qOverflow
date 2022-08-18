@@ -11,11 +11,13 @@ async function EditAnswerAccepted(req, res) {
 
     // Find question and verify that it exists
     const question = await getQuestion(question_id);
-    if (!question) return res.status(404).send(config.errorNotFound);
 
+    if (!question) return res.status(404).send(config.errorNotFound);
+    const { hasBounty } = question;
     // Verify user owns question and question does not already have an accepted answer
-    if (question.creator !== user.username || question.hasAccepted)
+    if (question.creator !== user.username || question.hasAccepted) {
         return res.status(403).send(config.errorForbidden);
+    }
 
     // Patch question with BDPA server
     const patchAnswer = await createRequest(
@@ -37,12 +39,22 @@ async function EditAnswerAccepted(req, res) {
     await Question.findByIdAndUpdate(question_id, { hasAcceptedAnswer: true });
 
     // Increment points of answer creator
-    await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
-        operation: 'increment',
-        amount: 15,
-    });
-    await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15 } });
-
+    if (hasBounty) {
+        await User.findOneAndUpdate(
+            { username: cachedAnswer.creator },
+            { $inc: { points: 15 + hasBounty } }
+        );
+        await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+            operation: 'increment',
+            amount: 15 + hasBounty,
+        });
+    } else {
+        await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15 } });
+        await createRequest('patch', `/users/${cachedAnswer.creator}/points`, {
+            operation: 'increment',
+            amount: 15,
+        });
+    }
     return res.sendStatus(200);
 }
 

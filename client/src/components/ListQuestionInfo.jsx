@@ -1,16 +1,24 @@
-import { Typography } from "@mui/material"
-export default function ListQuestionInfo({upvotes, downvotes, answers, views, inline}){
-    return inline? (
+import { Chip, Typography } from '@mui/material';
+export default function ListQuestionInfo({
+    answers,
+    downvotes,
+    inline,
+    hasAcceptedAnswer,
+    tags,
+    upvotes,
+    views,
+}) {
+    return inline ? (
         <>
-              <Typography display = 'inline' variant='body1'>{upvotes - downvotes} votes | </Typography>
-              <Typography display = 'inline' variant='body1'>{answers} answers | </Typography>
-              <Typography display = 'inline' variant='body1'>{views} views</Typography>
+            <Typography display='inline'>{upvotes - downvotes} votes | </Typography>
+            <Typography display='inline'>{answers} answers | </Typography>
+            <Typography display='inline'>{views} views</Typography>
         </>
     ) : (
         <>
-              <Typography display = 'block' variant='body1'>{upvotes - downvotes} votes</Typography>
-              <Typography display = 'block' variant='body1'>{answers} answers</Typography>
-              <Typography display = 'block' variant='body1'>{views} views</Typography>
+            <Typography display='block'>{upvotes - downvotes} votes</Typography>
+            <Typography display='block'>{answers} answers</Typography>
+            <Typography display='block'>{views} views</Typography>
         </>
-    )
+    );
 }

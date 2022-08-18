@@ -1,4 +1,5 @@
 import { List, ListItem } from '@mui/material';
+import Suggest from 'components/QAComponents/Suggest';
 import { AnswersList, CommentsList, CreateAnswer, Question } from 'controllers/QAControllers';
 
 export default function QA() {
@@ -8,7 +9,9 @@ export default function QA() {
             <ListItem sx={{ pl: 4 }}>
                 <CommentsList />
             </ListItem>
-            <CreateAnswer />
+            <CreateAnswer/>
+            <Suggest/>
+            <div id='answersList' />
             <AnswersList />
         </List>
     );

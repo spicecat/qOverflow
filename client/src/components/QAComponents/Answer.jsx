@@ -1,25 +1,28 @@
 import CheckIcon from '@mui/icons-material/Check';
+import ShareIcon from '@mui/icons-material/Share';
 import { Button, ButtonGroup, ListItem, ListItemText, Tooltip } from '@mui/material';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Markdown } from 'components';
 import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 
 export default function Answer({
-    accepted,
     answer_id,
+    question_id,
+    accepted,
     comments,
     creator,
     createdAt,
     downvotes,
     text,
     upvotes,
+    acceptAnswer,
     canComment,
     canAccept,
+    postComment,
     getVote,
     updateVote,
-    postComment,
-    acceptAnswer,
 }) {
     return (
         <span key={answer_id}>
@@ -47,12 +50,26 @@ export default function Answer({
                     <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                     <Markdown content={text} />
                     <CommentControl {...{ canComment, postComment }} />
+                    <CopyToClipboard text={`${window.location.origin}/questions/${question_id}#${answer_id}`}>
+                        <Button
+                            color='inherit'
+                            size='small'
+                            m={1}
+                            startIcon={<ShareIcon />}
+                            style={{ textTransform: 'none' }}
+                            variant='text'
+                        >
+                            Share
+                        </Button>
+                    </CopyToClipboard>
                     {canAccept && (
                         <span>
                             <Button
+                                color='inherit'
+                                size='small'
                                 onClick={acceptAnswer}
-                                style={{ marginLeft: '10px' }}
-                                variant='standard'
+                                style={{ textTransform: 'none' }}
+                                variant='text'
                             >
                                 Accept
                             </Button>

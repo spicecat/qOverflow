@@ -7,9 +7,12 @@ import {
     ListItemText,
     Tooltip,
     Typography,
+    TextField
 } from '@mui/material';
+import ShareIcon from '@mui/icons-material/Share';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
 import { Markdown } from 'components';
 import { CreationInfoTag } from 'controllers';
 import { CommentControl, VoteControl } from 'controllers/QAControllers';
@@ -28,6 +31,7 @@ const statusColor = (status) => {
 };
 
 export default function Question({
+    question_id,
     answers,
     comments,
     creator,
@@ -35,6 +39,7 @@ export default function Question({
     downvotes,
     hasAcceptedAnswer,
     status,
+    tags,
     title,
     text,
     upvotes,
@@ -48,8 +53,21 @@ export default function Question({
     getVote,
     updateVote,
     postComment,
+    canBounty,
+    handleBounty,
+    hasBounty,
+    show,
 }) {
+    const min = 75;
+    const max = 500;
+    const [value, setValue] = useState(75);
+    canBounty = canBounty && !hasBounty
+
+    function handleBountyFix() {
+        handleBounty(value)
+    }
     return (
+
         <>
             <Box m={2}>
                 <Typography variant='h4'>{title}</Typography>
@@ -75,10 +93,12 @@ export default function Question({
                     label={hasAcceptedAnswer ? 'yes' : 'no'}
                     size='small'
                 />
+                <Typography display='inline' m={1}>Tags: {tags.join(', ')}</Typography>
+                <br />
                 <Button
                     component={Link}
                     to='../ask'
-                    style={{ marginLeft: '10px' }}
+                    style={{ margin: '5px' }}
                     display='inline'
                     m={1}
                     variant='contained'
@@ -90,9 +110,8 @@ export default function Question({
                     <span>
                         <Button
                             disabled={!canClose}
-                            style={{ marginLeft: '10px' }}
+                            style={{ margin: '5px' }}
                             display='inline'
-                            m={1}
                             onClick={changeClose}
                             variant='contained'
                         >
@@ -107,7 +126,7 @@ export default function Question({
                     <span>
                         <Button
                             disabled={!canProtect}
-                            style={{ marginLeft: '10px' }}
+                            style={{ margin: '5px' }}
                             display='inline'
                             m={1}
                             variant='contained'
@@ -118,11 +137,54 @@ export default function Question({
                     </span>
                 </Tooltip>
 
+                <Tooltip
+                    title={canBounty ? '' : 'You must be level 4 and this question must be open or protected'}
+                >
+                    <span>
+
+                        <Button
+                            disabled={!canBounty}
+                            style={{ margin: '5px' }}
+                            display='inline'
+                            m={1}
+                            variant='contained'
+                            onClick={handleBountyFix}
+                        >
+                            Add Bounty
+
+                        </Button>
+                        {show &&
+                            <TextField value={value} size="small" type="number" inputProps={{ min, max }} disabled={!canBounty} label="bounty" onChange={(e) => {
+                                if (e.target.value === "") {
+                                    setValue(75);
+                                    return;
+                                }
+                                const value = e.target.value;
+                                if (value > max) {
+                                    setValue(max);
+                                } else if (value < min) {
+                                    setValue(min);
+                                } else {
+                                    setValue(value);
+                                }
+
+
+                            }} />
+                        }
+                    </span>
+                </Tooltip>
+
                 {ongoingVote.users.length > 0 && (
                     <Typography>
                         {ongoingVote.users.toString()} - voting to {ongoingVote.type} this question{' '}
                     </Typography>
                 )}
+                {hasBounty && (
+                    <Typography>
+                        there is a {hasBounty} point bounty on this question
+                    </Typography>
+                )}
+
             </Box>
             <Divider />
 
@@ -141,6 +203,18 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                     <Markdown content={text} />
                     <CommentControl {...{ postComment, canComment }} />
+                    <CopyToClipboard text={`${window.location.origin}/questions/${question_id}`}>
+                        <Button
+                            color='inherit'
+                            size='small'
+                            m={1}
+                            startIcon={<ShareIcon />}
+                            style={{ textTransform: 'none' }}
+                            variant='text'
+                        >
+                            Share
+                        </Button>
+                    </CopyToClipboard>
                 </ListItemText>
             </ListItem>
         </>

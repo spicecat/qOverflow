@@ -7,12 +7,10 @@ import {
 } from 'services/questionsServices';
 
 export default function AnswerController({ answer_id, question_id, ...props }) {
+    const acceptAnswer = () => updateAcceptAnswer(question_id, answer_id);
     const getVote = () => getAnswerVote(question_id, answer_id);
     const updateVote = (data) => updateAnswerVote(question_id, answer_id, data);
-    const postComment = async (data) => {
-        await postAnswerComment(question_id, answer_id, data);
-    };
-    const acceptAnswer = () => updateAcceptAnswer(question_id, answer_id);
+    const postComment = async (data) => { await postAnswerComment(question_id, answer_id, data); };
 
     return (
         <Answer
@@ -22,8 +20,8 @@ export default function AnswerController({ answer_id, question_id, ...props }) {
                 updateVote,
                 postComment,
                 acceptAnswer,
-                question_id,
                 answer_id,
+                question_id,
             }}
         />
     );

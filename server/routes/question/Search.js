@@ -1,32 +1,59 @@
-const createRequest = require('server/utils/api');
 const config = require('server/config.json');
 
 const Question = require('server/db/models/Question');
 
 async function Search(req, res) {
-    const { success, questions } = await createRequest(
-        'get',
-        `/questions/search`,
-        req.query
-    );
+    const { creator, title, text, tags, createdAt, sort } = req.query;
 
-    if (!success) return res.status(500).send(config.errorGeneric);
+    let searchQuery = {};
+    if (creator) {
+        searchQuery['creator'] = {
+            $regex: creator,
+        };
+    }
+    if (title) {
+        searchQuery['title'] = {
+            $regex: title,
+        };
+    }
+    if (text) {
+        searchQuery['text'] = {
+            $regex: text,
+        };
+    }
+    if (tags) {
+        searchQuery['tags'] = { $all: tags };
+    }
+    if (createdAt) {
+        searchQuery['createdAt'] = createdAt;
+    }
 
-    // Patch search results to database
-    const questionSet = await Promise.all(
-        questions
-            .map((question) => ({
-                id: question.question_id,
-                ...question,
-            }))
-            .map(async (question) => {
-                return Question.findByIdAndUpdate(question.id, question, {
-                    upsert: true,
-                });
-            })
-    );
+    let sortQuery = [[createdAt, 'desc']];
+    switch (sort) {
+        case 'u':
+            sortQuery = [['upvotes', 'desc']];
+            break;
+        case 'uvc':
+            sortQuery = [
+                ['upvotes', 'desc'],
+                ['view', 'desc'],
+                ['comments', 'desc'],
+            ];
+            break;
+        case 'uvac':
+            sortQuery = [
+                ['upvotes', 'desc'],
+                ['view', 'desc'],
+                ['answers', 'desc'],
+                ['comments', 'desc'],
+            ];
+            searchQuery['hasAcceptedAnswer'] = false;
+            break;
+    }
 
-    return res.send({ questions: questionSet.filter(question => question) });
+    const questions = await Question.find(searchQuery).sort(sortQuery);
+
+    return res.send({ questions });
 }
 
 module.exports = Search;

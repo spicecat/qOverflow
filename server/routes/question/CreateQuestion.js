@@ -5,9 +5,13 @@ const createRequest = require('server/utils/api');
 
 async function CreateQuestion(req, res) {
     const user = req.user;
-    const { title, text } = req.body;
+    const { title, text, tags } = req.body;
 
     if (!title || !text) return res.status(400).send(config.errorIncomplete);
+
+    if (tags && tags.split(' ').length > 5) {
+        return res.status(400).send(config.errorIncomplete);
+    }
 
     const { success, question } = await createRequest('post', `/questions`, {
         creator: user.username,
@@ -17,7 +21,11 @@ async function CreateQuestion(req, res) {
 
     if (!success) return res.status(500).send(config.errorGeneric);
 
-    const newQuestion = await Question.create({ ...question, _id: question.question_id });
+    const newQuestion = await Question.create({
+        ...question,
+        tags: tags.split(' '),
+        _id: question.question_id,
+    });
 
     // Increment user points by 1
     await createRequest('patch', `/users/${user.username}/points`, {

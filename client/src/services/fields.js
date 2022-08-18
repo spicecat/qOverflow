@@ -22,6 +22,7 @@ const askQuestionFields = [
         label: 'Text',
         multiline: true,
     },
+    { id: 'tags', label: 'Tags' },
 ];
 
 const commentFields = [
@@ -127,7 +128,24 @@ const searchFields = [
         id: 'creator',
         label: 'Creator',
     },
+    { id: 'tags', label: 'Tags (separated by spaces)' },
 ];
+
+const generateEditFields =
+    
+   [
+        {
+            id: 'etitle',
+            label: 'Title',
+            
+        },
+        {
+            id: 'etext',
+            label: 'Text',
+            multiline: true,
+            
+        },
+    ]
 
 export {
     answerFields,
@@ -140,4 +158,5 @@ export {
     recoverFields,
     resetFields,
     searchFields,
+    generateEditFields
 };

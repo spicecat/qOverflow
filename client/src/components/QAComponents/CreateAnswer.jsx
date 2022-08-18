@@ -5,7 +5,7 @@ import { AnswerForm } from 'controllers/FormControllers';
 
 export default function CreateAnswer({ canAnswer, show, toggleShow }) {
     return (
-        <div>
+        <div style = {{display : 'inline'}}>
             <Tooltip
                 title={
                     canAnswer

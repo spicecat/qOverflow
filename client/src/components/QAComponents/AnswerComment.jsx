@@ -1,4 +1,5 @@
-import { Divider, ListItem, ListItemText } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Divider, IconButton, ListItem, ListItemText } from '@mui/material';
 
 import { CreationInfoTag } from 'controllers';
 import { VoteControl } from 'controllers/QAControllers';
@@ -11,6 +12,7 @@ export default function AnswerComment({
     text,
     upvotes,
     getVote,
+    onDelete,
     updateVote,
 }) {
     return (
@@ -21,6 +23,9 @@ export default function AnswerComment({
                     {text}
                 </ListItemText>
                 <VoteControl {...{ downvotes, getVote, updateVote, upvotes }} />
+                {onDelete && <IconButton onClick={onDelete}>
+                    <DeleteIcon />
+                </IconButton>}
             </ListItem>
             <Divider />
         </span>

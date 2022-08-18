@@ -41,6 +41,16 @@ export default function MobileNavbar({ logout, userData, open, setOpen, mode, se
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
+                    <ListItemButton disabled />
+                    <ListItemText>
+                        <Typography display='inline'><b>{userData?.level}</b></Typography>
+                        <Typography display='inline' m={1}>{userData?.points}</Typography>
+                        <Typography color='#ffd700' display='inline'>{userData?.badgeCount?.gold}</Typography>
+                        /<Typography color='#c0c0c0' display='inline'>{userData?.badgeCount?.silver}</Typography>
+                        /<Typography color='#cd7f32' display='inline'>{userData?.badgeCount?.bronze}</Typography>
+                    </ListItemText>
+                </ListItem>
+                <ListItem>
                     <ListItemButton color='inherit' component={Link} to='/mail'>
                         <ListItemIcon>
                             <MailIcon />

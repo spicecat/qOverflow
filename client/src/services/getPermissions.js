@@ -1,5 +1,7 @@
+
 function getPermissions(questionData, userData, ongoingVote) {
-    const { creator, status, hasAcceptedAnswer } = questionData;
+    
+    const { creator, status, hasAcceptedAnswer, close, reopen, protect } = questionData;
     const { username } = userData;
 
     var permissions = {
@@ -10,19 +12,24 @@ function getPermissions(questionData, userData, ongoingVote) {
         canAccept: false,
     };
 
+    
     const level = userData.level || 0;
     const protection = status === 'protected' || status === 'closed';
 
-    if (username) {
+    if (username && status) {
+        const ongoingProtect = protect.length > 0;
+        const ongoingClose = close.length > 0;
+        const ongoingOpen= reopen.length > 0;
+
         if (userData.username === creator && !hasAcceptedAnswer) {
             permissions.canAccept = true;
         }
 
-        if (level >= 7 && ongoingVote.type !== 'protect') {
+        if (level >= 7 && ongoingVote.type !== 'protect' && !ongoingProtect) {
             permissions.canClose = true;
         }
 
-        if (level >= 6 && ongoingVote.type !== 'close' && !protection) {
+        if (level >= 6 && ongoingVote.type !== 'close' && !protection && !ongoingClose) {
             permissions.canProtect = true;
         }
 

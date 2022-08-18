@@ -7,9 +7,10 @@ const getUserLevel = require('server/utils/getUserLevel');
 async function EditQuestionStatusClosed(req, res) {
     const { user } = req;
     const { question_id } = req.params;
-
+    const { etext, etitle } = req.body;
+    let eObj = [etext, etitle];
     // Verify user has required level
-    if (getUserLevel(user.points) < 9) {
+    if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
     }
 
@@ -17,18 +18,23 @@ async function EditQuestionStatusClosed(req, res) {
     const question = await getQuestion(question_id);
     if (!question) return res.status(404).send(config.errorNotFound);
 
-    // Verify is does not have an incompatible status
-    if (question.status === 'closed') {
-        return res.status(400).send({
-            success: false,
-            error: 'This question is already closed.',
+    // Toggle question vote
+    if (question.edit.length === 0) {
+        if (!etext || !etitle) {
+            return res.status(400).send(config.errorIncomplete);
+        }
+
+        await Question.findByIdAndUpdate(question_id, {
+            editText: eObj,
+            $push: { edit: user.username },
         });
+
+        return res.sendStatus(200);
     }
 
-    // Toggle question vote
-    if (question.close.includes(user.username)) {
+    if (question.edit.includes(user.username)) {
         await Question.findByIdAndUpdate(question_id, {
-            $pull: { close: user.username },
+            $pull: { edit: user.username },
         });
 
         return res.sendStatus(200);
@@ -39,19 +45,19 @@ async function EditQuestionStatusClosed(req, res) {
     }
 
     // Patch question status if required
-    if (question.close.length === 2) {
+    if (question.edit.length === 2) {
         const question = await Question.findByIdAndUpdate(question_id, {
-            close: [],
-            status: 'closed',
+            edit: [],
+            eObj,
         });
 
         const { success } = await createRequest('patch', `/questions/${question_id}`, {
-            status: 'closed',
+            etext,
+            eObj,
         });
-        await Question.findByIdAndUpdate(question_id, { status: 'closed' });
 
         return success
-            ? res.send({ status: question.status })
+            ? res.send({ text: question.text })
             : res.status(500).send(config.errorGeneric);
     }
 

@@ -7,7 +7,7 @@ export default function PaginatedList({ count, Component, data, handleChangePage
                 <Component {...item} key={index} />
             ))}
             {count > 1 && (
-                <Box fullWidth display='flex' justifyContent='center' sx={{ margin: '1vh 0' }}>
+                <Box display='flex' justifyContent='center' sx={{ margin: '1vh 0' }}>
                     <Pagination
                         count={count}
                         onChange={handleChangePage}

@@ -8,6 +8,7 @@ const Mail = mongoose.Schema(
         sender: { type: String, required: true },
         subject: { type: String, required: true },
         text: { type: String, required: true },
+        read: { type: Boolean, required: true, default: false },
     },
     { timestamps: false }
 );
