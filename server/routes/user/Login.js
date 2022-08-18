@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const Token = require('server/db/models/Token');
+const Badge = require('server/db/models/Badge');
 const getUserLevel = require('server/utils/getUserLevel');
 
 async function Login(req, res) {
@@ -20,6 +21,27 @@ async function Login(req, res) {
         user: user.username,
     });
 
+    const badges = await Badge.find({ title: { $in: user.badges } });
+
+    const badgeCount = badges.reduce(
+        (acc, badge) => {
+            if (badge.rank === 'Gold') {
+                acc.gold = acc.gold + 1;
+            } else if (badge.rank === 'Silver') {
+                acc.silver = acc.silver + 1;
+            } else if (badge.rank === 'Bronze') {
+                acc.bronze = acc.bronze + 1;
+            }
+
+            return acc;
+        },
+        {
+            gold: 0,
+            silver: 0,
+            bronze: 0,
+        }
+    );
+
     return res.send({
         token: token.token,
         user: {
@@ -27,7 +49,8 @@ async function Login(req, res) {
             email: user.email,
             points: user.points,
             level: getUserLevel(user.points),
-        }
+            badgeCount,
+        },
     });
 }
 
