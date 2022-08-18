@@ -1,5 +1,5 @@
 import { Chip, Typography } from '@mui/material';
-export default function ListQuestionInfo({ upvotes, downvotes, answers, hasAcceptedAnswer, views, inline }) {
+export default function ListQuestionInfo({ answers, downvotes, inline, hasAcceptedAnswer, tags, upvotes, views }) {
     return inline ? (
         <>
             <Typography display='inline'>{upvotes - downvotes} votes | </Typography>
@@ -13,6 +13,7 @@ export default function ListQuestionInfo({ upvotes, downvotes, answers, hasAccep
                 label={hasAcceptedAnswer ? 'yes' : 'no'}
                 size='small'
             />
+            <Typography display='inline' m={1}>Tags: {tags.join(', ')}</Typography>
         </>
     ) : (
         <>
@@ -26,6 +27,7 @@ export default function ListQuestionInfo({ upvotes, downvotes, answers, hasAccep
                     size='small'
                 />
             </Typography>
+            <Typography display='block'>Tags: {tags.join(', ')}</Typography>
         </>
     )
 }

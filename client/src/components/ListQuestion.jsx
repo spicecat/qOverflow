@@ -27,11 +27,11 @@ export default function ListQuestion({
                 <Grid container>
                     <Grid item xs={2}>
                         <Stack justifyContent='center' sx={{ height: '100%' }}>
-                            {sm || md ? <ListQuestionInfo {...{ upvotes, downvotes, answers, views, inline: false }} /> : null}
+                            {sm || md ? <ListQuestionInfo {...{ answers, downvotes, inline: false, hasAcceptedAnswer, tags, upvotes, views }} /> : null}
                         </Stack>
                     </Grid>
                     <Grid item xs={10}>
-                        {sm || md ? null : <ListQuestionInfo {...{ hasAcceptedAnswer, upvotes, downvotes, answers, views, inline: true }} />}
+                        {sm || md ? null : <ListQuestionInfo {...{ answers, downvotes, inline: true, hasAcceptedAnswer, tags, upvotes, views }} />}
                         <CreationInfoTag {...{ createdAt, creator }} />
                         <Typography
                             variant='h6'
