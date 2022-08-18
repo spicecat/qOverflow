@@ -15,6 +15,7 @@ export default function ListQuestion({
     title,
     upvotes,
     views,
+    hasAcceptedAnswer,
 }) {
     const sm = useMediaQuery((theme) => theme.breakpoints.only('sm'));
     const md = useMediaQuery((theme) => theme.breakpoints.only('md'));
@@ -41,6 +42,8 @@ export default function ListQuestion({
                         <Typography noWrap variant='body1'>
                             {text.replace(/<[^>]*>?/gm, '')}
                         </Typography>
+                        <Typography>Accepted: {String(hasAcceptedAnswer)} </Typography>
+
                     </Grid>
                 </Grid>
             </ListItem>
