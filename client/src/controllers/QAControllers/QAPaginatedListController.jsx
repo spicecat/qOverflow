@@ -27,16 +27,29 @@ export function AnswersList() {
     const sortByPoints = (answers) =>
         answers.sort((a, b) => b.upvotes - b.downvotes - a.upvotes + a.downvotes);
 
-    const getData = ({ answer_id }) =>
-        getAnswers(question_id, { after: answer_id })
+    const getData = async ({ answer_id }) => {
+        const answersList = await getAnswers(question_id, { after: answer_id })
             .then(({ answers }) =>
                 sortByPoints(answers).map((answer) => ({ ...answer, question_id }))
             )
             .catch(() => []);
+        const currentLocation = window.location.href;
+        const hasAnswerAnchor = currentLocation.includes('#');
+        if (hasAnswerAnchor) {
+            const anchorAnswerId = `${currentLocation.substring(currentLocation.indexOf("#") + 1)}`;
+            answersList.forEach(function (answer, i) {
+                if (answer.answer_id === anchorAnswerId) {
+                    answersList.splice(i, 1);
+                    answersList.unshift(answer);
+                }
+            });
+        }
+        return answersList;
+    }
 
     const NewAnswer = (props) => <Answer {...{ ...props, canComment, canAccept }} />;
 
-    return !loading && <PaginatedList {...{ count, Component: NewAnswer, getData }} />;
+    return !loading && <PaginatedList {...{ count, Component: NewAnswer, getData, scroll: true }} />;
 }
 
 export function CommentsList() {

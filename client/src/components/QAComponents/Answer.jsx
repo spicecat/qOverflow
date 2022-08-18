@@ -8,8 +8,9 @@ import { CreationInfoTag } from 'controllers';
 import { AnswerCommentsList, CommentControl, VoteControl } from 'controllers/QAControllers';
 
 export default function Answer({
-    accepted,
     answer_id,
+    question_id,
+    accepted,
     comments,
     creator,
     createdAt,
@@ -49,7 +50,7 @@ export default function Answer({
                     <CreationInfoTag {...{ createdAt, creator, text: 'answered' }} />
                     <Markdown content={text} />
                     <CommentControl {...{ canComment, postComment }} />
-                    <CopyToClipboard text={`${window.location.href}#${answer_id}`}>
+                    <CopyToClipboard text={`${window.location.origin}/questions/${question_id}#${answer_id}`}>
                         <Button
                             color='inherit'
                             size='small'

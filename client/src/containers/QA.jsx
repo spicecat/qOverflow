@@ -9,6 +9,7 @@ export default function QA() {
                 <CommentsList />
             </ListItem>
             <CreateAnswer />
+            <div id='answersList' />
             <AnswersList />
         </List>
     );

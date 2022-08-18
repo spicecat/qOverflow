@@ -30,6 +30,7 @@ const statusColor = (status) => {
 };
 
 export default function Question({
+    question_id,
     answers,
     comments,
     creator,
@@ -143,7 +144,7 @@ export default function Question({
                     <CreationInfoTag {...{ createdAt, creator }} />
                     <Markdown content={text} />
                     <CommentControl {...{ postComment, canComment }} />
-                    <CopyToClipboard text={window.location.href}>
+                    <CopyToClipboard text={`${window.location.origin}/questions/${question_id}`}>
                         <Button
                             color='inherit'
                             size='small'

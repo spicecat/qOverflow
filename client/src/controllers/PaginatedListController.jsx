@@ -8,6 +8,7 @@ export default function PaginatedListController({
     count,
     Component,
     getData,
+    scroll,
     rowsPerPage = 5,
 }) {
     const [searchParams] = useSearchParams();
@@ -25,7 +26,20 @@ export default function PaginatedListController({
         const newData = await getData(clear ? {} : data[data.length - 1] ?? {});
 
         if (newData?.length)
-            if (clear) setData(newData);
+            if (clear) {
+                setData(newData);
+                if (scroll) {
+                    setTimeout(() => {
+                        const currentLocation = window.location.href;
+                        const hasAnswerAnchor = currentLocation.includes('#');
+                        if (hasAnswerAnchor) {
+                            const anchorAnswer = document.getElementById('answersList');
+                            anchorAnswer.scrollIntoView({ behavior: 'smooth' });
+                            console.log(123, scroll, anchorAnswer)
+                        }
+                    }, 2000)
+                }
+            }
             else setData(data.concat(newData));
         else setLoad(false);
     };
