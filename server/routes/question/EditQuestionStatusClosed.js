@@ -9,7 +9,7 @@ async function EditQuestionStatusClosed(req, res) {
     const { question_id } = req.params;
 
     // Verify user has required level
-    if (getUserLevel(user.points) < 7) {
+    if (getUserLevel(user.points) < 9) {
         return res.status(403).send(config.errorForbidden);
     }
 
@@ -45,11 +45,9 @@ async function EditQuestionStatusClosed(req, res) {
             status: 'closed',
         });
 
-        const { success } = await createRequest(
-            'patch',
-            `/questions/${question_id}`,
-            { status: 'closed' }
-        );
+        const { success } = await createRequest('patch', `/questions/${question_id}`, {
+            status: 'closed',
+        });
         await Question.findByIdAndUpdate(question_id, { status: 'closed' });
 
         return success
