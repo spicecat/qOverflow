@@ -17,7 +17,8 @@ export default function CommentControlController({ postComment, canComment }) {
         await postComment(data);
 
         toggleShow();
-        navigate('');
+        // navigate('');
+        window.location.reload(false);
     };
 
     return CommentControl({

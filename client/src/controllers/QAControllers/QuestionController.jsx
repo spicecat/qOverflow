@@ -77,8 +77,6 @@ export default function QuestionController() {
     const updateVote = (data) => updateQuestionVote(question_id, data);
     const postComment = async (data) => {
         const { comment } = await postQuestionComment(question_id, data);
-
-        navigate('');
         return comment;
     };
 

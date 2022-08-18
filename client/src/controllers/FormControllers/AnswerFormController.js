@@ -19,7 +19,8 @@ export default function AnswerFormController({ toggleShow }) {
     const answerQuestion = async (fields) => {
         await postAnswer(question_id, { creator: username, text: fields.text });
         toggleShow();
-        navigate('');
+        // navigate('');
+        window.location.reload(false);
     };
 
     return Form({
