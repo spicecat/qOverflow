@@ -2,7 +2,7 @@ const createRequest = require('server/utils/api');
 const config = require('server/config.json');
 const User = require('server/db/models/User');
 const getUserLevel = require('server/utils/getUserLevel');
-const Badge = require('server/db/models/');
+const Badge = require('server/db/models/Badge');
 
 async function GetUser(req, res) {
     const { username } = req.params;
