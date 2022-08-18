@@ -11,8 +11,9 @@ async function EditAnswerAccepted(req, res) {
 
     // Find question and verify that it exists
     const question = await getQuestion(question_id);
+    
     if (!question) return res.status(404).send(config.errorNotFound);
-
+    const {hasBounty} = question;
     // Verify user owns question and question does not already have an accepted answer
     if (question.creator !== user.username || question.hasAccepted)
         return res.status(403).send(config.errorForbidden);
@@ -41,8 +42,11 @@ async function EditAnswerAccepted(req, res) {
         operation: 'increment',
         amount: 15,
     });
-    await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15 } });
-
+    if(hasBounty){
+        await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15 + hasBounty } });
+    }else{
+        await User.findOneAndUpdate({ username: cachedAnswer.creator }, { $inc: { points: 15} });
+    }
     return res.sendStatus(200);
 }
 

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const tokenAuth = require('server/middleware/tokenAuth');
 
+const HandleBounty = require('./question/HandleBounty');
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');
 const CreateComment = require('./question/CreateComment');
@@ -31,7 +32,7 @@ const GetQuestionVote = require('./question/GetQuestionVote');
 const Search = require('./question/Search');
 
 router.get('/search', Search);
-
+router.patch('/:question_id/addBounty', HandleBounty);
 router.post('/', tokenAuth, CreateQuestion);
 router.get('/:question_id', GetQuestion);
 router.patch('/:question_id', tokenAuth, EditQuestion);

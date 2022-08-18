@@ -22,6 +22,7 @@ const Question = mongoose.Schema(
         title: { type: String, required: true },
         upvotes: { type: Number, required: true, default: 0 },
         views: { type: Number, required: true, default: 0 },
+        hasBounty: {type: Number, required: false}
     },
     { timestamps: { createdAt: false, updatedAt: true } }
 );
