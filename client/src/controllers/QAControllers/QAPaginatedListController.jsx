@@ -35,6 +35,7 @@ export function AnswersList() {
             .catch(() => []);
         const currentLocation = window.location.href;
         const hasAnswerAnchor = currentLocation.includes('#');
+        // console.log(answersList, 1111)
         if (hasAnswerAnchor) {
             const anchorAnswerId = `${currentLocation.substring(currentLocation.indexOf("#") + 1)}`;
             answersList.forEach(function (answer, i) {
@@ -44,6 +45,8 @@ export function AnswersList() {
                 }
             });
         }
+        // console.log(answersList, 222)
+        
         return answersList;
     }
 
