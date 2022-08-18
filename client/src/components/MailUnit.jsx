@@ -11,9 +11,8 @@ export default function MailUnit({
     createdAt,
     subject,
     text,
-    read
+    read,
 }) {
-    
     return (
         <Accordion>
             <AccordionSummary
@@ -29,6 +28,8 @@ export default function MailUnit({
                     <Typography>
                         <b>{subject}</b>
                     </Typography>
+                    <span style={{ width: '2vw' }} />
+                    <Typography>Read: {String(read)}</Typography>
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
