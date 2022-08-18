@@ -37,8 +37,8 @@ export default function QuestionController() {
 
     useEffect(() => {
         const permissions = getPermissions(questionData, userData, ongoingVote);
-        if(userData.username)canBounty = (userData.level >= 4 && status !== 'closed' && !questionData.hasBounty && !questionData.hasAcceptedAnswer)
-        
+        if (userData.username) canBounty = (userData.level >= 4 && status !== 'closed' && !questionData.hasBounty && !questionData.hasAcceptedAnswer)
+
         permissions.canBounty = canBounty;
         setPermissions(permissions);
         setVote();
@@ -77,14 +77,14 @@ export default function QuestionController() {
             ongoingVoteSet(reopen, 'reopen');
         }
     }
-    function handleBounty(amount){
-        if(show){
-            const data = {user : userData.username, hasAcceptedAnswer: questionData.hasAcceptedAnswer , amount: amount , isOpen: (questionData.status !== 'closed') , hasBounty: questionData.hasBounty }
+    function handleBounty(amount) {
+        if (show) {
+            const data = { user: userData.username, hasAcceptedAnswer: questionData.hasAcceptedAnswer, amount: amount, isOpen: (questionData.status !== 'closed'), hasBounty: questionData.hasBounty }
             addBounty(question_id, data)
             questionData.hasBounty = amount;
             userData.points -= amount;
             setShow(false)
-        }else{
+        } else {
             setShow(true)
         }
     }
@@ -111,7 +111,7 @@ export default function QuestionController() {
                         postComment,
                         show,
                         handleBounty
-                        
+
                     }}
                 />
             )}
