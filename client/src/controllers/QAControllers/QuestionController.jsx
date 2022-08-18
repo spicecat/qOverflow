@@ -60,6 +60,7 @@ export default function QuestionController() {
             ? protect.splice(protect.indexOf(userData.username), 1)
             : protect.push(userData.username);
         ongoingVoteSet(protect, 'protect');
+        window.location.reload(false);
     }
 
     function changeClose() {
@@ -69,12 +70,14 @@ export default function QuestionController() {
                 ? close.splice(close.indexOf(userData.username), 1)
                 : close.push(userData.username);
             ongoingVoteSet(close, 'close');
+            window.location.reload(false);
         } else {
             openQuestion(question_id, userData);
             reopen.includes(userData.username)
                 ? reopen.splice(reopen.indexOf(userData.username), 1)
                 : reopen.push(userData.username);
             ongoingVoteSet(reopen, 'reopen');
+            window.location.reload(false);
         }
     }
     function handleBounty(amount) {
