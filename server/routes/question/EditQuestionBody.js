@@ -10,7 +10,7 @@ async function EditQuestionStatusClosed(req, res) {
     const { etext, etitle } = req.body;
     let eObj = [etext, etitle];
     // Verify user has required level
-    if (getUserLevel(user.points) < 9) {
+    if (getUserLevel(user.points) < 7) {
         return res.status(403).send(config.errorForbidden);
     }
 
