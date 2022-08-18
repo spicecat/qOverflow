@@ -3,7 +3,7 @@ const superagent = require('superagent');
 const Throttle = require('superagent-throttle');
 const throttle = new Throttle({
     active: true,
-    rate: 5,
+    rate: 2,
     ratePer: 1000,
     concurrent: 2,
 });
