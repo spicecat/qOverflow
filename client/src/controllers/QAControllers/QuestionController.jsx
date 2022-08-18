@@ -4,7 +4,9 @@ import { Question } from 'components/QAComponents';
 import { useQuestion, useUser } from 'contexts';
 import { useNavigate, useParams } from 'react-router-dom';
 import getPermissions from 'services/getPermissions';
+
 import {
+    addBounty,
     closeQuestion,
     getQuestionVote,
     openQuestion,
@@ -13,17 +15,18 @@ import {
     updateQuestion,
     updateQuestionVote,
 } from 'services/questionsServices';
+import { SettingsPhoneTwoTone } from '@mui/icons-material';
 
 export default function QuestionController() {
     const navigate = useNavigate();
-
+    let canBounty = false;
     const { question_id } = useParams();
     const { questionData } = useQuestion();
     const { protect, close, reopen, status } = questionData;
     const { userData } = useUser();
     const [ongoingVote, setOngoingVote] = useState({ users: [], type: 'none' });
     const { permissions, setPermissions } = useQuestion();
-
+    const [show, setShow] = useState(false)
     function setVote() {
         if (!questionData.loading) {
             if (protect.length) setOngoingVote({ users: protect, type: 'protect' });
@@ -34,7 +37,9 @@ export default function QuestionController() {
 
     useEffect(() => {
         const permissions = getPermissions(questionData, userData, ongoingVote);
-
+        if(userData.username)canBounty = (userData.level >= 4 && status !== 'closed' && !questionData.hasBounty && !questionData.hasAcceptedAnswer)
+        
+        permissions.canBounty = canBounty;
         setPermissions(permissions);
         setVote();
     }, [userData, questionData]);
@@ -72,6 +77,17 @@ export default function QuestionController() {
             ongoingVoteSet(reopen, 'reopen');
         }
     }
+    function handleBounty(amount){
+        if(show){
+            const data = {user : userData.username, hasAcceptedAnswer: questionData.hasAcceptedAnswer , amount: amount , isOpen: (questionData.status !== 'closed') , hasBounty: questionData.hasBounty }
+            addBounty(question_id, data)
+            questionData.hasBounty = amount;
+            userData.points -= amount;
+            setShow(false)
+        }else{
+            setShow(true)
+        }
+    }
 
     const getVote = () => getQuestionVote(question_id);
     const updateVote = (data) => updateQuestionVote(question_id, data);
@@ -93,6 +109,9 @@ export default function QuestionController() {
                         getVote,
                         updateVote,
                         postComment,
+                        show,
+                        handleBounty
+                        
                     }}
                 />
             )}
