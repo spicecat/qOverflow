@@ -1,9 +1,11 @@
 const Question = require('server/db/models/Question')
-
+const User = require('server/db/models/User')
+const createRequest = require('server/utils/api');
 async function HandleBounty(req,res){
-    const {user, hasAcceptedAnswer, amount, isOpen} = req;
+    const {user, hasAcceptedAnswer, amount, isOpen, hasBounty} = req.body;
     const {question_id} = req.params;
     
+
     const userPull = await createRequest(
         'get',
         `/users/${user}`
@@ -17,7 +19,7 @@ async function HandleBounty(req,res){
     
     if(userPull.success){
         const {points} = userPull.user;
-        if(points >= 75 && isOpen && !hasAcceptedAnswer){
+        if(points >= 75 && isOpen && !hasAcceptedAnswer && !hasBounty){
             if(amount >= 75 && amount <= 500){
                 if(points - amount >= 75){
                     //updates question
@@ -29,8 +31,8 @@ async function HandleBounty(req,res){
                     });
                     //updates user in db
                     await User.findOneAndUpdate(
-                        { username: question.creator },
-                        { $inc: { points: -amount } }
+                        { username: user },
+                        { $inc: { points: -1 * amount } }
                     );
                 }else{
                     return res.status(403).send("This operation would leave you with less than 75 points")
