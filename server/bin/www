@@ -12,7 +12,7 @@ const cron = require('node-cron');
 
 const { refreshQuestions, refreshUsers } = require('server/utils/cronRefresh');
 
-require('dotenv').config();
+if (!process.env.LOADED) require('dotenv-json')();
 
 /**
  * Get port from environment and store in Express.

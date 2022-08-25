@@ -5,7 +5,7 @@
     "main": "index.js",
     "homepage": "https://github.com/spicecat/qOverflow",
     "scripts": {
-        "start": "concurrently \"npm start -w client\" \"npm start -w server\"",
+        "start": "npm start -w client & npm start -w server",
         "start:server": "npm start -w server",
         "start:client": "npm start -w client",
         "start:prod": "npm run prod -w server",
@@ -27,11 +27,5 @@
     "workspaces": [
         "client",
         "server"
-    ],
-    "devDependencies": {
-        "concurrently": "^7.3.0"
-    },
-    "dependencies": {
-        "react-copy-to-clipboard": "^5.1.0"
-    }
+    ]
 }
