@@ -1,5 +1,5 @@
-const Mail = require('server/db/models/Mail');
-const config = require('server/config.json');
+const Mail = require('../../db/models/Mail');
+const config = require('../../config.json');
 
 async function Read(req, res) {
     const { mail_id } = req.params;

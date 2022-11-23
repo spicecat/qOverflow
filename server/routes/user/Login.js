@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-const Token = require('server/db/models/Token');
-const Badge = require('server/db/models/Badge');
-const getUserLevel = require('server/utils/getUserLevel');
+const Token = require('../../db/models/Token');
+const Badge = require('../../db/models/Badge');
+const getUserLevel = require('../../utils/getUserLevel');
 
 async function Login(req, res) {
     const { user } = req;

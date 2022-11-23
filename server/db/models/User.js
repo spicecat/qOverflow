@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const calculateUserBadges = require('server/utils/badges/userBadges');
+const calculateUserBadges = require('../../utils/badges/userBadges');
 
 const User = mongoose.Schema(
     {

@@ -1,9 +1,9 @@
-const Answer = require('server/db/models/Answer');
-const Comment = require('server/db/models/Comment');
-const Mail = require('server/db/models/Mail');
-const Question = require('server/db/models/Question');
-const User = require('server/db/models/User');
-const fetchData = require('server/utils/fetchData');
+const Answer = require('../db/models/Answer');
+const Comment = require('../db/models/Comment');
+const Mail = require('../db/models/Mail');
+const Question = require('../db/models/Question');
+const User = require('../db/models/User');
+const fetchData = require('../utils/fetchData');
 
 async function getAllData(Model, url, id, dataName) {
     console.log(`[INFO]: Refreshing ${dataName} database.`);

@@ -1,6 +1,6 @@
-const config = require('server/config.json');
-const { getQuestion, refreshQuestion } = require('server/utils/question');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const { getQuestion, refreshQuestion } = require('../../utils/question');
+const createRequest = require('../../utils/api');
 
 
 async function EditQuestion(req, res) {

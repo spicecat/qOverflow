@@ -1,6 +1,6 @@
-const Comment = require('server/db/models/Comment');
-const config = require('server/config.json');
-const createRequest = require('server/utils/api');
+const Comment = require('../../db/models/Comment');
+const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function DeleteAnswerComment(req, res) {
     const { user } = req;

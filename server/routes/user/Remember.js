@@ -1,4 +1,4 @@
-const getUserLevel = require('server/utils/getUserLevel');
+const getUserLevel = require('../../utils/getUserLevel');
 const Badge = require('../../db/models/Badge');
 
 async function Remember(req, res) {

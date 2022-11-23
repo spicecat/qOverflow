@@ -1,4 +1,4 @@
-const Badge = require('server/db/models/Badge');
+const Badge = require('../../db/models/Badge');
 
 async function GetBadges(req, res) {
     const { user } = req;

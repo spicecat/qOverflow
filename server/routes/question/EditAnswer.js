@@ -1,6 +1,6 @@
-const Answer = require('server/db/models/Answer');
-const config = require('server/config.json');
-const createRequest = require('server/utils/api');
+const Answer = require('../../db/models/Answer');
+const config = require('../../config.json');
+const createRequest = require('../../utils/api');
 
 async function EditAnswer(req, res) {
     const { user } = req;

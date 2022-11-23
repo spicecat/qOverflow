@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const basicAuth = require('server/middleware/basicAuth');
-const tokenAuth = require('server/middleware/tokenAuth');
+const basicAuth = require('../middleware/basicAuth');
+const tokenAuth = require('../middleware/tokenAuth');
 
 const Answers = require('./user/Answers');
 const GetBadges = require('./user/GetBadges');

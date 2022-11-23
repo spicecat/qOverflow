@@ -1,8 +1,8 @@
-const Question = require('server/db/models/Question');
-const User = require('server/db/models/User');
-const createRequest = require('server/utils/api');
-const getUserLevel = require('server/utils/getUserLevel');
-const config = require('server/config.json');
+const Question = require('../../db/models/Question');
+const User = require('../../db/models/User');
+const createRequest = require('../../utils/api');
+const getUserLevel = require('../../utils/getUserLevel');
+const config = require('../../config.json');
 
 async function EditQuestionBounty(req, res) {
     const { user } = req.user;

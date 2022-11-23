@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 
-const { refreshQuestions, refreshUsers } = require('server/utils/cronRefresh');
+const { refreshQuestions, refreshUsers } = require('./utils/cronRefresh');
 
 if (!process.env.LOADED) require('dotenv-json')();
 

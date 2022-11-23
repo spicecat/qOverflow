@@ -1,6 +1,6 @@
-const Token = require('server/db/models/Token');
-const User = require('server/db/models/User');
-const config = require('server/config.json');
+const Token = require('../db/models/Token');
+const User = require('../db/models/User');
+const config = require('../config.json');
 
 async function tokenAuth(req, res, next) {
     const authHeader = req.get('Authorization');

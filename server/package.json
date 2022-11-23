@@ -19,7 +19,7 @@
     "scripts": {
         "start": "nodemon ./local.js",
         "prod": "pm2 start ./local.js",
-        "init-claudia": "claudia generate-serverless-express-proxy --express-module server --set-env-from-json .env.json",
+        "init-claudia": "claudia generate-serverless-express-proxy --express-module app --set-env-from-json .env.json",
         "create-api": "claudia create --handler lambda.handler --deploy-proxy-api --region us-east-2 --set-env-from-json .env.json",
         "update-api": "claudia update --region us-east-2 --set-env-from-json .env.json"
     },

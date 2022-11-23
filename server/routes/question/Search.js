@@ -1,6 +1,6 @@
-const config = require('server/config.json');
+const config = require('../../config.json');
 
-const Question = require('server/db/models/Question');
+const Question = require('../../db/models/Question');
 
 async function Search(req, res) {
     const { creator, title, text, tags, createdAt, sort } = req.query;

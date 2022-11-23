@@ -1,5 +1,5 @@
-const config = require('server/config.json');
-const { getQuestion } = require('server/utils/question');
+const config = require('../../config.json');
+const { getQuestion } = require('../../utils/question');
 
 async function GetQuestion(req, res) {
     const { question_id } = req.params;

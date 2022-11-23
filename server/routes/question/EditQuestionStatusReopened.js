@@ -1,8 +1,8 @@
-const config = require('server/config.json');
-const Question = require('server/db/models/Question');
-const { getQuestion } = require('server/utils/question');
-const getUserLevel = require('server/utils/getUserLevel');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const Question = require('../../db/models/Question');
+const { getQuestion } = require('../../utils/question');
+const getUserLevel = require('../../utils/getUserLevel');
+const createRequest = require('../../utils/api');
 
 async function EditQuestionStatusReopened(req, res) {
     const { user } = req;

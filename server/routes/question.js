@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const tokenAuth = require('server/middleware/tokenAuth');
+const tokenAuth = require('../middleware/tokenAuth');
 
 const CreateAnswer = require('./question/CreateAnswer');
 const CreateAnswerComment = require('./question/CreateAnswerComment');

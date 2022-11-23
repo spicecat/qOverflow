@@ -1,7 +1,7 @@
-const config = require('server/config.json');
-const Question = require('server/db/models/Question');
-const User = require('server/db/models/User');
-const createRequest = require('server/utils/api');
+const config = require('../../config.json');
+const Question = require('../../db/models/Question');
+const User = require('../../db/models/User');
+const createRequest = require('../../utils/api');
 
 async function CreateQuestion(req, res) {
     const user = req.user;
