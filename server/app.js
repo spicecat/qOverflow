@@ -52,7 +52,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get('/env', (req, res) => { res.send(process.env.LOADED) })
+app.get('/env', (_, res) => { res.send(process.env.LOADED) })
 app.use('/api/users', userRouter);
 app.use('/api/mail', mailRouter);
 app.use('/api/questions', questionRouter);
