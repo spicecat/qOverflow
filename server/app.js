@@ -25,8 +25,8 @@ mongoose.connection.on(
     console.error.bind(console, '[ERROR]: MongoDB connection error - ')
 );
 
-cron.schedule('*/30 * * * * *', refreshQuestions);
-cron.schedule('*/2 * * * *', refreshUsers);
+cron.schedule('*/30 * * * *', refreshQuestions);
+cron.schedule('*/30 * * * *', refreshUsers);
 
 
 /**
