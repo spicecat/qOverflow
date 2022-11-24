@@ -18,7 +18,7 @@ import {
 
 export default function App() {
     return (
-        <BrowserRouter basename=''>
+        <BrowserRouter basename='/qOverflow'>
             <ContextProvider>
                 <Routes>
                     <Route path='/' element={<Layout />}>
