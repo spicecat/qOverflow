@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/qOverflow/static/js/main.33a1d821.js",
+    "main.js": "/qOverflow/static/js/main.0937a008.js",
     "static/media/bdpa-logo.svg": "/qOverflow/static/media/bdpa-logo.c32c2f3a895925461fe81028fecc5c45.svg",
     "index.html": "/qOverflow/index.html",
-    "main.33a1d821.js.map": "/qOverflow/static/js/main.33a1d821.js.map"
+    "main.0937a008.js.map": "/qOverflow/static/js/main.0937a008.js.map"
   },
   "entrypoints": [
-    "static/js/main.33a1d821.js"
+    "static/js/main.0937a008.js"
   ]
 }
