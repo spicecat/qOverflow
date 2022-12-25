@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/qoverflow/static/js/main.ba083573.js",
-    "static/media/bdpa-logo.svg": "/qoverflow/static/media/bdpa-logo.c32c2f3a895925461fe81028fecc5c45.svg",
-    "index.html": "/qoverflow/index.html",
-    "main.ba083573.js.map": "/qoverflow/static/js/main.ba083573.js.map"
+    "main.js": "/qOverflow/static/js/main.0e0b9c96.js",
+    "static/media/bdpa-logo.svg": "/qOverflow/static/media/bdpa-logo.c32c2f3a895925461fe81028fecc5c45.svg",
+    "index.html": "/qOverflow/index.html",
+    "main.0e0b9c96.js.map": "/qOverflow/static/js/main.0e0b9c96.js.map"
   },
   "entrypoints": [
-    "static/js/main.ba083573.js"
+    "static/js/main.0e0b9c96.js"
   ]
 }
